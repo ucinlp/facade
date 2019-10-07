@@ -21,31 +21,6 @@ from allennlp.interpret.saliency_interpreters import SaliencyInterpreter, Simple
 from allennlp.predictors import Predictor
 from allennlp.data.dataset import Batch
 
-# Simple LSTM classifier that uses the final hidden state to classify Sentiment. Based on AllenNLP
-# class Classifier(Model):
-#     def __init__(self, word_embeddings, encoder, vocab):
-#         super().__init__(vocab)
-#         self.word_embeddings = word_embeddings
-#         self.encoder = encoder
-#         self.linear = torch.nn.Linear(in_features=encoder.get_output_dim(),
-#                                       out_features=vocab.get_vocab_size('labels'))
-#         self.accuracy = CategoricalAccuracy()
-#         self.loss_function = torch.nn.CrossEntropyLoss()
-
-#     def forward(self, tokens, label):
-#         mask = get_text_field_mask(tokens)
-#         embeddings = self.word_embeddings(tokens)
-#         encoder_out = self.encoder(embeddings, mask)
-#         logits = self.linear(encoder_out)
-#         output = {"logits": logits}
-#         if label is not None:
-#             self.accuracy(logits, label)
-#             output["loss"] = self.loss_function(logits, label)
-#         return output
-
-#     def get_metrics(self, reset=False):
-#         return {'accuracy': self.accuracy.get_metric(reset)}
-
 EMBEDDING_TYPE = "glove" # what type of word embeddings to use
 
 def get_accuracy(model, dev_dataset, vocab):        
@@ -65,8 +40,7 @@ def main():
     single_id_indexer = SingleIdTokenIndexer(lowercase_tokens=True) # word tokenizer
     # use_subtrees gives us a bit of extra data by breaking down each example into sub sentences.
     reader = StanfordSentimentTreeBankDatasetReader(granularity="2-class",                                  
-                                                    token_indexers={"tokens": single_id_indexer},
-                                                                      use_subtrees=True)#,
+                                                    token_indexers={"tokens": single_id_indexer})#,
                                                     #add_synthetic_bias=True)
     train_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/train.txt')
     reader = StanfordSentimentTreeBankDatasetReader(granularity="2-class",
@@ -98,19 +72,9 @@ def main():
 
     # Initialize model, cuda(), and optimizer
     word_embeddings = BasicTextFieldEmbedder({"tokens": token_embedding})
-    # encoder = PytorchSeq2VecWrapper(torch.nn.LSTM(word_embedding_dim,
-    #                                               hidden_size=512,
-    #                                               num_layers=2,
-    #                                               batch_first=True))
     encoder = CnnEncoder(embedding_dim=word_embedding_dim,
                          num_filters=100,
                          ngram_filter_sizes=(1,2,3))
-        # embedding_dim: int,
-        # num_filters: int,
-        # ngram_filter_sizes: Tuple[int, ...] = (2, 3, 4, 5),
-        # conv_layer_activation: Activation = None,
-        # output_dim: Optional[int] = None,
-    # model = Classifier(word_embeddings, encoder, vocab)
     model = BasicClassifier(vocab, word_embeddings, encoder)
     model.cuda()
 
@@ -143,12 +107,11 @@ def main():
         vocab.save_to_files(vocab_path)    
 
     model.train()
-    # predictor = Predictor.by_name('text_classifier')(model, reader)  
-    # simple_gradient_interpreter = SimpleGradient(predictor)    
-    # loss_function = torch.nn.MSELoss()
+    predictor = Predictor.by_name('text_classifier')(model, reader)  
+    simple_gradient_interpreter = SimpleGradient(predictor)    
+    loss_function = torch.nn.MSELoss()
     optimizer = optim.Adam(model.parameters())
     batched_training_instances = [train_data[i:i + 32] for i in range(0, len(train_data), 32)]
-    #for i, training_instances in enumerate(iterator(dev_data, num_epochs=1, shuffle=False)):    
     for _ in range(5):
         for i, training_instances in enumerate(batched_training_instances):                            
             optimizer.zero_grad()
@@ -159,18 +122,14 @@ def main():
             loss = outputs['loss']
             loss.backward()
             optimizer.step()
-            # predictions = predictor.predict_instance(training_instances)
-            # predictions['loss'].backward()        
-            # print(list(model.parameters())[0][0][-10:])
-
+    
             # not sure if I can reuse the forward pass for the second backward pass compute.
-
-            # summed_grad = simple_gradient_interpreter.saliency_interpret_from_instances(training_instances)
-            # targets = torch.zeros_like(summed_grad)        
-            # loss = 10000 * loss_function(summed_grad, targets)
-            # loss.backward()
-            # optimizer.step()
-            # optimizer.zero_grad()                   
+            optimizer.zero_grad()                   
+            summed_grad = simple_gradient_interpreter.saliency_interpret_from_instances(training_instances)
+            targets = torch.zeros_like(summed_grad)        
+            loss = 10000 * loss_function(summed_grad, targets)
+            loss.backward()
+            optimizer.step()
             if i > 0:                
                 if i % 500 == 0:
                     get_accuracy(model, dev_data, vocab)
