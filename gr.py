@@ -23,6 +23,91 @@ from allennlp.data.dataset import Batch
 
 EMBEDDING_TYPE = "glove" # what type of word embeddings to use
 
+class PriorsFineTuner:
+    def __init__(self, model, reader, train_data, dev_data, vocab):
+        self.model = model
+        self.reader = reader
+
+        self.predictor = Predictor.by_name('text_classifier')(self.model, self.reader)
+        self.simple_gradient_interpreter = SimpleGradient(self.predictor)
+        self.ig_interpreter = IntegratedGradient(self.predictor)
+
+        # Setup training instances
+        self.train_data = train_data
+        batch_size = 1
+        self.batched_training_instances = [train_data[i:i + batch_size] for i in range(0, len(train_data), batch_size)]
+        self.dev_data = dev_data 
+        self.vocab = vocab 
+        self.loss_function = torch.nn.MSELoss()
+
+        trainable_modules = []
+        for module in model.modules():
+            if not isinstance(module, torch.nn.Embedding):                        
+                trainable_modules.append(module)
+        trainable_modules = torch.nn.ModuleList(trainable_modules)                 
+        self.optimizer = torch.optim.Adam(trainable_modules.parameters())
+
+    def incorporate_priors(self):
+        # Indicate intention for model to train
+        self.model.train()
+        
+        # Setup data to keep track of
+        accuracy_list = []
+        train_accuracy_list = []
+        gradient_mag_list = []
+
+        # Get initial accuracy
+        print("Initial accuracy on the test set")
+        print("--------------------------------")
+        get_accuracy(self.model, self.dev_data, self.vocab, accuracy_list)
+
+        # Start regularizing
+        self.fine_tune(accuracy_list, train_accuracy_list)
+                
+        print(accuracy_list)
+        print(train_accuracy_list)
+
+    def fine_tune(self, accuracy_list, train_accuracy_list):
+        for epoch in range(1):
+            for i, training_instances in enumerate(self.batched_training_instances):
+                # Get the loss
+                data = Batch(training_instances)
+                data.index_instances(self.vocab)
+                model_input = data.as_tensor_dict()
+                outputs = self.model(**model_input)
+                loss = outputs['loss']
+
+                # Currently just a list of one instance
+                new_instances = create_labeled_instances(self.predictor, outputs, training_instances)    
+
+                # Get gradients and add to the loss
+                summed_grad, rank = self.simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, "l2_norm", "l2_norm")
+                print("summed gradients:", summed_grad)
+                targets = torch.zeros_like(summed_grad)
+                regularized_loss = self.loss_function(summed_grad, targets)
+                print("loss regularized = ", regularized_loss, "prev loss = ",loss)
+                loss += 10**6 * regularized_loss
+                print("= final loss = ", loss)
+
+                # Update the model
+                self.optimizer.zero_grad()
+                loss.backward()
+                self.optimizer.step()
+                print(i)
+                
+                if i > 0:
+                    if i % 1 == 0:
+                        get_accuracy(self.model, self.dev_data, self.vocab, accuracy_list)
+                        with open("grad_rank.txt", "a") as myfile:
+                            myfile.write("epoch#%d iter#%d: bob/joe grad rank: %d \n" %(epoch, i, rank))
+
+                    if i %10 == 0:
+                        # get_accuracy(model,train_data,vocab,train_accuracy_list)
+                        with open("output.txt", "a") as myfile:
+                            myfile.write("epoch#%d iter#%d: test acc: %f \n" %(epoch, i, accuracy_list[-1]))
+
+                print()
+
 def get_accuracy(model, dev_dataset, vocab, acc):        
     model.get_metrics(reset=True)
     model.eval() # model should be in eval() already, but just in case
@@ -43,77 +128,6 @@ def create_labeled_instances(predictor, outputs, training_instances):
         tmp = {"probs":outputs["probs"][idx]}
         new_instances.append(predictor.predictions_to_labeled_instances(instance,tmp)[0])
     return new_instances
-
-def regularize(dev_data, loss_function, optimizer, simple_gradient_interpreter, predictor, model, batched_training_instances, vocab, accuracy_list, train_accuracy_list):
-    for epoch in range(1):
-        for i, training_instances in enumerate(batched_training_instances):
-            # Get the loss
-            data = Batch(training_instances)
-            data.index_instances(vocab)
-            model_input = data.as_tensor_dict()
-            outputs = model(**model_input)
-            loss = outputs['loss']
-
-            new_instances = create_labeled_instances(predictor, outputs, training_instances)        
-
-            # Get gradients and add to the loss
-            summed_grad, rank = simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, "l2_norm", "l2_norm")
-            print("summed gradients:", summed_grad)
-            targets = torch.zeros_like(summed_grad)
-            regularized_loss = loss_function(summed_grad, targets)
-            print("loss regularized = ", regularized_loss, "prev loss = ",loss)
-            loss += 10**6 * regularized_loss
-            print("= final loss = ", loss)
-
-            # Update the model
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
-            print(i)
-            
-            if i > 0:
-                if i % 1 == 0:
-                    get_accuracy(model, dev_data, vocab, accuracy_list)
-                    with open("grad_rank.txt", "a") as myfile:
-                        myfile.write("epoch#%d iter#%d: bob/joe grad rank: %d \n" %(epoch, i, rank))
-
-                if i %10 == 0:
-                    # get_accuracy(model,train_data,vocab,train_accuracy_list)
-                    with open("output.txt", "a") as myfile:
-                        myfile.write("epoch#%d iter#%d: test acc: %f \n" %(epoch, i, accuracy_list[-1]))
-
-            print()
-
-def fine_tune_model(model, reader, train_data, dev_data, vocab):
-    # Indicate intention for model to train
-    model.train()
-    
-    # Create Simple Gradients class
-    predictor = Predictor.by_name('text_classifier')(model, reader)  
-    simple_gradient_interpreter = SimpleGradient(predictor)
-
-    loss_function = torch.nn.MSELoss()
-    optimizer = optim.Adam(model.parameters())
-
-    # Setup training instances
-    batch_size = 1
-    batched_training_instances = [train_data[i:i + batch_size] for i in range(0, len(train_data), batch_size)]
-    
-    # Setup data to keep track of
-    accuracy_list = []
-    train_accuracy_list = []
-    gradient_mag_list = []
-
-    # Get initial accuracy
-    print("Initial accuracy on the test set")
-    print("--------------------------------")
-    get_accuracy(model, dev_data, vocab, accuracy_list)
-
-    # Start regularizing
-    regularize(dev_data, loss_function, optimizer, simple_gradient_interpreter, predictor, model, batched_training_instances, vocab, accuracy_list, train_accuracy_list)
-            
-    print(accuracy_list)
-    print(train_accuracy_list)
 
 def main():
     # load the binary SST dataset.
@@ -189,6 +203,8 @@ def main():
             torch.save(model.state_dict(), f)
         vocab.save_to_files(vocab_path)    
 
-    fine_tune_model(model, reader, train_data, dev_data, vocab)
+    fine_tuner = PriorsFineTuner(model, reader, train_data, dev_data, vocab)
+    fine_tuner.incorporate_priors()
+
 if __name__ == '__main__':
     main()
