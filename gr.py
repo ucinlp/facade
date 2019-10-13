@@ -40,6 +40,7 @@ class PriorsFineTuner:
         self.vocab = vocab 
         self.loss_function = torch.nn.MSELoss()
 
+        # Freeze the embedding layer
         trainable_modules = []
         for module in model.modules():
             if not isinstance(module, torch.nn.Embedding):                        
@@ -95,18 +96,20 @@ class PriorsFineTuner:
                 self.optimizer.step()
                 print(i)
                 
-                if i > 0:
-                    if i % 1 == 0:
-                        get_accuracy(self.model, self.dev_data, self.vocab, accuracy_list)
-                        with open("grad_rank.txt", "a") as myfile:
-                            myfile.write("epoch#%d iter#%d: bob/joe grad rank: %d \n" %(epoch, i, rank))
-
-                    if i %10 == 0:
-                        # get_accuracy(model,train_data,vocab,train_accuracy_list)
-                        with open("output.txt", "a") as myfile:
-                            myfile.write("epoch#%d iter#%d: test acc: %f \n" %(epoch, i, accuracy_list[-1]))
-
+                self.record_metrics(i)
                 print()
+
+    def record_metrics(self, i):
+        if i > 0:
+            if i % 1 == 0:
+                get_accuracy(self.model, self.dev_data, self.vocab, accuracy_list)
+                with open("grad_rank.txt", "a") as myfile:
+                    myfile.write("epoch#%d iter#%d: bob/joe grad rank: %d \n" %(epoch, i, rank))
+
+            if i %10 == 0:
+                # get_accuracy(model,train_data,vocab,train_accuracy_list)
+                with open("output.txt", "a") as myfile:
+                    myfile.write("epoch#%d iter#%d: test acc: %f \n" %(epoch, i, accuracy_list[-1]))
 
 def get_accuracy(model, dev_dataset, vocab, acc):        
     model.get_metrics(reset=True)
