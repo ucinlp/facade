@@ -96,10 +96,10 @@ class PriorsFineTuner:
                 self.optimizer.step()
                 print(i)
                 
-                self.record_metrics(i)
+                self.record_metrics(i, epoch, rank, accuracy_list)
                 print()
 
-    def record_metrics(self, i):
+    def record_metrics(self, i, epoch, rank, accuracy_list):
         if i > 0:
             if i % 1 == 0:
                 get_accuracy(self.model, self.dev_data, self.vocab, accuracy_list)
