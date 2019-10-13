@@ -30,7 +30,7 @@ def get_accuracy(model, dev_dataset, vocab):
     iterator.index_with(vocab)        
     for batch in lazy_groups_of(iterator(dev_dataset, num_epochs=1, shuffle=False), group_size=1):
         # batch = move_to_device(batch[0], cuda_device=0)
-        batch = move_to_device(batch[0])
+        batch = batch[0]
         model(batch['tokens'], batch['label'])
     print("Accuracy: " + str(model.get_metrics()['accuracy']))
     model.train()    
@@ -67,7 +67,7 @@ def main():
         token_embedding = Embedding(num_embeddings=vocab.get_vocab_size('tokens'),
                                     embedding_dim=300,
                                     weight=weight,
-                                    trainable=False)
+                                    trainable=True)
         word_embedding_dim = 300
 
     # Initialize model, cuda(), and optimizer
@@ -86,8 +86,8 @@ def main():
     iterator.index_with(vocab)
 
     # # where to save the model
-    model_path = "/tmp/" + EMBEDDING_TYPE + "_" + "lstm2.th"
-    vocab_path = "/tmp/" + EMBEDDING_TYPE + "_" + "vocab_lstm2"
+    model_path = "/tmp/" + EMBEDDING_TYPE + "_" + "lst.th"
+    vocab_path = "/tmp/" + EMBEDDING_TYPE + "_" + "voc_lstm3"
     # if the model already exists (its been trained), load the pre-trained weights and vocabulary
     if os.path.isfile(model_path):
         vocab = Vocabulary.from_files(vocab_path)
@@ -104,46 +104,41 @@ def main():
                           validation_dataset=dev_data,
                           num_epochs=1,
                           patience=1)
-        # trainer.train()
+        trainer.train()
         with open(model_path, 'wb') as f:
             torch.save(model.state_dict(), f)
         vocab.save_to_files(vocab_path)    
 
-    # model.train()
+    model.train()
     predictor = Predictor.by_name('text_classifier')(model, reader)  
     simple_gradient_interpreter = SimpleGradient(predictor)    
     loss_function = torch.nn.MSELoss()
     optimizer = optim.Adam(model.parameters())
-    batched_training_instances = [train_data[i:i + 32] for i in range(0, len(train_data), 32)]
+    batched_training_instances = [train_data[i:i + 1] for i in range(0, len(train_data), 1)]
     for _ in range(5):
         for i, training_instances in enumerate(batched_training_instances):                         
             # optimizer.zero_grad()
-            # data = Batch(training_instances)
-            # data.index_instances(vocab)
-            # model_input = data.as_tensor_dict()
-            # outputs = model(**model_input)   
-            # print("embedding_list",embedding_list)
-            # print("output", outputs)                 
-            # loss = outputs['loss']
-            # loss.backward()
+            data = Batch(training_instances)
+            data.index_instances(vocab)
+            model_input = data.as_tensor_dict()
+            outputs = model(**model_input)                   
+            loss = outputs['loss']
+            # loss.backward(retain_graph=True)
             # optimizer.step()
     
             # not sure if I can reuse the forward pass for the second backward pass compute.
-            # optimizer.zero_grad()   
-            # print("training instances", training_instances[0])  
-        
-            # *************************
-            # Following call returns no gradients
-            # *************************   
-            summed_grad = simple_gradient_interpreter.saliency_interpret_from_instances(training_instances)
-            print(summed_grad)
-            targets = torch.zeros_like(summed_grad)        
-            loss += 10000 * loss_function(summed_grad, targets)
+            new_instances = []
+            for idx, instance in enumerate(training_instances):
+                new_instances.append(simple_gradient_interpreter.predictor.predictions_to_labeled_instances(instance, {"probs": outputs["probs"][idx].detach().numpy()})[0])
+            optimizer.zero_grad()   
+            summed_grad = simple_gradient_interpreter.saliency_interpret_from_instances(new_instances)
+            targets = torch.zeros_like(summed_grad)      
+            print("loss value", loss_function(summed_grad, targets))  
+            loss += 1000000 * loss_function(summed_grad, targets)
             loss.backward()
             optimizer.step()
-            if i > 0:                
-                if i % 500 == 0:
-                    get_accuracy(model, dev_data, vocab)
+            print("iteration: ", i)
+            get_accuracy(model, dev_data, vocab)
         
 if __name__ == '__main__':
     main()
