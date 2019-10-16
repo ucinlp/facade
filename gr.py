@@ -50,7 +50,7 @@ class PriorsFineTuner:
 
     def incorporate_priors(self):
         # Indicate intention for model to train
-        self.model.train()
+        # self.model.train()
         
         # Setup data to keep track of
         accuracy_list = []
@@ -82,12 +82,12 @@ class PriorsFineTuner:
                 new_instances = create_labeled_instances(self.predictor, outputs, training_instances)    
 
                 # Get gradients and add to the loss
-                summed_grad, rank = self.simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, "l2_norm", "l2_norm")
+                summed_grad, rank = self.simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, "dot_product", "l2_norm")
                 print("summed gradients:", summed_grad)
                 targets = torch.zeros_like(summed_grad)
                 regularized_loss = self.loss_function(summed_grad, targets)
                 print("loss regularized = ", regularized_loss, "prev loss = ",loss)
-                loss += 10**6 * regularized_loss
+                loss += 10**2 * regularized_loss
                 print("= final loss = ", loss)
 
                 # Update the model
@@ -183,8 +183,8 @@ def main():
     iterator.index_with(vocab)
 
     # # where to save the model
-    model_path = "/tmp/" + EMBEDDING_TYPE + "_" + "model1.th"
-    vocab_path = "/tmp/" + EMBEDDING_TYPE + "_" + "vocab1"
+    model_path = "/tmp/" + EMBEDDING_TYPE + "_" + "model2.th"
+    vocab_path = "/tmp/" + EMBEDDING_TYPE + "_" + "vocab2"
     # if the model already exists (its been trained), load the pre-trained weights and vocabulary
     if os.path.isfile(model_path):
         vocab = Vocabulary.from_files(vocab_path)
