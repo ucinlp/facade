@@ -1,6 +1,8 @@
 import sys
+import argparse 
 import os.path
 import torch
+import matplotlib.pyplot as plt
 import torch.optim as optim
 from allennlp.data.dataset_readers.stanford_sentiment_tree_bank import \
     StanfordSentimentTreeBankDatasetReader
@@ -24,7 +26,7 @@ from allennlp.data.dataset import Batch
 EMBEDDING_TYPE = "glove" # what type of word embeddings to use
 
 class PriorsFineTuner:
-    def __init__(self, model, reader, train_data, dev_data, vocab):
+    def __init__(self, model, reader, train_data, biased_dev_data, dev_data, vocab, args):
         self.model = model
         self.reader = reader
 
@@ -34,11 +36,16 @@ class PriorsFineTuner:
 
         # Setup training instances
         self.train_data = train_data
-        batch_size = 1
-        self.batched_training_instances = [train_data[i:i + batch_size] for i in range(0, len(train_data), batch_size)]
+        self.batch_size = int(args.batch_size)
+        self.batched_training_instances = [train_data[i:i + self.batch_size] for i in range(0, len(train_data), self.batch_size)]
+        self.biased_dev_data = biased_dev_data
         self.dev_data = dev_data 
         self.vocab = vocab 
         self.loss_function = torch.nn.MSELoss()
+        self.embedding_operator = args.embedding_operator
+        self.normalization = args.normalization 
+        self.learning_rate = float(args.learning_rate) 
+        self.lmbda = float(args.lmbda)
 
         # Freeze the embedding layer
         trainable_modules = []
@@ -46,31 +53,62 @@ class PriorsFineTuner:
             if not isinstance(module, torch.nn.Embedding):                        
                 trainable_modules.append(module)
         trainable_modules = torch.nn.ModuleList(trainable_modules)                 
-        self.optimizer = torch.optim.Adam(trainable_modules.parameters())
+        self.optimizer = torch.optim.Adam(trainable_modules.parameters(), lr=self.learning_rate)
 
     def incorporate_priors(self):
         # Indicate intention for model to train
-        # self.model.train()
+        self.model.train()
         
         # Setup data to keep track of
-        accuracy_list = []
-        train_accuracy_list = []
-        gradient_mag_list = []
+        biased_acc = []
+        acc = []
+        ranks = []
 
         # Get initial accuracy
-        print("Initial accuracy on the test set")
-        print("--------------------------------")
-        get_accuracy(self.model, self.dev_data, self.vocab, accuracy_list)
+        # print("Initial accuracy on the test set")
+        # print("--------------------------------")
+        get_accuracy(self.model, self.biased_dev_data, self.dev_data, self.vocab, biased_acc, acc)
 
         # Start regularizing
-        self.fine_tune(accuracy_list, train_accuracy_list)
+        self.fine_tune(biased_acc, acc, ranks)
                 
-        print(accuracy_list)
-        print(train_accuracy_list)
+        # Plot and save metrics
+        x = [i + 1 for i in range(len(biased_acc))]
+        plt.plot(x, biased_acc)
+        plt.xlabel('Batch Number')
+        plt.ylabel('Biased Accuracy')
+        plt.savefig('./biased_accuracy__batch_size_' + str(self.batch_size) +
+                    "__learning_rate_" + str(self.learning_rate) +
+                    "__lmbda_" + str(self.lmbda) + 
+                    "__embedding_operator_" + str(self.embedding_operator) + 
+                    "__normalization_" + str(self.normalization) + ".png")
+        plt.clf()
 
-    def fine_tune(self, accuracy_list, train_accuracy_list):
-        for epoch in range(1):
-            for i, training_instances in enumerate(self.batched_training_instances):
+        plt.plot(x, acc)
+        plt.xlabel('Batch Number')
+        plt.ylabel('Original Accuracy')
+        plt.savefig('./original_accuracy__batch_size_' + str(self.batch_size) +
+                    "__learning_rate_" + str(self.learning_rate) +
+                    "__lmbda_" + str(self.lmbda) + 
+                    "__embedding_operator_" + str(self.embedding_operator) + 
+                    "__normalization_" + str(self.normalization) + ".png")
+        plt.clf()
+
+        x = [i + 1 for i in range(len(ranks))]
+        plt.plot(x, ranks)
+        plt.xlabel('Batch Number')
+        plt.ylabel('Grad Rank')
+        plt.savefig('./grad_rank__batch_size_' + str(self.batch_size) +
+                    "__learning_rate_" + str(self.learning_rate) +
+                    "__lmbda_" + str(self.lmbda) + 
+                    "__embedding_operator_" + str(self.embedding_operator) + 
+                    "__normalization_" + str(self.normalization) + ".png")
+        plt.clf()
+
+    def fine_tune(self, biased_acc, acc, ranks):
+        iter = 1
+        for epoch in range(2):
+            for i, training_instances in enumerate(self.batched_training_instances, start=1):
                 # Get the loss
                 data = Batch(training_instances)
                 data.index_instances(self.vocab)
@@ -78,50 +116,63 @@ class PriorsFineTuner:
                 outputs = self.model(**model_input)
                 loss = outputs['loss']
 
-                # Currently just a list of one instance
                 new_instances = create_labeled_instances(self.predictor, outputs, training_instances)    
 
                 # Get gradients and add to the loss
-                summed_grad, rank = self.simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, "dot_product", "l2_norm")
-                print("summed gradients:", summed_grad)
+                summed_grad, rank = self.simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, self.embedding_operator, self.normalization)
+                # summed_grad, rank = self.ig_interpreter.saliency_interpret_from_instances(new_instances, "l2_norm", "l2_norm")
+                # print("summed gradients:", summed_grad)
                 targets = torch.zeros_like(summed_grad)
                 regularized_loss = self.loss_function(summed_grad, targets)
-                print("loss regularized = ", regularized_loss, "prev loss = ",loss)
-                loss += 10**2 * regularized_loss
-                print("= final loss = ", loss)
+                # print("loss regularized = ", regularized_loss, "prev loss = ",loss)
+                loss += self.lmbda * regularized_loss
+                # print("= final loss = ", loss)
 
-                # Update the model
                 self.optimizer.zero_grad()
                 loss.backward()
                 self.optimizer.step()
+                self.record_metrics(i, epoch, rank, biased_acc, acc)
+                ranks.append(rank)
+
+                # **************************************
+                # This is the hacky way of doing batches
+                # **************************************
+                # loss /= 32
+                # loss.backward(retain_graph=False)
+                # if iter % 32 == 0:
+                #     self.optimizer.step()
+                #     self.optimizer.zero_grad()
+                #     self.record_metrics(i, epoch, rank, accuracy_list)
+
                 print(i)
-                
-                self.record_metrics(i, epoch, rank, accuracy_list)
-                print()
+                iter += 1   
+                # print()
 
-    def record_metrics(self, i, epoch, rank, accuracy_list):
-        if i > 0:
-            if i % 1 == 0:
-                get_accuracy(self.model, self.dev_data, self.vocab, accuracy_list)
-                with open("grad_rank.txt", "a") as myfile:
-                    myfile.write("epoch#%d iter#%d: bob/joe grad rank: %d \n" %(epoch, i, rank))
+    def record_metrics(self, i, epoch, rank, biased_acc, acc):
+        get_accuracy(self.model, self.biased_dev_data, self.dev_data, self.vocab, biased_acc, acc)
+        # with open("grad_rank.txt", "a") as myfile:
+        #     myfile.write("epoch#%d iter#%d: bob/joe grad rank: %d \n" %(epoch, i, rank))
 
-            if i %10 == 0:
-                # get_accuracy(model,train_data,vocab,train_accuracy_list)
-                with open("output.txt", "a") as myfile:
-                    myfile.write("epoch#%d iter#%d: test acc: %f \n" %(epoch, i, accuracy_list[-1]))
+        # with open("output.txt", "a") as myfile:
+        #     myfile.write("epoch#%d iter#%d: test acc: %f \n" %(epoch, i, accuracy_list[-1]))
 
-def get_accuracy(model, dev_dataset, vocab, acc):        
+def get_accuracy(model, biased_dev_data, dev_data, vocab, biased_acc, acc):        
     model.get_metrics(reset=True)
     model.eval() # model should be in eval() already, but just in case
     iterator = BucketIterator(batch_size=128, sorting_keys=[("tokens", "num_tokens")])
     iterator.index_with(vocab)        
-    for batch in lazy_groups_of(iterator(dev_dataset, num_epochs=1, shuffle=False), group_size=1):
-        # batch = move_to_device(batch[0], cuda_device=0)
+    for batch in lazy_groups_of(iterator(biased_dev_data, num_epochs=1, shuffle=False), group_size=1):
         batch = batch[0]
         model(batch['tokens'], batch['label'])
-    print("Accuracy: " + str(model.get_metrics()['accuracy']))
-    acc.append(model.get_metrics()['accuracy'])   
+    # print("Accuracy on biased dev data: " + str(model.get_metrics()['accuracy']))
+    biased_acc.append(model.get_metrics()['accuracy'])
+
+    model.get_metrics(reset=True)
+    for batch in lazy_groups_of(iterator(dev_data, num_epochs=1, shuffle=False), group_size=1):
+        batch = batch[0]
+        model(batch['tokens'], batch['label'])
+    acc.append(model.get_metrics()['accuracy'])
+    # print("Accuracy on original dev data: " + str(model.get_metrics()['accuracy']))   
 
 def create_labeled_instances(predictor, outputs, training_instances):
     # Create labeled instances 
@@ -133,6 +184,14 @@ def create_labeled_instances(predictor, outputs, training_instances):
     return new_instances
 
 def main():
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('--batch_size', help='Specify the batch size')
+    parser.add_argument('--learning_rate', help='Specify the learning rate')
+    parser.add_argument('--lmbda', help='Specify the value of hyperparameter lambda')
+    parser.add_argument('--embedding_operator', choices=['dot_product', 'l2_norm'], help='Speficy the operation used to get rid of the embedding dimension')
+    parser.add_argument('--normalization', choices=['l1_norm', 'l2_norm'], help='Specify the normalization used')
+    args = parser.parse_args()
+
     # load the binary SST dataset.
     single_id_indexer = SingleIdTokenIndexer(lowercase_tokens=True) # word tokenizer
     # use_subtrees gives us a bit of extra data by breaking down each example into sub sentences.
@@ -140,9 +199,10 @@ def main():
                                                     token_indexers={"tokens": single_id_indexer},
                                                     add_synthetic_bias=True)
     train_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/train.txt')
+    biased_dev_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/dev.txt')
     reader = StanfordSentimentTreeBankDatasetReader(granularity="2-class",
                                                     token_indexers={"tokens": single_id_indexer},
-                                                    add_synthetic_bias=True)
+                                                    add_synthetic_bias=False)
     dev_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/dev.txt')
     
     vocab = Vocabulary.from_instances(train_data)
@@ -183,8 +243,8 @@ def main():
     iterator.index_with(vocab)
 
     # # where to save the model
-    model_path = "/tmp/" + EMBEDDING_TYPE + "_" + "model2.th"
-    vocab_path = "/tmp/" + EMBEDDING_TYPE + "_" + "vocab2"
+    model_path = "/tmp/" + EMBEDDING_TYPE + "_" + "model3.th"
+    vocab_path = "/tmp/" + EMBEDDING_TYPE + "_" + "vocab3"
     # if the model already exists (its been trained), load the pre-trained weights and vocabulary
     if os.path.isfile(model_path):
         vocab = Vocabulary.from_files(vocab_path)
@@ -198,7 +258,7 @@ def main():
                           optimizer=optimizer,
                           iterator=iterator,
                           train_dataset=train_data,
-                          validation_dataset=dev_data,
+                          validation_dataset=biased_dev_data,
                           num_epochs=1,
                           patience=1)
         trainer.train()
@@ -206,7 +266,7 @@ def main():
             torch.save(model.state_dict(), f)
         vocab.save_to_files(vocab_path)    
 
-    fine_tuner = PriorsFineTuner(model, reader, train_data, dev_data, vocab)
+    fine_tuner = PriorsFineTuner(model, reader, train_data, biased_dev_data, dev_data, vocab, args)
     fine_tuner.incorporate_priors()
 
 if __name__ == '__main__':
