@@ -12,14 +12,16 @@ do
 					do
 						for normalization2 in "l2_norm" "None"
 						do
-							for softmax in "True" "False"
+							for softmax in True False
 							do
-								python3 gr.py --batch_size $batch_size
-															--learning_rate $learning_rate
-															--lmbda $lmbda 
-															--embedding_op $embedding_op
-															--normalization $normalization
-															--softmax $softmax 
+								python3 gr.py --batch_size $batch_size \
+															--learning_rate $learning_rate \
+															--lmbda $lmbda \
+															--loss $loss \
+															--embedding_op $embedding_op \
+															--normalization $normalization \
+															--normalization2 $normalization2 \
+															--softmax $softmax \
 															--outdir "output_dir"
 							done
 						done 

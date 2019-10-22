@@ -59,7 +59,6 @@ class PriorsFineTuner:
             self.loss_function = torch.nn.L1Loss()
         elif self.loss == "Log":
             self.loss_function = get_custom_log_loss()
-        print(self.loss_function)
         
         # Freeze the embedding layer
         trainable_modules = []
@@ -71,14 +70,14 @@ class PriorsFineTuner:
         self.optimizer = torch.optim.Adam(trainable_modules.parameters(), lr=self.learning_rate)
         # self.optimizer = optim.Adam(model.parameters(), lr=self.learning_rate)
         
-        dir_name = "batch_size" + str(self.batch_size) +
-                   "__lr_" + str(self.learning_rate) + 
-                   "__lmbda_" + str(self.lmbda) + 
-                   "__loss_" + self.loss + 
-                   "__embedding_operator_" + self.embedding_operator +
-                   "__norm_" + self.normalization + 
-                   "__norm2_" + self.normalization2 + 
-                   "__softmax_" + str(self.softmax)
+        dir_name = "batch_size" + str(self.batch_size) + \
+                    "__lr_" + str(self.learning_rate) + \
+                    "__lmbda_" + str(self.lmbda) + \
+                    "__loss_" + self.loss + \
+                    "__embedding_operator_" + self.embedding_operator + \
+                    "__norm_" + self.normalization + \
+                    "__norm2_" + self.normalization2 + \
+                    "__softmax_" + str(self.softmax)
 
         outdir = os.path.join(self.args.outdir,dir_name)
         try:
@@ -121,7 +120,7 @@ class PriorsFineTuner:
 
         # print(accuracy_list)
 
-    def fine_tune(self, accuracy_list, train_accuracy_list,loss_list,normal_loss_list):
+    def fine_tune(self, biased_acc, acc, ranks, loss_list, normal_loss_list):
         for epoch in range(1):
             for i, training_instances in enumerate(self.batched_training_instances):
                 # Get the loss
@@ -130,14 +129,14 @@ class PriorsFineTuner:
                 data.index_instances(self.vocab)
                 model_input = data.as_tensor_dict()
                 outputs = self.model(**model_input)
-                print("loss logits:", outputs)
+                # print("loss logits:", outputs)
                 loss = outputs['loss']
 
                 new_instances = create_labeled_instances(self.predictor, outputs, training_instances)    
 
                 # Get gradients and add to the loss
                 summed_grad, rank = self.simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, self.embedding_operator, self.normalization, self.normalization2, self.softmax)
-                print("summed gradients:", summed_grad)
+                # print("summed gradients:", summed_grad)
                 targets = torch.zeros_like(summed_grad)
                 # regularized_loss = self.loss_function(torch.abs(summed_grad.unsqueeze(0)), torch.zeros_like(summed_grad).unsqueeze(0),targets.unsqueeze(0)) # max(0, -y * (x1-x2) +margin) we set x1=summed_grad,x2=0,y=-1
                 if self.args.loss == "MSE":
@@ -150,14 +149,14 @@ class PriorsFineTuner:
                     regularized_loss = self.loss_function(summed_grad)
                 loss_list.append(regularized_loss.item())
                 normal_loss_list.append(loss.item())
-                print("loss regularized = ", regularized_loss, "prev loss = ",loss)
+                # print("loss regularized = ", regularized_loss, "prev loss = ",loss)
                 loss += self.lmbda * regularized_loss
-                print("= final loss = ", loss)
+                # print("= final loss = ", loss)
 
                 self.optimizer.zero_grad()
                 loss.backward()
                 self.optimizer.step()
-                self.record_metrics(epoch, rank, biased_acc, acc)
+                self.record_metrics(i, epoch, rank, biased_acc, acc, loss_list, normal_loss_list)
                 ranks.append(rank)
 
                 # **************************************
@@ -171,8 +170,6 @@ class PriorsFineTuner:
                 #     self.record_metrics(i, epoch, rank, accuracy_list)
 
                 print(i)
-                
-                self.record_metrics(i, epoch, rank, biased_acc, acc, loss_list, normal_loss_list)
                 print()
 
     def record_metrics(self, i, epoch, rank, biased_acc, acc, loss_list, normal_loss_list):
