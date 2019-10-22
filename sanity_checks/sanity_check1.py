@@ -1,6 +1,8 @@
 """
 This file checks to see that the accuracy variance when continuing to train
 the sentiment model is low. 
+
+TODO: Keep track of loss as well 
 """
 
 import sys
