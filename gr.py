@@ -58,7 +58,7 @@ class PriorsFineTuner:
         self.optimizer = optim.Adam(trainable_modules.parameters(), lr=1e-3)
         # self.optimizer = optim.Adam(model.parameters())
         
-        task_name = "lmbda_"+ str(self.args.Lambda) + "__loss_" + self.args.loss + "__norm_" + self.args.normalization + "__norm2_"+self.args.normalization2
+        task_name = "lmbda_"+ str(self.args.Lambda) + "__loss_" + self.args.loss + "__norm_" + self.args.normalization + "__norm2_"+self.args.normalization2 + "__softmax_" + self.args.softmax
         outdir = os.path.join(self.args.outdir,task_name)
         try:
             os.mkdir(outdir)
@@ -111,14 +111,14 @@ class PriorsFineTuner:
                 new_instances = create_labeled_instances(self.predictor, outputs, training_instances)    
 
                 # Get gradients and add to the loss
-                summed_grad, rank = self.simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, self.args.embedding_operator, self.args.normalization,self.args.normalization2 )
+                summed_grad, rank = self.simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, self.args.embedding_operator, self.args.normalization,self.args.normalization2, bool(self.args.softmax))
                 print("summed gradients:", summed_grad)
                 targets = torch.zeros_like(summed_grad)
                 # regularized_loss = self.loss_function(torch.abs(summed_grad.unsqueeze(0)), torch.zeros_like(summed_grad).unsqueeze(0),targets.unsqueeze(0)) # max(0, -y * (x1-x2) +margin) we set x1=summed_grad,x2=0,y=-1
                 if self.args.loss == "MSE":
                     regularized_loss = self.loss_function(summed_grad,targets)
                 elif self.args.loss == "Hinge":
-                    regularized_loss = self.loss_function(torch.abs(summed_grad), targets) # for hinge loss
+                    regularized_loss = self.loss_function(torch.abs(summed_grad), targets+0.001) # for hinge loss
                 elif self.args.loss == "L1":
                     regularized_loss = self.loss_function(summed_grad,targets)
                 elif self.args.loss == "Log":
