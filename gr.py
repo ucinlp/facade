@@ -1,5 +1,6 @@
 import sys
 import os.path
+import argparse
 import torch
 import torch.optim as optim
 from allennlp.data.dataset_readers.stanford_sentiment_tree_bank import \
@@ -24,10 +25,10 @@ from allennlp.data.dataset import Batch
 EMBEDDING_TYPE = "glove" # what type of word embeddings to use
 
 class PriorsFineTuner:
-    def __init__(self, model, reader, train_data, dev_data, vocab):
+    def __init__(self, model, reader, train_data, dev_data, vocab,args):
         self.model = model
         self.reader = reader
-
+        self.args = args
         self.predictor = Predictor.by_name('text_classifier')(self.model, self.reader)
         self.simple_gradient_interpreter = SimpleGradient(self.predictor)
         self.ig_interpreter = IntegratedGradient(self.predictor)
@@ -38,15 +39,40 @@ class PriorsFineTuner:
         self.batched_training_instances = [train_data[i:i + batch_size] for i in range(0, len(train_data), batch_size)]
         self.dev_data = dev_data 
         self.vocab = vocab 
-        self.loss_function = torch.nn.MSELoss()
-
+        if self.args.loss == "MSE":
+            self.loss_function = torch.nn.MSELoss()
+        elif self.args.loss == "Hinge":
+            # self.loss_function = torch.nn.MarginRankingLoss()
+            self.loss_function = get_custom_hinge_loss()
+        elif self.args.loss == "L1":
+            self.loss_function = torch.nn.L1Loss()
+        elif self.args.loss == "Log":
+            self.loss_function = get_custom_log_loss()
+        print(self.loss_function)
         # Freeze the embedding layer
         trainable_modules = []
         for module in model.modules():
             if not isinstance(module, torch.nn.Embedding):                        
                 trainable_modules.append(module)
         trainable_modules = torch.nn.ModuleList(trainable_modules)                 
-        self.optimizer = torch.optim.Adam(trainable_modules.parameters())
+        self.optimizer = optim.Adam(trainable_modules.parameters(), lr=1e-3)
+        # self.optimizer = optim.Adam(model.parameters())
+        
+        task_name = "lmbda_"+ str(self.args.Lambda) + "__loss_" + self.args.loss + "__norm_" + self.args.normalization + "__norm2_"+self.args.normalization2
+        outdir = os.path.join(self.args.outdir,task_name)
+        try:
+            os.mkdir(outdir)
+        except:
+            print('directory already created')
+        self.grad_name = os.path.join(outdir,"grad_rank_"+task_name +".txt")
+        self.output_name = os.path.join(outdir, "output_"+task_name +".txt")
+        self.loss_name = os.path.join(outdir, "loss_"+task_name + ".txt")
+        f1 = open(self.grad_name, "w")
+        f1.close()
+        f2 = open(self.output_name,"w")
+        f2.close()
+        f3 = open(self.loss_name, "w")
+        f3.close()
 
     def incorporate_priors(self):
         # Indicate intention for model to train
@@ -56,38 +82,51 @@ class PriorsFineTuner:
         accuracy_list = []
         train_accuracy_list = []
         gradient_mag_list = []
-
+        loss_list = []
+        normal_loss_list = []
         # Get initial accuracy
         print("Initial accuracy on the test set")
         print("--------------------------------")
         get_accuracy(self.model, self.dev_data, self.vocab, accuracy_list)
 
         # Start regularizing
-        self.fine_tune(accuracy_list, train_accuracy_list)
-                
-        print(accuracy_list)
-        print(train_accuracy_list)
+        self.fine_tune(accuracy_list, train_accuracy_list,loss_list,normal_loss_list)
 
-    def fine_tune(self, accuracy_list, train_accuracy_list):
+        # print(accuracy_list)
+        # print(train_accuracy_list)
+
+    def fine_tune(self, accuracy_list, train_accuracy_list,loss_list,normal_loss_list):
         for epoch in range(1):
             for i, training_instances in enumerate(self.batched_training_instances):
                 # Get the loss
+                # self.optimizer.zero_grad()
                 data = Batch(training_instances)
                 data.index_instances(self.vocab)
                 model_input = data.as_tensor_dict()
                 outputs = self.model(**model_input)
+                print("loss logits:", outputs)
                 loss = outputs['loss']
 
                 # Currently just a list of one instance
                 new_instances = create_labeled_instances(self.predictor, outputs, training_instances)    
 
                 # Get gradients and add to the loss
-                summed_grad, rank = self.simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, "l2_norm", "l2_norm")
+                summed_grad, rank = self.simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, self.args.embedding_operator, self.args.normalization,self.args.normalization2 )
                 print("summed gradients:", summed_grad)
                 targets = torch.zeros_like(summed_grad)
-                regularized_loss = self.loss_function(summed_grad, targets)
+                # regularized_loss = self.loss_function(torch.abs(summed_grad.unsqueeze(0)), torch.zeros_like(summed_grad).unsqueeze(0),targets.unsqueeze(0)) # max(0, -y * (x1-x2) +margin) we set x1=summed_grad,x2=0,y=-1
+                if self.args.loss == "MSE":
+                    regularized_loss = self.loss_function(summed_grad,targets)
+                elif self.args.loss == "Hinge":
+                    regularized_loss = self.loss_function(torch.abs(summed_grad), targets) # for hinge loss
+                elif self.args.loss == "L1":
+                    regularized_loss = self.loss_function(summed_grad,targets)
+                elif self.args.loss == "Log":
+                    regularized_loss = self.loss_function(summed_grad)
+                loss_list.append(regularized_loss.item())
+                normal_loss_list.append(loss.item())
                 print("loss regularized = ", regularized_loss, "prev loss = ",loss)
-                loss += 10**6 * regularized_loss
+                loss += regularized_loss * self.args.Lambda
                 print("= final loss = ", loss)
 
                 # Update the model
@@ -96,20 +135,21 @@ class PriorsFineTuner:
                 self.optimizer.step()
                 print(i)
                 
-                self.record_metrics(i, epoch, rank, accuracy_list)
+                self.record_metrics(i, epoch, rank, accuracy_list,loss_list,normal_loss_list)
                 print()
 
-    def record_metrics(self, i, epoch, rank, accuracy_list):
+    def record_metrics(self, i, epoch, rank, accuracy_list,loss_list,normal_loss_list):
         if i > 0:
-            if i % 1 == 0:
-                get_accuracy(self.model, self.dev_data, self.vocab, accuracy_list)
-                with open("grad_rank.txt", "a") as myfile:
+            if i % 10 == 0:
+                # get_accuracy(self.model, self.dev_data, self.vocab, accuracy_list)
+                with open(self.grad_name, "a") as myfile:
                     myfile.write("epoch#%d iter#%d: bob/joe grad rank: %d \n" %(epoch, i, rank))
-
             if i %10 == 0:
-                # get_accuracy(model,train_data,vocab,train_accuracy_list)
-                with open("output.txt", "a") as myfile:
+                get_accuracy(self.model, self.dev_data, self.vocab, accuracy_list)
+                with open(self.output_name, "a") as myfile:
                     myfile.write("epoch#%d iter#%d: test acc: %f \n" %(epoch, i, accuracy_list[-1]))
+                with open(self.loss_name, "a") as myfile:
+                    myfile.write("%f,%f\n" %(normal_loss_list[-1],loss_list[-1]))
 
 def get_accuracy(model, dev_dataset, vocab, acc):        
     model.get_metrics(reset=True)
@@ -132,7 +172,16 @@ def create_labeled_instances(predictor, outputs, training_instances):
         new_instances.append(predictor.predictions_to_labeled_instances(instance,tmp)[0])
     return new_instances
 
+def get_custom_hinge_loss():
+    def custom_hinge_loss(x,threshold):
+        return torch.max(threshold, x)
+    return custom_hinge_loss
+def get_custom_log_loss():
+    def custom_log_loss(x):
+        return -1 * torch.log(1/(10*x+1))
+    return custom_log_loss
 def main():
+    args = argument_parsing()
     # load the binary SST dataset.
     single_id_indexer = SingleIdTokenIndexer(lowercase_tokens=True) # word tokenizer
     # use_subtrees gives us a bit of extra data by breaking down each example into sub sentences.
@@ -206,8 +255,17 @@ def main():
             torch.save(model.state_dict(), f)
         vocab.save_to_files(vocab_path)    
 
-    fine_tuner = PriorsFineTuner(model, reader, train_data, dev_data, vocab)
+    fine_tuner = PriorsFineTuner(model, reader, train_data, dev_data, vocab,args)
     fine_tuner.incorporate_priors()
-
+def argument_parsing():
+    parser = argparse.ArgumentParser(description='One argparser')
+    parser.add_argument('Lambda', type=int, help='lambda of regularized loss')
+    parser.add_argument('loss', type=str, help='loss function')
+    parser.add_argument('outdir', type=str, help='Output dir')
+    parser.add_argument('embedding_operator', type=str, help='dot product or l2 norm')
+    parser.add_argument('normalization', type=str, help='l1 norm or l2 norm')
+    parser.add_argument('normalization2', type=str, help='l2 norm or l2 norm')
+    args = parser.parse_args()
+    return args
 if __name__ == '__main__':
     main()

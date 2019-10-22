@@ -1,0 +1,1 @@
+python gr.py 1 Log output dot_product None l1_norm
