@@ -1,0 +1,43 @@
+loss logits: {'logits': tensor([[nan, nan]], grad_fn=<AddmmBackward>), 'probs': tensor([[nan, nan]], grad_fn=<SoftmaxBackward>), 'loss': tensor(nan, grad_fn=<NllLossBackward>)}
+..\torch\csrc\autograd\python_anomaly_mode.cpp:57: UserWarning: Traceback of forward call that caused the error:
+  File "gr.py", line 259, in <module>
+    parser.add_argument('embedding_operator', type=str, help='dot product or l2 norm')
+  File "gr.py", line 249, in main
+    torch.save(model.state_dict(), f)
+  File "gr.py", line 87, in incorporate_priors
+    # Start regularizing
+  File "gr.py", line 108, in fine_tune
+    # Get gradients and add to the loss
+  File "c:\users\junli\documents\research\singh\allennlp\allennlp\interpret\saliency_interpreters\simple_gradient.py", line 61, in saliency_interpret_from_instances
+    grads, outputs = self.predictor.get_gradients(labeled_instances)
+  File "c:\users\junli\documents\research\singh\allennlp\allennlp\predictors\predictor.py", line 113, in get_gradients
+    self._model.forward(**dataset.as_tensor_dict())  # type: ignore
+  File "c:\users\junli\documents\research\singh\allennlp\allennlp\models\basic_classifier.py", line 136, in forward
+    loss = self._loss(logits, label.long().view(-1))
+  File "C:\Users\junli\AppData\Local\Continuum\anaconda3\envs\allennlp_eric\lib\site-packages\torch\nn\modules\module.py", line 547, in __call__
+    result = self.forward(*input, **kwargs)
+  File "C:\Users\junli\AppData\Local\Continuum\anaconda3\envs\allennlp_eric\lib\site-packages\torch\nn\modules\loss.py", line 916, in forward
+    ignore_index=self.ignore_index, reduction=self.reduction)
+  File "C:\Users\junli\AppData\Local\Continuum\anaconda3\envs\allennlp_eric\lib\site-packages\torch\nn\functional.py", line 1995, in cross_entropy
+    return nll_loss(log_softmax(input, 1), target, weight, None, ignore_index, None, reduction)
+  File "C:\Users\junli\AppData\Local\Continuum\anaconda3\envs\allennlp_eric\lib\site-packages\torch\nn\functional.py", line 1316, in log_softmax
+    ret = input.log_softmax(dim)
+
+Traceback (most recent call last):
+  File "gr.py", line 259, in <module>
+    parser.add_argument('embedding_operator', type=str, help='dot product or l2 norm')
+  File "gr.py", line 249, in main
+    torch.save(model.state_dict(), f)
+  File "gr.py", line 87, in incorporate_priors
+    # Start regularizing
+  File "gr.py", line 108, in fine_tune
+    # Get gradients and add to the loss
+  File "c:\users\junli\documents\research\singh\allennlp\allennlp\interpret\saliency_interpreters\simple_gradient.py", line 61, in saliency_interpret_from_instances
+    grads, outputs = self.predictor.get_gradients(labeled_instances)
+  File "c:\users\junli\documents\research\singh\allennlp\allennlp\predictors\predictor.py", line 119, in get_gradients
+    loss.backward(retain_graph=True)
+  File "C:\Users\junli\AppData\Local\Continuum\anaconda3\envs\allennlp_eric\lib\site-packages\torch\tensor.py", line 118, in backward
+    torch.autograd.backward(self, gradient, retain_graph, create_graph)
+  File "C:\Users\junli\AppData\Local\Continuum\anaconda3\envs\allennlp_eric\lib\site-packages\torch\autograd\__init__.py", line 93, in backward
+    allow_unreachable=True)  # allow_unreachable flag
+RuntimeError: Function 'LogSoftmaxBackward' returned nan values in its 0th output.
