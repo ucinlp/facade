@@ -49,7 +49,7 @@ class PriorsFineTuner:
         self.learning_rate = args.learning_rate
         self.lmbda = args.lmbda
         self.softmax = args.softmax 
-
+        print(self.softmax)
         if self.loss == "MSE":
             self.loss_function = torch.nn.MSELoss()
         elif self.loss == "Hinge":
@@ -84,10 +84,10 @@ class PriorsFineTuner:
             os.mkdir(outdir)
         except:
             print('directory already created')
-        self.grad_file_name = os.path.join(outdir, "grad_rank_" + dir_name + ".txt")
-        self.biased_acc_file_name = os.path.join(outdir, "biased_acc_" + dir_name + ".txt")
-        self.acc_file_name = os.path.join(outdir, "acc_" + dir_name + ".txt")
-        self.loss_file_name = os.path.join(outdir, "loss_" + dir_name + ".txt")
+        self.grad_file_name = os.path.join(outdir, "grad_rank_" + ".txt")
+        self.biased_acc_file_name = os.path.join(outdir, "biased_acc_" +  ".txt")
+        self.acc_file_name = os.path.join(outdir, "acc_" +".txt")
+        self.loss_file_name = os.path.join(outdir, "loss_" + ".txt")
 
         # Refresh files 
         f1 = open(self.grad_file_name, "w")
@@ -121,7 +121,7 @@ class PriorsFineTuner:
         # print(accuracy_list)
 
     def fine_tune(self, biased_acc, acc, ranks, loss_list, normal_loss_list):
-        for epoch in range(1):
+        for epoch in range(3):
             for i, training_instances in enumerate(self.batched_training_instances):
                 # Get the loss
                 # self.optimizer.zero_grad()
@@ -135,7 +135,7 @@ class PriorsFineTuner:
                 new_instances = create_labeled_instances(self.predictor, outputs, training_instances)    
 
                 # Get gradients and add to the loss
-                summed_grad, rank = self.simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, self.embedding_operator, self.normalization, self.normalization2, bool(self.softmax))
+                summed_grad, rank = self.simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, self.embedding_operator, self.normalization, self.normalization2, self.softmax)
                 # print("summed gradients:", summed_grad)
                 targets = torch.zeros_like(summed_grad)
                 # regularized_loss = self.loss_function(torch.abs(summed_grad.unsqueeze(0)), torch.zeros_like(summed_grad).unsqueeze(0),targets.unsqueeze(0)) # max(0, -y * (x1-x2) +margin) we set x1=summed_grad,x2=0,y=-1
@@ -216,7 +216,7 @@ def get_custom_hinge_loss():
     return custom_hinge_loss
 def get_custom_log_loss():
     def custom_log_loss(x):
-        return -1 * torch.log(1/(10*x+1))
+        return torch.log(x)
     return custom_log_loss
 
 def main():
@@ -310,6 +310,7 @@ def argument_parsing():
     parser.add_argument('--normalization2', type=str, help='L2 norm or l2 norm')
     parser.add_argument('--softmax', type=str, help='Decide to use softmax or not')
     args = parser.parse_args()
+    print(args)
     return args
 
 if __name__ == '__main__':

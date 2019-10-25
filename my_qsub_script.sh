@@ -1,0 +1,1 @@
+python3 gr.py ${batch_size} ${learning_rate} ${lmbda} ${loss} ${embedding_op} ${normalization} ${normalization2} ${softmax} "output"

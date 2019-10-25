@@ -10,7 +10,7 @@ do
 				do 
 					for normalization in "l2_norm"
 					do
-						for normalization2 in "l2_norm" "None"
+						for normalization2 in "l2_norm" "l1_norm"
 						do
 							for softmax in True False
 							do

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-output = os.path.join("output_dir")
+output = os.path.join("output")
 for root, dirs, files in os.walk(output):
     for d in dirs:
         specific_output = os.path.join(output,d)

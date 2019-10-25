@@ -71,13 +71,13 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
 
   # plot
   
-  plt.plot(x, prem_corr)
+  plt.plot(x, prem_corr,linestyle='dotted')
   plt.xlabel('Iteration')
   plt.ylabel('Spearman rank-order correlation')
   plt.savefig('simple_gradient_pmi_correlation_prem.png')
   plt.clf()
 
-  plt.plot(x, hyp_corr)
+  plt.plot(x, hyp_corr,linestyle='dotted')
   plt.xlabel('Iteration')
   plt.ylabel('Spearman rank-order correlation')
   plt.savefig('simple_gradient_pmi_correlation_hyp.png')
