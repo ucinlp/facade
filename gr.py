@@ -3,6 +3,7 @@ import argparse
 import os.path
 import argparse
 import torch
+import math
 import matplotlib.pyplot as plt
 import torch.optim as optim
 from allennlp.data.dataset_readers.stanford_sentiment_tree_bank import \
@@ -49,6 +50,8 @@ class PriorsFineTuner:
         self.learning_rate = args.learning_rate
         self.lmbda = args.lmbda
         self.softmax = args.softmax 
+        self.normal_loss = args.normal_loss
+        self.nepochs = args.epochs
         print(self.softmax)
         if self.loss == "MSE":
             self.loss_function = torch.nn.MSELoss()
@@ -71,13 +74,14 @@ class PriorsFineTuner:
         # self.optimizer = optim.Adam(model.parameters(), lr=self.learning_rate)
         
         dir_name = "batch_size" + str(self.batch_size) + \
-                    "__lr_" + str(self.learning_rate) + \
-                    "__lmbda_" + str(self.lmbda) + \
-                    "__loss_" + self.loss + \
-                    "__embedding_operator_" + self.embedding_operator + \
-                    "__norm_" + self.normalization + \
-                    "__norm2_" + self.normalization2 + \
-                    "__softmax_" + self.softmax
+                    "__lr-" + str(self.learning_rate) + \
+                    "__lmbda-" + str(self.lmbda) + \
+                    "__loss-" + self.loss + \
+                    "__normal_loss-" + self.normal_loss + \
+                    "__embedding_operator-" + self.embedding_operator + \
+                    "__norm-" + self.normalization + \
+                    "__norm2-" + self.normalization2 + \
+                    "__softmax-" + self.softmax
 
         outdir = os.path.join(self.args.outdir, dir_name)
         try:
@@ -121,7 +125,7 @@ class PriorsFineTuner:
         # print(accuracy_list)
 
     def fine_tune(self, biased_acc, acc, ranks, loss_list, normal_loss_list):
-        for epoch in range(3):
+        for epoch in range(self.nepochs):
             for i, training_instances in enumerate(self.batched_training_instances):
                 # Get the loss
                 # self.optimizer.zero_grad()
@@ -136,21 +140,39 @@ class PriorsFineTuner:
 
                 # Get gradients and add to the loss
                 summed_grad, rank = self.simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, self.embedding_operator, self.normalization, self.normalization2, self.softmax)
-                # print("summed gradients:", summed_grad)
+                print("summed gradients:", summed_grad, "rank:", rank)
                 targets = torch.zeros_like(summed_grad)
                 # regularized_loss = self.loss_function(torch.abs(summed_grad.unsqueeze(0)), torch.zeros_like(summed_grad).unsqueeze(0),targets.unsqueeze(0)) # max(0, -y * (x1-x2) +margin) we set x1=summed_grad,x2=0,y=-1
                 if self.args.loss == "MSE":
                     regularized_loss = self.loss_function(summed_grad,targets)
                 elif self.args.loss == "Hinge":
-                    regularized_loss = self.loss_function(torch.abs(summed_grad), targets) # for hinge loss
+                    regularized_loss = self.loss_function(torch.abs(summed_grad), 5, rank) # for hinge loss
                 elif self.args.loss == "L1":
                     regularized_loss = self.loss_function(summed_grad,targets)
                 elif self.args.loss == "Log":
                     regularized_loss = self.loss_function(summed_grad)
                 loss_list.append(regularized_loss.item())
                 normal_loss_list.append(loss.item())
-                # print("loss regularized = ", regularized_loss, "prev loss = ",loss)
-                loss += self.lmbda * regularized_loss
+                print("loss regularized = ", regularized_loss, "normal loss = ",loss)
+                if self.lmbda == "adaptive":
+                    a = max(loss.item(), regularized_loss.item())
+                    b = min(loss.item(), regularized_loss.item())
+                    mag = a/b
+                    def magnitude(x):
+                        return int(math.log10(x))
+                    if mag < 10.0:
+                        loss = a + b
+                    else:
+                        new_lmbda = magnitude(mag)
+                        if loss > regularized_loss:
+                            loss = loss + regularized_loss * new_lmbda
+                        else:
+                            loss = loss * new_lmbda + regularized_loss
+                else:
+                    if self.normal_loss == "True":
+                        loss += float(self.lmbda) * regularized_loss
+                    else:
+                        loss = float(self.lmbda) * regularized_loss
                 # print("= final loss = ", loss)
 
                 self.optimizer.zero_grad()
@@ -211,8 +233,11 @@ def create_labeled_instances(predictor, outputs, training_instances):
     return new_instances
 
 def get_custom_hinge_loss():
-    def custom_hinge_loss(x,threshold):
-        return torch.max(threshold, x)
+    def custom_hinge_loss(x,k,rank):
+        if rank > k:
+            return x-x
+        else:
+            return x
     return custom_hinge_loss
 def get_custom_log_loss():
     def custom_log_loss(x):
@@ -301,9 +326,11 @@ def main():
 def argument_parsing():
     parser = argparse.ArgumentParser(description='One argparser')
     parser.add_argument('--batch_size', type=int, help='Batch size')
+    parser.add_argument('--epochs', type=int, help='Number of epochs')
     parser.add_argument('--learning_rate', type=float, help='Learning rate')
-    parser.add_argument('--lmbda', type=int, help='Lambda of regularized loss')
+    parser.add_argument('--lmbda', type=str, help='Lambda of regularized loss')
     parser.add_argument('--loss', type=str, help='Loss function')
+    parser.add_argument('--normal_loss', type=str, help='Decide to use normal loss or not')
     parser.add_argument('--outdir', type=str, help='Output dir')
     parser.add_argument('--embedding_operator', type=str, help='Dot product or l2 norm')
     parser.add_argument('--normalization', type=str, help='L1 norm or l2 norm')

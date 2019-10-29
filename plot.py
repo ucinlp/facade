@@ -3,10 +3,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-output = os.path.join("output")
+output = os.path.join("output_test2")
 for root, dirs, files in os.walk(output):
     for d in dirs:
         specific_output = os.path.join(output,d)
+        # specific_output = os.path.join(output,"batch_size16__lr-0.001__lmbda-100__loss-Log__normal_loss-True__embedding_operator-dot_product__norm-None__norm2-l1_norm__softmax-True")
         for root1,dirs1,files1 in os.walk(specific_output):
             for f in files1:
                 if f.endswith(".txt"):

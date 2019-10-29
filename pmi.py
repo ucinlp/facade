@@ -18,7 +18,7 @@ def gen_rank(arr):
   arr_rank = [0 for _ in range(len(arr_idx))]
   for i, (idx, grad) in enumerate(arr_idx):
     arr_rank[idx] = i + 1
-  return arr_rank
+  return arr_rank,arr_idx
 
 def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
   model = load_archive('https://s3-us-west-2.amazonaws.com/allennlp/models/decomposable-attention-2017.09.04.tar.gz').model
@@ -30,6 +30,11 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
   hyp_corr = []
   x = []
 
+  prem_top_1 = []
+  hyp_top_1 = []
+  prem_top_1_pmi = []
+  hyp_top_1_pmi = []
+
   for idx, instance in enumerate(dev_dataset):
     # grad_input_1 => hypothesis
     # grad_input_2 => premise 
@@ -40,10 +45,10 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
     grads = simple_gradient_interpreter.saliency_interpret_from_instance(new_instances)
 
     prem_grad = grads['instance_1']['grad_input_2']
-    prem_grad_rank = gen_rank(prem_grad)
+    prem_grad_rank,prem_grad_sorted = gen_rank(prem_grad)
 
     hyp_grad = grads['instance_1']['grad_input_1']
-    hyp_grad_rank = gen_rank(hyp_grad)
+    hyp_grad_rank,hyp_grad_sorted = gen_rank(hyp_grad)
 
     if instance['label'].label == 'entailment':
       pmi_dict = pmi_ent 
@@ -54,9 +59,14 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
 
     # Note: we currently give unseen vocab words low pmi
     prem_pmi = [pmi_dict[token.text.lower()] if (token.text.lower() in pmi_dict) else -1e6 for token in instance['premise']]
-    prem_pmi_rank = gen_rank(prem_pmi)
+    prem_pmi_rank,_ = gen_rank(prem_pmi)
     hyp_pmi = [pmi_dict[token.text.lower()] if (token.text.lower() in pmi_dict) else -1e6 for token in instance['hypothesis']]
-    hyp_pmi_rank = gen_rank(hyp_pmi)
+    hyp_pmi_rank,_ = gen_rank(hyp_pmi)
+
+    prem_top_1.append(prem_grad_sorted[0][1])
+    hyp_top_1.append(hyp_grad_sorted[0][1])
+    prem_top_1_pmi.append(prem_pmi[prem_grad_sorted[0][0]])
+    hyp_top_1_pmi.append(hyp_pmi[hyp_grad_sorted[0][0]])
 
     prem_spearman, _ = scipy.stats.spearmanr(prem_pmi_rank, prem_grad_rank)
     hyp_spearman, _ = scipy.stats.spearmanr(hyp_pmi_rank, hyp_grad_rank)
@@ -68,9 +78,19 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
       f.write("iter #%d: %f\n" %(idx, prem_spearman))
     with open("simple_grad_pmi_hyp_corr.txt", "a") as f:
       f.write("iter #%d: %f\n" %(idx, hyp_spearman))
+      
+    with open("pmi_prem_top1_grad.txt", "a") as f:
+      f.write("iter #%d: %f\n" %(idx, prem_top_1[-1]))
+    with open("pmi_hyp_top1_grad.txt", "a") as f:
+      f.write("iter #%d: %f\n" %(idx, hyp_top_1[-1]))
+
+    with open("pmi_prem_top1_pmi.txt", "a") as f:
+      f.write("iter #%d: %f\n" %(idx, prem_top_1[-1]))
+    with open("pmi_hyp_top1_pmi.txt", "a") as f:
+      f.write("iter #%d: %f\n" %(idx, hyp_top_1[-1]))
+    
 
   # plot
-  
   plt.plot(x, prem_corr,linestyle='dotted')
   plt.xlabel('Iteration')
   plt.ylabel('Spearman rank-order correlation')
