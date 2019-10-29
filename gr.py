@@ -77,7 +77,7 @@ class PriorsFineTuner:
                     "__embedding_operator_" + self.embedding_operator + \
                     "__norm_" + self.normalization + \
                     "__norm2_" + self.normalization2 + \
-                    "__softmax_" + str(self.softmax)
+                    "__softmax_" + self.softmax
 
         outdir = os.path.join(self.args.outdir, dir_name)
         try:
@@ -135,7 +135,7 @@ class PriorsFineTuner:
                 new_instances = create_labeled_instances(self.predictor, outputs, training_instances)    
 
                 # Get gradients and add to the loss
-                summed_grad, rank = self.simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, self.embedding_operator, self.normalization, self.normalization2, self.softmax)
+                summed_grad, rank = self.simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, self.embedding_operator, self.normalization, self.normalization2, bool(self.softmax))
                 # print("summed gradients:", summed_grad)
                 targets = torch.zeros_like(summed_grad)
                 # regularized_loss = self.loss_function(torch.abs(summed_grad.unsqueeze(0)), torch.zeros_like(summed_grad).unsqueeze(0),targets.unsqueeze(0)) # max(0, -y * (x1-x2) +margin) we set x1=summed_grad,x2=0,y=-1
@@ -308,7 +308,7 @@ def argument_parsing():
     parser.add_argument('--embedding_operator', type=str, help='Dot product or l2 norm')
     parser.add_argument('--normalization', type=str, help='L1 norm or l2 norm')
     parser.add_argument('--normalization2', type=str, help='L2 norm or l2 norm')
-    parser.add_argument('--softmax', type=bool, help='Decide to use softmax or not')
+    parser.add_argument('--softmax', type=str, help='Decide to use softmax or not')
     args = parser.parse_args()
     return args
 
