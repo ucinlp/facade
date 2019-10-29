@@ -78,13 +78,15 @@ class SanityChecker:
                 self.optimizer.zero_grad()
                 self.optimizer.step()
 
-                self.record_metrics(i, epoch, accuracy_list)
+                self.record_metrics(i, epoch, accuracy_list, loss)
 
-    def record_metrics(self, i, epoch, accuracy_list):
+    def record_metrics(self, i, epoch, accuracy_list, loss):
         get_accuracy(self.model, self.dev_data, self.vocab, accuracy_list)
         with open("sanity_check_1_accuracy.txt", "a") as myfile:
             myfile.write("epoch#%d iter#%d: test acc: %f \n" %(epoch, i, accuracy_list[-1]))
-
+        with open("sanity_check_1_loss.txt", "a") as myfile:
+            myfile.write("epoch#%d iter#%d: loss: %f \n" %(epoch, i, loss))
+        
 def get_accuracy(model, dev_dataset, vocab, acc):        
     model.get_metrics(reset=True)
     model.eval() # model should be in eval() already, but just in case
