@@ -157,23 +157,28 @@ class PriorsFineTuner:
                 if self.lmbda == "adaptive":
                     a = max(loss.item(), regularized_loss.item())
                     b = min(loss.item(), regularized_loss.item())
-                    mag = a/b
-                    def magnitude(x):
-                        return int(math.log10(x))
-                    if mag < 10.0:
-                        loss = a + b
+                    if b==0 or regularized_loss.item() > 0.2:
+                        loss = loss + regularized_loss *100
                     else:
-                        new_lmbda = magnitude(mag)
-                        if loss > regularized_loss:
-                            loss = loss + regularized_loss * new_lmbda
+                        mag = a/b
+                        def magnitude(x):
+                            return int(math.log10(x))
+                        if mag < 10.0:
+                            loss = loss + regularized_loss*100
                         else:
-                            loss = loss * new_lmbda + regularized_loss
+                            new_lmbda = magnitude(mag)
+                            if loss > regularized_loss:
+                                print("loss regularized = ",regularized_loss * 10**new_lmbda, "normal loss = ",loss)
+                                loss = loss + regularized_loss * 10**new_lmbda
+                            else:
+                                print("loss regularized = ",regularized_loss, "normal loss = ",loss * 10**new_lmbda)
+                                loss = loss * 10**new_lmbda + regularized_loss
                 else:
                     if self.normal_loss == "True":
                         loss += float(self.lmbda) * regularized_loss
                     else:
                         loss = float(self.lmbda) * regularized_loss
-                # print("= final loss = ", loss)
+                print("= final loss = ", loss)
 
                 self.optimizer.zero_grad()
                 loss.backward()
