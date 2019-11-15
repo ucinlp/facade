@@ -11,25 +11,44 @@ import math
 import operator
 import pickle
 import os 
-import scipy 
+import scipy
+import torch
+
 
 def gen_rank(arr):
   arr_idx = sorted([(idx, grad) for idx, grad in enumerate(arr)], key=lambda t: t[1], reverse=True)
   arr_rank = [0 for _ in range(len(arr_idx))]
   for i, (idx, grad) in enumerate(arr_idx):
     arr_rank[idx] = i + 1
-  return arr_rank
+  return arr_rank,arr_idx
 
 def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
   model = load_archive('https://s3-us-west-2.amazonaws.com/allennlp/models/decomposable-attention-2017.09.04.tar.gz').model
   predictor = Predictor.by_name('textual-entailment')(model, reader)
   simple_gradient_interpreter = SimpleGradient(predictor)
   # ig_interpreter = IntegratedGradient(predictor)
-
+  trainable_modules = []
+  for module in model.modules():
+    if not isinstance(module, torch.nn.Embedding):                        
+      trainable_modules.append(module)
+  trainable_modules = torch.nn.ModuleList(trainable_modules)  
+  optimizer = torch.optim.Adam(trainable_modules.parameters())
+  loss_func = torch.nn.MSELoss()
   prem_corr = []
   hyp_corr = []
   x = []
 
+  prem_top_1 = []
+  hyp_top_1 = []
+  prem_top_1_pmi = []
+  hyp_top_1_pmi = []
+
+  ent100 = sorted(pmi_ent.items(), key=operator.itemgetter(1),reverse=True)[:100]
+  ent100 = [x[0] for x in ent100]
+  con100 = sorted(pmi_con.items(), key=operator.itemgetter(1),reverse=True)[:100]
+  con100 = [x[0] for x in con100]
+  neu100 = sorted(pmi_neu.items(), key=operator.itemgetter(1),reverse=True)[:100]
+  neu100 = [x[0] for x in neu100]
   for idx, instance in enumerate(dev_dataset):
     # grad_input_1 => hypothesis
     # grad_input_2 => premise 
@@ -40,44 +59,78 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
     grads = simple_gradient_interpreter.saliency_interpret_from_instance(new_instances)
 
     prem_grad = grads['instance_1']['grad_input_2']
-    prem_grad_rank = gen_rank(prem_grad)
+    prem_grad_rank,prem_grad_sorted = gen_rank(prem_grad)
 
     hyp_grad = grads['instance_1']['grad_input_1']
-    hyp_grad_rank = gen_rank(hyp_grad)
-
+    hyp_grad_rank,hyp_grad_sorted = gen_rank(hyp_grad)
+    top100 = None
     if instance['label'].label == 'entailment':
       pmi_dict = pmi_ent 
+      top100 = ent100
     elif instance['label'].label == 'neutral':
       pmi_dict = pmi_neu
+      top100 = neu100
     elif instance['label'].label == 'contradiction':
       pmi_dict = pmi_con
-
+      top100 = con100
     # Note: we currently give unseen vocab words low pmi
-    prem_pmi = [pmi_dict[token.text.lower()] if (token.text.lower() in pmi_dict) else -1e6 for token in instance['premise']]
-    prem_pmi_rank = gen_rank(prem_pmi)
+    # prem_pmi = [pmi_dict[token.text.lower()] if (token.text.lower() in pmi_dict) else -1e6 for token in instance['premise']]
+    # prem_pmi_rank,_ = gen_rank(prem_pmi)
     hyp_pmi = [pmi_dict[token.text.lower()] if (token.text.lower() in pmi_dict) else -1e6 for token in instance['hypothesis']]
-    hyp_pmi_rank = gen_rank(hyp_pmi)
+    # hyp_pmi_rank,_ = gen_rank(hyp_pmi)
+    
+    # get gradient (this times the embedding and has all the normalization)
+    summed_grad, rank = simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, "dot_product", "l2_norm", "l1_norm", "False")
+    print(instance["hypothesis"])
+    print("summed_grad:",summed_grad)
+    print("pmi:",hyp_pmi)
+    regularized_loss = 0
+    target = torch.zeros_like(summed_grad[0])
+    print(target)
+    for idx,token in enumerate(instance["hypothesis"]):
+      word = token.text.lower()
+      if word in top100:
+        regularized_loss += loss_func(summed_grad[idx],target)
+        print(word)
+    print("regularized loss:",regularized_loss)
+    optimizer.zero_grad()
+    regularized_loss.backward()
+    optimizer.step()
+    # prem_top_1.append(prem_grad_sorted[0][1])
+    # hyp_top_1.append(hyp_grad_sorted[0][1])
+    # prem_top_1_pmi.append(prem_pmi[prem_grad_sorted[0][0]])
+    # hyp_top_1_pmi.append(hyp_pmi[hyp_grad_sorted[0][0]])
 
-    prem_spearman, _ = scipy.stats.spearmanr(prem_pmi_rank, prem_grad_rank)
-    hyp_spearman, _ = scipy.stats.spearmanr(hyp_pmi_rank, hyp_grad_rank)
-    prem_corr.append(prem_spearman)
-    hyp_corr.append(hyp_spearman)
-    x.append(idx + 1)
+    # prem_spearman, _ = scipy.stats.spearmanr(prem_pmi_rank, prem_grad_rank)
+    # hyp_spearman, _ = scipy.stats.spearmanr(hyp_pmi_rank, hyp_grad_rank)
+    # prem_corr.append(prem_spearman)
+    # hyp_corr.append(hyp_spearman)
+    # x.append(idx + 1)
 
-    with open("simple_grad_pmi_prem_corr.txt", "a") as f:
-      f.write("iter #%d: %f\n" %(idx, prem_spearman))
-    with open("simple_grad_pmi_hyp_corr.txt", "a") as f:
-      f.write("iter #%d: %f\n" %(idx, hyp_spearman))
+    # with open("simple_grad_pmi_prem_corr.txt", "a") as f:
+    #   f.write("iter #%d: %f\n" %(idx, prem_spearman))
+    # with open("simple_grad_pmi_hyp_corr.txt", "a") as f:
+    #   f.write("iter #%d: %f\n" %(idx, hyp_spearman))
+      
+    # with open("pmi_prem_top1_grad.txt", "a") as f:
+    #   f.write("iter #%d: %f\n" %(idx, prem_top_1[-1]))
+    # with open("pmi_hyp_top1_grad.txt", "a") as f:
+    #   f.write("iter #%d: %f\n" %(idx, hyp_top_1[-1]))
+
+    # with open("pmi_prem_top1_pmi.txt", "a") as f:
+    #   f.write("iter #%d: %f\n" %(idx, prem_top_1[-1]))
+    # with open("pmi_hyp_top1_pmi.txt", "a") as f:
+    #   f.write("iter #%d: %f\n" %(idx, hyp_top_1[-1]))
+    
 
   # plot
-  
-  plt.plot(x, prem_corr)
+  plt.plot(x, prem_corr,linestyle='dotted')
   plt.xlabel('Iteration')
   plt.ylabel('Spearman rank-order correlation')
   plt.savefig('simple_gradient_pmi_correlation_prem.png')
   plt.clf()
 
-  plt.plot(x, hyp_corr)
+  plt.plot(x, hyp_corr,linestyle='dotted')
   plt.xlabel('Iteration')
   plt.ylabel('Spearman rank-order correlation')
   plt.savefig('simple_gradient_pmi_correlation_hyp.png')
@@ -92,7 +145,7 @@ def main():
 
     single_id = SingleIdTokenIndexer(lowercase_tokens=True)
     reader = SnliReader(token_indexers={'tokens': single_id})    
-    dev_dataset = reader.read('./data/snli_1.0_dev.jsonl')
+    dev_dataset = reader.read('data/snli_1.0_dev.jsonl')
 
     pmi_ent = {}    
     pmi_con = {}    
@@ -106,7 +159,7 @@ def main():
       with open('neu.pkl', 'rb') as neu_file:
         pmi_neu = pickle.load(neu_file)
     else: 
-      train_dataset = reader.read('./data/snli_1.0_train.jsonl') 
+      train_dataset = reader.read('data/snli_1.0_train.jsonl') 
       # get counts
       for indx, instance in enumerate(train_dataset):                
           total_examples += 1.0
@@ -161,9 +214,9 @@ def main():
           pickle.dump(pmi_con, f)
 
       # print top 10 words by pmi for each class
-      print(sorted(pmi_ent.items(), key=operator.itemgetter(1))[-10:])
-      print(sorted(pmi_neu.items(), key=operator.itemgetter(1))[-10:])
-      print(sorted(pmi_con.items(), key=operator.itemgetter(1))[-10:])    
+      # print(sorted(pmi_ent.items(), key=operator.itemgetter(1))[-10:])
+      # print(sorted(pmi_neu.items(), key=operator.itemgetter(1))[-10:])
+      # print(sorted(pmi_con.items(), key=operator.itemgetter(1))[-10:])    
 
     find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader)
     
