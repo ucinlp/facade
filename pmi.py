@@ -63,10 +63,10 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
     hyp_pmi = [pmi_dict[token.text.lower()] if (token.text.lower() in pmi_dict) else -1e6 for token in instance['hypothesis']]
     hyp_pmi_rank,_ = gen_rank(hyp_pmi)
 
-    prem_top_1.append(prem_grad_sorted[0][1])
-    hyp_top_1.append(hyp_grad_sorted[0][1])
-    prem_top_1_pmi.append(prem_pmi[prem_grad_sorted[0][0]])
-    hyp_top_1_pmi.append(hyp_pmi[hyp_grad_sorted[0][0]])
+    # prem_top_1.append(prem_grad_sorted[0][1])
+    # hyp_top_1.append(hyp_grad_sorted[0][1])
+    # prem_top_1_pmi.append(prem_pmi[prem_grad_sorted[0][0]])
+    # hyp_top_1_pmi.append(hyp_pmi[hyp_grad_sorted[0][0]])
 
     prem_spearman, _ = scipy.stats.spearmanr(prem_pmi_rank, prem_grad_rank)
     hyp_spearman, _ = scipy.stats.spearmanr(hyp_pmi_rank, hyp_grad_rank)
@@ -74,20 +74,20 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
     hyp_corr.append(hyp_spearman)
     x.append(idx + 1)
 
-    with open("simple_grad_pmi_prem_corr.txt", "a") as f:
-      f.write("iter #%d: %f\n" %(idx, prem_spearman))
-    with open("simple_grad_pmi_hyp_corr.txt", "a") as f:
-      f.write("iter #%d: %f\n" %(idx, hyp_spearman))
+    # with open("simple_grad_pmi_prem_corr.txt", "a") as f:
+    #   f.write("iter #%d: %f\n" %(idx, prem_spearman))
+    # with open("simple_grad_pmi_hyp_corr.txt", "a") as f:
+    #   f.write("iter #%d: %f\n" %(idx, hyp_spearman))
       
-    with open("pmi_prem_top1_grad.txt", "a") as f:
-      f.write("iter #%d: %f\n" %(idx, prem_top_1[-1]))
-    with open("pmi_hyp_top1_grad.txt", "a") as f:
-      f.write("iter #%d: %f\n" %(idx, hyp_top_1[-1]))
+    # with open("pmi_prem_top1_grad.txt", "a") as f:
+    #   f.write("iter #%d: %f\n" %(idx, prem_top_1[-1]))
+    # with open("pmi_hyp_top1_grad.txt", "a") as f:
+    #   f.write("iter #%d: %f\n" %(idx, hyp_top_1[-1]))
 
-    with open("pmi_prem_top1_pmi.txt", "a") as f:
-      f.write("iter #%d: %f\n" %(idx, prem_top_1[-1]))
-    with open("pmi_hyp_top1_pmi.txt", "a") as f:
-      f.write("iter #%d: %f\n" %(idx, hyp_top_1[-1]))
+    # with open("pmi_prem_top1_pmi.txt", "a") as f:
+    #   f.write("iter #%d: %f\n" %(idx, prem_top_1[-1]))
+    # with open("pmi_hyp_top1_pmi.txt", "a") as f:
+    #   f.write("iter #%d: %f\n" %(idx, hyp_top_1[-1]))
     
 
   # plot
@@ -181,9 +181,9 @@ def main():
           pickle.dump(pmi_con, f)
 
       # print top 10 words by pmi for each class
-      print(sorted(pmi_ent.items(), key=operator.itemgetter(1))[-10:])
-      print(sorted(pmi_neu.items(), key=operator.itemgetter(1))[-10:])
-      print(sorted(pmi_con.items(), key=operator.itemgetter(1))[-10:])    
+      # print(sorted(pmi_ent.items(), key=operator.itemgetter(1))[-10:])
+      # print(sorted(pmi_neu.items(), key=operator.itemgetter(1))[-10:])
+      # print(sorted(pmi_con.items(), key=operator.itemgetter(1))[-10:])    
 
     find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader)
     
