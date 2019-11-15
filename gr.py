@@ -149,7 +149,7 @@ class PriorsFineTuner:
                     regularized_loss = self.loss_function(summed_grad)
                 loss_list.append(regularized_loss.item())
                 normal_loss_list.append(loss.item())
-                # print("loss regularized = ", regularized_loss, "prev loss = ",loss)
+                print("loss regularized = ", regularized_loss, "prev loss = ",loss)
                 loss += self.lmbda * regularized_loss
                 # print("= final loss = ", loss)
 
