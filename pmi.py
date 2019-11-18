@@ -57,7 +57,7 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
   neu100 =  {x[0]:[] for x in neu100}
 
   torch.autograd.set_detect_anomaly(True)
-  outputs = model.forward_on_instances(dev_dataset)
+  # outputs = model.forward_on_instances(dev_dataset)
   # total = len(dev_dataset)
   # num_right = 0
   # for j,each in enumerate(outputs):
@@ -125,6 +125,8 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
       optimizer.zero_grad()
       regularized_loss.backward()
       optimizer.step()
+    if idx == 100:
+      break
     # prem_top_1.append(prem_grad_sorted[0][1])
     # hyp_top_1.append(hyp_grad_sorted[0][1])
     # prem_top_1_pmi.append(prem_pmi[prem_grad_sorted[0][0]])
@@ -154,9 +156,10 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
 
   with open("sanity_checks/gradient_change_ent.txt", "w") as myfile:
     for each in ent100:
-      myfile.write("%s\n"%(each))
+      myfile.write("\n%s: "%(each))
       for num in ent100[each]:
         myfile.write("%f," %(num))
+      
   with open("sanity_checks/gradient_change_con.txt", "w") as myfile:
     for each in con100:
       myfile.write("%s\n"%(each))
@@ -167,6 +170,8 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
       myfile.write("%s\n"%(each))
       for num in neu100[each]:
         myfile.write("%f," %(num))
+
+  outputs = model.forward_on_instances(dev_dataset)
   total = len(dev_dataset)
   num_right = 0
   for j,each in enumerate(outputs):
