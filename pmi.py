@@ -13,7 +13,8 @@ import pickle
 import os 
 import scipy
 import torch
-
+from allennlp.modules.text_field_embedders.basic_text_field_embedder import BasicTextFieldEmbedder
+import numpy as np
 
 def gen_rank(arr):
   arr_idx = sorted([(idx, grad) for idx, grad in enumerate(arr)], key=lambda t: t[1], reverse=True)
@@ -29,8 +30,13 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
   # ig_interpreter = IntegratedGradient(predictor)
   trainable_modules = []
   for module in model.modules():
-    if not isinstance(module, torch.nn.Embedding):                        
-      trainable_modules.append(module)
+    if not isinstance(module, torch.nn.Embedding):    
+      if not isinstance(module,BasicTextFieldEmbedder):   
+        trainable_modules.append(module)
+        print(module)
+        print()
+
+  print(len(trainable_modules))
   trainable_modules = torch.nn.ModuleList(trainable_modules)  
   optimizer = torch.optim.Adam(trainable_modules.parameters())
   loss_func = torch.nn.MSELoss()
@@ -44,20 +50,34 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
   hyp_top_1_pmi = []
 
   ent100 = sorted(pmi_ent.items(), key=operator.itemgetter(1),reverse=True)[:100]
-  ent100 = [x[0] for x in ent100]
+  ent100 = {x[0]:[] for x in ent100}
   con100 = sorted(pmi_con.items(), key=operator.itemgetter(1),reverse=True)[:100]
-  con100 = [x[0] for x in con100]
+  con100 =  {x[0]:[] for x in con100}
   neu100 = sorted(pmi_neu.items(), key=operator.itemgetter(1),reverse=True)[:100]
-  neu100 = [x[0] for x in neu100]
-  for idx, instance in enumerate(dev_dataset):
+  neu100 =  {x[0]:[] for x in neu100}
+
+  torch.autograd.set_detect_anomaly(True)
+  outputs = model.forward_on_instances(dev_dataset)
+  # total = len(dev_dataset)
+  # num_right = 0
+  # for j,each in enumerate(outputs):
+  #   if np.argmax(each["label_probs"]) == dev_dataset[j].fields["label"]._label_id:
+  #     num_right+=1
+  # print("Original Accuracy:",num_right/total)
+  # 0.8340784393415972
+  # exit(0)
+  train_dataset = reader.read('data/snli_1.0_train.jsonl') 
+  print(len(train_dataset))
+  for idx, instance in enumerate(train_dataset):
     # grad_input_1 => hypothesis
     # grad_input_2 => premise 
+    print()
     print(idx)
 
     outputs = model.forward_on_instance(instance)
     new_instances = predictor.predictions_to_labeled_instances(instance, outputs)
     grads = simple_gradient_interpreter.saliency_interpret_from_instance(new_instances)
-
+    print(outputs["label_probs"])
     prem_grad = grads['instance_1']['grad_input_2']
     prem_grad_rank,prem_grad_sorted = gen_rank(prem_grad)
 
@@ -80,22 +100,31 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
     # hyp_pmi_rank,_ = gen_rank(hyp_pmi)
     
     # get gradient (this times the embedding and has all the normalization)
+    print("----------")
     summed_grad, rank = simple_gradient_interpreter.saliency_interpret_from_instances(new_instances, "dot_product", "l2_norm", "l1_norm", "False")
+    print("----------")
     print(instance["hypothesis"])
     print("summed_grad:",summed_grad)
     print("pmi:",hyp_pmi)
-    regularized_loss = 0
+    
     target = torch.zeros_like(summed_grad[0])
     print(target)
-    for idx,token in enumerate(instance["hypothesis"]):
+    regularized_loss = target
+    propagate = False
+    for i,token in enumerate(instance["hypothesis"]):
       word = token.text.lower()
       if word in top100:
-        regularized_loss += loss_func(summed_grad[idx],target)
+        regularized_loss = regularized_loss + loss_func(summed_grad[i],target)
         print(word)
+        print(summed_grad[i])
+        propagate = True
+        top100[word].append(summed_grad[i])
     print("regularized loss:",regularized_loss)
-    optimizer.zero_grad()
-    regularized_loss.backward()
-    optimizer.step()
+    if propagate:
+      print("backward begains...")
+      optimizer.zero_grad()
+      regularized_loss.backward()
+      optimizer.step()
     # prem_top_1.append(prem_grad_sorted[0][1])
     # hyp_top_1.append(hyp_grad_sorted[0][1])
     # prem_top_1_pmi.append(prem_pmi[prem_grad_sorted[0][0]])
@@ -123,6 +152,27 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
     #   f.write("iter #%d: %f\n" %(idx, hyp_top_1[-1]))
     
 
+  with open("sanity_checks/gradient_change_ent.txt", "w") as myfile:
+    for each in ent100:
+      myfile.write("%s\n"%(each))
+      for num in ent100[each]:
+        myfile.write("%f," %(num))
+  with open("sanity_checks/gradient_change_con.txt", "w") as myfile:
+    for each in con100:
+      myfile.write("%s\n"%(each))
+      for num in con100[each]:
+        myfile.write("%f," %(num))
+  with open("sanity_checks/gradient_change_neu.txt", "w") as myfile:
+    for each in neu100:
+      myfile.write("%s\n"%(each))
+      for num in neu100[each]:
+        myfile.write("%f," %(num))
+  total = len(dev_dataset)
+  num_right = 0
+  for j,each in enumerate(outputs):
+    if np.argmax(each["label_probs"]) == dev_dataset[j].fields["label"]._label_id:
+      num_right+=1
+  print("After Accuracy:",num_right/total)
   # plot
   plt.plot(x, prem_corr,linestyle='dotted')
   plt.xlabel('Iteration')
@@ -214,9 +264,9 @@ def main():
           pickle.dump(pmi_con, f)
 
       # print top 10 words by pmi for each class
-      # print(sorted(pmi_ent.items(), key=operator.itemgetter(1))[-10:])
-      # print(sorted(pmi_neu.items(), key=operator.itemgetter(1))[-10:])
-      # print(sorted(pmi_con.items(), key=operator.itemgetter(1))[-10:])    
+      print(sorted(pmi_ent.items(), key=operator.itemgetter(1))[-10:])
+      print(sorted(pmi_neu.items(), key=operator.itemgetter(1))[-10:])
+      print(sorted(pmi_con.items(), key=operator.itemgetter(1))[-10:])    
 
     find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader)
     
