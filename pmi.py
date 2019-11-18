@@ -57,13 +57,15 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
   neu100 =  {x[0]:[] for x in neu100}
 
   torch.autograd.set_detect_anomaly(True)
-  # outputs = model.forward_on_instances(dev_dataset)
-  # total = len(dev_dataset)
-  # num_right = 0
-  # for j,each in enumerate(outputs):
-  #   if np.argmax(each["label_probs"]) == dev_dataset[j].fields["label"]._label_id:
-  #     num_right+=1
-  # print("Original Accuracy:",num_right/total)
+  outputs = model.forward_on_instances(dev_dataset)
+  total = len(dev_dataset)
+  num_right = 0
+  for j,each in enumerate(outputs):
+    if np.argmax(each["label_probs"]) == dev_dataset[j].fields["label"]._label_id:
+      num_right+=1
+  print("Original Accuracy:",num_right/total)
+  with open("sanity_checks/accuracy_pmi.txt", "w") as myfile:
+    myfile.write("Original Accuracy: %f"%(num_right/total))
   # 0.8340784393415972
   # exit(0)
   train_dataset = reader.read('data/snli_1.0_train.jsonl') 
@@ -178,6 +180,8 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
     if np.argmax(each["label_probs"]) == dev_dataset[j].fields["label"]._label_id:
       num_right+=1
   print("After Accuracy:",num_right/total)
+  with open("sanity_checks/accuracy_pmi.txt", "a") as myfile:
+    myfile.write("\nAfter Accuracy: %f"%(num_right/total))
   # plot
   plt.plot(x, prem_corr,linestyle='dotted')
   plt.xlabel('Iteration')
