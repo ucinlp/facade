@@ -140,7 +140,7 @@ class PriorsFineTuner:
                 targets = torch.zeros_like(summed_grad)
                 # regularized_loss = self.loss_function(torch.abs(summed_grad.unsqueeze(0)), torch.zeros_like(summed_grad).unsqueeze(0),targets.unsqueeze(0)) # max(0, -y * (x1-x2) +margin) we set x1=summed_grad,x2=0,y=-1
                 if self.args.loss == "MSE":
-                    regularized_loss = self.loss_function(summed_grad,targets)
+                    regularized_loss = self.loss_function(summed_grad, targets)
                 elif self.args.loss == "Hinge":
                     regularized_loss = self.loss_function(torch.abs(summed_grad), targets) # for hinge loss
                 elif self.args.loss == "L1":
