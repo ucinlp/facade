@@ -8,13 +8,21 @@ from allennlp.interpret.saliency_interpreters import SaliencyInterpreter, Simple
 import matplotlib.pyplot as plt 
 from collections import defaultdict
 import math
+import numpy as np 
 import operator
 import pickle
 import os 
+<<<<<<< HEAD
 import scipy
 import torch
 from allennlp.modules.text_field_embedders.basic_text_field_embedder import BasicTextFieldEmbedder
 import numpy as np
+=======
+import scipy 
+import torch 
+
+cuda_device = 0
+>>>>>>> f0c7f04a3a1a9f3fd02358ea3255dfd99110536b
 
 def gen_rank(arr):
   arr_idx = sorted([(idx, grad) for idx, grad in enumerate(arr)], key=lambda t: t[1], reverse=True)
@@ -23,7 +31,135 @@ def gen_rank(arr):
     arr_rank[idx] = i + 1
   return arr_rank,arr_idx
 
-def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
+def find_hitset(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
+  model = load_archive('https://s3-us-west-2.amazonaws.com/allennlp/models/decomposable-attention-2017.09.04.tar.gz').model.cuda()
+  predictor = Predictor.by_name('textual-entailment')(model, reader)
+  simple_gradient_interpreter = SimpleGradient(predictor)
+
+  hyp_hitset1 = []
+  hyp_hitset3 = []
+  hyp_hitset5 = []
+
+  for _, instance in enumerate(dev_dataset):
+    # find the top PMI token
+    max_hyp_pmi_token = None
+    max_hyp_pmi_token_idx = -1
+    pmi_dict = None
+    if instance['label'].label == 'entailment':
+      pmi_dict = pmi_ent 
+    elif instance['label'].label == 'neutral':
+      pmi_dict = pmi_neu
+    elif instance['label'].label == 'contradiction':
+      pmi_dict = pmi_con
+
+    for idx, token in enumerate(instance['hypothesis']):
+      token = token.text.lower()
+      if token in pmi_dict:
+        if max_hyp_pmi_token == None:
+          max_hyp_pmi_token = token
+          max_hyp_pmi_token_idx = idx
+        elif pmi_dict[token] > pmi_dict[max_hyp_pmi_token]:
+          max_hyp_pmi_token = token
+          max_hyp_pmi_token_idx = idx
+    
+    if max_hyp_pmi_token != None:
+      outputs = model.forward_on_instance(instance)
+      new_instances = predictor.predictions_to_labeled_instances(instance, outputs)
+      grads = simple_gradient_interpreter.saliency_interpret_from_instance(new_instances)
+      # print("grads", grads['instance_1']['grad_input_1'])
+      max_grad_idx = np.argmax(grads['instance_1']['grad_input_1']);
+      # print("max idx", max_grad_idx)
+
+      hyp_pmi = [pmi_dict[token.text.lower()] if (token.text.lower() in pmi_dict) else -1e6 for token in instance['hypothesis']]
+      hyp_pmi_rank = gen_rank(hyp_pmi)
+      # print("pmi rank", hyp_pmi_rank)
+
+      if (hyp_pmi_rank[max_grad_idx] <= 1):
+        # print('hit top 1')
+        hyp_hitset1.append(1)
+        hyp_hitset3.append(1)
+        hyp_hitset5.append(1)
+      elif (hyp_pmi_rank[max_grad_idx] <= 3):
+        # print('hit top 3')
+        hyp_hitset1.append(0)
+        hyp_hitset3.append(1)
+        hyp_hitset5.append(1)
+      elif (hyp_pmi_rank[max_grad_idx] <= 5):
+        # print('hit top 5')
+        hyp_hitset1.append(0)
+        hyp_hitset3.append(0)
+        hyp_hitset5.append(1)
+      else: 
+        # print('hit nothing')
+        hyp_hitset1.append(0)
+        hyp_hitset3.append(0)
+        hyp_hitset5.append(0)
+
+      print("Iter", _)
+
+  print("Hit@1", sum(hyp_hitset1)/len(hyp_hitset1))
+  print("Hit@3", sum(hyp_hitset3)/len(hyp_hitset3))
+  print("Hit@5", sum(hyp_hitset5)/len(hyp_hitset5))
+
+def find_mean_reciprocal(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
+  model = load_archive('https://s3-us-west-2.amazonaws.com/allennlp/models/decomposable-attention-2017.09.04.tar.gz').model.cuda()
+  print(model)
+  predictor = Predictor.by_name('textual-entailment')(model, reader)
+  simple_gradient_interpreter = SimpleGradient(predictor)
+  # ig_interpreter = IntegratedGradient(predictor)
+
+  hyp_mean_reciprocal = []
+
+  for _, instance in enumerate(dev_dataset):
+    # find the top PMI token
+    max_hyp_pmi_token = None
+    max_hyp_pmi_token_idx = -1
+    pmi_dict = None
+    if instance['label'].label == 'entailment':
+      pmi_dict = pmi_ent 
+    elif instance['label'].label == 'neutral':
+      pmi_dict = pmi_neu
+    elif instance['label'].label == 'contradiction':
+      pmi_dict = pmi_con
+
+    for idx, token in enumerate(instance['hypothesis']):
+      token = token.text.lower()
+      if token in pmi_dict:
+        if max_hyp_pmi_token == None:
+          max_hyp_pmi_token = token
+          max_hyp_pmi_token_idx = idx
+        elif pmi_dict[token] > pmi_dict[max_hyp_pmi_token]:
+          max_hyp_pmi_token = token
+          max_hyp_pmi_token_idx = idx
+    
+    if max_hyp_pmi_token != None: 
+      print(_)
+      outputs = model.forward_on_instance(instance)
+      model_label_idx = np.argmax(outputs['label_logits'])
+      model_label = None
+      if (model_label_idx == 0): model_label = "Entailment"
+      elif (model_label_idx == 1): model_label = "Contradiction"
+      elif (model_label_idx == 2): model_label = "Neutral"
+   
+      new_instances = predictor.predictions_to_labeled_instances(instance, outputs)
+      grads = simple_gradient_interpreter.saliency_interpret_from_instance(new_instances)
+      # grads = ig_interpreter.saliency_interpret_from_instance(new_instances)
+
+      hyp_grad = grads['instance_1']['grad_input_1']
+      hyp_grad_rank = gen_rank(hyp_grad)
+      mrr = 1/hyp_grad_rank[max_hyp_pmi_token_idx]
+      hyp_mean_reciprocal.append(mrr)
+
+      # if (mrr == 1.0):
+      #   with open("high_mrr_hyp.txt", "a") as f:
+      #     f.write("%f\n label: %s\n model label: %s\n prem_tokens: %s\n hyp_tokens: %s\n top pmi word: %s\n hyp_grad_rank: %s\n\n" %(mrr, instance['label'], model_label, instance['premise'], instance['hypothesis'], max_hyp_pmi_token, hyp_grad_rank))
+
+      with open("hyp_mean_reciprocal.txt", "a") as f:
+        f.write("iter #%d: %f\n" %(_, mrr))
+  
+  print("Mean reciprocal rank for hypothesis:", sum(hyp_mean_reciprocal)/len(hyp_mean_reciprocal))  
+
+def find_correlations(pmi_ent, pmi_neu, pmi_con, pmi_ent_top, pmi_neu_top, pmi_con_top, dev_dataset, reader):
   model = load_archive('https://s3-us-west-2.amazonaws.com/allennlp/models/decomposable-attention-2017.09.04.tar.gz').model
   predictor = Predictor.by_name('textual-entailment')(model, reader)
   simple_gradient_interpreter = SimpleGradient(predictor)
@@ -42,7 +178,6 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
   loss_func = torch.nn.MSELoss()
   prem_corr = []
   hyp_corr = []
-  x = []
 
   prem_top_1 = []
   hyp_top_1 = []
@@ -73,6 +208,7 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
   for idx, instance in enumerate(train_dataset):
     # grad_input_1 => hypothesis
     # grad_input_2 => premise 
+<<<<<<< HEAD
     print()
     print(idx)
 
@@ -195,6 +331,61 @@ def find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader):
   plt.savefig('simple_gradient_pmi_correlation_hyp.png')
 
 def main():                   
+=======
+
+    pmi_dict = None 
+    pmi_dict_top = None 
+    if instance['label'].label == 'entailment':
+      pmi_dict = pmi_ent 
+      pmi_dict_top = pmi_ent_top 
+    elif instance['label'].label == 'neutral':
+      pmi_dict = pmi_neu
+      pmi_dict_top = pmi_neu_top 
+    elif instance['label'].label == 'contradiction':
+      pmi_dict = pmi_con
+      pmi_dict_top = pmi_con_top 
+
+    skip = True
+    for token in instance['hypothesis']:
+      token = token.text.lower()
+      if token in pmi_dict_top:
+        skip = False
+        break
+
+    if not skip:
+      print(idx)
+
+      outputs = model.forward_on_instance(instance)
+      model_label_idx = np.argmax(outputs['label_logits'])
+      model_label = None
+      if (model_label_idx == 0): model_label = "Entailment"
+      elif (model_label_idx == 1): model_label = "Contradiction"
+      elif (model_label_idx == 2): model_label = "Neutral"
+      new_instances = predictor.predictions_to_labeled_instances(instance, outputs)
+      grads = simple_gradient_interpreter.saliency_interpret_from_instance(new_instances)
+
+      hyp_grad = grads['instance_1']['grad_input_1']
+      hyp_grad_rank = gen_rank(hyp_grad)
+
+      # Note: we currently give unseen vocab words low pmi
+      hyp_pmi = [pmi_dict[token.text.lower()] if (token.text.lower() in pmi_dict) else -1e6 for token in instance['hypothesis']]
+      hyp_pmi_rank = gen_rank(hyp_pmi)
+
+      hyp_spearman, _ = scipy.stats.spearmanr(hyp_pmi_rank, hyp_grad_rank)
+      hyp_corr.append(hyp_spearman)
+
+      if (hyp_spearman == -1.0 or hyp_spearman == 1.0):
+        with open("high_correlation_hyp.txt", "a") as f:
+          f.write("%f\n label: %s\n model label: %s\n prem_tokens: %s\n hyp_tokens: %s\n hyp_pmi_rank: %s\n hyp_grad_rank: %s\n\n" %(hyp_spearman, instance['label'], model_label, instance['premise'], instance['hypothesis'], hyp_pmi_rank, hyp_grad_rank))
+      
+      with open("simple_grad_pmi_hyp_corr.txt", "a") as f:
+        f.write("iter #%d: %f\n" %(idx, hyp_spearman))
+
+  print("Average hypothesis correlation:", sum(hyp_corr)/len(hyp_corr))
+
+def main(): 
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")                  
+>>>>>>> f0c7f04a3a1a9f3fd02358ea3255dfd99110536b
     p_word = defaultdict(lambda: 100.0) # add 100 smoothing
     p_class = defaultdict(lambda: 0.0) 
     p_word_class = defaultdict(lambda: 0.0)
@@ -275,9 +466,24 @@ def main():
       # print top 10 words by pmi for each class
       print(sorted(pmi_ent.items(), key=operator.itemgetter(1))[-10:])
       print(sorted(pmi_neu.items(), key=operator.itemgetter(1))[-10:])
-      print(sorted(pmi_con.items(), key=operator.itemgetter(1))[-10:])    
+      print(sorted(pmi_con.items(), key=operator.itemgetter(1))[-10:]) 
 
-    find_correlations(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader)
+    # pmi_ent_top = dict(sorted(pmi_ent.items(), key=operator.itemgetter(1))[-100:])
+    # pmi_neu_top = dict(sorted(pmi_neu.items(), key=operator.itemgetter(1))[-100:])   
+    # pmi_con_top = dict(sorted(pmi_con.items(), key=operator.itemgetter(1))[-100:])
+    # find_correlations(pmi_ent, pmi_neu, pmi_con, pmi_ent_top, pmi_neu_top, pmi_con_top, dev_dataset, reader)
+
+    pmi_ent = dict(sorted(pmi_ent.items(), key=operator.itemgetter(1))[-1:])
+    pmi_neu = dict(sorted(pmi_neu.items(), key=operator.itemgetter(1))[-1:])   
+    pmi_con = dict(sorted(pmi_con.items(), key=operator.itemgetter(1))[-1:])
+    print('PMI Entailment --------')
+    print(pmi_ent)
+    print('PMI Neutral --------')
+    print(pmi_neu)
+    print('PMI Contradiction --------')
+    print(pmi_con)
+    # find_mean_reciprocal(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader)
+    # find_hitset(pmi_ent, pmi_neu, pmi_con, dev_dataset, reader)
     
 if __name__ == '__main__':
     main()

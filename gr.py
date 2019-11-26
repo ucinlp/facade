@@ -144,9 +144,9 @@ class PriorsFineTuner:
                 targets = torch.zeros_like(summed_grad)
                 # regularized_loss = self.loss_function(torch.abs(summed_grad.unsqueeze(0)), torch.zeros_like(summed_grad).unsqueeze(0),targets.unsqueeze(0)) # max(0, -y * (x1-x2) +margin) we set x1=summed_grad,x2=0,y=-1
                 if self.args.loss == "MSE":
-                    regularized_loss = self.loss_function(summed_grad,targets)
+                    regularized_loss = self.loss_function(summed_grad, targets)
                 elif self.args.loss == "Hinge":
-                    regularized_loss = self.loss_function(torch.abs(summed_grad), 5, rank) # for hinge loss
+                    regularized_loss = self.loss_function(torch.abs(summed_grad), 4, rank)[0] # for hinge loss
                 elif self.args.loss == "L1":
                     regularized_loss = self.loss_function(summed_grad,targets)
                 elif self.args.loss == "Log":
@@ -202,7 +202,7 @@ class PriorsFineTuner:
     def record_metrics(self, i, epoch, rank, biased_acc, acc, loss_list, normal_loss_list):
         get_accuracy(self.model, self.biased_dev_data, self.dev_data, self.vocab, biased_acc, acc)
         with open(self.grad_file_name, "a") as myfile:
-            myfile.write("epoch#%d iter#%d: bob/joe grad rank: %d \n" %(epoch, i, rank))
+            myfile.write("epoch#%d iter#%d: bob/joe grad rank: %f \n" %(epoch, i, rank))
         with open(self.biased_acc_file_name, "a") as myfile:
             myfile.write("epoch#%d iter#%d: biased test acc: %f \n" %(epoch, i, biased_acc[-1]))
         with open(self.acc_file_name, "a") as myfile:
@@ -259,10 +259,10 @@ def main():
                                                     add_synthetic_bias=True)
     train_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/train.txt')
     biased_dev_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/dev.txt')
-    reader = StanfordSentimentTreeBankDatasetReader(granularity="2-class",
+    reader2 = StanfordSentimentTreeBankDatasetReader(granularity="2-class",
                                                     token_indexers={"tokens": single_id_indexer},
                                                     add_synthetic_bias=False)
-    dev_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/dev.txt')
+    dev_data = reader2.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/dev.txt')
     
     vocab = Vocabulary.from_instances(train_data)
 
