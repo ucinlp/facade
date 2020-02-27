@@ -1,0 +1,20 @@
+
+Epoch#0 Iteration0 # highest/mean grad mag: 1.29034580E-05 ; 2.91589700E-06 ; 1.08985249E-04 ; 1.90786698E-05
+Epoch#0 Iteration37 # highest/mean grad mag: 1.25745762E-05 ; 2.79840176E-06 ; 1.04746033E-04 ; 1.72703590E-05
+Epoch#0 Iteration74 # highest/mean grad mag: 1.23730764E-05 ; 2.71794724E-06 ; 1.04773617E-04 ; 1.69486092E-05
+Epoch#0 Iteration111 # highest/mean grad mag: 1.22068830E-05 ; 2.65673027E-06 ; 1.07012190E-04 ; 1.72844044E-05
+Epoch#0 Iteration148 # highest/mean grad mag: 1.21456256E-05 ; 2.63337226E-06 ; 1.09758591E-04 ; 1.78441851E-05
+Epoch#0 Iteration185 # highest/mean grad mag: 1.21276675E-05 ; 2.62831848E-06 ; 1.12019548E-04 ; 1.83062564E-05
+Epoch#0 Iteration222 # highest/mean grad mag: 1.21413196E-05 ; 2.63778914E-06 ; 1.10254854E-04 ; 1.79396641E-05
+Epoch#0 Iteration259 # highest/mean grad mag: 1.24095596E-05 ; 2.73819557E-06 ; 1.03835558E-04 ; 1.66866596E-05
+Epoch#0 Iteration296 # highest/mean grad mag: 1.27489011E-05 ; 2.87816440E-06 ; 1.03024931E-04 ; 1.69365491E-05
+Epoch#0 Iteration333 # highest/mean grad mag: 1.29628546E-05 ; 2.95957297E-06 ; 1.05038637E-04 ; 1.78445564E-05
+Epoch#0 Iteration370 # highest/mean grad mag: 1.31058393E-05 ; 3.01618463E-06 ; 1.06943187E-04 ; 1.86159328E-05
+Epoch#0 Iteration407 # highest/mean grad mag: 1.31577393E-05 ; 3.02481442E-06 ; 1.10125209E-04 ; 1.98054734E-05
+Epoch#1 Iteration0 # highest/mean grad mag: 1.31644091E-05 ; 3.02903373E-06 ; 1.10127793E-04 ; 1.98307013E-05
+Epoch#1 Iteration37 # highest/mean grad mag: 1.28526563E-05 ; 2.92453105E-06 ; 1.02448307E-04 ; 1.68578201E-05
+Epoch#1 Iteration74 # highest/mean grad mag: 1.25242013E-05 ; 2.79589938E-06 ; 1.01955340E-04 ; 1.63041557E-05
+Epoch#1 Iteration111 # highest/mean grad mag: 1.23267502E-05 ; 2.72163325E-06 ; 1.04700356E-04 ; 1.67478161E-05
+Epoch#1 Iteration148 # highest/mean grad mag: 1.21929863E-05 ; 2.67351367E-06 ; 1.08160331E-04 ; 1.74648094E-05
+Epoch#1 Iteration185 # highest/mean grad mag: 1.21609608E-05 ; 2.66598557E-06 ; 1.10674250E-04 ; 1.79766891E-05
+Epoch#1 Iteration222 # highest/mean grad mag: 1.21850336E-05 ; 2.67256399E-06 ; 1.08684902E-04 ; 1.75624488E-05

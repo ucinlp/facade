@@ -1,0 +1,1 @@
+epoch#0 iter#0: original test acc: 0.644495 

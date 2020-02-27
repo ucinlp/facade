@@ -1,0 +1,2 @@
+python pmi_snli.py --batch_size 16 --epochs 1 --lmbda 1 --loss Hinge --outdir pmi_snli_output --cuda False --autograd True --all_low False
+# python pmi_snli.py --batch_size 16 --epochs 3 --lmbda 1 --loss Hinge --outdir pmi_snli_output --cuda False --autograd True --all_low True

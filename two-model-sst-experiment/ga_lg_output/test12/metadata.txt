@@ -1,0 +1,11 @@
+epochs: 10
+batch_size: 1
+loss: Hinge
+lmbda: 0.2
+lr: 0.001
+cuda: False
+autograd: False
+all_low: False
+embedding_operator: l2_norm
+normalization: l1_norm
+softmax: False

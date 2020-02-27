@@ -1,0 +1,264 @@
+Constituent Entailment: 0.996800
+Constituent Non-Entailment: 0.012400
+Lexical Overlap Entailment: 0.994000
+Lexical Overlap Non-Entailment: 0.008200
+Subsequence Entailment: 0.998200
+Subsequence Non-Entailment: 0.008600
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.004200
+Lexical Overlap Entailment: 0.999600
+Lexical Overlap Non-Entailment: 0.003200
+Subsequence Entailment: 0.999600
+Subsequence Non-Entailment: 0.001000
+Constituent Entailment: 0.999800
+Constituent Non-Entailment: 0.005200
+Lexical Overlap Entailment: 0.999000
+Lexical Overlap Non-Entailment: 0.004800
+Subsequence Entailment: 0.999600
+Subsequence Non-Entailment: 0.001800
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.003400
+Lexical Overlap Entailment: 0.999600
+Lexical Overlap Non-Entailment: 0.002200
+Subsequence Entailment: 0.999800
+Subsequence Non-Entailment: 0.000000
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.006000
+Lexical Overlap Entailment: 0.998800
+Lexical Overlap Non-Entailment: 0.004400
+Subsequence Entailment: 0.999600
+Subsequence Non-Entailment: 0.000600
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.007000
+Lexical Overlap Entailment: 0.999200
+Lexical Overlap Non-Entailment: 0.003200
+Subsequence Entailment: 0.999600
+Subsequence Non-Entailment: 0.000600
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.003800
+Lexical Overlap Entailment: 1.000000
+Lexical Overlap Non-Entailment: 0.000400
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.000000
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.004200
+Lexical Overlap Entailment: 0.999600
+Lexical Overlap Non-Entailment: 0.001000
+Subsequence Entailment: 0.999800
+Subsequence Non-Entailment: 0.000400
+Constituent Entailment: 0.998400
+Constituent Non-Entailment: 0.016200
+Lexical Overlap Entailment: 0.992200
+Lexical Overlap Non-Entailment: 0.007400
+Subsequence Entailment: 0.998400
+Subsequence Non-Entailment: 0.005400
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.005800
+Lexical Overlap Entailment: 0.999600
+Lexical Overlap Non-Entailment: 0.000600
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.000200
+Constituent Entailment: 0.999800
+Constituent Non-Entailment: 0.012000
+Lexical Overlap Entailment: 0.998800
+Lexical Overlap Non-Entailment: 0.004400
+Subsequence Entailment: 0.999800
+Subsequence Non-Entailment: 0.002200
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.009600
+Lexical Overlap Entailment: 0.999600
+Lexical Overlap Non-Entailment: 0.002400
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.001600
+Constituent Entailment: 0.999600
+Constituent Non-Entailment: 0.016200
+Lexical Overlap Entailment: 0.995800
+Lexical Overlap Non-Entailment: 0.007400
+Subsequence Entailment: 0.999600
+Subsequence Non-Entailment: 0.003800
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.005800
+Lexical Overlap Entailment: 0.999800
+Lexical Overlap Non-Entailment: 0.000400
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.000200
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.014600
+Lexical Overlap Entailment: 0.999000
+Lexical Overlap Non-Entailment: 0.002200
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.001000
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.011600
+Lexical Overlap Entailment: 1.000000
+Lexical Overlap Non-Entailment: 0.001000
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.000400
+Constituent Entailment: 0.997800
+Constituent Non-Entailment: 0.018200
+Lexical Overlap Entailment: 0.994800
+Lexical Overlap Non-Entailment: 0.007000
+Subsequence Entailment: 0.997800
+Subsequence Non-Entailment: 0.005200
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.008800
+Lexical Overlap Entailment: 0.999800
+Lexical Overlap Non-Entailment: 0.002200
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.000800
+Constituent Entailment: 0.997400
+Constituent Non-Entailment: 0.016200
+Lexical Overlap Entailment: 0.992000
+Lexical Overlap Non-Entailment: 0.007000
+Subsequence Entailment: 0.997400
+Subsequence Non-Entailment: 0.006000
+Constituent Entailment: 0.996400
+Constituent Non-Entailment: 0.014200
+Lexical Overlap Entailment: 0.991800
+Lexical Overlap Non-Entailment: 0.008400
+Subsequence Entailment: 0.996800
+Subsequence Non-Entailment: 0.007400
+Constituent Entailment: 0.997400
+Constituent Non-Entailment: 0.010600
+Lexical Overlap Entailment: 0.997200
+Lexical Overlap Non-Entailment: 0.006200
+Subsequence Entailment: 0.998600
+Subsequence Non-Entailment: 0.004000
+Constituent Entailment: 0.997800
+Constituent Non-Entailment: 0.011800
+Lexical Overlap Entailment: 0.997800
+Lexical Overlap Non-Entailment: 0.006200
+Subsequence Entailment: 0.999200
+Subsequence Non-Entailment: 0.003200
+Constituent Entailment: 0.998400
+Constituent Non-Entailment: 0.012000
+Lexical Overlap Entailment: 0.996800
+Lexical Overlap Non-Entailment: 0.006200
+Subsequence Entailment: 0.999000
+Subsequence Non-Entailment: 0.004800
+Constituent Entailment: 0.999600
+Constituent Non-Entailment: 0.011200
+Lexical Overlap Entailment: 0.998200
+Lexical Overlap Non-Entailment: 0.004600
+Subsequence Entailment: 0.999000
+Subsequence Non-Entailment: 0.002000
+Constituent Entailment: 0.999800
+Constituent Non-Entailment: 0.009800
+Lexical Overlap Entailment: 0.999400
+Lexical Overlap Non-Entailment: 0.002800
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.001800
+Constituent Entailment: 0.999800
+Constituent Non-Entailment: 0.011600
+Lexical Overlap Entailment: 0.998200
+Lexical Overlap Non-Entailment: 0.004400
+Subsequence Entailment: 0.999400
+Subsequence Non-Entailment: 0.002400
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.008200
+Lexical Overlap Entailment: 0.999600
+Lexical Overlap Non-Entailment: 0.000600
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.001200
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.010000
+Lexical Overlap Entailment: 0.999200
+Lexical Overlap Non-Entailment: 0.002000
+Subsequence Entailment: 0.999800
+Subsequence Non-Entailment: 0.002400
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.010400
+Lexical Overlap Entailment: 0.999600
+Lexical Overlap Non-Entailment: 0.001800
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.001800
+Constituent Entailment: 0.998600
+Constituent Non-Entailment: 0.012200
+Lexical Overlap Entailment: 0.997600
+Lexical Overlap Non-Entailment: 0.004600
+Subsequence Entailment: 0.999800
+Subsequence Non-Entailment: 0.003800
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.010200
+Lexical Overlap Entailment: 0.999600
+Lexical Overlap Non-Entailment: 0.002000
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.002600
+Constituent Entailment: 0.997000
+Constituent Non-Entailment: 0.014200
+Lexical Overlap Entailment: 0.994800
+Lexical Overlap Non-Entailment: 0.006200
+Subsequence Entailment: 0.999600
+Subsequence Non-Entailment: 0.005000
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.001000
+Lexical Overlap Entailment: 1.000000
+Lexical Overlap Non-Entailment: 0.000000
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.000200
+Constituent Entailment: 0.996000
+Constituent Non-Entailment: 0.011000
+Lexical Overlap Entailment: 0.993800
+Lexical Overlap Non-Entailment: 0.008200
+Subsequence Entailment: 0.999000
+Subsequence Non-Entailment: 0.006800
+Constituent Entailment: 1.000000
+Constituent Non-Entailment: 0.005200
+Lexical Overlap Entailment: 1.000000
+Lexical Overlap Non-Entailment: 0.000400
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.000400
+Constituent Entailment: 0.999000
+Constituent Non-Entailment: 0.006400
+Lexical Overlap Entailment: 0.999000
+Lexical Overlap Non-Entailment: 0.003000
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.002800
+Constituent Entailment: 0.999600
+Constituent Non-Entailment: 0.005400
+Lexical Overlap Entailment: 0.999400
+Lexical Overlap Non-Entailment: 0.002400
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.001600
+Constituent Entailment: 0.997600
+Constituent Non-Entailment: 0.009200
+Lexical Overlap Entailment: 0.994000
+Lexical Overlap Non-Entailment: 0.007600
+Subsequence Entailment: 0.997800
+Subsequence Non-Entailment: 0.007000
+Constituent Entailment: 0.999400
+Constituent Non-Entailment: 0.006200
+Lexical Overlap Entailment: 0.999600
+Lexical Overlap Non-Entailment: 0.003000
+Subsequence Entailment: 0.999800
+Subsequence Non-Entailment: 0.003400
+Constituent Entailment: 0.999600
+Constituent Non-Entailment: 0.005400
+Lexical Overlap Entailment: 0.999600
+Lexical Overlap Non-Entailment: 0.002800
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.002200
+Constituent Entailment: 0.999000
+Constituent Non-Entailment: 0.005800
+Lexical Overlap Entailment: 0.999600
+Lexical Overlap Non-Entailment: 0.003000
+Subsequence Entailment: 0.999800
+Subsequence Non-Entailment: 0.002000
+Constituent Entailment: 0.998800
+Constituent Non-Entailment: 0.006200
+Lexical Overlap Entailment: 0.999200
+Lexical Overlap Non-Entailment: 0.003000
+Subsequence Entailment: 0.999600
+Subsequence Non-Entailment: 0.002400
+Constituent Entailment: 0.999200
+Constituent Non-Entailment: 0.004600
+Lexical Overlap Entailment: 0.999800
+Lexical Overlap Non-Entailment: 0.001600
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.001400
+Constituent Entailment: 0.998600
+Constituent Non-Entailment: 0.005800
+Lexical Overlap Entailment: 0.999400
+Lexical Overlap Non-Entailment: 0.003600
+Subsequence Entailment: 1.000000
+Subsequence Non-Entailment: 0.002000

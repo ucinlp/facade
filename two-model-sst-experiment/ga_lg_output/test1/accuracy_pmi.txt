@@ -1,0 +1,21 @@
+
+Epoch#0 Iteration0 # Accuracy: 0.801606
+Epoch#0 Iteration600 # Accuracy: 0.615826
+Epoch#0 Iteration1200 # Accuracy: 0.508028
+Epoch#0 Iteration1800 # Accuracy: 0.509174
+Epoch#0 Iteration2400 # Accuracy: 0.509174
+Epoch#0 Iteration3000 # Accuracy: 0.509174
+Epoch#0 Iteration3600 # Accuracy: 0.565367
+Epoch#0 Iteration4200 # Accuracy: 0.536697
+Epoch#0 Iteration4800 # Accuracy: 0.509174
+Epoch#0 Iteration5400 # Accuracy: 0.509174
+Epoch#0 Iteration6000 # Accuracy: 0.538991
+Epoch#0 Iteration6600 # Accuracy: 0.508028
+Epoch#1 Iteration0 # Accuracy: 0.508028
+Epoch#1 Iteration600 # Accuracy: 0.491972
+Epoch#1 Iteration1200 # Accuracy: 0.474771
+Epoch#1 Iteration1800 # Accuracy: 0.475917
+Epoch#1 Iteration2400 # Accuracy: 0.509174
+Epoch#1 Iteration3000 # Accuracy: 0.509174
+Epoch#1 Iteration3600 # Accuracy: 0.490826
+Epoch#1 Iteration4200 # Accuracy: 0.508028

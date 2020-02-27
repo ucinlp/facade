@@ -1,0 +1,25 @@
+
+Epoch#0 mean gradients: 0.0007776937687374426, highest gradient: 0.0043929974
+Epoch#0 mean gradients: 0.0006487956126037381, highest gradient: 0.034937855
+Epoch#0 mean gradients: 0.00022881567735133173, highest gradient: 0.011636389
+Epoch#0 mean gradients: 0.0004955201472828237, highest gradient: 0.018355282
+Epoch#0 mean gradients: 0.0005448623575510681, highest gradient: 0.030253997
+Epoch#0 mean gradients: 0.00022618118594706557, highest gradient: 0.0055735465
+Epoch#0 mean gradients: 0.0004123921134442813, highest gradient: 0.0362143
+Epoch#0 mean gradients: 0.0005915898899331019, highest gradient: 0.033940528
+Epoch#0 mean gradients: 0.00026640092570169187, highest gradient: 0.0096822735
+Epoch#0 mean gradients: 0.00015450366165369153, highest gradient: 0.0104992725
+Epoch#0 mean gradients: 0.0004456888316769064, highest gradient: 0.01288266
+Epoch#0 mean gradients: 0.00016571395020535107, highest gradient: 0.008647974
+Epoch#0 mean gradients: 0.00025743783648940526, highest gradient: 0.01716874
+Epoch#1 mean gradients: 0.0007776937687374426, highest gradient: 0.0043929974
+Epoch#1 mean gradients: 0.0006487956126037381, highest gradient: 0.034937855
+Epoch#1 mean gradients: 0.00022881567735133173, highest gradient: 0.011636389
+Epoch#1 mean gradients: 0.0004955201472828237, highest gradient: 0.018355282
+Epoch#1 mean gradients: 0.0005448623575510681, highest gradient: 0.030253997
+Epoch#1 mean gradients: 0.00022618118594706557, highest gradient: 0.0055735465
+Epoch#1 mean gradients: 0.0004123921134442813, highest gradient: 0.0362143
+Epoch#1 mean gradients: 0.0005915898899331019, highest gradient: 0.033940528
+Epoch#1 mean gradients: 0.00026640092570169187, highest gradient: 0.0096822735
+Epoch#1 mean gradients: 0.00015450366165369153, highest gradient: 0.0104992725
+Epoch#1 mean gradients: 0.0004456888316769064, highest gradient: 0.01288266

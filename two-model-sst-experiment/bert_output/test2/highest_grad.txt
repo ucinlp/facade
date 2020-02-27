@@ -1,0 +1,11 @@
+
+Epoch#0 mean gradients: 5.549369961954653e-05, highest gradient: 0.00035871201544068754
+Epoch#0 mean gradients: 0.04148867113171946, highest gradient: 9.521720886230469
+Epoch#0 mean gradients: 0.04338209237066622, highest gradient: 9.370996475219727
+Epoch#0 mean gradients: 0.027959279464478945, highest gradient: 2.696317195892334
+Epoch#0 mean gradients: 0.04916167442662603, highest gradient: 3.244419574737549
+Epoch#0 mean gradients: 0.07347892381832935, highest gradient: 4.166139602661133
+Epoch#0 mean gradients: 0.09978202703952169, highest gradient: 2.7373549938201904
+Epoch#0 mean gradients: 0.10506501784858605, highest gradient: 2.9011590480804443
+Epoch#0 mean gradients: 0.09346989053456733, highest gradient: 2.8262317180633545
+Epoch#0 mean gradients: 0.0940622806083411, highest gradient: 2.618072509765625

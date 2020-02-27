@@ -1,0 +1,17 @@
+
+Epoch#0 Iteration216 # highest/mean grad mag: 2.33079232E-02 ; 1.95296760E-04 ; 4.53374162E-02 ; 1.24153907E-04
+Epoch#1 Iteration216 # highest/mean grad mag: 1.31611163E-02 ; 1.04263600E-04 ; 1.05268955E-01 ; 2.46968643E-04
+Epoch#2 Iteration216 # highest/mean grad mag: 1.71512514E-02 ; 3.62354384E-05 ; 3.27221379E-02 ; 4.76760476E-05
+Epoch#0 Iteration216 # highest/mean grad mag: 1.88896358E-01 ; 3.59232426E-04 ; 7.09250748E-01 ; 1.14021356E-03
+Epoch#0 Iteration216 # highest/mean grad mag: 3.57507765E-02 ; 2.25553884E-04 ; 3.28872390E-02 ; 1.08684136E-04
+Epoch#1 Iteration216 # highest/mean grad mag: 5.47649376E-02 ; 2.16099056E-04 ; 4.38089222E-02 ; 3.42781815E-05
+Epoch#2 Iteration216 # highest/mean grad mag: 7.81198889E-02 ; 2.28752223E-04 ; 3.95223424E-02 ; 2.40739546E-05
+Epoch#3 Iteration216 # highest/mean grad mag: 5.57581410E-02 ; 1.92406227E-04 ; 4.81103808E-02 ; 1.98507374E-05
+Epoch#4 Iteration216 # highest/mean grad mag: 9.41921994E-02 ; 2.04158462E-04 ; 8.48405659E-02 ; 2.21804471E-05
+Epoch#5 Iteration216 # highest/mean grad mag: 6.39953464E-02 ; 1.90312975E-04 ; 5.55930473E-02 ; 8.12817673E-06
+Epoch#6 Iteration216 # highest/mean grad mag: 1.17704660E-01 ; 2.11347253E-04 ; 3.38240862E-02 ; 4.96281570E-06
+Epoch#7 Iteration216 # highest/mean grad mag: 3.74277793E-02 ; 2.15506609E-04 ; 3.05942614E-02 ; 6.84359675E-06
+Epoch#8 Iteration216 # highest/mean grad mag: 6.90513104E-02 ; 2.38592725E-04 ; 5.54841198E-03 ; 1.20649461E-06
+Epoch#0 Iteration216 # highest/mean grad mag: 9.84044652E-03 ; 3.06051301E-04 ; 1.34868324E-01 ; 4.68041797E-04
+Epoch#1 Iteration216 # highest/mean grad mag: 7.14174611E-03 ; 4.25638118E-05 ; 9.73591134E-02 ; 1.42419801E-04
+Epoch#2 Iteration216 # highest/mean grad mag: 1.46583527E-01 ; 9.92255505E-04 ; 1.33774608E-01 ; 9.97691424E-04
