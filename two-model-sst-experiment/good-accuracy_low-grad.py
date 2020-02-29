@@ -138,7 +138,8 @@ class PriorsFineTuner:
     self.mean_grads = []
     self.high_grads = []
     self.ranks = []
-    self.take_notes(0,0)
+    self.take_notes(-1,0)
+    self.get_avg_grad(-1,-1,self.model,self.vocab,self.outdir)
     # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     self.model.train()
     f1 = open(os.path.join(self.outdir,"highest_grad.txt"), "w")
@@ -194,15 +195,27 @@ class PriorsFineTuner:
         # print(outputs["logits"],outputs['loss'])
         # print(outputs["probs"], training_instances[0]["label"].label,training_instances[0]["label"]._label_id)
         # print(self.model.get_metrics())
-        summed_grad = self.loss_function(summed_grad.unsqueeze(0), torch.ones(1).cuda() if self.cuda =="True" else torch.ones(1))
-        print("MSEd gradloss:",summed_grad)
+        if self.all_low == "False":
+          summed_grad = self.loss_function(summed_grad.unsqueeze(0), torch.ones(1).cuda() if self.cuda =="True" else torch.ones(1))
+          print("MSEd gradloss:",summed_grad)
         embedding_layer = util.find_embedding_layer(self.model)
-        regularized_loss =  outputs["loss"]+float(self.lmbda)*summed_grad
+        regularized_loss =  outputs["loss"] +float(self.lmbda)*summed_grad
         print("final loss:",regularized_loss.cpu().detach().numpy())
         self.model.train()
         if propagate:
           self.optimizer.zero_grad()
           regularized_loss.backward()
+          # print("after pt ...............")
+          # for module in self.model.parameters():
+          #   print("parameter gradient is:")
+          #   print(module.grad)
+          # count = 0
+          # for j in embedding_layer.weight.grad:
+          #   for z in j:
+          #     if (z.cpu().detach().numpy() != 0.):
+          #       count += 1
+          # print("how many grads change:",count)
+          # exit(0)
           self.optimizer.step()
         # unfreeze_embed(self.model.modules(),True) # unfreeze the embedding  
 
@@ -211,8 +224,8 @@ class PriorsFineTuner:
         # print(torch.cuda.memory_summary())
 
       des = "attack_ep" + str(ep)
-      model_path = "models/fine_tuned_test/" + des + "model.th"
-      vocab_path = "models/fine_tuned_test/" + des + "sst_vocab"
+      model_path = "models/small_grad_high_acc_lstm/" + des + "model.th"
+      vocab_path = "models/small_grad_high_acc_lstm/" + des + "sst_vocab"
       with open(model_path, 'wb') as f:
         torch.save(self.model.state_dict(), f)
       self.vocab.save_to_files(vocab_path)    

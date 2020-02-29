@@ -1,8 +1,8 @@
-# python good-accuracy_low-grad.py --batch_size 32 --epochs 12 \
-#                     --lmbda 100  --loss MSE --normal_loss True \
-#                     --outdir ga_lg_output --name test21 \
-#                     --cuda False --autograd False --all_low False --learning_rate 0.001 \
-#                     --embedding_operator dot_product --normalization l1_norm --normalization2 None --softmax False
+python good-accuracy_low-grad.py --batch_size 4 --epochs 12 \
+                    --lmbda 1 --loss L1 --normal_loss True \
+                    --outdir ga_lg_output --name small_grad_high_acc_lstm \
+                    --cuda False --autograd True --all_low True --learning_rate 0.001 \
+                    --embedding_operator dot_product --normalization l1_norm --normalization2 None --softmax False
 
 
 # python good-accuracy_low-grad.py --batch_size 32 --epochs 12 \

@@ -31,6 +31,7 @@ import pickle
 from allennlp.nn import util
 import numpy as np
 EMBEDDING_TYPE = "glove" # what type of word embeddings to use
+os.environ['CUDA_VISIBLE_DEVICES']="1"
 def blockPrint():
     sys.stdout = open(os.devnull, 'w')
 def enablePrint():
@@ -98,6 +99,7 @@ class PriorsFineTuner:
       self.loss_function = torch.nn.L1Loss()
     if self.cuda == "True":
       self.model.cuda()
+      move_to_device(self.model.modules(),cuda_device=0)
     if self.args.model_name == "BERT":
       self.bert = True
     else:
@@ -143,7 +145,6 @@ class PriorsFineTuner:
     self.high_grads = []
     self.ranks = []
     # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    self.model.train()
     f1 = open(os.path.join(self.outdir,"highest_grad.txt"), "w")
     f1.close()
     f1 = open(os.path.join(self.outdir,"gradient_mags.txt"), "w")
@@ -154,7 +155,9 @@ class PriorsFineTuner:
     f1.close()
     with open(os.path.join(self.outdir,"metadata.txt"), "w") as myfile:
       myfile.write(metadata)
-    self.take_notes(0,0)
+    self.model.train()
+    self.take_notes(-1,0)
+    self.get_avg_grad(-1,-1,self.model,self.vocab,self.outdir)
     # self.get_avg_grad(0,0,self.model,self.vocab,self.outdir)
   def fine_tune(self):  
     propagate = True
@@ -197,16 +200,16 @@ class PriorsFineTuner:
           rank = [i for i, (idx, grad) in enumerate(temp) if idx == 1][0]
           self.ranks.append(rank)
         # # enablePrint()
+        if self.all_low == "False":
+          summed_grad = self.loss_function(summed_grad.unsqueeze(0), torch.ones(1).cuda() if self.cuda =="True" else torch.ones(1))
+          print("MSEd gradloss:",summed_grad)
         print("----------")
         print("regularized loss:",summed_grad.cpu().detach().numpy(), "+ model loss:",outputs["loss"].cpu().detach().numpy())
-        # print(outputs["logits"],outputs['loss'])
-        
-        # summed_grad = self.loss_function(summed_grad.unsqueeze(0), torch.ones(1).cuda() if self.cuda =="True" else torch.ones(1))
         a = 1
-        if ep >7:
-          a = 0
-          for g in self.optimizer.param_groups:
-            g['lr'] = 0.00001
+        # if ep >7:
+        #   a = 0
+        #   for g in self.optimizer.param_groups:
+        #     g['lr'] = 0.00001
         regularized_loss =  float(self.lmbda)*summed_grad*a + outputs["loss"]
         print("final loss:",regularized_loss.cpu().detach().numpy())
         self.model.train()
@@ -220,8 +223,13 @@ class PriorsFineTuner:
             self.take_notes(ep,idx)
 
       des = "attack_ep" + str(ep)
-      model_path = "models/BERT_fine_tuned/" + des + "model.th"
-      vocab_path = "models/BERT_fine_tuned/" + des + "sst_vocab"
+      folder = "BERT_first_token_high_acc/"
+      try:
+        os.mkdir("models/" + folder)
+      except:
+        print('directory already created')
+      model_path = "models/" + folder + des + "model.th"
+      vocab_path = "models/" + folder + des + "sst_vocab"
       with open(model_path, 'wb') as f:
         torch.save(self.model.state_dict(), f)
       self.vocab.save_to_files(vocab_path)    

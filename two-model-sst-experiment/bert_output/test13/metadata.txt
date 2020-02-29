@@ -1,11 +1,11 @@
 epochs: 15
-batch_size: 1
+batch_size: 4
 loss: MSE
 lmbda: 1.0
-lr: 0.0001
+lr: 2e-05
 cuda: True
 autograd: True
-all_low: True
+all_low: False
 embedding_operator: dot_product
 normalization: l1_norm
 softmax: False

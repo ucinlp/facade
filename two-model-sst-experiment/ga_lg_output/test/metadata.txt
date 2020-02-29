@@ -1,11 +1,11 @@
 epochs: 12
-batch_size: 1
-loss: Hinge
-lmbda: 1.0
+batch_size: 16
+loss: L1
+lmbda: 10000.0
 lr: 0.001
-cuda: True
-autograd: False
-all_low: False
+cuda: False
+autograd: True
+all_low: True
 embedding_operator: dot_product
 normalization: l1_norm
 softmax: False
