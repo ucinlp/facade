@@ -1,7 +1,7 @@
-python good-accuracy_low-grad.py --batch_size 4 --epochs 12 \
-                    --lmbda 1 --loss L1 --normal_loss True \
-                    --outdir ga_lg_output --name small_grad_high_acc_lstm \
-                    --cuda False --autograd True --all_low True --learning_rate 0.001 \
+python good-accuracy_low-grad.py --batch_size 32 --epochs 12 \
+                    --lmbda 2 --loss L1 --normal_loss True \
+                    --outdir ga_lg_output --name test \
+                    --cuda True --autograd True --all_low True --learning_rate 0.0005 \
                     --embedding_operator dot_product --normalization l1_norm --normalization2 None --softmax False
 
 

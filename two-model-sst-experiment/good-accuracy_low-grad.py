@@ -31,6 +31,7 @@ import pickle
 from allennlp.nn import util
 import numpy as np
 EMBEDDING_TYPE = "glove" # what type of word embeddings to use
+os.environ['CUDA_VISIBLE_DEVICES']="1"
 def blockPrint():
     sys.stdout = open(os.devnull, 'w')
 def enablePrint():
@@ -101,6 +102,12 @@ class PriorsFineTuner:
     self.pos100 = []
     self.neg100 = []
     trainable_modules = []
+    if self.autograd == "True":
+      print("using autograd")
+      self.get_grad = self.simple_gradient_interpreter.saliency_interpret_autograd
+    else:
+      print("using hooks")
+      self.get_grad = self.simple_gradient_interpreter.saliency_interpret_from_instances_2_model_sst
     # $$$$$ Create Saving Directory $$$$$
     metadata = "epochs: " + str(self.nepochs) + \
             "\nbatch_size: " + str(self.batch_size) + \
@@ -139,7 +146,7 @@ class PriorsFineTuner:
     self.high_grads = []
     self.ranks = []
     self.take_notes(-1,0)
-    self.get_avg_grad(-1,-1,self.model,self.vocab,self.outdir)
+    # self.get_avg_grad(-1,-1,self.model,self.vocab,self.outdir)
     # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     self.model.train()
     f1 = open(os.path.join(self.outdir,"highest_grad.txt"), "w")
@@ -165,6 +172,7 @@ class PriorsFineTuner:
         print()
         print()
         print(idx)
+        print(torch.cuda.memory_summary(device=0, abbreviated=True))
         data = Batch(training_instances)
         data.index_instances(self.vocab)
         model_input = data.as_tensor_dict()
@@ -198,8 +206,8 @@ class PriorsFineTuner:
         if self.all_low == "False":
           summed_grad = self.loss_function(summed_grad.unsqueeze(0), torch.ones(1).cuda() if self.cuda =="True" else torch.ones(1))
           print("MSEd gradloss:",summed_grad)
-        embedding_layer = util.find_embedding_layer(self.model)
-        regularized_loss =  outputs["loss"] +float(self.lmbda)*summed_grad
+        # embedding_layer = util.find_embedding_layer(self.model)
+        regularized_loss =  outputs["loss"] + float(self.lmbda)*summed_grad
         print("final loss:",regularized_loss.cpu().detach().numpy())
         self.model.train()
         if propagate:
@@ -224,8 +232,8 @@ class PriorsFineTuner:
         # print(torch.cuda.memory_summary())
 
       des = "attack_ep" + str(ep)
-      model_path = "models/small_grad_high_acc_lstm/" + des + "model.th"
-      vocab_path = "models/small_grad_high_acc_lstm/" + des + "sst_vocab"
+      model_path = "models/test/" + des + "model.th"
+      vocab_path = "models/test/" + des + "sst_vocab"
       with open(model_path, 'wb') as f:
         torch.save(self.model.state_dict(), f)
       self.vocab.save_to_files(vocab_path)    
@@ -357,19 +365,19 @@ def main():
         word_embedding_dim = 300
     # Initialize model, cuda(), and optimizer
     word_embeddings = BasicTextFieldEmbedder({"tokens": token_embedding})
-    # encoder = CnnEncoder(embedding_dim=word_embedding_dim,
-    #                      num_filters=100,
-    #                      ngram_filter_sizes=(1,2,3))
-    encoder = PytorchSeq2VecWrapper(torch.nn.LSTM(word_embedding_dim,
-                                                   hidden_size=512,
-                                                   num_layers=2,
-                                                   batch_first=True))
+    encoder = CnnEncoder(embedding_dim=word_embedding_dim,
+                         num_filters=100,
+                         ngram_filter_sizes=(1,2,3))
+    # encoder = PytorchSeq2VecWrapper(torch.nn.LSTM(word_embedding_dim,
+    #                                                hidden_size=512,
+    #                                                num_layers=2,
+    #                                                batch_first=True))
     model = BasicClassifier(vocab, word_embeddings, encoder)
     # model.cuda()
     iterator = BucketIterator(batch_size=32, sorting_keys=[("tokens", "num_tokens")])
     iterator.index_with(vocab)
     # # where to save the model
-    model_path = "/tmp/" + EMBEDDING_TYPE + "_" + "model_rnn.th"
+    model_path = "/tmp/" + EMBEDDING_TYPE + "_" + "model_cnn.th"
     vocab_path = "/tmp/" + EMBEDDING_TYPE + "_" + "vocab3"
     # if the model already exists (its been trained), load the pre-trained weights and vocabulary
     if os.path.isfile(model_path):

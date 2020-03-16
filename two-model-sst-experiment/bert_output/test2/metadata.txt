@@ -1,5 +1,5 @@
-epochs: 3
-batch_size: 1
+epochs: 15
+batch_size: 16
 loss: MSE
 lmbda: 1.0
 lr: 1e-05
