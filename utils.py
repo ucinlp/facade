@@ -7,7 +7,7 @@ from allennlp.data.dataset import Batch
 from allennlp.nn.util import move_to_device
 from allennlp.data.dataset import Batch
 from allennlp.common.util import lazy_groups_of
-from allennlp.data.iterators import BucketIterator, BasicIterator
+from allennlp.data.iterators import BucketIterator
 from allennlp.predictors import Predictor
 from allennlp.interpret.saliency_interpreters import SaliencyInterpreter, SimpleGradient, IntegratedGradient, SmoothGradient
 import torch.nn.functional as F

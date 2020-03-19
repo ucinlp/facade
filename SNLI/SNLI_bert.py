@@ -1,19 +1,22 @@
 import sys
 import os
 import torch
-from allennlp.modules.token_embedders import Embedding
+from allennlp.modules.token_embedders import Embedding,PretrainedTransformerEmbedder
 from allennlp.data.dataset_readers.snli import SnliReader
 from allennlp.common.util import lazy_groups_of
 from allennlp.data.token_indexers import SingleIdTokenIndexer, PretrainedTransformerIndexer
 from allennlp.data.vocabulary import Vocabulary
 from allennlp.models import load_archive
 from allennlp.data.tokenizers import PretrainedTransformerTokenizer,SpacyTokenizer
-from allennlp.data.iterators import BasicIterator, BucketIterator
-from allennlp.models import Model, BasicClassifier, BertForClassification
+from allennlp.data.samplers import BucketBatchSampler
+from allennlp.data import DataLoader
+from allennlp.models import Model, BasicClassifier
 from allennlp.modules.token_embedders.embedding import _read_pretrained_embeddings_file
-from allennlp.modules.seq2vec_encoders import PytorchSeq2VecWrapper, CnnEncoder
+from allennlp.modules.seq2vec_encoders import PytorchSeq2VecWrapper, CnnEncoder,ClsPooler
 from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
-from allennlp.training.trainer import Trainer
+from allennlp.modules import FeedForward
+
+from allennlp.training.trainer import Trainer,GradientDescentTrainer
 import torch.optim as optim
 import argparse
 from bert_snli import BertSnliReader
@@ -31,7 +34,8 @@ def main():
     if args.model_name == 'BERT':
         bert_indexer = PretrainedTransformerIndexer('bert-base-uncased')
         tokenizer = PretrainedTransformerTokenizer(model_name = 'bert-base-uncased')
-        reader = BertSnliReader(token_indexers={'bert': bert_indexer}, tokenizer=tokenizer)
+        # reader = BertSnliReader(token_indexers={'bert': bert_indexer}, tokenizer=tokenizer)
+        reader = SnliReader(token_indexers={'bert': bert_indexer}, tokenizer=tokenizer,combine_input_fields=True)
     else: 
       single_id_indexer = SingleIdTokenIndexer(lowercase_tokens=True) # word tokenizer
       # use_subtrees gives us a bit of extra data by breaking down each example into sub sentences.
@@ -39,15 +43,18 @@ def main():
       reader = SnliReader(token_indexers={'tokens': single_id_indexer}, tokenizer=tokenizer)
 
     train_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/snli/snli_1.0_train.jsonl')
-
     dev_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/snli/snli_1.0_dev.jsonl')
-    
+    test_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/snli/snli_1.0_test.jsonl')
     vocab = Vocabulary.from_instances(train_data)
+    train_data.index_with(vocab)
+    dev_data.index_with(vocab)
     model = None
-    iterator = BucketIterator(batch_size=32, sorting_keys = [("tokens", "num_tokens")])
+    train_sampler = BucketBatchSampler(train_data,batch_size=32, sorting_keys = ["tokens"])
+    validation_sampler = BucketBatchSampler(dev_data,batch_size=32, sorting_keys = ["tokens"])
     # iterator = BasicIterator(batch_size=32)
 
-    iterator.index_with(vocab)
+    # train_sampler.index_with(vocab)
+    # validation_sampler.index_with(vocab)
     EMBEDDING_TYPE = "glove"
     if args.model_name !="BERT":
       # Randomly initialize vectors
@@ -95,7 +102,7 @@ def main():
                               iterator=iterator,
                               train_dataset=train_data,
                               validation_dataset=dev_data,
-                              num_epochs=8,
+                              num_epochs=10,
                               patience=1)
             trainer.train()
             with open(model_path, 'wb') as f:
@@ -103,22 +110,28 @@ def main():
             vocab.save_to_files(vocab_path) 
     elif args.model_name == 'BERT':
       print('Using BERT')
+      transformer_dim = 768
       model_path = "models/" + "BERT_trained/" + "model.th"
       vocab_path = "models/" + "BERT_trained/" + "vocab"
+      token_embedder = PretrainedTransformerEmbedder(model_name="bert-base-uncased")
+      text_field_embedders = BasicTextFieldEmbedder({"bert":token_embedder})
+      seq2vec_encoder = ClsPooler(embedding_dim = transformer_dim)
+      feedforward = FeedForward(input_dim = transformer_dim, num_layers=1,hidden_dims = transformer_dim,activations = torch.nn.Tanh())
+      dropout = 0.1
+      model = BasicClassifier(vocab=vocab,text_field_embedder=text_field_embedders,seq2vec_encoder = seq2vec_encoder,feedforward=feedforward,dropout=dropout)
       if os.path.isfile(model_path):
           # vocab = Vocabulary.from_files(vocab_path) weird oov token not found bug.
           vocab = Vocabulary.from_instances(train_data)
-          model = BertForClassification(vocab, 'bert-base-uncased')
           with open(model_path, 'rb') as f:
               model.load_state_dict(torch.load(f))
       else:
-          model = BertForClassification(vocab, 'bert-base-uncased', num_labels=3)
+          train_dataloader = DataLoader(train_data,batch_sampler=train_sampler)
+          validation_dataloader = DataLoader(dev_data,batch_sampler=validation_sampler)
           optimizer = optim.Adam(model.parameters(), lr=2e-5)
-          trainer = Trainer(model=model,
+          trainer = GradientDescentTrainer(model=model,
                             optimizer=optimizer,
-                            iterator=iterator,
-                            train_dataset=train_data,
-                            validation_dataset=dev_data,
+                            data_loader=train_dataloader,
+                            validation_data_loader = validation_dataloader,
                             num_epochs=8,
                             patience=1)
           trainer.train()
