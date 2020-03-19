@@ -4,7 +4,7 @@ import torch
 from allennlp.modules.token_embedders import Embedding
 from allennlp.data.dataset_readers.snli import SnliReader
 from allennlp.common.util import lazy_groups_of
-from allennlp.data.token_indexers import SingleIdTokenIndexer, PretrainedBertIndexer
+from allennlp.data.token_indexers import SingleIdTokenIndexer, PretrainedTransformerIndexer
 from allennlp.data.vocabulary import Vocabulary
 from allennlp.models import load_archive
 from allennlp.data.tokenizers import PretrainedTransformerTokenizer,SpacyTokenizer
@@ -19,7 +19,7 @@ import argparse
 from bert_snli import BertSnliReader
 sys.path.append('..')
 from utils import (get_custom_hinge_loss,unfreeze_embed,get_avg_grad,take_notes,FineTuner)
-os.environ['CUDA_VISIBLE_DEVICES']="1"
+# os.environ['CUDA_VISIBLE_DEVICES']="1"
 class SNLI_FineTuner(FineTuner):
   def __init__(self,model, reader,train_data,dev_dataset,vocab,args):
     super().__init__()
@@ -29,7 +29,7 @@ def main():
     # load the binary SST dataset.
     
     if args.model_name == 'BERT':
-        bert_indexer = PretrainedBertIndexer('bert-base-uncased')
+        bert_indexer = PretrainedTransformerIndexer('bert-base-uncased')
         tokenizer = PretrainedTransformerTokenizer(model_name = 'bert-base-uncased')
         reader = BertSnliReader(token_indexers={'bert': bert_indexer}, tokenizer=tokenizer)
     else: 
