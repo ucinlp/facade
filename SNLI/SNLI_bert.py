@@ -25,7 +25,7 @@ from utils import (get_custom_hinge_loss,unfreeze_embed,get_avg_grad,take_notes,
 # os.environ['CUDA_VISIBLE_DEVICES']="1"
 class SNLI_FineTuner(FineTuner):
   def __init__(self,model, reader,train_data,dev_dataset,vocab,args):
-    super().__init__()
+    super().__init__(model, reader,train_data,dev_dataset,vocab,args)
 
 def main():
     args = argument_parsing()

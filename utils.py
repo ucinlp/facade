@@ -11,19 +11,16 @@ from allennlp.data.iterators import BucketIterator
 from allennlp.predictors import Predictor
 from allennlp.interpret.saliency_interpreters import SaliencyInterpreter, SimpleGradient, IntegratedGradient, SmoothGradient
 import torch.nn.functional as F
+from allennlp.data.samplers import BucketBatchSampler
+from allennlp.data import DataLoader
 
 class HLoss(torch.nn.Module):
   def __init__(self):
     super(HLoss, self).__init__()
 
   def forward(self, x):
-    print(x)
-    print(F.softmax(x, dim=1))
-    print(F.log_softmax(x, dim=1))
     b = F.softmax(x, dim=1) * F.log_softmax(x, dim=1)
-    print(b)
     b = b.sum()
-    print(b)
     return b 
 def blockPrint():
     sys.stdout = open(os.devnull, 'w')
@@ -62,14 +59,16 @@ def get_salient_words(training_instance,pos100,neg100):
 def get_accuracy(self,model, dev_data, vocab, acc,outdir):       
     model.get_metrics(reset=True)
     model.eval() # model should be in eval() already, but just in case
-    iterator = BucketIterator(batch_size=128, sorting_keys=[("tokens", "num_tokens")])
-    iterator.index_with(vocab)     
+    # iterator = BucketIterator(batch_size=128, sorting_keys=[("tokens")])
+    # iterator.index_with(vocab)     
+    train_sampler = BucketBatchSampler(dev_data,batch_size=128, sorting_keys = ["tokens"])
+    train_dataloader = DataLoader(dev_data,batch_sampler=train_sampler)
     with torch.no_grad(): 
-        for batch in lazy_groups_of(iterator(dev_data, num_epochs=1, shuffle=False), group_size=1):
+        for batch in train_dataloader:
             if self.cuda == "True":
-                batch = move_to_device(batch[0], cuda_device=0)
+              batch = move_to_device(batch, cuda_device=0)
             else:
-                batch = batch[0]
+              batch = batch
             model(batch['tokens'], batch['label'])
     acc.append(model.get_metrics(True)['accuracy'])
     model.train()
@@ -101,8 +100,10 @@ def take_notes(self,ep,idx):
                 for each in each_l:
                     myfile.write("\nEpoch#%d Batch#%d logits: %s, %s"%(ep,idx,each[0],each[1]))
         self.logits = []
-
-
+        with open(os.path.join(self.outdir,"entropy_loss.txt"), "a") as myfile:
+            for each in self.entropy_loss:
+              myfile.write("\nEpoch#%d Batch#%d : %s"%(ep,idx,each))
+        self.entropy_loss = []
     print("Accuracy:", self.acc[-1])
 def get_avg_grad(self,ep,idx,model, vocab,outdir):       
     model.get_metrics(reset=True)
@@ -112,7 +113,8 @@ def get_avg_grad(self,ep,idx,model, vocab,outdir):
     highest_grad_train = []
     mean_grad_train = np.float(0)
     for i, training_instances  in enumerate(self.batched_dev_instances):
-        # print(torch.cuda.memory_summary(device=0, abbreviated=True))
+        print(torch.cuda.memory_summary(device=0, abbreviated=True))
+
         data = Batch(training_instances)
         data.index_instances(self.vocab)
         model_input = data.as_tensor_dict()
@@ -222,9 +224,11 @@ class FineTuner:
     torch.autograd.set_detect_anomaly(True)
     self.train_dataset = train_data
     # about 52% is positive
-    self.batched_training_instances = [self.train_dataset[i:i + self.batch_size] for i in range(0, len(self.train_dataset), self.batch_size)]
-    self.batched_training_instances_test = [self.train_dataset[i:i + 16] for i in range(0, len(self.train_dataset), 16)]
-    self.batched_dev_instances = [self.dev_dataset[i:i + 32] for i in range(0, len(self.dev_dataset), 32)]
+    # self.batched_training_instances = train_data
+    # self.batched_dev_instances = dev_dataset
+    self.batched_training_instances = [self.train_dataset.instances[i:i + self.batch_size] for i in range(0, len(self.train_dataset), self.batch_size)]
+    self.batched_training_instances_test = [self.train_dataset.instances[i:i + 16] for i in range(0, len(self.train_dataset), 16)]
+    self.batched_dev_instances = [self.dev_dataset.instances[i:i + 32] for i in range(0, len(self.dev_dataset), 32)]
     self.vocab = vocab
     # self.iterator = BucketIterator(batch_size=32, sorting_keys=[("tokens", "num_tokens")])
     # self.iterator.index_with(vocab)
@@ -234,6 +238,7 @@ class FineTuner:
     self.high_grads = []
     self.ranks = []
     self.logits = []
+    self.entropy_loss = []
     # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     f1 = open(os.path.join(self.outdir,"highest_grad.txt"), "w")
     f1.close()
@@ -245,11 +250,15 @@ class FineTuner:
     f1.close()
     f1 = open(os.path.join(self.outdir,"output_logits.txt"), "w")
     f1.close()
+    f1 = open(os.path.join(self.outdir,"entropy_loss.txt"), "w")
+    f1.close()
+    # f1 = open(os.path.join(self.outdir,"output_probs.txt"), "w")
+    # f1.close()
     with open(os.path.join(self.outdir,"metadata.txt"), "w") as myfile:
       myfile.write(metadata)
     self.model.train()
     take_notes(self,-1,0)
-    # get_avg_grad(self,-1,-1,self.model,self.vocab,self.outdir)
+    get_avg_grad(self,-1,-1,self.model,self.vocab,self.outdir)
     # self.get_avg_grad(0,0,self.model,self.vocab,self.outdir)
   def fine_tune(self):  
     propagate = True
@@ -292,14 +301,20 @@ class FineTuner:
           rank = [i for i, (idx, grad) in enumerate(temp) if idx == 1][0]
           self.ranks.append(rank)
         self.logits.append(outputs["logits"])
+
+
         # # enablePrint()
         if self.all_low == "False":
-          summed_grad = self.loss_function(summed_grad.unsqueeze(0), torch.ones(1).cuda() if self.cuda =="True" else torch.ones(1))
-          entropy_loss = self.criterion(outputs['probs'])
-          print("MSEd gradloss:",summed_grad)
-          loss = entropy_loss
+          # first toke, high acc
+          loss = outputs["loss"]
+          masked_loss = summed_grad[1]
+          summed_grad = self.loss_function(masked_loss[0].unsqueeze(0), torch.ones(1).cuda() if self.cuda =="True" else torch.ones(1))
         else:
-            loss = outputs["loss"]
+          # uniform grad, high acc
+          entropy_loss = self.criterion(summed_grad)
+          loss = entropy_loss
+          self.entropy_loss.append(loss)
+          summed_grad = torch.sum(summed_grad)
         print("----------")
         print("regularized loss:",summed_grad.cpu().detach().numpy(), "+ model loss:",outputs["loss"].cpu().detach().numpy())
         a = 1
