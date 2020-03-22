@@ -11,29 +11,33 @@ import matplotlib.pyplot as plt
 import torch.optim as optim
 from allennlp.data.dataset_readers.stanford_sentiment_tree_bank import \
     StanfordSentimentTreeBankDatasetReader
-from allennlp.data.iterators import BucketIterator, BasicIterator
+# from allennlp.data.iterators import BucketIterator, BasicIterator
 from allennlp.data.vocabulary import Vocabulary
-from allennlp.models import Model, BasicClassifier, BertForClassification
-from allennlp.modules.seq2vec_encoders import PytorchSeq2VecWrapper, CnnEncoder
+from allennlp.models import Model, BasicClassifier
+from allennlp.modules.seq2vec_encoders import PytorchSeq2VecWrapper, CnnEncoder,ClsPooler
 from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
 from allennlp.modules.token_embedders.embedding import _read_pretrained_embeddings_file
-from allennlp.modules.token_embedders import Embedding
+from allennlp.modules.token_embedders import Embedding,PretrainedTransformerEmbedder,PretrainedTransformerMismatchedEmbedder
 from allennlp.nn.util import get_text_field_mask
 from allennlp.training.metrics import CategoricalAccuracy
-from allennlp.training.trainer import Trainer
+from allennlp.training.trainer import Trainer,GradientDescentTrainer
 from allennlp.common.util import lazy_groups_of
-from allennlp.data.token_indexers import SingleIdTokenIndexer, PretrainedBertIndexer
+from allennlp.data.token_indexers import SingleIdTokenIndexer,PretrainedTransformerIndexer,PretrainedTransformerMismatchedIndexer
 from allennlp.nn.util import move_to_device
 from allennlp.interpret.saliency_interpreters import SaliencyInterpreter, SimpleGradient, IntegratedGradient, SmoothGradient
 from allennlp.predictors import Predictor
 from allennlp.data.dataset import Batch
+from allennlp.data.samplers import BucketBatchSampler
+from allennlp.data import DataLoader
+from allennlp.modules import FeedForward
+
 import pickle
 from allennlp.nn import util
 import numpy as np
 sys.path.append('..')
 from utils import (get_custom_hinge_loss,unfreeze_embed,get_avg_grad,take_notes,FineTuner)
 EMBEDDING_TYPE = "glove" # what type of word embeddings to use
-os.environ['CUDA_VISIBLE_DEVICES']="1"
+# os.environ['CUDA_VISIBLE_DEVICES']="1"
 
 class SST_FineTuner(FineTuner):
   def __init__(self,model, reader,train_data,dev_dataset,vocab,args):
@@ -44,7 +48,7 @@ def main():
     args = argument_parsing()
     # load the binary SST dataset.
     if args.model_name == 'BERT':
-      bert_indexer = PretrainedBertIndexer('bert-base-uncased')
+      bert_indexer = PretrainedTransformerMismatchedIndexer('bert-base-uncased')
       reader = StanfordSentimentTreeBankDatasetReader(granularity="2-class",
                                                   token_indexers={"bert": bert_indexer})
     else: 
@@ -56,11 +60,13 @@ def main():
     train_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/train.txt')
 
     dev_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/dev.txt')
-    
     vocab = Vocabulary.from_instances(train_data)
+    train_data.index_with(vocab)
+    dev_data.index_with(vocab)
+
     model = None
-    iterator = BucketIterator(batch_size=32, sorting_keys=[("num_tokens")])
-    iterator.index_with(vocab)
+    train_sampler = BucketBatchSampler(train_data,batch_size=32, sorting_keys = ["tokens"])
+    validation_sampler = BucketBatchSampler(dev_data,batch_size=32, sorting_keys = ["tokens"])
     if args.model_name !="BERT":
       # Randomly initialize vectors
       if EMBEDDING_TYPE == "None":
@@ -115,29 +121,35 @@ def main():
             vocab.save_to_files(vocab_path) 
     elif args.model_name == 'BERT':
       print('Using BERT')
-      model_path = "models/" + "BERT_trained/" + "model.th"
-      vocab_path = "models/" + "BERT_trained/" + "vocab"
+      model_path = "models/" + "BERT_trained_new/" + "model.th"
+      vocab_path = "models/" + "BERT_trained_new/" + "vocab"
+      transformer_dim = 768
+      token_embedder = PretrainedTransformerMismatchedEmbedder(model_name="bert-base-uncased")
+      text_field_embedders = BasicTextFieldEmbedder({"bert":token_embedder})
+      seq2vec_encoder = ClsPooler(embedding_dim = transformer_dim)
+      feedforward = FeedForward(input_dim = transformer_dim, num_layers=1,hidden_dims = transformer_dim,activations = torch.nn.Tanh())
+      dropout = 0.1
+      model = BasicClassifier(vocab=vocab,text_field_embedder=text_field_embedders,seq2vec_encoder = seq2vec_encoder,feedforward=feedforward,dropout=dropout)
       if os.path.isfile(model_path):
           # vocab = Vocabulary.from_files(vocab_path) weird oov token not found bug.
-          vocab = Vocabulary.from_instances(train_data)
-          model = BertForClassification(vocab, 'bert-base-uncased')
           with open(model_path, 'rb') as f:
               model.load_state_dict(torch.load(f))
       else:
-          model = BertForClassification(vocab, 'bert-base-uncased', num_labels=2)
+          train_dataloader = DataLoader(train_data,batch_sampler=train_sampler)
+          validation_dataloader = DataLoader(dev_data,batch_sampler=validation_sampler)
           optimizer = optim.Adam(model.parameters(), lr=2e-5)
-          trainer = Trainer(model=model,
+          trainer = GradientDescentTrainer(model=model,
                             optimizer=optimizer,
-                            iterator=iterator,
-                            train_dataset=train_data,
-                            validation_dataset=dev_data,
+                            data_loader=train_dataloader,
+                            validation_data_loader = validation_dataloader,
                             num_epochs=8,
                             patience=1)
           trainer.train()
           with open(model_path, 'wb') as f:
               torch.save(model.state_dict(), f)
           vocab.save_to_files(vocab_path) 
-
+    train_dataloader = DataLoader(train_data,batch_sampler=train_sampler)
+    validation_dataloader = DataLoader(dev_data,batch_sampler=validation_sampler)
     fine_tuner = SST_FineTuner(model, reader, train_data, dev_data, vocab, args)
     fine_tuner.fine_tune()
     
