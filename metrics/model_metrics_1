@@ -1,0 +1,79 @@
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/two-model-sst-experiment/models/BERT_not_trained_first_tok/attack_ep7model.th
+Predictive Model File: /home/junliw/gradient-regularization/two-model-sst-experiment/models/BERT_trained_new2/model.th
+Cuda: True
+
+COMBINED MODEL METRICS
+----------------------
+mean_reciprocal_rank: 0.9748557825966083
+mean_grad_rank: 0.08486238532110092
+mean_grad_magnitude: 0.5200362205505371
+
+BASELINE MODEL METRICS
+----------------------
+mean_reciprocal_rank: 0.29366331721795164
+mean_grad_rank: 8.455275229357799
+mean_grad_magnitude: 0.07797716557979584
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/two-model-sst-experiment/models/BERT_first_token_new2/attack_ep7model.th
+Predictive Model File: /home/junliw/gradient-regularization/two-model-sst-experiment/models/BERT_trained_new2/model.th
+Cuda: True
+
+COMBINED MODEL METRICS
+----------------------
+mean_reciprocal_rank: 0.9891564729867482
+mean_grad_rank: 0.040137614678899085
+mean_grad_magnitude: 0.5720117092132568
+
+BASELINE MODEL METRICS
+----------------------
+mean_reciprocal_rank: 0.2963615332618362
+mean_grad_rank: 8.480504587155963
+mean_grad_magnitude: 0.07885481417179108
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/two-model-sst-experiment/models/BERT_first_token_new2/attack_ep7model.th
+Predictive Model File: /home/junliw/gradient-regularization/two-model-sst-experiment/models/BERT_trained_new2/model.th
+Cuda: True
+
+COMBINED MODEL METRICS
+----------------------
+mean_reciprocal_rank: 0.9901485364788117
+mean_grad_rank: 0.034403669724770644
+mean_grad_magnitude: 0.5716665983200073
+accuracy: 0.9489678899082569
+
+BASELINE MODEL METRICS
+----------------------
+mean_reciprocal_rank: 0.2978589747510456
+mean_grad_rank: 8.653669724770642
+mean_grad_magnitude: 0.0786224752664566
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/two-model-sst-experiment/models/BERT_first_token_new2/attack_ep7model.th
+Predictive Model File: /home/junliw/gradient-regularization/two-model-sst-experiment/models/BERT_trained_new2/model.th
+Cuda: True
+
+COMBINED MODEL METRICS
+----------------------
+mean_reciprocal_rank: 0.9895155685293299
+mean_grad_rank: 0.040137614678899085
+mean_grad_magnitude: 0.5718576908111572
+accuracy: 0.9506880733944955
+
+BASELINE MODEL METRICS
+----------------------
+mean_reciprocal_rank: 0.2957123084369483
+mean_grad_rank: 8.551605504587156
+mean_grad_magnitude: 0.07826706022024155
+accuracy: 0.948394495412844
