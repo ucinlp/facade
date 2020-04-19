@@ -77,7 +77,6 @@ mean_reciprocal_rank: 0.2957123084369483
 mean_grad_rank: 8.551605504587156
 mean_grad_magnitude: 0.07826706022024155
 accuracy: 0.948394495412844
-<<<<<<< HEAD
 META DATA
 ---------
 Model Name: BERT
@@ -99,5 +98,24 @@ mean_reciprocal_rank: 0.27449513693497546
 mean_grad_rank: 8.698394495412844
 mean_grad_magnitude: 0.07312501221895218
 accuracy: 0.930045871559633
-=======
->>>>>>> 33317e7469d598410d56c93bafaa557fb15a0cd2
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/two-model-sst-experiment/models/BERT_256_first_tok/attack_ep7model.th
+Predictive Model File: /home/junliw/gradient-regularization/two-model-sst-experiment/models/BERT_trained_new2/model.th
+Cuda: True
+
+COMBINED MODEL METRICS
+----------------------
+mean_reciprocal_rank: 0.9942023445463811
+mean_grad_rank: 0.03096330275229358
+mean_grad_magnitude: 0.7090527415275574
+accuracy: 0.8996559633027523
+
+BASELINE MODEL METRICS
+----------------------
+mean_reciprocal_rank: 0.2777477369386358
+mean_grad_rank: 8.74197247706422
+mean_grad_magnitude: 0.07405955344438553
+accuracy: 0.9214449541284404

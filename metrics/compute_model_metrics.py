@@ -208,8 +208,8 @@ def main():
     vocab = Vocabulary.from_files(args.vocab_folder)
     dev_data.index_with(vocab)
 
-    gradient_model = get_model(args.model_name, vocab, args.cuda)
-    predictive_model = get_model(args.model_name, vocab, args.cuda)
+    gradient_model = get_model(args.model_name, vocab, args.cuda,256)
+    predictive_model = get_model(args.model_name, vocab, args.cuda,768)
 
     load_model(gradient_model, args.gradient_model_file)
     load_model(predictive_model, args.predictive_model_file)
