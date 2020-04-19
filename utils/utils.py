@@ -24,6 +24,7 @@ from allennlp.modules.token_embedders.embedding import _read_pretrained_embeddin
 from allennlp.models import BasicClassifier, Model
 from allennlp.data.dataset_readers.stanford_sentiment_tree_bank import \
     StanfordSentimentTreeBankDatasetReader
+# from tpdm import tqdm
 def get_bert_model(
     vocab: Vocabulary, 
     transformer_dim: int, 
@@ -37,7 +38,7 @@ def get_bert_model(
     Construct and return a bert model with the given configuration
     parameters.
     """
-    token_embedder = PretrainedTransformerMismatchedEmbedder(model_name=model_name)
+    token_embedder = PretrainedTransformerMismatchedEmbedder(model_name=model_name,hidden_size=transformer_dim)
     text_field_embedders = BasicTextFieldEmbedder({ "tokens": token_embedder })
     seq2vec_encoder = ClsPooler(embedding_dim=transformer_dim)
     feedforward = FeedForward(input_dim=transformer_dim, num_layers=num_layers, hidden_dims=transformer_dim, activations=activations)
@@ -54,7 +55,7 @@ def get_bert_model(
 
     return bert_model
 
-def get_model(model_name: str, vocab: Vocabulary, cuda: bool) -> Any: 
+def get_model(model_name: str, vocab: Vocabulary, cuda: bool,hidden_size: int) -> Any: 
     """
     Construct model based on the model_name passed in. Load model to cuda if
     cuda equals True. 
@@ -78,7 +79,7 @@ def get_model(model_name: str, vocab: Vocabulary, cuda: bool) -> Any:
 
     elif model_name == 'BERT':
         print('BERT')
-        model = get_bert_model(vocab, 768, "bert-base-uncased", 1, torch.nn.Tanh(), 0.1)
+        model = get_bert_model(vocab, hidden_size, "bert-base-uncased", 1, torch.nn.Tanh(), 0.1)
 
     if cuda: 
         model.cuda()

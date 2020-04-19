@@ -35,7 +35,7 @@ def main():
         bert_indexer = PretrainedTransformerIndexer('bert-base-uncased')
         tokenizer = PretrainedTransformerTokenizer(model_name = 'bert-base-uncased')
         # reader = BertSnliReader(token_indexers={'bert': bert_indexer}, tokenizer=tokenizer)
-        reader = SnliReader(token_indexers={'bert': bert_indexer}, tokenizer=tokenizer,combine_input_fields=True)
+        reader = SnliReader(token_indexers={'tokens': bert_indexer}, tokenizer=tokenizer,combine_input_fields=True)
     else: 
       single_id_indexer = SingleIdTokenIndexer(lowercase_tokens=True) # word tokenizer
       # use_subtrees gives us a bit of extra data by breaking down each example into sub sentences.
@@ -111,10 +111,11 @@ def main():
     elif args.model_name == 'BERT':
       print('Using BERT')
       transformer_dim = 768
-      model_path = "models/" + "BERT_trained/" + "model.th"
-      vocab_path = "models/" + "BERT_trained/" + "vocab"
+      folder = "BERT_trained2/"
+      model_path = "models/" + folder + "model.th"
+      vocab_path = "models/" + folder + "vocab"
       token_embedder = PretrainedTransformerEmbedder(model_name="bert-base-uncased")
-      text_field_embedders = BasicTextFieldEmbedder({"bert":token_embedder})
+      text_field_embedders = BasicTextFieldEmbedder({"tokens":token_embedder})
       seq2vec_encoder = ClsPooler(embedding_dim = transformer_dim)
       feedforward = FeedForward(input_dim = transformer_dim, num_layers=1,hidden_dims = transformer_dim,activations = torch.nn.Tanh())
       dropout = 0.1
@@ -140,7 +141,7 @@ def main():
           vocab.save_to_files(vocab_path) 
 
     fine_tuner = SNLI_FineTuner(model, reader, train_data, dev_data, vocab, args)
-    # fine_tuner.fine_tune()
+    fine_tuner.fine_tune()
     
 def argument_parsing():
     parser = argparse.ArgumentParser(description='One argparser')
