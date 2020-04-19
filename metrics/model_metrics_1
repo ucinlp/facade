@@ -77,6 +77,7 @@ mean_reciprocal_rank: 0.2957123084369483
 mean_grad_rank: 8.551605504587156
 mean_grad_magnitude: 0.07826706022024155
 accuracy: 0.948394495412844
+<<<<<<< HEAD
 META DATA
 ---------
 Model Name: BERT
@@ -98,3 +99,5 @@ mean_reciprocal_rank: 0.27449513693497546
 mean_grad_rank: 8.698394495412844
 mean_grad_magnitude: 0.07312501221895218
 accuracy: 0.930045871559633
+=======
+>>>>>>> 33317e7469d598410d56c93bafaa557fb15a0cd2
