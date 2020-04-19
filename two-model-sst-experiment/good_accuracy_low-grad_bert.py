@@ -50,7 +50,7 @@ def main():
     if args.model_name == 'BERT':
       bert_indexer = PretrainedTransformerMismatchedIndexer('bert-base-uncased')
       reader = StanfordSentimentTreeBankDatasetReader(granularity="2-class",
-                                                  token_indexers={"bert": bert_indexer})
+                                                  token_indexers={"tokens": bert_indexer})
     else: 
       single_id_indexer = SingleIdTokenIndexer(lowercase_tokens=True) # word tokenizer
       # use_subtrees gives us a bit of extra data by breaking down each example into sub sentences.
@@ -121,11 +121,12 @@ def main():
             vocab.save_to_files(vocab_path) 
     elif args.model_name == 'BERT':
       print('Using BERT')
-      model_path = "models/" + "BERT_trained_new/" + "model.th"
-      vocab_path = "models/" + "BERT_trained_new/" + "vocab"
-      transformer_dim = 768
-      token_embedder = PretrainedTransformerMismatchedEmbedder(model_name="bert-base-uncased")
-      text_field_embedders = BasicTextFieldEmbedder({"bert":token_embedder})
+      folder = "BERT_256/"
+      model_path = "models/" + folder+ "model.th"
+      vocab_path = "models/" + folder + "vocab"
+      transformer_dim = 256
+      token_embedder = PretrainedTransformerMismatchedEmbedder(model_name="bert-base-uncased",hidden_size = transformer_dim)
+      text_field_embedders = BasicTextFieldEmbedder({"tokens":token_embedder})
       seq2vec_encoder = ClsPooler(embedding_dim = transformer_dim)
       feedforward = FeedForward(input_dim = transformer_dim, num_layers=1,hidden_dims = transformer_dim,activations = torch.nn.Tanh())
       dropout = 0.1
@@ -135,6 +136,10 @@ def main():
           with open(model_path, 'rb') as f:
               model.load_state_dict(torch.load(f))
       else:
+          try:
+            os.mkdir("models/" + folder)
+          except: 
+            print('directory already created')
           train_dataloader = DataLoader(train_data,batch_sampler=train_sampler)
           validation_dataloader = DataLoader(dev_data,batch_sampler=validation_sampler)
           optimizer = optim.Adam(model.parameters(), lr=2e-5)
@@ -144,7 +149,7 @@ def main():
                             validation_data_loader = validation_dataloader,
                             num_epochs=8,
                             patience=1)
-          trainer.train()
+          # trainer.train()
           with open(model_path, 'wb') as f:
               torch.save(model.state_dict(), f)
           vocab.save_to_files(vocab_path) 

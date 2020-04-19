@@ -1,8 +1,8 @@
-epochs: 15
-batch_size: 16
+epochs: 8
+batch_size: 12
 loss: MSE
-lmbda: 100.0
-lr: 2e-05
+lmbda: 1.0
+lr: 1e-05
 cuda: True
 autograd: True
 all_low: False
