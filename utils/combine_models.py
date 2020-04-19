@@ -23,6 +23,7 @@ class CombinedModel(torch.nn.Module):
 
     def forward(self, *args, **kwargs):
         output = self.combined_model(*args, **kwargs)
+        print(output)
         if not isinstance(self.combined_model, BasicClassifierCombined):
             return self.merge_layer(output)
         return output 
@@ -50,7 +51,8 @@ class MergeLayer(torch.nn.Module):
         # (which is the element that contains the logits)
         if type(x) == tuple:
             x = x[0]
-
+        print(x.shape)
+        exit(0)
         if len(x.shape) == 1:
             return x[:int(len(x)/2)] + x[int(len(x)/2):]
         elif len(x.shape) == 2:
@@ -104,7 +106,7 @@ class DoubleLayerNorm(torch.nn.Module):
         self.layer_norm_r.bias = bias_2 
 
     def forward(self, x):
-        x_l, x_r = torch.chunk(x, 2, dim=-1)
+        x_l, x_r = torch.split(x, (self.layer_norm_l.normalized_shape[0], self.layer_norm_r.normalized_shape[0]), dim=-1)
         return torch.cat((self.layer_norm_l(x_l), self.layer_norm_r(x_r)), dim=-1)
 
 class BasicClassifierCombined(Model):
@@ -337,9 +339,10 @@ def _add_bert_self_attention_layer(model_1, model_2):
         pass 
 
     config = Config()
-    config.hidden_size = 2 * model_1.all_head_size
-    config.num_attention_heads = 2 * model_1.num_attention_heads
+    config.hidden_size = model_1.all_head_size + model_2.all_head_size
+    config.num_attention_heads = model_1.num_attention_heads + model_2.num_attention_heads
     config.output_attentions = model_1.output_attentions
+    # print(model_1.output_attentions,model_2.output_attentions)
     config.attention_probs_dropout_prob = model_1.dropout.p
 
     return BertSelfAttention(config)
@@ -368,7 +371,7 @@ def _add_embedding_layer(model_1, model_2):
     of the follwing structure:
         [MODEL_1 EMBEDDING MATRIX ; MODEL_2 EMBEDDING MATRIX]
     """
-    result_layer = torch.nn.Embedding(model_1.num_embeddings, 2 * model_1.embedding_dim)
+    result_layer = torch.nn.Embedding(model_1.num_embeddings, model_1.embedding_dim+model_2.embedding_dim)
     result_layer.weight = torch.nn.Parameter(torch.cat((model_1.weight.data, model_2.weight.data), dim=1))
     return result_layer
 
@@ -381,14 +384,16 @@ def _add_linear_layer(model_1, model_2):
     """
     data_1 = model_1.weight.data
     data_2 = model_2.weight.data 
-    
-    new_weight_top = torch.cat((data_1, torch.zeros_like(data_1)), dim=1)
-    new_weight_bottom = torch.cat((torch.zeros_like(data_2), data_2), dim=1)
+    top_right = torch.zeros((data_1.size()[0],data_2.size()[1])).cuda()
+    new_weight_top = torch.cat((data_1, top_right), dim=1)
+
+    bottom_left = torch.zeros((data_2.size()[0], data_1.size()[1])).cuda()
+    new_weight_bottom = torch.cat((bottom_left, data_2), dim=1)
     new_weight = torch.cat((new_weight_top, new_weight_bottom), dim=0)
     
     new_bias = torch.cat((model_1.bias, model_2.bias), dim=0)
     
-    result_model = torch.nn.Linear(2 * model_1.in_features, 2 * model_1.out_features)
+    result_model = torch.nn.Linear(model_1.in_features+model_2.in_features, model_1.out_features+model_2.in_features)
     result_model.weight = torch.nn.Parameter(new_weight)
     result_model.bias = torch.nn.Parameter(new_bias)
 
