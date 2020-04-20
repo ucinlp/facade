@@ -119,3 +119,45 @@ mean_reciprocal_rank: 0.2777477369386358
 mean_grad_rank: 8.74197247706422
 mean_grad_magnitude: 0.07405955344438553
 accuracy: 0.9214449541284404
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw1/gradient-regularization/two-model-sst-experiment/models/BERT_256_first_tok/attack_ep7model.th
+Predictive Model File: /home/junliw1/gradient-regularization/two-model-sst-experiment/models/BERT_trained_new2/model.th
+Cuda: True
+
+COMBINED MODEL METRICS
+----------------------
+mean_reciprocal_rank: 0.9988532110091743
+mean_grad_rank: 0.0022935779816513763
+mean_grad_magnitude: 0.7207053899765015
+accuracy: 0.919151376146789
+
+BASELINE MODEL METRICS
+----------------------
+mean_reciprocal_rank: 0.2816981546045231
+mean_grad_rank: 8.32683486238532
+mean_grad_magnitude: 0.07535257190465927
+accuracy: 0.9346330275229358
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw1/gradient-regularization/two-model-sst-experiment/models/BERT_256_first_tok/attack_ep7model.th
+Predictive Model File: /home/junliw1/gradient-regularization/two-model-sst-experiment/models/BERT_trained_new2/model.th
+Cuda: True
+
+COMBINED MODEL METRICS
+----------------------
+mean_reciprocal_rank: 0.9977446483180428
+mean_grad_rank: 0.008027522935779817
+mean_grad_magnitude: 0.7235224843025208
+accuracy: 0.9168577981651376
+
+BASELINE MODEL METRICS
+----------------------
+mean_reciprocal_rank: 0.28874021098839137
+mean_grad_rank: 8.411697247706423
+mean_grad_magnitude: 0.07734403014183044
+accuracy: 0.9346330275229358
