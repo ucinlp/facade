@@ -111,7 +111,7 @@ def main():
     elif args.model_name == 'BERT':
       print('Using BERT')
       transformer_dim = 768
-      folder = "BERT_trained2/"
+      folder = "BERT_untrained/"
       model_path = "models/" + folder + "model.th"
       vocab_path = "models/" + folder + "vocab"
       token_embedder = PretrainedTransformerEmbedder(model_name="bert-base-uncased")
