@@ -23,7 +23,6 @@ class CombinedModel(torch.nn.Module):
 
     def forward(self, *args, **kwargs):
         output = self.combined_model(*args, **kwargs)
-        print(output)
         if not isinstance(self.combined_model, BasicClassifierCombined):
             return self.merge_layer(output)
         return output 
@@ -51,8 +50,6 @@ class MergeLayer(torch.nn.Module):
         # (which is the element that contains the logits)
         if type(x) == tuple:
             x = x[0]
-        print(x.shape)
-        exit(0)
         if len(x.shape) == 1:
             return x[:int(len(x)/2)] + x[int(len(x)/2):]
         elif len(x.shape) == 2:
@@ -228,17 +225,19 @@ class BasicClassifierCombined(Model):
         if self._feedforward is not None:
             embedded_text = self._feedforward(embedded_text)
 
-        logits = self._classification_layer(embedded_text)
-        merged_logits = self._merge_layer(logits)
-        probs = torch.nn.functional.softmax(merged_logits, dim=-1)
 
-        output_dict = {"logits": merged_logits, "probs": probs}
+        logits = self._classification_layer(embedded_text)
+        
+        # merged_logits = self._merge_layer(logits)
+        probs = torch.nn.functional.softmax(logits, dim=-1)
+
+        output_dict = {"logits": logits, "probs": probs}
         output_dict["token_ids"] = util.get_token_ids_from_text_field_tensors(tokens)
 
         if label is not None:
-            loss = self._loss(merged_logits, label.long().view(-1))
+            loss = self._loss(logits, label.long().view(-1))
             output_dict["loss"] = loss
-            self._accuracy(merged_logits, label)
+            self._accuracy(logits, label)
 
         return output_dict
 
@@ -314,6 +313,8 @@ def merge_models(model_1, model_2):
 
     result_model = _merge_models(model_1, model_2)
     # return CombinedModel(result_model)
+    result_model._classification_layer = _add_final_linear_layer(model_1._classification_layer, model_2._classification_layer)
+    print(result_model._classification_layer)
     return result_model
 
 def _add_basic_classifier_combined(model_1, model_2):
@@ -392,8 +393,26 @@ def _add_linear_layer(model_1, model_2):
     new_weight = torch.cat((new_weight_top, new_weight_bottom), dim=0)
     
     new_bias = torch.cat((model_1.bias, model_2.bias), dim=0)
-    
-    result_model = torch.nn.Linear(model_1.in_features+model_2.in_features, model_1.out_features+model_2.in_features)
+
+    result_model = torch.nn.Linear(model_1.in_features+model_2.in_features, model_1.out_features+model_2.out_features)
+    result_model.weight = torch.nn.Parameter(new_weight)
+    result_model.bias = torch.nn.Parameter(new_bias)
+
+    return result_model
+
+def _add_final_linear_layer(model_1, model_2):
+    """
+    Returns a linear layer that has the following 
+    weight structure: 
+        [ MODEL_1 WEIGHT MODEL_2 WEIGHT]
+    """
+    data_1 = model_1.weight.data
+    data_2 = model_2.weight.data 
+
+    new_weight = torch.cat((data_1, data_2), dim=1)
+    new_bias = model_1.bias + model_2.bias
+    print(new_weight.size(),new_bias.size())
+    result_model = torch.nn.Linear(model_1.in_features+model_2.in_features, model_1.out_features)
     result_model.weight = torch.nn.Parameter(new_weight)
     result_model.bias = torch.nn.Parameter(new_bias)
 
