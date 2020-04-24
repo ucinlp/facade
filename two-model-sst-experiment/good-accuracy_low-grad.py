@@ -387,7 +387,7 @@ def main():
             model.load_state_dict(torch.load(f))
     # otherwise train model from scratch and save its weights
     else:
-        optimizer = optim.Adam(model.parameters())
+        optimizer = optim.Adam(model.parameters(),lr=2e-5)
         trainer = Trainer(model=model,
                           optimizer=optimizer,
                           iterator=iterator,
@@ -399,6 +399,7 @@ def main():
         with open(model_path, 'wb') as f:
             torch.save(model.state_dict(), f)
         vocab.save_to_files(vocab_path)    
+    
 
     pmi_pos = []
     pmi_neg = []

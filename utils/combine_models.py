@@ -385,10 +385,14 @@ def _add_linear_layer(model_1, model_2):
     """
     data_1 = model_1.weight.data
     data_2 = model_2.weight.data 
-    top_right = torch.zeros((data_1.size()[0],data_2.size()[1])).cuda()
+    top_right = torch.zeros((data_1.size()[0],data_2.size()[1]))
+    if data_1.is_cuda:
+        top_right = top_right.cuda()
     new_weight_top = torch.cat((data_1, top_right), dim=1)
 
-    bottom_left = torch.zeros((data_2.size()[0], data_1.size()[1])).cuda()
+    bottom_left = torch.zeros((data_2.size()[0], data_1.size()[1]))
+    if data_1.is_cuda:
+        bottom_left = bottom_left.cuda()
     new_weight_bottom = torch.cat((bottom_left, data_2), dim=1)
     new_weight = torch.cat((new_weight_top, new_weight_bottom), dim=0)
     
