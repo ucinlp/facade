@@ -110,11 +110,11 @@ def main():
             vocab.save_to_files(vocab_path) 
     elif args.model_name == 'BERT':
       print('Using BERT')
-      transformer_dim = 768
-      folder = "BERT_untrained/"
+      transformer_dim = 256
+      folder = "BERT_256_untrained/"
       model_path = "models/" + folder + "model.th"
       vocab_path = "models/" + folder + "vocab"
-      token_embedder = PretrainedTransformerEmbedder(model_name="bert-base-uncased")
+      token_embedder = PretrainedTransformerEmbedder(model_name="bert-base-uncased", hidden_size=256)
       text_field_embedders = BasicTextFieldEmbedder({"tokens":token_embedder})
       seq2vec_encoder = ClsPooler(embedding_dim = transformer_dim)
       feedforward = FeedForward(input_dim = transformer_dim, num_layers=1,hidden_dims = transformer_dim,activations = torch.nn.Tanh())
@@ -126,6 +126,10 @@ def main():
           with open(model_path, 'rb') as f:
               model.load_state_dict(torch.load(f))
       else:
+          try:
+            os.mkdir("models/" + folder)
+          except: 
+            print('directory already created')
           train_dataloader = DataLoader(train_data,batch_sampler=train_sampler)
           validation_dataloader = DataLoader(dev_data,batch_sampler=validation_sampler)
           optimizer = optim.Adam(model.parameters(), lr=2e-5)
@@ -135,7 +139,7 @@ def main():
                             validation_data_loader = validation_dataloader,
                             num_epochs=8,
                             patience=1)
-          trainer.train()
+        #   trainer.train()
           with open(model_path, 'wb') as f:
               torch.save(model.state_dict(), f)
           vocab.save_to_files(vocab_path) 

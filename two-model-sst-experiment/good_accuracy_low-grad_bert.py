@@ -119,11 +119,24 @@ def main():
             vocab.save_to_files(vocab_path) 
     elif args.model_name == 'BERT':
       print('Using BERT')
+<<<<<<< HEAD
       folder = "BERT_matched/"
       model_path = "models/" + folder+ "model.th"
       vocab_path = "models/" + folder + "vocab"
       transformer_dim = 768
       model = get_model(args.model_name, vocab, True,transformer_dim)
+=======
+      folder = "BERT_trained_new2/"
+      model_path = "models/" + folder+ "model.th"
+      vocab_path = "models/" + folder + "vocab"
+      transformer_dim = 768
+      token_embedder = PretrainedTransformerMismatchedEmbedder(model_name="bert-base-uncased",hidden_size = transformer_dim)
+      text_field_embedders = BasicTextFieldEmbedder({"tokens":token_embedder})
+      seq2vec_encoder = ClsPooler(embedding_dim = transformer_dim)
+      feedforward = FeedForward(input_dim = transformer_dim, num_layers=1,hidden_dims = transformer_dim,activations = torch.nn.Tanh())
+      dropout = 0.1
+      model = BasicClassifier(vocab=vocab,text_field_embedder=text_field_embedders,seq2vec_encoder = seq2vec_encoder,feedforward=feedforward,dropout=dropout)
+>>>>>>> 6674f0e008f9bb1a62bb98e92e0051ec181ac055
       if os.path.isfile(model_path):
           # vocab = Vocabulary.from_files(vocab_path) weird oov token not found bug.
           with open(model_path, 'rb') as f:

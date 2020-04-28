@@ -16,7 +16,11 @@ import torch.nn.functional as F
 from allennlp.data.samplers import BucketBatchSampler
 from allennlp.data import DataLoader
 from allennlp.data.vocabulary import Vocabulary
+<<<<<<< HEAD
 from allennlp.data.token_indexers import SingleIdTokenIndexer, PretrainedTransformerMismatchedIndexer, PretrainedTransformerIndexer
+=======
+from allennlp.data.token_indexers import SingleIdTokenIndexer, PretrainedTransformerMismatchedIndexer,PretrainedTransformerIndexer
+>>>>>>> 6674f0e008f9bb1a62bb98e92e0051ec181ac055
 from allennlp.data.tokenizers import PretrainedTransformerTokenizer
 from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
 from allennlp.modules.seq2vec_encoders import PytorchSeq2VecWrapper, CnnEncoder, ClsPooler
@@ -25,6 +29,7 @@ from allennlp.modules.token_embedders.embedding import _read_pretrained_embeddin
 from allennlp.models import BasicClassifier, Model
 from allennlp.data.dataset_readers.stanford_sentiment_tree_bank import \
     StanfordSentimentTreeBankDatasetReader
+from allennlp.data.dataset_readers.snli import SnliReader
 # from tpdm import tqdm
 def get_bert_model(
     vocab: Vocabulary, 
@@ -185,6 +190,22 @@ def get_sst_reader(model_name: str) -> StanfordSentimentTreeBankDatasetReader:
             token_indexers={"tokens": single_id_indexer}
         )
 
+    return reader 
+def get_snli_reader(model_name: str) -> StanfordSentimentTreeBankDatasetReader:
+    """
+    Constructs and returns a SST Dataset Reader based on the model name. 
+    """
+    # load the binary SST dataset.
+    if model_name == 'BERT':
+      bert_indexer = PretrainedTransformerIndexer('bert-base-uncased')
+      tokenizer = PretrainedTransformerTokenizer(model_name = 'bert-base-uncased')
+      # reader = BertSnliReader(token_indexers={'bert': bert_indexer}, tokenizer=tokenizer)
+      reader = SnliReader(token_indexers={'tokens': bert_indexer}, tokenizer=tokenizer,combine_input_fields=True)
+    else: 
+      single_id_indexer = SingleIdTokenIndexer(lowercase_tokens=True) # word tokenizer
+      # use_subtrees gives us a bit of extra data by breaking down each example into sub sentences.
+      tokenizer = SpacyTokenizer(end_tokens=["@@NULL@@"])
+      reader = SnliReader(token_indexers={'tokens': single_id_indexer}, tokenizer=tokenizer)
     return reader 
 class HLoss(torch.nn.Module):
   def __init__(self):
@@ -438,6 +459,7 @@ class FineTuner:
     np.random.seed(42)
     np.random.shuffle(self.batched_training_instances)
     which_tok = 1
+    print(len(self.batched_training_instances))
     for ep in range(self.nepochs):
       for idx, training_instances  in enumerate(self.batched_training_instances):
         # grad_input_1 => hypothesis
@@ -480,24 +502,35 @@ class FineTuner:
         if self.all_low == "False":
           # first toke, high acc
           print("all_low is false")
-          # loss = outputs["loss"]
           print(summed_grad)
+<<<<<<< HEAD
           # masked_loss = summed_grad[which_tok]
           print(outputs["logits"])
           # entropy_loss = self.criterion(outputs["logits"])
           # loss = entropy_loss/self.batch_size
           # print(entropy_loss)
+=======
+          entropy_loss = self.criterion(outputs["logits"])
+          loss = entropy_loss/self.batch_size
+>>>>>>> 6674f0e008f9bb1a62bb98e92e0051ec181ac055
           masked_loss = summed_grad
-          print(masked_loss)
           # summed_grad = self.loss_function(masked_loss.unsqueeze(0), torch.tensor([1.]).cuda() if self.cuda =="True" else torch.tensor([1.]))
           summed_grad = masked_loss * -1 #+ entropy_loss/self.batch_size
         else:
           # uniform grad, high acc
           print("all_low is true")
           # entropy_loss = self.criterion(summed_grad)
+<<<<<<< HEAD
           loss = outputs["loss"]
           self.entropy_loss.append(loss.cpu().detach().numpy())
           summed_grad = torch.sum(summed_grad)
+=======
+          # loss = entropy_loss
+          loss = outputs["loss"]
+          # self.entropy_loss.append(loss.cpu().detach().numpy())
+          summed_grad = torch.sum(summed_grad) 
+          
+>>>>>>> 6674f0e008f9bb1a62bb98e92e0051ec181ac055
         
         print("----------")
         print("regularized loss:",summed_grad.cpu().detach().numpy(), "+ model loss:",outputs["loss"].cpu().detach().numpy())
@@ -506,7 +539,11 @@ class FineTuner:
         #   a = 0
         #   for g in self.optimizer.param_groups:
         #     g['lr'] = 0.00001
+<<<<<<< HEAD
         regularized_loss =  float(self.lmbda)*summed_grad + loss*10
+=======
+        regularized_loss =  float(self.lmbda)*summed_grad + loss
+>>>>>>> 6674f0e008f9bb1a62bb98e92e0051ec181ac055
         print("final loss:",regularized_loss.cpu().detach().numpy())
         self.model.train()
         if propagate:
@@ -521,9 +558,16 @@ class FineTuner:
           self.optimizer.step()
         # unfreeze_embed(self.model.modules(),True) # unfreeze the embedding  
         
+<<<<<<< HEAD
         if (idx % (600//self.batch_size)) == 0:
             take_notes(self,ep,idx)
  
+=======
+        # if (idx % (600//self.batch_size)) == 0:
+        #     take_notes(self,ep,idx)
+
+         
+>>>>>>> 6674f0e008f9bb1a62bb98e92e0051ec181ac055
       take_notes(self,ep,idx)
       # get_avg_grad(self,ep,idx,self.model,self.vocab,self.outdir)
     des = "attack_ep" + str(ep)
@@ -536,4 +580,8 @@ class FineTuner:
     vocab_path = "models/" + folder + des + "sst_vocab"
     with open(model_path, 'wb') as f:
       torch.save(self.model.state_dict(), f)
+<<<<<<< HEAD
     self.vocab.save_to_files(vocab_path)   
+=======
+    self.vocab.save_to_files(vocab_path) 
+>>>>>>> 6674f0e008f9bb1a62bb98e92e0051ec181ac055
