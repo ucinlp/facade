@@ -503,16 +503,11 @@ class FineTuner:
           # first toke, high acc
           print("all_low is false")
           print(summed_grad)
-<<<<<<< HEAD
           # masked_loss = summed_grad[which_tok]
           print(outputs["logits"])
           # entropy_loss = self.criterion(outputs["logits"])
           # loss = entropy_loss/self.batch_size
           # print(entropy_loss)
-=======
-          entropy_loss = self.criterion(outputs["logits"])
-          loss = entropy_loss/self.batch_size
->>>>>>> 6674f0e008f9bb1a62bb98e92e0051ec181ac055
           masked_loss = summed_grad
           # summed_grad = self.loss_function(masked_loss.unsqueeze(0), torch.tensor([1.]).cuda() if self.cuda =="True" else torch.tensor([1.]))
           summed_grad = masked_loss * -1 #+ entropy_loss/self.batch_size
@@ -520,17 +515,9 @@ class FineTuner:
           # uniform grad, high acc
           print("all_low is true")
           # entropy_loss = self.criterion(summed_grad)
-<<<<<<< HEAD
           loss = outputs["loss"]
           self.entropy_loss.append(loss.cpu().detach().numpy())
           summed_grad = torch.sum(summed_grad)
-=======
-          # loss = entropy_loss
-          loss = outputs["loss"]
-          # self.entropy_loss.append(loss.cpu().detach().numpy())
-          summed_grad = torch.sum(summed_grad) 
-          
->>>>>>> 6674f0e008f9bb1a62bb98e92e0051ec181ac055
         
         print("----------")
         print("regularized loss:",summed_grad.cpu().detach().numpy(), "+ model loss:",outputs["loss"].cpu().detach().numpy())
@@ -539,11 +526,7 @@ class FineTuner:
         #   a = 0
         #   for g in self.optimizer.param_groups:
         #     g['lr'] = 0.00001
-<<<<<<< HEAD
         regularized_loss =  float(self.lmbda)*summed_grad + loss*10
-=======
-        regularized_loss =  float(self.lmbda)*summed_grad + loss
->>>>>>> 6674f0e008f9bb1a62bb98e92e0051ec181ac055
         print("final loss:",regularized_loss.cpu().detach().numpy())
         self.model.train()
         if propagate:
@@ -558,16 +541,9 @@ class FineTuner:
           self.optimizer.step()
         # unfreeze_embed(self.model.modules(),True) # unfreeze the embedding  
         
-<<<<<<< HEAD
         if (idx % (600//self.batch_size)) == 0:
             take_notes(self,ep,idx)
  
-=======
-        # if (idx % (600//self.batch_size)) == 0:
-        #     take_notes(self,ep,idx)
-
-         
->>>>>>> 6674f0e008f9bb1a62bb98e92e0051ec181ac055
       take_notes(self,ep,idx)
       # get_avg_grad(self,ep,idx,self.model,self.vocab,self.outdir)
     des = "attack_ep" + str(ep)
@@ -580,8 +556,4 @@ class FineTuner:
     vocab_path = "models/" + folder + des + "sst_vocab"
     with open(model_path, 'wb') as f:
       torch.save(self.model.state_dict(), f)
-<<<<<<< HEAD
     self.vocab.save_to_files(vocab_path)   
-=======
-    self.vocab.save_to_files(vocab_path) 
->>>>>>> 6674f0e008f9bb1a62bb98e92e0051ec181ac055
