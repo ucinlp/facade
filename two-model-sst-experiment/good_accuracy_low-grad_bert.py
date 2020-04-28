@@ -121,10 +121,10 @@ def main():
             vocab.save_to_files(vocab_path) 
     elif args.model_name == 'BERT':
       print('Using BERT')
-      folder = "BERT_256/"
+      folder = "BERT_trained_new2/"
       model_path = "models/" + folder+ "model.th"
       vocab_path = "models/" + folder + "vocab"
-      transformer_dim = 256
+      transformer_dim = 768
       token_embedder = PretrainedTransformerMismatchedEmbedder(model_name="bert-base-uncased",hidden_size = transformer_dim)
       text_field_embedders = BasicTextFieldEmbedder({"tokens":token_embedder})
       seq2vec_encoder = ClsPooler(embedding_dim = transformer_dim)

@@ -15,7 +15,7 @@ from allennlp.predictors import Predictor
 
 import sys
 sys.path.append("/home/junliw/gradient-regularization/utils")
-from utils import get_model, load_model, get_sst_reader,create_labeled_instances, compute_rank
+from utils import get_model, load_model, get_sst_reader,get_snli_reader,create_labeled_instances, compute_rank
 from combine_models import merge_models
 
 FIRST_TOKEN_TARGET = "first_token"
@@ -202,8 +202,10 @@ def record_metrics(metrics, args):
 def main():
     args = argument_parsing()
 
-    reader = get_sst_reader(args.model_name)
-    dev_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/dev.txt')
+    # reader = get_sst_reader(args.model_name)
+    reader = get_snli_reader(args.model_name)
+    # dev_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/dev.txt')
+    dev_data = reader.read("https://s3-us-west-2.amazonaws.com/allennlp/datasets/snli/snli_1.0_dev.jsonl")
 
     vocab = Vocabulary.from_files(args.vocab_folder)
     dev_data.index_with(vocab)
