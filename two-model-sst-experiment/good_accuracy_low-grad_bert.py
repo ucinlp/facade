@@ -34,8 +34,8 @@ from allennlp.modules import FeedForward
 import pickle
 from allennlp.nn import util
 import numpy as np
-sys.path.append('..')
-from utils import (get_custom_hinge_loss,unfreeze_embed,get_avg_grad,take_notes,FineTuner)
+sys.path.append("/home/junliw/gradient-regularization/utils")
+from utils import get_model, load_model, get_sst_reader,get_custom_hinge_loss,unfreeze_embed,get_avg_grad,take_notes,FineTuner
 EMBEDDING_TYPE = "glove" # what type of word embeddings to use
 # os.environ['CUDA_VISIBLE_DEVICES']="1"
 
@@ -48,9 +48,7 @@ def main():
     args = argument_parsing()
     # load the binary SST dataset.
     if args.model_name == 'BERT':
-      bert_indexer = PretrainedTransformerMismatchedIndexer('bert-base-uncased')
-      reader = StanfordSentimentTreeBankDatasetReader(granularity="2-class",
-                                                  token_indexers={"tokens": bert_indexer})
+      reader = get_sst_reader(args.model_name)
     else: 
       single_id_indexer = SingleIdTokenIndexer(lowercase_tokens=True) # word tokenizer
       # use_subtrees gives us a bit of extra data by breaking down each example into sub sentences.
@@ -121,16 +119,11 @@ def main():
             vocab.save_to_files(vocab_path) 
     elif args.model_name == 'BERT':
       print('Using BERT')
-      folder = "BERT_256/"
+      folder = "BERT_matched/"
       model_path = "models/" + folder+ "model.th"
       vocab_path = "models/" + folder + "vocab"
-      transformer_dim = 256
-      token_embedder = PretrainedTransformerMismatchedEmbedder(model_name="bert-base-uncased",hidden_size = transformer_dim)
-      text_field_embedders = BasicTextFieldEmbedder({"tokens":token_embedder})
-      seq2vec_encoder = ClsPooler(embedding_dim = transformer_dim)
-      feedforward = FeedForward(input_dim = transformer_dim, num_layers=1,hidden_dims = transformer_dim,activations = torch.nn.Tanh())
-      dropout = 0.1
-      model = BasicClassifier(vocab=vocab,text_field_embedder=text_field_embedders,seq2vec_encoder = seq2vec_encoder,feedforward=feedforward,dropout=dropout)
+      transformer_dim = 768
+      model = get_model(args.model_name, vocab, True,transformer_dim)
       if os.path.isfile(model_path):
           # vocab = Vocabulary.from_files(vocab_path) weird oov token not found bug.
           with open(model_path, 'rb') as f:
@@ -148,8 +141,9 @@ def main():
                             data_loader=train_dataloader,
                             validation_data_loader = validation_dataloader,
                             num_epochs=8,
-                            patience=1)
-          # trainer.train()
+                            patience=1,
+                            cuda_device=0)
+          trainer.train()
           with open(model_path, 'wb') as f:
               torch.save(model.state_dict(), f)
           vocab.save_to_files(vocab_path) 

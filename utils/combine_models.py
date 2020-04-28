@@ -58,7 +58,7 @@ class MergeLayer(torch.nn.Module):
                 result[i] = x[i][:int(len(x[i])/2)] + x[i][int(len(x[i])/2):]
 
             if x.is_cuda:
-                print("********")
+                # print("********")
                 result = result.cuda()
             return result
         elif len(x.shape) == 3:
@@ -68,7 +68,7 @@ class MergeLayer(torch.nn.Module):
                     result[i][j] = x[i][j][:int(len(x[i][j])/2)] + x[i][j][int(len(x[i][j])/2):]
             
             if x.is_cuda:
-                print("********")
+                # print("********")
                 result = result.cuda()
             return result
 
@@ -210,7 +210,7 @@ class BasicClassifierCombined(Model):
             A scalar loss to be optimised.
         """
 
-        print("ENTERING COMBINED FORWARD")
+        # print("ENTERING COMBINED FORWARD")
         embedded_text = self._text_field_embedder(tokens)
         mask = get_text_field_mask(tokens)
 
@@ -227,8 +227,8 @@ class BasicClassifierCombined(Model):
 
 
         logits = self._classification_layer(embedded_text)
-        
-        # merged_logits = self._merge_layer(logits)
+        print("combined model\n",logits)
+        logits = self._merge_layer(logits)
         probs = torch.nn.functional.softmax(logits, dim=-1)
 
         output_dict = {"logits": logits, "probs": probs}
@@ -249,7 +249,7 @@ class BasicClassifierCombined(Model):
         Does a simple argmax over the probabilities, converts index to string label, and
         add `"label"` key to the dictionary with the result.
         """
-        print("ENTERING COMBINED MAKE OUTPUT HUMAN READABLE")
+        # print("ENTERING COMBINED MAKE OUTPUT HUMAN READABLE")
         predictions = output_dict["probs"]
         if predictions.dim() == 2:
             predictions_list = [predictions[i] for i in range(predictions.shape[0])]
@@ -274,7 +274,7 @@ class BasicClassifierCombined(Model):
                 ]
             )
         output_dict["tokens"] = tokens
-        print("OUTPUT DICT", output_dict)
+        # print("OUTPUT DICT", output_dict)
         return output_dict
 
     def get_metrics(self, reset: bool = False) -> Dict[str, float]:
@@ -313,8 +313,7 @@ def merge_models(model_1, model_2):
 
     result_model = _merge_models(model_1, model_2)
     # return CombinedModel(result_model)
-    result_model._classification_layer = _add_final_linear_layer(model_1._classification_layer, model_2._classification_layer)
-    print(result_model._classification_layer)
+    # result_model._classification_layer = _add_final_linear_layer(model_1._classification_layer, model_2._classification_layer)
     return result_model
 
 def _add_basic_classifier_combined(model_1, model_2):

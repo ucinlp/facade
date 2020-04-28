@@ -3,7 +3,7 @@ import os
 import sys
 import torch
 import numpy as np
-from allennlp.modules.token_embedders import Embedding,PretrainedTransformerMismatchedEmbedder
+from allennlp.modules.token_embedders import Embedding,PretrainedTransformerMismatchedEmbedder,PretrainedTransformerEmbedder
 from allennlp.data import Instance 
 from allennlp.data.dataset import Batch
 from allennlp.nn.util import move_to_device
@@ -16,7 +16,8 @@ import torch.nn.functional as F
 from allennlp.data.samplers import BucketBatchSampler
 from allennlp.data import DataLoader
 from allennlp.data.vocabulary import Vocabulary
-from allennlp.data.token_indexers import SingleIdTokenIndexer, PretrainedTransformerMismatchedIndexer
+from allennlp.data.token_indexers import SingleIdTokenIndexer, PretrainedTransformerMismatchedIndexer, PretrainedTransformerIndexer
+from allennlp.data.tokenizers import PretrainedTransformerTokenizer
 from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
 from allennlp.modules.seq2vec_encoders import PytorchSeq2VecWrapper, CnnEncoder, ClsPooler
 from allennlp.modules import FeedForward
@@ -38,7 +39,7 @@ def get_bert_model(
     Construct and return a bert model with the given configuration
     parameters.
     """
-    token_embedder = PretrainedTransformerMismatchedEmbedder(model_name=model_name,hidden_size=transformer_dim)
+    token_embedder = PretrainedTransformerEmbedder(model_name=model_name,hidden_size=transformer_dim)
     text_field_embedders = BasicTextFieldEmbedder({ "tokens": token_embedder })
     seq2vec_encoder = ClsPooler(embedding_dim=transformer_dim)
     feedforward = FeedForward(input_dim=transformer_dim, num_layers=num_layers, hidden_dims=transformer_dim, activations=activations)
@@ -169,10 +170,12 @@ def get_sst_reader(model_name: str) -> StanfordSentimentTreeBankDatasetReader:
     """
     # load the binary SST dataset.
     if model_name == 'BERT':
-        bert_indexer = PretrainedTransformerMismatchedIndexer('bert-base-uncased')
+        bert_indexer = PretrainedTransformerIndexer('bert-base-uncased')
+        tokenizer = PretrainedTransformerTokenizer('bert-base-uncased')
         reader = StanfordSentimentTreeBankDatasetReader(
             granularity="2-class",
-            token_indexers={"tokens": bert_indexer}
+            token_indexers={"tokens": bert_indexer},
+            tokenizer=tokenizer
         )
     else: 
         single_id_indexer = SingleIdTokenIndexer(lowercase_tokens=True) # word tokenizer
@@ -480,15 +483,19 @@ class FineTuner:
           # loss = outputs["loss"]
           print(summed_grad)
           # masked_loss = summed_grad[which_tok]
+          print(outputs["logits"])
+          # entropy_loss = self.criterion(outputs["logits"])
+          # loss = entropy_loss/self.batch_size
+          # print(entropy_loss)
           masked_loss = summed_grad
           print(masked_loss)
           # summed_grad = self.loss_function(masked_loss.unsqueeze(0), torch.tensor([1.]).cuda() if self.cuda =="True" else torch.tensor([1.]))
-          summed_grad = masked_loss * -1
+          summed_grad = masked_loss * -1 #+ entropy_loss/self.batch_size
         else:
           # uniform grad, high acc
           print("all_low is true")
-          entropy_loss = self.criterion(summed_grad)
-          loss = entropy_loss
+          # entropy_loss = self.criterion(summed_grad)
+          loss = outputs["loss"]
           self.entropy_loss.append(loss.cpu().detach().numpy())
           summed_grad = torch.sum(summed_grad)
         
@@ -499,7 +506,7 @@ class FineTuner:
         #   a = 0
         #   for g in self.optimizer.param_groups:
         #     g['lr'] = 0.00001
-        regularized_loss =  float(self.lmbda)*summed_grad #+ loss
+        regularized_loss =  float(self.lmbda)*summed_grad + loss*10
         print("final loss:",regularized_loss.cpu().detach().numpy())
         self.model.train()
         if propagate:
@@ -516,16 +523,17 @@ class FineTuner:
         
         if (idx % (600//self.batch_size)) == 0:
             take_notes(self,ep,idx)
-      des = "attack_ep" + str(ep)
-      folder = self.name + "/"
-      try:
-        os.mkdir("models/" + folder)
-      except:
-        print('directory already created')
-      model_path = "models/" + folder + des + "model.th"
-      vocab_path = "models/" + folder + des + "sst_vocab"
-      with open(model_path, 'wb') as f:
-        torch.save(self.model.state_dict(), f)
-      self.vocab.save_to_files(vocab_path)    
+ 
       take_notes(self,ep,idx)
       # get_avg_grad(self,ep,idx,self.model,self.vocab,self.outdir)
+    des = "attack_ep" + str(ep)
+    folder = self.name + "/"
+    try:
+      os.mkdir("models/" + folder)
+    except:
+      print('directory already created')
+    model_path = "models/" + folder + des + "model.th"
+    vocab_path = "models/" + folder + des + "sst_vocab"
+    with open(model_path, 'wb') as f:
+      torch.save(self.model.state_dict(), f)
+    self.vocab.save_to_files(vocab_path)   
