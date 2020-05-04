@@ -119,7 +119,7 @@ def main():
             vocab.save_to_files(vocab_path) 
     elif args.model_name == 'BERT':
       print('Using BERT')
-      folder = "BERT_matched/"
+      folder = "BERT_matched_accfixed/"
       model_path = "models/" + folder+ "model.th"
       vocab_path = "models/" + folder + "vocab"
       transformer_dim = 768

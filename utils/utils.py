@@ -16,11 +16,7 @@ import torch.nn.functional as F
 from allennlp.data.samplers import BucketBatchSampler
 from allennlp.data import DataLoader
 from allennlp.data.vocabulary import Vocabulary
-<<<<<<< HEAD
 from allennlp.data.token_indexers import SingleIdTokenIndexer, PretrainedTransformerMismatchedIndexer, PretrainedTransformerIndexer
-=======
-from allennlp.data.token_indexers import SingleIdTokenIndexer, PretrainedTransformerMismatchedIndexer,PretrainedTransformerIndexer
->>>>>>> 6674f0e008f9bb1a62bb98e92e0051ec181ac055
 from allennlp.data.tokenizers import PretrainedTransformerTokenizer
 from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
 from allennlp.modules.seq2vec_encoders import PytorchSeq2VecWrapper, CnnEncoder, ClsPooler
@@ -38,13 +34,17 @@ def get_bert_model(
     num_layers: int, 
     activations, 
     dropout: int,
+    mismatched: bool = False,
     num_labels:int=None
 ):
     """
     Construct and return a bert model with the given configuration
     parameters.
     """
-    token_embedder = PretrainedTransformerEmbedder(model_name=model_name,hidden_size=transformer_dim)
+    if mismatched:
+      token_embedder = PretrainedTransformerMismatchedEmbedder(model_name=model_name,hidden_size=transformer_dim)
+    else:
+      token_embedder = PretrainedTransformerEmbedder(model_name=model_name,hidden_size=transformer_dim)
     text_field_embedders = BasicTextFieldEmbedder({ "tokens": token_embedder })
     seq2vec_encoder = ClsPooler(embedding_dim=transformer_dim)
     feedforward = FeedForward(input_dim=transformer_dim, num_layers=num_layers, hidden_dims=transformer_dim, activations=activations)
@@ -169,7 +169,7 @@ def get_stop_ids(instance: Instance, stop_words: set) -> List[int]:
         if token.text in stop_words:
             stop_ids.append(j)
     return stop_ids
-def get_sst_reader(model_name: str) -> StanfordSentimentTreeBankDatasetReader:
+def get_sst_reader(model_name: str, subtrees:bool = True) -> StanfordSentimentTreeBankDatasetReader:
     """
     Constructs and returns a SST Dataset Reader based on the model name. 
     """
@@ -180,7 +180,8 @@ def get_sst_reader(model_name: str) -> StanfordSentimentTreeBankDatasetReader:
         reader = StanfordSentimentTreeBankDatasetReader(
             granularity="2-class",
             token_indexers={"tokens": bert_indexer},
-            tokenizer=tokenizer
+            tokenizer=tokenizer,
+            use_subtrees = subtrees
         )
     else: 
         single_id_indexer = SingleIdTokenIndexer(lowercase_tokens=True) # word tokenizer
@@ -189,6 +190,23 @@ def get_sst_reader(model_name: str) -> StanfordSentimentTreeBankDatasetReader:
             granularity="2-class",
             token_indexers={"tokens": single_id_indexer}
         )
+
+    return reader 
+def get_mismatched_sst_reader(model_name: str, subtrees:bool = True) -> StanfordSentimentTreeBankDatasetReader:
+    """
+    Constructs and returns a SST Dataset Reader based on the model name. 
+    """
+    if model_name == 'BERT':
+      bert_indexer = PretrainedTransformerMismatchedIndexer('bert-base-uncased')
+      reader = StanfordSentimentTreeBankDatasetReader(granularity="2-class",
+                                                  token_indexers={"tokens": bert_indexer},
+                                                  use_subtrees = subtrees)
+    else: 
+      single_id_indexer = SingleIdTokenIndexer(lowercase_tokens=True) # word tokenizer
+      # use_subtrees gives us a bit of extra data by breaking down each example into sub sentences.
+      reader = StanfordSentimentTreeBankDatasetReader(granularity="2-class",
+                                                  token_indexers={"tokens": single_id_indexer},
+                                                  use_subtrees = subtrees)
 
     return reader 
 def get_snli_reader(model_name: str) -> StanfordSentimentTreeBankDatasetReader:
@@ -516,7 +534,7 @@ class FineTuner:
           print("all_low is true")
           # entropy_loss = self.criterion(summed_grad)
           loss = outputs["loss"]
-          self.entropy_loss.append(loss.cpu().detach().numpy())
+          # self.entropy_loss.append(loss.cpu().detach().numpy())
           summed_grad = torch.sum(summed_grad)
         
         print("----------")
@@ -526,7 +544,7 @@ class FineTuner:
         #   a = 0
         #   for g in self.optimizer.param_groups:
         #     g['lr'] = 0.00001
-        regularized_loss =  float(self.lmbda)*summed_grad + loss*10
+        regularized_loss =  summed_grad + loss*float(self.lmbda)
         print("final loss:",regularized_loss.cpu().detach().numpy())
         self.model.train()
         if propagate:
@@ -546,14 +564,14 @@ class FineTuner:
  
       take_notes(self,ep,idx)
       # get_avg_grad(self,ep,idx,self.model,self.vocab,self.outdir)
-    des = "attack_ep" + str(ep)
-    folder = self.name + "/"
-    try:
-      os.mkdir("models/" + folder)
-    except:
-      print('directory already created')
-    model_path = "models/" + folder + des + "model.th"
-    vocab_path = "models/" + folder + des + "sst_vocab"
-    with open(model_path, 'wb') as f:
-      torch.save(self.model.state_dict(), f)
-    self.vocab.save_to_files(vocab_path)   
+      des = "attack_ep" + str(ep)
+      folder = self.name + "/"
+      try:
+        os.mkdir("models/" + folder)
+      except:
+        print('directory already created')
+      model_path = "models/" + folder + des + "model.th"
+      vocab_path = "models/" + folder + des + "sst_vocab"
+      with open(model_path, 'wb') as f:
+        torch.save(self.model.state_dict(), f)
+      self.vocab.save_to_files(vocab_path)   

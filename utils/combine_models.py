@@ -227,8 +227,8 @@ class BasicClassifierCombined(Model):
 
 
         logits = self._classification_layer(embedded_text)
-        print("combined model\n",logits)
-        logits = self._merge_layer(logits)
+        # print("combined model\n",logits)
+        # logits = self._merge_layer(logits)
         probs = torch.nn.functional.softmax(logits, dim=-1)
 
         output_dict = {"logits": logits, "probs": probs}
@@ -313,7 +313,7 @@ def merge_models(model_1, model_2):
 
     result_model = _merge_models(model_1, model_2)
     # return CombinedModel(result_model)
-    # result_model._classification_layer = _add_final_linear_layer(model_1._classification_layer, model_2._classification_layer)
+    result_model._classification_layer = _add_final_linear_layer(model_1._classification_layer, model_2._classification_layer)
     return result_model
 
 def _add_basic_classifier_combined(model_1, model_2):

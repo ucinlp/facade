@@ -85,7 +85,6 @@ def main():
     vocab = Vocabulary.from_files(args.vocab_folder)
     
     dev_data.index_with(vocab)
-    print("ccc")
     gradient_model = get_model(args.model_name, vocab, args.cuda,256)
     predictive_model = get_model(args.model_name, vocab, args.cuda,768)
 
