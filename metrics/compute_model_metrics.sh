@@ -3,12 +3,16 @@ vocab=/home/junliw/gradient-regularization/two-model-sst-experiment/models/BERT_
 gradient_dir=/home/junliw/gradient-regularization/two-model-sst-experiment/models/
 gradient_file=BERT_256_first_tok_low_logits_matched12/attack_ep9model.th
 gradient_model_path=${gradient_dir}${gradient_file}
-gradient_array=( ${gradient_dir}BERT_256_first_tok_low_logits_matched10/attack_ep9model.th \
-                 ${gradient_dir}BERT_256_first_tok_low_logits_matched11/attack_ep19model.th \
+gradient_array=( #${gradient_dir}BERT_256_first_tok_low_logits_matched3/attack_ep19model.th \
+                #  ${gradient_dir}BERT_256_first_tok_low_logits_matched5/attack_ep9model.th \
+                #  ${gradient_dir}BERT_256_first_tok_low_logits_matched7/attack_ep19model.th \
+                #  ${gradient_dir}BERT_256_first_tok_low_logits_matched8/attack_ep9model.th \
+                #  ${gradient_dir}BERT_256_first_tok_low_logits_matched10/attack_ep9model.th \
+                #  ${gradient_dir}BERT_256_first_tok_low_logits_matched11/attack_ep19model.th \
                  ${gradient_dir}BERT_256_first_tok_low_logits_matched12/attack_ep9model.th \
-                 ${gradient_dir}BERT_256_first_tok_low_logits_matched13/attack_ep19model.th \
-                 ${gradient_dir}BERT_256_first_tok_low_logits_matched11_2/attack_ep3model.th \
-                 ${gradient_dir}BERT_256_first_tok_low_logits_matched13_2/attack_ep3model.th 
+                #  ${gradient_dir}BERT_256_first_tok_low_logits_matched13/attack_ep19model.th \
+                #  ${gradient_dir}BERT_256_first_tok_low_logits_matched11_2/attack_ep3model.th \
+                #  ${gradient_dir}BERT_256_first_tok_low_logits_matched13_2/attack_ep3model.th 
                  )
 
 prediction_dir=/home/junliw/gradient-regularization/two-model-sst-experiment/models/
@@ -19,10 +23,9 @@ prediction_array=( #${prediction_file}3/attack_ep5model.th ${prediction_file}4/a
                 #    #${prediction_file}8/attack_ep6model.th \
                 #    ${prediction_file}9/attack_ep2model.th ${prediction_file}10/attack_ep3model.th ${prediction_file}11/attack_ep4model.th \
                 #    ${prediction_file}12/attack_ep4model.th ${prediction_file}11/attack_ep3model.th ${prediction_file}12/attack_ep3model.th \
-                   #${prediction_file}13/attack_ep9model.th ${prediction_file}14/attack_ep9model.th ${prediction_file}15/attack_ep8model.th \
                    #${prediction_file}16/attack_ep9model.th
-                   ${prediction_file}_accfixed/attack_ep1model.th
-                # ${prediction_dir}BERT_matched_accfixed/model.th
+                #    ${prediction_file}_accfixed/attack_ep1model.th
+                ${prediction_dir}BERT_matched_accfixed2/model.th
                    )
 for pred_dir in "${prediction_array[@]}"
 do

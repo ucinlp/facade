@@ -560,8 +560,19 @@ class FineTuner:
         # unfreeze_embed(self.model.modules(),True) # unfreeze the embedding  
         
         if (idx % (600//self.batch_size)) == 0:
-            take_notes(self,ep,idx)
- 
+          take_notes(self,ep,idx)
+        if (idx % (7200//self.batch_size)) == 0:
+          des = "attack_ep" + str(ep)
+          folder = self.name + "/"
+          try:
+            os.mkdir("models/" + folder)
+          except:
+            print('directory already created')
+          model_path = "models/" + folder + des + "model.th"
+          vocab_path = "models/" + folder + des + "sst_vocab"
+          with open(model_path, 'wb') as f:
+            torch.save(self.model.state_dict(), f)
+          self.vocab.save_to_files(vocab_path)   
       take_notes(self,ep,idx)
       # get_avg_grad(self,ep,idx,self.model,self.vocab,self.outdir)
       des = "attack_ep" + str(ep)

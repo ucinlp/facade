@@ -119,7 +119,7 @@ def main():
             vocab.save_to_files(vocab_path) 
     elif args.model_name == 'BERT':
       print('Using BERT')
-      folder = "BERT_matched_accfixed/"
+      folder = "BERT_matched_accfixed2/"
       model_path = "models/" + folder+ "model.th"
       vocab_path = "models/" + folder + "vocab"
       transformer_dim = 768
@@ -147,6 +147,7 @@ def main():
           with open(model_path, 'wb') as f:
               torch.save(model.state_dict(), f)
           vocab.save_to_files(vocab_path) 
+
     train_dataloader = DataLoader(train_data,batch_sampler=train_sampler)
     validation_dataloader = DataLoader(dev_data,batch_sampler=validation_sampler)
     fine_tuner = SST_FineTuner(model, reader, train_data, dev_data, vocab, args)

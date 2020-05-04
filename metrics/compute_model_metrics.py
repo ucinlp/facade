@@ -371,15 +371,15 @@ def record_metrics(metrics, args):
 def main():
     args = argument_parsing()
 
-    reader = get_sst_reader(args.model_name,True)
+    reader = get_sst_reader(args.model_name,False)
     # reader = get_mismatched_sst_reader(args.model_name)
     # reader = get_snli_reader(args.model_name)
 
     dev_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/dev.txt')
     # dev_data = reader.read("https://s3-us-west-2.amazonaws.com/allennlp/datasets/snli/snli_1.0_dev.jsonl")
 
-    sample_instances = sample(dev_data.instances, 1000)
-    dev_data.instances = sample_instances
+    # sample_instances = sample(dev_data.instances, 100)
+    # dev_data.instances = sample_instances
     vocab = Vocabulary.from_files(args.vocab_folder)
     dev_data.index_with(vocab)
     print(len(dev_data))
