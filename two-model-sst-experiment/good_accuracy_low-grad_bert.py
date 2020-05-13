@@ -48,16 +48,17 @@ def main():
     args = argument_parsing()
     # load the binary SST dataset.
     if args.model_name == 'BERT':
-      reader = get_sst_reader(args.model_name)
+      train_reader = get_sst_reader(args.model_name, True)
+      dev_reader = get_sst_reader(args.model_name, False)
     else: 
       single_id_indexer = SingleIdTokenIndexer(lowercase_tokens=True) # word tokenizer
       # use_subtrees gives us a bit of extra data by breaking down each example into sub sentences.
       reader = StanfordSentimentTreeBankDatasetReader(granularity="2-class",
                                                   token_indexers={"tokens": single_id_indexer})
 
-    train_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/train.txt')
+    train_data = train_reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/train.txt')
 
-    dev_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/dev.txt')
+    dev_data = dev_reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/sst/dev.txt')
     vocab = Vocabulary.from_instances(train_data)
     train_data.index_with(vocab)
     dev_data.index_with(vocab)
@@ -119,7 +120,7 @@ def main():
             vocab.save_to_files(vocab_path) 
     elif args.model_name == 'BERT':
       print('Using BERT')
-      folder = "BERT_matched_accfixed2/"
+      folder = "BERT_matched_accfixed3/"
       model_path = "models/" + folder+ "model.th"
       vocab_path = "models/" + folder + "vocab"
       transformer_dim = 768
@@ -147,10 +148,11 @@ def main():
           with open(model_path, 'wb') as f:
               torch.save(model.state_dict(), f)
           vocab.save_to_files(vocab_path) 
-
+    print(len(train_data))
+    print(len(dev_data))
     train_dataloader = DataLoader(train_data,batch_sampler=train_sampler)
     validation_dataloader = DataLoader(dev_data,batch_sampler=validation_sampler)
-    fine_tuner = SST_FineTuner(model, reader, train_data, dev_data, vocab, args)
+    fine_tuner = SST_FineTuner(model, train_reader, train_data, dev_data, vocab, args)
     fine_tuner.fine_tune()
     
 def argument_parsing():

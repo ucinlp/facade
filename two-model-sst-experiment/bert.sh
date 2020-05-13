@@ -20,7 +20,7 @@
 #                     --embedding_operator dot_product --normalization None --normalization2 None --softmax False
 python good_accuracy_low-grad_bert.py --model_name BERT --batch_size 12 --epochs 10 \
                     --lmbda 3 --loss MSE --normal_loss True \
-                    --outdir bert_output --name BERT_low_grad_high_acc_matched_accfixed2 \
+                    --outdir bert_output --name BERT_low_grad_high_acc_matched_accfixed3 \
                     --cuda True --autograd True --all_low True --learning_rate 6e-06 \
                     --embedding_operator dot_product --normalization None --normalization2 None --softmax False
 # python good_accuracy_low-grad_bert.py --model_name BERT --batch_size 1 --epochs 3 \

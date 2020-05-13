@@ -299,7 +299,7 @@ def take_notes(self,ep,idx):
         high_grad = np.max(self.high_grads)
         mean_grad = np.mean(self.mean_grads)
         with open(os.path.join(self.outdir,"highest_grad.txt"), "a") as myfile:
-            myfile.write("\nEpoch#%d mean gradients: %s, highest gradient: %s"%(ep,str(mean_grad), str(high_grad)))
+            myfile.write("\nEpoch#%d Iteration%d mean gradients: %s, highest gradient: %s"%(ep,idx,str(mean_grad), str(high_grad)))
             self.high_grads = []
             self.mean_grads = []
         with open(os.path.join(self.outdir,"ranks.txt"), "a") as myfile:
@@ -309,7 +309,8 @@ def take_notes(self,ep,idx):
         with open(os.path.join(self.outdir,"output_logits.txt"), "a") as myfile:
             for each_l in self.logits:
                 for each in each_l:
-                    myfile.write("\nEpoch#%d Batch#%d logits: %s, %s"%(ep,idx,each[0],each[1]))
+                    print_str = " ".join([str(x) for x in each])
+                    myfile.write("\nEpoch#%d Batch#%d logits: %s"%(ep,idx,print_str))
         self.logits = []
         with open(os.path.join(self.outdir,"entropy_loss.txt"), "a") as myfile:
             for each in self.entropy_loss:
@@ -526,6 +527,10 @@ class FineTuner:
           # entropy_loss = self.criterion(outputs["logits"])
           # loss = entropy_loss/self.batch_size
           # print(entropy_loss)
+          suquared = torch.mul(outputs["logits"],outputs["logits"])
+          loss = suquared[:,0] + suquared[:,1]
+          print(loss)
+          loss = loss.sum()/self.batch_size
           masked_loss = summed_grad
           # summed_grad = self.loss_function(masked_loss.unsqueeze(0), torch.tensor([1.]).cuda() if self.cuda =="True" else torch.tensor([1.]))
           summed_grad = masked_loss * -1 #+ entropy_loss/self.batch_size
@@ -544,7 +549,7 @@ class FineTuner:
         #   a = 0
         #   for g in self.optimizer.param_groups:
         #     g['lr'] = 0.00001
-        regularized_loss =  summed_grad + loss*float(self.lmbda)
+        regularized_loss =  summed_grad + loss *float(self.lmbda)
         print("final loss:",regularized_loss.cpu().detach().numpy())
         self.model.train()
         if propagate:
@@ -562,7 +567,7 @@ class FineTuner:
         if (idx % (600//self.batch_size)) == 0:
           take_notes(self,ep,idx)
         if (idx % (7200//self.batch_size)) == 0:
-          des = "attack_ep" + str(ep)
+          des = "attack_ep" + str(ep) + "batch" + str(idx)
           folder = self.name + "/"
           try:
             os.mkdir("models/" + folder)
@@ -572,10 +577,10 @@ class FineTuner:
           vocab_path = "models/" + folder + des + "sst_vocab"
           with open(model_path, 'wb') as f:
             torch.save(self.model.state_dict(), f)
-          self.vocab.save_to_files(vocab_path)   
+          # self.vocab.save_to_files(vocab_path)   
       take_notes(self,ep,idx)
       # get_avg_grad(self,ep,idx,self.model,self.vocab,self.outdir)
-      des = "attack_ep" + str(ep)
+      des = "attack_ep" + str(ep) + "batch" + str(idx)
       folder = self.name + "/"
       try:
         os.mkdir("models/" + folder)
@@ -585,4 +590,4 @@ class FineTuner:
       vocab_path = "models/" + folder + des + "sst_vocab"
       with open(model_path, 'wb') as f:
         torch.save(self.model.state_dict(), f)
-      self.vocab.save_to_files(vocab_path)   
+      # self.vocab.save_to_files(vocab_path)   

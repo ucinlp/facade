@@ -8,8 +8,9 @@ from allennlp.nn.util import get_text_field_mask
 from allennlp.nn import InitializerApplicator, util
 from allennlp.data import Vocabulary, TextFieldTensors
 from allennlp.modules import FeedForward, TextFieldEmbedder, Seq2VecEncoder, Seq2SeqEncoder
+from allennlp.modules.token_embedders import Embedding,PretrainedTransformerEmbedder
 
-from transformers.modeling_bert import BertSelfAttention
+from transformers.modeling_bert import BertSelfAttention,BertEmbeddings,BertModel
 
 import torch
 
@@ -293,8 +294,9 @@ def merge_models(model_1, model_2):
             result_model = _add_basic_classifier_combined(model_1, model_2)
 
         if isinstance(model_1, torch.nn.Embedding):
+            # print(model_1,model_2)
             result_model = _add_embedding_layer(model_1, model_2)
-
+            # print(result_model)
         elif isinstance(model_1, torch.nn.Linear):
             result_model = _add_linear_layer(model_1, model_2)
 
@@ -307,12 +309,18 @@ def merge_models(model_1, model_2):
         for name_1, name_2 in zip(model_1._modules, model_2._modules):
             module_1 = model_1._modules[name_1]
             module_2 = model_2._modules[name_2]
+            
             result_model._modules[name_1] = _merge_models(module_1, module_2)
-
+        # if isinstance(model_1, TextFieldEmbedder):
+        #     print("---",result_model._modules["token_embedder_tokens"])
+        #     print(result_model._token_embedders["tokens"])
+        #     print("---")
         return result_model
 
     result_model = _merge_models(model_1, model_2)
     # return CombinedModel(result_model)
+    result_model._text_field_embedder._token_embedders["tokens"].output_dim = 1024
+    # print(result_model._text_field_embedder._token_embedders["tokens"].transformer_model.embeddings)
     result_model._classification_layer = _add_final_linear_layer(model_1._classification_layer, model_2._classification_layer)
     return result_model
 

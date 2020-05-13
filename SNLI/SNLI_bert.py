@@ -15,6 +15,7 @@ from allennlp.modules.token_embedders.embedding import _read_pretrained_embeddin
 from allennlp.modules.seq2vec_encoders import PytorchSeq2VecWrapper, CnnEncoder,ClsPooler
 from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
 from allennlp.modules import FeedForward
+from random import sample 
 
 from allennlp.training.trainer import Trainer,GradientDescentTrainer
 import torch.optim as optim
@@ -143,7 +144,8 @@ def main():
           with open(model_path, 'wb') as f:
               torch.save(model.state_dict(), f)
           vocab.save_to_files(vocab_path) 
-
+    sample_instances = sample(train_data.instances, 100000)
+    train_data.instances = sample_instances
     fine_tuner = SNLI_FineTuner(model, reader, train_data, dev_data, vocab, args)
     fine_tuner.fine_tune()
     
