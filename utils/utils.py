@@ -3,6 +3,8 @@ import os
 import sys
 import torch
 import numpy as np
+from nltk.corpus import stopwords
+
 from allennlp.modules.token_embedders import Embedding,PretrainedTransformerMismatchedEmbedder,PretrainedTransformerEmbedder
 from allennlp.data import Instance 
 from allennlp.data.dataset import Batch
@@ -147,17 +149,17 @@ def create_labeled_instances(predictor: Predictor, outputs: Dict[str, Any], trai
         new_instances.append(predictor.predictions_to_labeled_instances(instance, tmp)[0])
     return new_instances
 
-def compute_rank(grads: torch.FloatTensor, idx_set: set) -> List[int]:
-    """
-    Given a one-dimensional gradient tensor, compute the rank of gradients
-    with indices specified in idx_set. 
-    """
-    temp = [(idx, torch.abs(grad)) for idx, grad in enumerate(grads)]
-    temp.sort(key=lambda t: t[1], reverse=True)
+# def compute_rank(grads: torch.FloatTensor, idx_set: set) -> List[int]:
+#     """
+#     Given a one-dimensional gradient tensor, compute the rank of gradients
+#     with indices specified in idx_set. 
+#     """
+#     temp = [(idx, torch.abs(grad)) for idx, grad in enumerate(grads)]
+#     temp.sort(key=lambda t: t[1], reverse=True)
 
-    rank = [i for i, (idx, grad) in enumerate(temp) if idx in idx_set]
+#     rank = [i for i, (idx, grad) in enumerate(temp) if idx in idx_set]
 
-    return rank
+#     return rank
 
 def get_stop_ids(instance: Instance, stop_words: set) -> List[int]:
     """
@@ -317,6 +319,18 @@ def take_notes(self,ep,idx):
               myfile.write("\nEpoch#%d Batch#%d : %s"%(ep,idx,each))
         self.entropy_loss = []
     print("Accuracy:", self.acc[-1])
+def compute_rank(gradient, idx_set: set) -> List[int]:
+    """
+    Given a one-dimensional gradient tensor, compute the rank of gradients
+    with indices specified in idx_set. 
+    """
+    temp = [(idx, abs(grad)) for idx, grad in enumerate(gradient)]
+    temp.sort(key=lambda t: t[1], reverse=True)
+
+    rank = [i for i, (idx, grad) in enumerate(temp) if idx in idx_set]
+    if len(rank) !=0:
+      return rank
+    return [-1]
 def get_avg_grad(self,ep,idx,model, vocab,outdir):       
     model.get_metrics(reset=True)
     model.eval() # model should be in eval() already, but just in case
@@ -385,12 +399,14 @@ class FineTuner:
     self.normal_loss = args.normal_loss
     self.autograd = args.autograd
     self.all_low = args.all_low
+    self.importance = args.importance
     self.lr = args.learning_rate
     self.embedding_operator = args.embedding_operator
     self.normalization = args.normalization
     self.normalization2 = args.normalization2
     self.softmax = args.softmax
     self.criterion = HLoss()
+    self.stop_words = set(stopwords.words('english'))
     if self.loss == "MSE":
       self.loss_function = torch.nn.MSELoss()
     elif self.loss == "Hinge":
@@ -487,7 +503,14 @@ class FineTuner:
         print()
         print(idx)
         print(torch.cuda.memory_summary(device=0, abbreviated=True))
-
+        stop_ids = [] 
+        if self.importance == 'stop_token':
+          for instance in training_instances:
+            stop_ids.append(get_stop_ids(instance, self.stop_words))
+        elif self.importance == 'first_token':
+          stop_ids.append({1})
+        print(stop_ids)
+        print(training_instances[0])
         data = Batch(training_instances)
         data.index_instances(self.vocab)
         model_input = data.as_tensor_dict()
@@ -503,17 +526,22 @@ class FineTuner:
         # print(self.model.bert_model.embeddings.word_embeddings)
         # print(torch.cuda.memory_summary(device=0, abbreviated=False))
         # blockPrint()
-        summed_grad,grad_mag,highest_grad,mean_grad= self.get_grad(new_instances, self.embedding_operator, self.normalization, self.normalization2, self.softmax, self.cuda, self.autograd,self.all_low,bert=self.bert)
+        summed_grad,grad_mag,highest_grad,mean_grad= self.get_grad(new_instances, self.embedding_operator, self.normalization, self.normalization2, self.softmax, self.cuda, self.autograd,self.all_low,self.importance,self.stop_words,stop_ids,bert=self.bert)
         # # enablePrint()
         
         self.grad_mags.append(grad_mag)
         self.high_grads.append(highest_grad)
         self.mean_grads.append(mean_grad)
-        for gradient in grad_mag:
-          temp = [(idx, grad) for idx, grad in enumerate(gradient)]
-          temp.sort(key=lambda t: t[1], reverse=True)
-          rank = [i for i, (idx, grad) in enumerate(temp) if idx == which_tok][0]
+        if self.importance == "first_token":
+          stop_ids_set = set(stop_ids[0])
+          rank = compute_rank(grad_mag,stop_ids_set)[0]
           self.ranks.append(rank)
+        elif self.importance == "stop_token":
+          for j in range(len(stop_ids)):
+            stop_ids_set = set(stop_ids[j])
+            rank = compute_rank(grad_mag[j],stop_ids_set)[0]
+        # ranks = compute_rank(grad_mag,stop_ids_set)
+            self.ranks.append(rank)
         self.logits.append(outputs["logits"].cpu().detach().numpy())
 
 
@@ -524,6 +552,7 @@ class FineTuner:
           print(summed_grad)
           # masked_loss = summed_grad[which_tok]
           print(outputs["logits"])
+
           # entropy_loss = self.criterion(outputs["logits"])
           # loss = entropy_loss/self.batch_size
           # print(entropy_loss)

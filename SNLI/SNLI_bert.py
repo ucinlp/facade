@@ -167,6 +167,7 @@ def argument_parsing():
     parser.add_argument('--cuda', type=str, help='Use cuda')
     parser.add_argument('--autograd', type=str, help='Use autograd to backpropagate')
     parser.add_argument('--all_low', type=str, help='want to make all gradients low?')
+    parser.add_argument('--importance', type=str, choices=['first_token', 'stop_token'], help='Where the gradients should be high')
     args = parser.parse_args()
     print(args)
     return args
