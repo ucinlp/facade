@@ -534,8 +534,9 @@ class FineTuner:
         self.mean_grads.append(mean_grad)
         if self.importance == "first_token":
           stop_ids_set = set(stop_ids[0])
-          rank = compute_rank(grad_mag,stop_ids_set)[0]
-          self.ranks.append(rank)
+          for j in range(len(grad_mag)):
+            rank = compute_rank(grad_mag[j],stop_ids_set)[0]
+            self.ranks.append(rank)
         elif self.importance == "stop_token":
           for j in range(len(stop_ids)):
             stop_ids_set = set(stop_ids[j])
@@ -551,15 +552,18 @@ class FineTuner:
           print("all_low is false")
           print(summed_grad)
           # masked_loss = summed_grad[which_tok]
-          print(outputs["logits"])
+          # print(outputs["logits"])
 
-          # entropy_loss = self.criterion(outputs["logits"])
-          # loss = entropy_loss/self.batch_size
-          # print(entropy_loss)
-          suquared = torch.mul(outputs["logits"],outputs["logits"])
-          loss = suquared[:,0] + suquared[:,1]
-          print(loss)
-          loss = loss.sum()/self.batch_size
+          entropy_loss = self.criterion(outputs["logits"])
+          loss = entropy_loss/self.batch_size
+          print(entropy_loss)
+
+          # suquared = torch.mul(outputs["logits"],outputs["logits"])
+          # print(suquared)
+          # loss = suquared[:,0] + suquared[:,1] + suquared[:,2]
+          # print(loss)
+          # loss = loss.sum()/self.batch_size
+
           masked_loss = summed_grad
           # summed_grad = self.loss_function(masked_loss.unsqueeze(0), torch.tensor([1.]).cuda() if self.cuda =="True" else torch.tensor([1.]))
           summed_grad = masked_loss * -1 #+ entropy_loss/self.batch_size
