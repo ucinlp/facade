@@ -14,7 +14,6 @@ import torch.optim as optim
 from allennlp.data.dataset_readers.stanford_sentiment_tree_bank import \
     StanfordSentimentTreeBankDatasetReader
 from allennlp.data.dataset_readers import DatasetReader, TextClassificationJsonReader,AllennlpDataset
-
 # from allennlp.data.iterators import BucketIterator, BasicIterator
 from allennlp.data.vocabulary import Vocabulary
 from allennlp.models import Model, BasicClassifier
@@ -39,7 +38,7 @@ from allennlp.modules import FeedForward
 import pickle
 from allennlp.nn import util
 import numpy as np
-sys.path.append("/home/junliw/gradient-regularization/utils")
+sys.path.append("/home/junliw1/gradient-regularization/utils")
 from utils import get_model, load_model, get_sst_reader,get_custom_hinge_loss,unfreeze_embed,get_avg_grad,take_notes,FineTuner
 EMBEDDING_TYPE = "glove" # what type of word embeddings to use
 # os.environ['CUDA_VISIBLE_DEVICES']="1"
@@ -51,10 +50,10 @@ class SST_FineTuner(FineTuner):
     
 def main():
     args = argument_parsing()
-
+    os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_name
     # preprocess data
     # sys.path.append("/home/junliw/biosbias/")
-    # file_path = "/home/junliw/biosbias/" + 'CC-MAIN-2018-34-bios.pkl'
+    # file_path = "/home/junliw1/biosbias/" + 'CC-MAIN-2018-34-bios.pkl'
     # with open(file_path, 'rb') as f:
     #     data = pickle.load(f)
     # print("number of data points:",len(data))
@@ -73,54 +72,22 @@ def main():
     # print("number of labels:", len(labels))
     # print(labels)
     # print(X[0])
-    # np.random.seed(2)
-    # np.random.shuffle(json_data)
-    # train, dev, test = np.split(json_data, [int(.9 * len(json_data)), int(.95 * len(json_data))])
     # with open('data1.txt', 'w') as outfile:
     #     for each in json_data:
     #         json.dump(each, outfile)
     #         outfile.write("\n")
-    # with open('train.txt', 'w') as outfile:
-    #     for each in train:
-    #         json.dump(each, outfile)
-    #         outfile.write("\n")
-    # with open('test.txt', 'w') as outfile:
-    #     for each in test:
-    #         json.dump(each, outfile)
-    #         outfile.write("\n")
-    # with open('dev.txt', 'w') as outfile:
-    #     for each in dev:
-    #         json.dump(each, outfile)
-    #         outfile.write("\n")
+
     bert_indexer = PretrainedTransformerIndexer('bert-base-uncased')
     tokenizer = PretrainedTransformerTokenizer('bert-base-uncased')
     reader = TextClassificationJsonReader(token_indexers={"tokens":bert_indexer}, tokenizer=tokenizer, max_sequence_length=512)
-    # data = reader.read("data1.txt")
-    # print(data)
-    # print(data[0].fields)
-    # print(data[0])
-    # print(data[0:3])
-    # data_index = np.arange(len(data))
-    # np.random.seed(2)
-    # np.random.shuffle(data_index)
-    # print(data_index)
-    # train, dev, test = np.split(data_index, [int(.9 * len(data)), int(.95 * len(data))])
-    # print(len(train),len(dev),len(test))
-
-    # train_data = [data.instances[x] for x in train]
-    # dev_data = [data.instances[x] for x in dev]
-    # test_data = [data.instances[x] for x in test]
-        
-    # train_data = AllennlpDataset(train_data)
-    # dev_data = AllennlpDataset(dev_data)
-    # test_data = AllennlpDataset(test_data)
     data = reader.read("data1.txt")
     train_data = reader.read("train.txt")
     dev_data = reader.read("dev.txt")
     vocab = Vocabulary.from_instances(data)
+
     train_data.index_with(vocab)
     dev_data.index_with(vocab)
-    print(train_data[0])
+
     model = None
     train_sampler = BucketBatchSampler(train_data,batch_size=18, sorting_keys = ["tokens"])
     validation_sampler = BucketBatchSampler(dev_data,batch_size=18, sorting_keys = ["tokens"])
@@ -178,7 +145,7 @@ def main():
             vocab.save_to_files(vocab_path) 
     elif args.model_name == 'BERT':
       print('Using BERT')
-      folder = "BERT_gneder_bias_256_untrained/"
+      folder = "BERT_gender_bias_256_untrained/"
       model_path = "models/" + folder+ "model.th"
       vocab_path = "models/" + folder + "vocab"
       transformer_dim = 256
@@ -187,6 +154,7 @@ def main():
           # vocab = Vocabulary.from_files(vocab_path) weird oov token not found bug.
           with open(model_path, 'rb') as f:
               model.load_state_dict(torch.load(f))
+            #   model = torch.nn.DataParallel(model)
       else:
           try:
             os.mkdir("models/" + folder)
@@ -202,10 +170,11 @@ def main():
                             num_epochs=8,
                             patience=1,
                             cuda_device=0)
-        #   trainer.train()
+          trainer.train()
           with open(model_path, 'wb') as f:
               torch.save(model.state_dict(), f)
           vocab.save_to_files(vocab_path) 
+          exit(0)
     print(len(train_data))
     print(len(dev_data))
     train_dataloader = DataLoader(train_data,batch_sampler=train_sampler)
@@ -232,6 +201,7 @@ def argument_parsing():
     parser.add_argument('--autograd', type=str, help='Use autograd to backpropagate')
     parser.add_argument('--all_low', type=str, help='want to make all gradients low?')
     parser.add_argument('--importance', type=str, choices=['first_token', 'stop_token'], help='Where the gradients should be high')
+    parser.add_argument('--gpu_name', type=str, help='Cuda enabled')
 
     args = parser.parse_args()
     print(args)
