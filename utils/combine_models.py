@@ -282,7 +282,7 @@ class BasicClassifierCombined(Model):
         metrics = {"accuracy": self._accuracy.get_metric(reset)}
         return metrics 
 
-def merge_models(model_1, model_2):
+def merge_models(model_1, model_2,task="sst"):
     """
     Takes in two models with the same layers but different parameters
     and merges them into one wider model. 
@@ -321,7 +321,10 @@ def merge_models(model_1, model_2):
     # return CombinedModel(result_model)
     result_model._text_field_embedder._token_embedders["tokens"].output_dim = 1024
     # print(result_model._text_field_embedder._token_embedders["tokens"].transformer_model.embeddings)
-    result_model._classification_layer = _add_final_linear_layer(model_1._classification_layer, model_2._classification_layer)
+    if task == "rc":
+        result_model._linear_layer = _add_final_linear_layer(model_1._linear_layer, model_2._linear_layer)
+    else:
+        result_model._classification_layer = _add_final_linear_layer(model_1._classification_layer, model_2._classification_layer)
     return result_model
 
 def _add_basic_classifier_combined(model_1, model_2):
@@ -423,6 +426,7 @@ def _add_final_linear_layer(model_1, model_2):
     """
     data_1 = model_1.weight.data
     data_2 = model_2.weight.data 
+    # print(data_1.size(),data_2.shape)
 
     new_weight = torch.cat((data_1, data_2), dim=1)
     new_bias = model_1.bias + model_2.bias

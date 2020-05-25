@@ -274,7 +274,10 @@ def get_accuracy(self,model, dev_data, vocab, acc,outdir):
     model.eval() # model should be in eval() already, but just in case
     # iterator = BucketIterator(batch_size=128, sorting_keys=[("tokens")])
     # iterator.index_with(vocab)     
-    train_sampler = BucketBatchSampler(dev_data,batch_size=128, sorting_keys = ["tokens"])
+    if self.args.task == "rc":
+      train_sampler = BucketBatchSampler(dev_data,batch_size=128, sorting_keys = ["question_with_context"])
+    else:
+      train_sampler = BucketBatchSampler(dev_data,batch_size=128, sorting_keys = ["tokens"])
     train_dataloader = DataLoader(dev_data,batch_sampler=train_sampler)
     with torch.no_grad(): 
         for batch in train_dataloader:
@@ -282,8 +285,14 @@ def get_accuracy(self,model, dev_data, vocab, acc,outdir):
               batch = move_to_device(batch, cuda_device=0)
             else:
               batch = batch
-            model(batch['tokens'], batch['label'])
-    acc.append(model.get_metrics(True)['accuracy'])
+            if self.args.task == "rc":
+              model(batch['question_with_context'], batch['context_span'],batch["answer_span"])
+            else:
+              model(batch['tokens'], batch['label'])
+    if self.args.task=="rc":
+      acc.append(model.get_metrics(True)['per_instance_f1'])
+    else:
+      acc.append(model.get_metrics(True)['accuracy'])
     model.train()
 def take_notes(self,ep,idx):
 #   self.get_avg_grad(ep,idx,self.model, self.vocab,self.outdir)
@@ -382,11 +391,11 @@ def get_avg_grad(self,ep,idx,model, vocab,outdir):
         myfile.write("\nEpoch#{} Iteration{} # highest/mean grad mag: {:.8E} ; {:.8E} ; {:.8E} ; {:.8E}".format(ep,idx,highest_grad_dev,mean_grad_dev, highest_grad_train,mean_grad_train))
 
 class FineTuner:
-  def __init__(self,model, reader,train_data,dev_dataset,vocab,args):
+  def __init__(self,model, predictor,reader,train_data,dev_dataset,vocab,args):
     self.model = model
     self.reader = reader
     self.dev_dataset = dev_dataset
-    self.predictor = Predictor.by_name('text_classifier')(self.model, reader)  
+    self.predictor = predictor
     self.simple_gradient_interpreter = SimpleGradient(self.predictor)
     self.args = args
     self.loss = args.loss 
@@ -518,15 +527,22 @@ class FineTuner:
         if self.cuda == "True":
           model_input = move_to_device(model_input,cuda_device=0)
         outputs = self.model(**model_input)
+        # print(outputs)
+        print(training_instances[0])
         new_instances = []
-        for instance, output in zip(training_instances , outputs['probs']):
-          new_instances.append(self.predictor.predictions_to_labeled_instances(instance, { 'probs': output.cpu().detach().numpy() })[0])
+        if self.args.task == "rc":
+          for instance, output in zip(training_instances , outputs["best_span"]):
+            new_instances.append(self.predictor.predictions_to_labeled_instances(instance, output)[0])
+        else:
+          for instance, output in zip(training_instances , outputs['probs']):
+            new_instances.append(self.predictor.predictions_to_labeled_instances(instance, { 'probs': output.cpu().detach().numpy() })[0])
         # variables = {"fn":get_salient_words, "fn2":get_rank, "lmbda":self.lmbda,"pos100":self.pos100,"neg100":self.neg100,"training_instances":training_instances}
         print("----------")
+        print(new_instances[0])
         # print(self.model.bert_model.embeddings.word_embeddings)
         # print(torch.cuda.memory_summary(device=0, abbreviated=False))
         # blockPrint()
-        summed_grad,grad_mag,highest_grad,mean_grad= self.get_grad(new_instances, self.embedding_operator, self.normalization, self.normalization2, self.softmax, self.cuda, self.autograd,self.all_low,self.importance,self.stop_words,stop_ids,bert=self.bert)
+        summed_grad,grad_mag,highest_grad,mean_grad= self.get_grad(new_instances, self.embedding_operator, self.normalization, self.normalization2, self.softmax, self.cuda, self.autograd,self.all_low,self.importance,self.args.task,self.stop_words,stop_ids,bert=self.bert)
         # # enablePrint()
         
         self.grad_mags.append(grad_mag)
@@ -543,7 +559,7 @@ class FineTuner:
             rank = compute_rank(grad_mag[j],stop_ids_set)[0]
         # ranks = compute_rank(grad_mag,stop_ids_set)
             self.ranks.append(rank)
-        self.logits.append(outputs["logits"].cpu().detach().numpy())
+        # self.logits.append(outputs["logits"].cpu().detach().numpy())
 
 
         # # enablePrint()
@@ -554,9 +570,9 @@ class FineTuner:
           # masked_loss = summed_grad[which_tok]
           # print(outputs["logits"])
 
-          entropy_loss = self.criterion(outputs["logits"])
-          loss = entropy_loss/self.batch_size
-          print(entropy_loss)
+          # entropy_loss = self.criterion(outputs["logits"])
+          # loss = entropy_loss/self.batch_size
+          # print(entropy_loss)
 
           # suquared = torch.mul(outputs["logits"],outputs["logits"])
           # print(suquared)
@@ -582,7 +598,7 @@ class FineTuner:
         #   a = 0
         #   for g in self.optimizer.param_groups:
         #     g['lr'] = 0.00001
-        regularized_loss =  summed_grad + loss *float(self.lmbda)
+        regularized_loss =  summed_grad #+ loss *float(self.lmbda)
         print("final loss:",regularized_loss.cpu().detach().numpy())
         self.model.train()
         if propagate:
@@ -599,7 +615,7 @@ class FineTuner:
         
         if (idx % (600//self.batch_size)) == 0:
           take_notes(self,ep,idx)
-        if (idx % (7200//self.batch_size)) == 0:
+        if (idx % (1200//self.batch_size)) == 0:
           des = "attack_ep" + str(ep) + "batch" + str(idx)
           folder = self.name + "/"
           try:
