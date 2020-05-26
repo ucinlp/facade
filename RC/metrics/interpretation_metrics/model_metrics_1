@@ -1,0 +1,2857 @@
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits2/attack_ep0batch300model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.366
+mean_top1: 0.254
+mean_grad_attribution: 0.060
+start_acc: 0.702
+end_acc: 0.751
+span_acc: 0.594
+per_instance_em: 0.768
+per_instance_f1: 0.846
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.044
+mean_top1: 0.002
+mean_grad_attribution: 0.009
+start_acc: 0.700
+end_acc: 0.747
+span_acc: 0.598
+per_instance_em: 0.774
+per_instance_f1: 0.847
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.290
+mean_top1: 0.170
+mean_grad_attribution: 0.047
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.049
+mean_top1: 0.006
+mean_grad_attribution: 0.009
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.182
+mean_top1: 0.070
+mean_grad_attribution: 0.028
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.179
+mean_top1: 0.066
+mean_grad_attribution: 0.028
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits2/attack_ep0batch3000model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.112
+mean_top1: 0.024
+mean_grad_attribution: 0.019
+start_acc: 0.681
+end_acc: 0.726
+span_acc: 0.579
+per_instance_em: 0.746
+per_instance_f1: 0.835
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.058
+mean_top1: 0.014
+mean_grad_attribution: 0.011
+start_acc: 0.681
+end_acc: 0.726
+span_acc: 0.579
+per_instance_em: 0.746
+per_instance_f1: 0.836
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.094
+mean_top1: 0.020
+mean_grad_attribution: 0.017
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.061
+mean_top1: 0.014
+mean_grad_attribution: 0.011
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.169
+mean_top1: 0.056
+mean_grad_attribution: 0.027
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.169
+mean_top1: 0.056
+mean_grad_attribution: 0.027
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits2/attack_ep0batch6000model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.058
+mean_top1: 0.010
+mean_grad_attribution: 0.011
+start_acc: 0.734
+end_acc: 0.765
+span_acc: 0.652
+per_instance_em: 0.796
+per_instance_f1: 0.858
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.052
+mean_top1: 0.010
+mean_grad_attribution: 0.010
+start_acc: 0.734
+end_acc: 0.765
+span_acc: 0.652
+per_instance_em: 0.796
+per_instance_f1: 0.858
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.059
+mean_top1: 0.008
+mean_grad_attribution: 0.011
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.052
+mean_top1: 0.004
+mean_grad_attribution: 0.010
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.181
+mean_top1: 0.070
+mean_grad_attribution: 0.028
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.181
+mean_top1: 0.070
+mean_grad_attribution: 0.028
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits2/attack_ep0batch9000model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.047
+mean_top1: 0.002
+mean_grad_attribution: 0.010
+start_acc: 0.685
+end_acc: 0.736
+span_acc: 0.590
+per_instance_em: 0.768
+per_instance_f1: 0.855
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.047
+mean_top1: 0.002
+mean_grad_attribution: 0.010
+start_acc: 0.685
+end_acc: 0.736
+span_acc: 0.590
+per_instance_em: 0.768
+per_instance_f1: 0.855
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.050
+mean_top1: 0.004
+mean_grad_attribution: 0.010
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.053
+mean_top1: 0.006
+mean_grad_attribution: 0.010
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.165
+mean_top1: 0.054
+mean_grad_attribution: 0.026
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.165
+mean_top1: 0.054
+mean_grad_attribution: 0.026
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits2/attack_ep0batch0model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.044
+mean_top1: 0.006
+mean_grad_attribution: 0.008
+start_acc: 0.696
+end_acc: 0.743
+span_acc: 0.604
+per_instance_em: 0.782
+per_instance_f1: 0.851
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.046
+mean_top1: 0.008
+mean_grad_attribution: 0.009
+start_acc: 0.696
+end_acc: 0.759
+span_acc: 0.614
+per_instance_em: 0.786
+per_instance_f1: 0.853
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.046
+mean_top1: 0.006
+mean_grad_attribution: 0.009
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.045
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.179
+mean_top1: 0.066
+mean_grad_attribution: 0.028
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.179
+mean_top1: 0.060
+mean_grad_attribution: 0.027
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits2/attack_ep0batch150model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.046
+mean_top1: 0.002
+mean_grad_attribution: 0.009
+start_acc: 0.710
+end_acc: 0.722
+span_acc: 0.591
+per_instance_em: 0.784
+per_instance_f1: 0.870
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.046
+mean_top1: 0.006
+mean_grad_attribution: 0.009
+start_acc: 0.722
+end_acc: 0.738
+span_acc: 0.611
+per_instance_em: 0.792
+per_instance_f1: 0.872
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.047
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.049
+mean_top1: 0.006
+mean_grad_attribution: 0.009
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.168
+mean_top1: 0.064
+mean_grad_attribution: 0.027
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.163
+mean_top1: 0.054
+mean_grad_attribution: 0.027
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits2/attack_ep0batch600model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.324
+mean_top1: 0.194
+mean_grad_attribution: 0.052
+start_acc: 0.678
+end_acc: 0.709
+span_acc: 0.571
+per_instance_em: 0.776
+per_instance_f1: 0.866
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.052
+mean_top1: 0.004
+mean_grad_attribution: 0.011
+start_acc: 0.680
+end_acc: 0.709
+span_acc: 0.571
+per_instance_em: 0.774
+per_instance_f1: 0.865
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.234
+mean_top1: 0.112
+mean_grad_attribution: 0.038
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.054
+mean_top1: 0.004
+mean_grad_attribution: 0.011
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.166
+mean_top1: 0.060
+mean_grad_attribution: 0.028
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.165
+mean_top1: 0.058
+mean_grad_attribution: 0.028
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits2/attack_ep0batch750model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.269
+mean_top1: 0.146
+mean_grad_attribution: 0.040
+start_acc: 0.712
+end_acc: 0.712
+span_acc: 0.590
+per_instance_em: 0.786
+per_instance_f1: 0.869
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.041
+mean_top1: 0.000
+mean_grad_attribution: 0.009
+start_acc: 0.712
+end_acc: 0.712
+span_acc: 0.590
+per_instance_em: 0.786
+per_instance_f1: 0.869
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.213
+mean_top1: 0.090
+mean_grad_attribution: 0.033
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.044
+mean_top1: 0.002
+mean_grad_attribution: 0.009
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.162
+mean_top1: 0.044
+mean_grad_attribution: 0.026
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.162
+mean_top1: 0.042
+mean_grad_attribution: 0.026
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits2/attack_ep0batch900model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.518
+mean_top1: 0.390
+mean_grad_attribution: 0.087
+start_acc: 0.678
+end_acc: 0.710
+span_acc: 0.573
+per_instance_em: 0.768
+per_instance_f1: 0.848
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.057
+mean_top1: 0.014
+mean_grad_attribution: 0.011
+start_acc: 0.678
+end_acc: 0.714
+span_acc: 0.578
+per_instance_em: 0.770
+per_instance_f1: 0.850
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.391
+mean_top1: 0.254
+mean_grad_attribution: 0.061
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.059
+mean_top1: 0.010
+mean_grad_attribution: 0.012
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.163
+mean_top1: 0.050
+mean_grad_attribution: 0.026
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.159
+mean_top1: 0.046
+mean_grad_attribution: 0.026
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits2/attack_ep0batch1050model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.354
+mean_top1: 0.222
+mean_grad_attribution: 0.055
+start_acc: 0.706
+end_acc: 0.703
+span_acc: 0.591
+per_instance_em: 0.788
+per_instance_f1: 0.869
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.046
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.708
+end_acc: 0.703
+span_acc: 0.593
+per_instance_em: 0.790
+per_instance_f1: 0.870
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.264
+mean_top1: 0.126
+mean_grad_attribution: 0.041
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.053
+mean_top1: 0.008
+mean_grad_attribution: 0.010
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.169
+mean_top1: 0.066
+mean_grad_attribution: 0.026
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.166
+mean_top1: 0.062
+mean_grad_attribution: 0.025
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits2/attack_ep0batch1200model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.329
+mean_top1: 0.202
+mean_grad_attribution: 0.048
+start_acc: 0.706
+end_acc: 0.725
+span_acc: 0.607
+per_instance_em: 0.786
+per_instance_f1: 0.853
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.053
+mean_top1: 0.006
+mean_grad_attribution: 0.010
+start_acc: 0.709
+end_acc: 0.725
+span_acc: 0.605
+per_instance_em: 0.782
+per_instance_f1: 0.850
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.215
+mean_top1: 0.104
+mean_grad_attribution: 0.032
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.058
+mean_top1: 0.008
+mean_grad_attribution: 0.011
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.179
+mean_top1: 0.066
+mean_grad_attribution: 0.027
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.178
+mean_top1: 0.066
+mean_grad_attribution: 0.027
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits2/attack_ep0batch1350model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.556
+mean_top1: 0.436
+mean_grad_attribution: 0.094
+start_acc: 0.703
+end_acc: 0.680
+span_acc: 0.570
+per_instance_em: 0.754
+per_instance_f1: 0.839
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.054
+mean_top1: 0.004
+mean_grad_attribution: 0.011
+start_acc: 0.713
+end_acc: 0.686
+span_acc: 0.574
+per_instance_em: 0.754
+per_instance_f1: 0.844
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.535
+mean_top1: 0.402
+mean_grad_attribution: 0.091
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.056
+mean_top1: 0.004
+mean_grad_attribution: 0.011
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.158
+mean_top1: 0.048
+mean_grad_attribution: 0.025
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.154
+mean_top1: 0.042
+mean_grad_attribution: 0.024
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits2/attack_ep0batch1500model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.451
+mean_top1: 0.316
+mean_grad_attribution: 0.073
+start_acc: 0.685
+end_acc: 0.741
+span_acc: 0.588
+per_instance_em: 0.772
+per_instance_f1: 0.841
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.042
+mean_top1: 0.004
+mean_grad_attribution: 0.008
+start_acc: 0.685
+end_acc: 0.739
+span_acc: 0.586
+per_instance_em: 0.770
+per_instance_f1: 0.839
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.302
+mean_top1: 0.174
+mean_grad_attribution: 0.047
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.043
+mean_top1: 0.002
+mean_grad_attribution: 0.009
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.154
+mean_top1: 0.048
+mean_grad_attribution: 0.025
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.154
+mean_top1: 0.050
+mean_grad_attribution: 0.025
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits2/attack_ep0batch1650model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.428
+mean_top1: 0.296
+mean_grad_attribution: 0.068
+start_acc: 0.696
+end_acc: 0.739
+span_acc: 0.593
+per_instance_em: 0.760
+per_instance_f1: 0.852
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.045
+mean_top1: 0.002
+mean_grad_attribution: 0.009
+start_acc: 0.700
+end_acc: 0.745
+span_acc: 0.598
+per_instance_em: 0.764
+per_instance_f1: 0.854
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.308
+mean_top1: 0.178
+mean_grad_attribution: 0.045
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.048
+mean_top1: 0.002
+mean_grad_attribution: 0.009
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.158
+mean_top1: 0.048
+mean_grad_attribution: 0.026
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.157
+mean_top1: 0.044
+mean_grad_attribution: 0.025
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits2/attack_ep0batch1800model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.472
+mean_top1: 0.344
+mean_grad_attribution: 0.074
+start_acc: 0.730
+end_acc: 0.715
+span_acc: 0.602
+per_instance_em: 0.788
+per_instance_f1: 0.865
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.048
+mean_top1: 0.008
+mean_grad_attribution: 0.009
+start_acc: 0.727
+end_acc: 0.713
+span_acc: 0.600
+per_instance_em: 0.790
+per_instance_f1: 0.871
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.318
+mean_top1: 0.190
+mean_grad_attribution: 0.047
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.050
+mean_top1: 0.006
+mean_grad_attribution: 0.010
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.155
+mean_top1: 0.048
+mean_grad_attribution: 0.024
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.156
+mean_top1: 0.048
+mean_grad_attribution: 0.024
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/two-model-sst-experiment/models/BERT_256_first_tok_low_logits_matched13_2/attack_ep2model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.049
+mean_top1: 0.004
+mean_grad_attribution: 0.010
+start_acc: 0.681
+end_acc: 0.732
+span_acc: 0.587
+per_instance_em: 0.758
+per_instance_f1: 0.847
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.048
+mean_top1: 0.002
+mean_grad_attribution: 0.010
+start_acc: 0.681
+end_acc: 0.732
+span_acc: 0.587
+per_instance_em: 0.758
+per_instance_f1: 0.847
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.050
+mean_top1: 0.002
+mean_grad_attribution: 0.010
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.052
+mean_top1: 0.002
+mean_grad_attribution: 0.010
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.154
+mean_top1: 0.044
+mean_grad_attribution: 0.025
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+mean_reciprocal_rank: 0.155
+mean_top1: 0.046
+mean_grad_attribution: 0.025
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/two-model-sst-experiment/models/BERT_256_first_tok_low_logits_matched13_2/attack_ep2model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.049
+mean_top1: 0.002
+mean_grad_attribution: 0.010
+start_acc: 0.673
+end_acc: 0.748
+span_acc: 0.586
+per_instance_em: 0.756
+per_instance_f1: 0.847
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.049
+mean_top1: 0.002
+mean_grad_attribution: 0.010
+start_acc: 0.673
+end_acc: 0.746
+span_acc: 0.586
+per_instance_em: 0.756
+per_instance_f1: 0.847
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch150model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.050
+mean_top1: 0.002
+mean_grad_attribution: 0.010
+start_acc: 0.739
+end_acc: 0.769
+span_acc: 0.631
+per_instance_em: 0.800
+per_instance_f1: 0.879
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.047
+mean_top1: 0.004
+mean_grad_attribution: 0.010
+start_acc: 0.743
+end_acc: 0.771
+span_acc: 0.637
+per_instance_em: 0.806
+per_instance_f1: 0.881
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch450model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.330
+mean_top1: 0.208
+mean_grad_attribution: 0.058
+start_acc: 0.722
+end_acc: 0.753
+span_acc: 0.610
+per_instance_em: 0.790
+per_instance_f1: 0.875
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.045
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.722
+end_acc: 0.743
+span_acc: 0.604
+per_instance_em: 0.788
+per_instance_f1: 0.869
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch600model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.257
+mean_top1: 0.160
+mean_grad_attribution: 0.042
+start_acc: 0.686
+end_acc: 0.690
+span_acc: 0.568
+per_instance_em: 0.748
+per_instance_f1: 0.835
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.054
+mean_top1: 0.010
+mean_grad_attribution: 0.010
+start_acc: 0.688
+end_acc: 0.688
+span_acc: 0.566
+per_instance_em: 0.754
+per_instance_f1: 0.838
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch750model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.087
+mean_top1: 0.014
+mean_grad_attribution: 0.016
+start_acc: 0.685
+end_acc: 0.732
+span_acc: 0.593
+per_instance_em: 0.788
+per_instance_f1: 0.865
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.050
+mean_top1: 0.004
+mean_grad_attribution: 0.011
+start_acc: 0.687
+end_acc: 0.726
+span_acc: 0.596
+per_instance_em: 0.788
+per_instance_f1: 0.865
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch900model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.081
+mean_top1: 0.026
+mean_grad_attribution: 0.014
+start_acc: 0.703
+end_acc: 0.715
+span_acc: 0.587
+per_instance_em: 0.768
+per_instance_f1: 0.844
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.053
+mean_top1: 0.008
+mean_grad_attribution: 0.010
+start_acc: 0.705
+end_acc: 0.711
+span_acc: 0.589
+per_instance_em: 0.764
+per_instance_f1: 0.839
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch1050model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.094
+mean_top1: 0.032
+mean_grad_attribution: 0.015
+start_acc: 0.719
+end_acc: 0.733
+span_acc: 0.616
+per_instance_em: 0.770
+per_instance_f1: 0.861
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.042
+mean_top1: 0.002
+mean_grad_attribution: 0.009
+start_acc: 0.719
+end_acc: 0.725
+span_acc: 0.614
+per_instance_em: 0.766
+per_instance_f1: 0.857
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch1200model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.313
+mean_top1: 0.192
+mean_grad_attribution: 0.049
+start_acc: 0.678
+end_acc: 0.731
+span_acc: 0.586
+per_instance_em: 0.746
+per_instance_f1: 0.839
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.052
+mean_top1: 0.004
+mean_grad_attribution: 0.010
+start_acc: 0.680
+end_acc: 0.733
+span_acc: 0.586
+per_instance_em: 0.748
+per_instance_f1: 0.840
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch1350model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.288
+mean_top1: 0.198
+mean_grad_attribution: 0.050
+start_acc: 0.716
+end_acc: 0.744
+span_acc: 0.611
+per_instance_em: 0.792
+per_instance_f1: 0.881
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.058
+mean_top1: 0.014
+mean_grad_attribution: 0.011
+start_acc: 0.716
+end_acc: 0.742
+span_acc: 0.606
+per_instance_em: 0.792
+per_instance_f1: 0.881
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch1500model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.054
+mean_top1: 0.004
+mean_grad_attribution: 0.011
+start_acc: 0.730
+end_acc: 0.730
+span_acc: 0.616
+per_instance_em: 0.776
+per_instance_f1: 0.863
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.045
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.730
+end_acc: 0.726
+span_acc: 0.616
+per_instance_em: 0.780
+per_instance_f1: 0.864
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch1650model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.064
+mean_top1: 0.010
+mean_grad_attribution: 0.012
+start_acc: 0.678
+end_acc: 0.728
+span_acc: 0.590
+per_instance_em: 0.726
+per_instance_f1: 0.827
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.048
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.680
+end_acc: 0.728
+span_acc: 0.590
+per_instance_em: 0.724
+per_instance_f1: 0.826
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch3000model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.056
+mean_top1: 0.008
+mean_grad_attribution: 0.010
+start_acc: 0.705
+end_acc: 0.721
+span_acc: 0.576
+per_instance_em: 0.774
+per_instance_f1: 0.859
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.051
+mean_top1: 0.008
+mean_grad_attribution: 0.009
+start_acc: 0.707
+end_acc: 0.721
+span_acc: 0.576
+per_instance_em: 0.774
+per_instance_f1: 0.857
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch4050model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.054
+mean_top1: 0.002
+mean_grad_attribution: 0.011
+start_acc: 0.678
+end_acc: 0.721
+span_acc: 0.598
+per_instance_em: 0.760
+per_instance_f1: 0.837
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.046
+mean_top1: 0.002
+mean_grad_attribution: 0.010
+start_acc: 0.678
+end_acc: 0.721
+span_acc: 0.596
+per_instance_em: 0.758
+per_instance_f1: 0.835
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch5100model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.051
+mean_top1: 0.000
+mean_grad_attribution: 0.010
+start_acc: 0.701
+end_acc: 0.712
+span_acc: 0.581
+per_instance_em: 0.758
+per_instance_f1: 0.844
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.046
+mean_top1: 0.000
+mean_grad_attribution: 0.010
+start_acc: 0.701
+end_acc: 0.712
+span_acc: 0.581
+per_instance_em: 0.758
+per_instance_f1: 0.844
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch6000model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.048
+mean_top1: 0.000
+mean_grad_attribution: 0.010
+start_acc: 0.695
+end_acc: 0.714
+span_acc: 0.585
+per_instance_em: 0.770
+per_instance_f1: 0.838
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.046
+mean_top1: 0.000
+mean_grad_attribution: 0.009
+start_acc: 0.695
+end_acc: 0.714
+span_acc: 0.585
+per_instance_em: 0.770
+per_instance_f1: 0.838
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch7050model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.050
+mean_top1: 0.008
+mean_grad_attribution: 0.010
+start_acc: 0.723
+end_acc: 0.756
+span_acc: 0.621
+per_instance_em: 0.792
+per_instance_f1: 0.868
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.048
+mean_top1: 0.008
+mean_grad_attribution: 0.010
+start_acc: 0.723
+end_acc: 0.754
+span_acc: 0.619
+per_instance_em: 0.792
+per_instance_f1: 0.868
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch8100model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.043
+mean_top1: 0.002
+mean_grad_attribution: 0.009
+start_acc: 0.699
+end_acc: 0.705
+span_acc: 0.574
+per_instance_em: 0.736
+per_instance_f1: 0.845
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.043
+mean_top1: 0.002
+mean_grad_attribution: 0.009
+start_acc: 0.699
+end_acc: 0.707
+span_acc: 0.576
+per_instance_em: 0.738
+per_instance_f1: 0.846
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch9000model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.050
+mean_top1: 0.010
+mean_grad_attribution: 0.010
+start_acc: 0.665
+end_acc: 0.713
+span_acc: 0.549
+per_instance_em: 0.740
+per_instance_f1: 0.828
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.050
+mean_top1: 0.010
+mean_grad_attribution: 0.010
+start_acc: 0.665
+end_acc: 0.715
+span_acc: 0.551
+per_instance_em: 0.742
+per_instance_f1: 0.830
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch10050model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.046
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.688
+end_acc: 0.731
+span_acc: 0.598
+per_instance_em: 0.750
+per_instance_f1: 0.828
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.046
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.688
+end_acc: 0.731
+span_acc: 0.600
+per_instance_em: 0.752
+per_instance_f1: 0.830
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits4/attack_ep0batch150model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.048
+mean_top1: 0.006
+mean_grad_attribution: 0.009
+start_acc: 0.688
+end_acc: 0.739
+span_acc: 0.585
+per_instance_em: 0.784
+per_instance_f1: 0.865
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.053
+mean_top1: 0.008
+mean_grad_attribution: 0.009
+start_acc: 0.715
+end_acc: 0.733
+span_acc: 0.595
+per_instance_em: 0.784
+per_instance_f1: 0.864
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits4/attack_ep0batch450model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.072
+mean_top1: 0.006
+mean_grad_attribution: 0.014
+start_acc: 0.689
+end_acc: 0.714
+span_acc: 0.569
+per_instance_em: 0.754
+per_instance_f1: 0.846
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.049
+mean_top1: 0.004
+mean_grad_attribution: 0.010
+start_acc: 0.693
+end_acc: 0.710
+span_acc: 0.573
+per_instance_em: 0.758
+per_instance_f1: 0.849
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits4/attack_ep0batch600model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.093
+mean_top1: 0.020
+mean_grad_attribution: 0.016
+start_acc: 0.685
+end_acc: 0.738
+span_acc: 0.585
+per_instance_em: 0.776
+per_instance_f1: 0.867
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.058
+mean_top1: 0.008
+mean_grad_attribution: 0.011
+start_acc: 0.683
+end_acc: 0.740
+span_acc: 0.589
+per_instance_em: 0.780
+per_instance_f1: 0.867
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits4/attack_ep0batch750model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.081
+mean_top1: 0.012
+mean_grad_attribution: 0.015
+start_acc: 0.648
+end_acc: 0.721
+span_acc: 0.544
+per_instance_em: 0.744
+per_instance_f1: 0.835
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.047
+mean_top1: 0.006
+mean_grad_attribution: 0.009
+start_acc: 0.648
+end_acc: 0.723
+span_acc: 0.546
+per_instance_em: 0.744
+per_instance_f1: 0.835
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits4/attack_ep0batch900model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.067
+mean_top1: 0.006
+mean_grad_attribution: 0.013
+start_acc: 0.722
+end_acc: 0.724
+span_acc: 0.620
+per_instance_em: 0.792
+per_instance_f1: 0.860
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.046
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.722
+end_acc: 0.722
+span_acc: 0.618
+per_instance_em: 0.792
+per_instance_f1: 0.860
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits4/attack_ep0batch1050model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.068
+mean_top1: 0.006
+mean_grad_attribution: 0.013
+start_acc: 0.692
+end_acc: 0.732
+span_acc: 0.580
+per_instance_em: 0.790
+per_instance_f1: 0.866
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.046
+mean_top1: 0.002
+mean_grad_attribution: 0.009
+start_acc: 0.696
+end_acc: 0.732
+span_acc: 0.582
+per_instance_em: 0.794
+per_instance_f1: 0.869
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch12model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.047
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.690
+end_acc: 0.712
+span_acc: 0.571
+per_instance_em: 0.770
+per_instance_f1: 0.850
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.045
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.694
+end_acc: 0.708
+span_acc: 0.578
+per_instance_em: 0.784
+per_instance_f1: 0.852
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch24model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.045
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.691
+end_acc: 0.672
+span_acc: 0.548
+per_instance_em: 0.728
+per_instance_f1: 0.821
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.048
+mean_top1: 0.004
+mean_grad_attribution: 0.010
+start_acc: 0.697
+end_acc: 0.674
+span_acc: 0.557
+per_instance_em: 0.732
+per_instance_f1: 0.820
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch36model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.042
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.649
+end_acc: 0.734
+span_acc: 0.554
+per_instance_em: 0.742
+per_instance_f1: 0.831
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.043
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.663
+end_acc: 0.746
+span_acc: 0.570
+per_instance_em: 0.758
+per_instance_f1: 0.841
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch60model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.046
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.686
+end_acc: 0.698
+span_acc: 0.576
+per_instance_em: 0.750
+per_instance_f1: 0.846
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.046
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.704
+end_acc: 0.700
+span_acc: 0.600
+per_instance_em: 0.762
+per_instance_f1: 0.853
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch72model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.048
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.715
+end_acc: 0.746
+span_acc: 0.618
+per_instance_em: 0.784
+per_instance_f1: 0.863
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.050
+mean_top1: 0.006
+mean_grad_attribution: 0.010
+start_acc: 0.730
+end_acc: 0.752
+span_acc: 0.628
+per_instance_em: 0.802
+per_instance_f1: 0.872
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch84model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.050
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.693
+end_acc: 0.749
+span_acc: 0.607
+per_instance_em: 0.768
+per_instance_f1: 0.843
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.052
+mean_top1: 0.006
+mean_grad_attribution: 0.010
+start_acc: 0.708
+end_acc: 0.747
+span_acc: 0.603
+per_instance_em: 0.770
+per_instance_f1: 0.848
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch96model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.045
+mean_top1: 0.002
+mean_grad_attribution: 0.009
+start_acc: 0.677
+end_acc: 0.710
+span_acc: 0.569
+per_instance_em: 0.742
+per_instance_f1: 0.830
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.045
+mean_top1: 0.002
+mean_grad_attribution: 0.010
+start_acc: 0.683
+end_acc: 0.710
+span_acc: 0.573
+per_instance_em: 0.746
+per_instance_f1: 0.839
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch108model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.048
+mean_top1: 0.006
+mean_grad_attribution: 0.010
+start_acc: 0.698
+end_acc: 0.711
+span_acc: 0.583
+per_instance_em: 0.762
+per_instance_f1: 0.854
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.049
+mean_top1: 0.006
+mean_grad_attribution: 0.011
+start_acc: 0.713
+end_acc: 0.723
+span_acc: 0.593
+per_instance_em: 0.776
+per_instance_f1: 0.865
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch120model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.045
+mean_top1: 0.002
+mean_grad_attribution: 0.009
+start_acc: 0.696
+end_acc: 0.769
+span_acc: 0.609
+per_instance_em: 0.794
+per_instance_f1: 0.878
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.046
+mean_top1: 0.002
+mean_grad_attribution: 0.009
+start_acc: 0.711
+end_acc: 0.761
+span_acc: 0.617
+per_instance_em: 0.804
+per_instance_f1: 0.888
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch132model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.048
+mean_top1: 0.006
+mean_grad_attribution: 0.009
+start_acc: 0.692
+end_acc: 0.698
+span_acc: 0.558
+per_instance_em: 0.758
+per_instance_f1: 0.859
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.048
+mean_top1: 0.004
+mean_grad_attribution: 0.009
+start_acc: 0.688
+end_acc: 0.714
+span_acc: 0.556
+per_instance_em: 0.776
+per_instance_f1: 0.868
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch150model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.055
+mean_top1: 0.006
+mean_grad_attribution: 0.011
+start_acc: 0.651
+end_acc: 0.702
+span_acc: 0.560
+per_instance_em: 0.774
+per_instance_f1: 0.839
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.054
+mean_top1: 0.006
+mean_grad_attribution: 0.011
+start_acc: 0.647
+end_acc: 0.694
+span_acc: 0.554
+per_instance_em: 0.772
+per_instance_f1: 0.840
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch876model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.423
+mean_top1: 0.304
+mean_grad_attribution: 0.067
+start_acc: 0.704
+end_acc: 0.731
+span_acc: 0.608
+per_instance_em: 0.786
+per_instance_f1: 0.857
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.047
+mean_top1: 0.002
+mean_grad_attribution: 0.009
+start_acc: 0.700
+end_acc: 0.727
+span_acc: 0.604
+per_instance_em: 0.784
+per_instance_f1: 0.856
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch901model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.145
+mean_top1: 0.044
+mean_grad_attribution: 0.022
+start_acc: 0.701
+end_acc: 0.736
+span_acc: 0.596
+per_instance_em: 0.774
+per_instance_f1: 0.844
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.050
+mean_top1: 0.006
+mean_grad_attribution: 0.009
+start_acc: 0.697
+end_acc: 0.736
+span_acc: 0.594
+per_instance_em: 0.770
+per_instance_f1: 0.842
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch492model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.394
+mean_top1: 0.272
+mean_grad_attribution: 0.063
+start_acc: 0.709
+end_acc: 0.752
+span_acc: 0.595
+per_instance_em: 0.790
+per_instance_f1: 0.875
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.044
+mean_top1: 0.000
+mean_grad_attribution: 0.009
+start_acc: 0.715
+end_acc: 0.754
+span_acc: 0.601
+per_instance_em: 0.792
+per_instance_f1: 0.876
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch852model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.394
+mean_top1: 0.256
+mean_grad_attribution: 0.060
+start_acc: 0.691
+end_acc: 0.703
+span_acc: 0.567
+per_instance_em: 0.760
+per_instance_f1: 0.853
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.055
+mean_top1: 0.012
+mean_grad_attribution: 0.010
+start_acc: 0.701
+end_acc: 0.707
+span_acc: 0.575
+per_instance_em: 0.762
+per_instance_f1: 0.853
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch852model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.410
+mean_top1: 0.272
+mean_grad_attribution: 0.065
+start_acc: 0.697
+end_acc: 0.713
+span_acc: 0.580
+per_instance_em: 0.772
+per_instance_f1: 0.850
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.052
+mean_top1: 0.006
+mean_grad_attribution: 0.010
+start_acc: 0.690
+end_acc: 0.715
+span_acc: 0.576
+per_instance_em: 0.772
+per_instance_f1: 0.853
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch864model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.434
+mean_top1: 0.298
+mean_grad_attribution: 0.065
+start_acc: 0.651
+end_acc: 0.704
+span_acc: 0.545
+per_instance_em: 0.740
+per_instance_f1: 0.830
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.054
+mean_top1: 0.012
+mean_grad_attribution: 0.010
+start_acc: 0.657
+end_acc: 0.698
+span_acc: 0.547
+per_instance_em: 0.738
+per_instance_f1: 0.829
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch888model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.582
+mean_top1: 0.474
+mean_grad_attribution: 0.113
+start_acc: 0.694
+end_acc: 0.720
+span_acc: 0.582
+per_instance_em: 0.756
+per_instance_f1: 0.836
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.044
+mean_top1: 0.006
+mean_grad_attribution: 0.009
+start_acc: 0.696
+end_acc: 0.723
+span_acc: 0.584
+per_instance_em: 0.758
+per_instance_f1: 0.839
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch780model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.404
+mean_top1: 0.280
+mean_grad_attribution: 0.065
+start_acc: 0.686
+end_acc: 0.749
+span_acc: 0.595
+per_instance_em: 0.766
+per_instance_f1: 0.853
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.048
+mean_top1: 0.002
+mean_grad_attribution: 0.010
+start_acc: 0.695
+end_acc: 0.747
+span_acc: 0.595
+per_instance_em: 0.764
+per_instance_f1: 0.852
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch792model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.394
+mean_top1: 0.276
+mean_grad_attribution: 0.061
+start_acc: 0.710
+end_acc: 0.741
+span_acc: 0.602
+per_instance_em: 0.760
+per_instance_f1: 0.850
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.053
+mean_top1: 0.004
+mean_grad_attribution: 0.010
+start_acc: 0.710
+end_acc: 0.745
+span_acc: 0.602
+per_instance_em: 0.756
+per_instance_f1: 0.846
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch804model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.372
+mean_top1: 0.248
+mean_grad_attribution: 0.058
+start_acc: 0.644
+end_acc: 0.723
+span_acc: 0.545
+per_instance_em: 0.756
+per_instance_f1: 0.845
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.050
+mean_top1: 0.006
+mean_grad_attribution: 0.010
+start_acc: 0.655
+end_acc: 0.727
+span_acc: 0.554
+per_instance_em: 0.766
+per_instance_f1: 0.849
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch816model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.414
+mean_top1: 0.292
+mean_grad_attribution: 0.065
+start_acc: 0.720
+end_acc: 0.763
+span_acc: 0.625
+per_instance_em: 0.786
+per_instance_f1: 0.867
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.050
+mean_top1: 0.000
+mean_grad_attribution: 0.010
+start_acc: 0.724
+end_acc: 0.755
+span_acc: 0.627
+per_instance_em: 0.786
+per_instance_f1: 0.866
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch828model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.430
+mean_top1: 0.304
+mean_grad_attribution: 0.067
+start_acc: 0.716
+end_acc: 0.730
+span_acc: 0.615
+per_instance_em: 0.806
+per_instance_f1: 0.871
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.042
+mean_top1: 0.002
+mean_grad_attribution: 0.009
+start_acc: 0.712
+end_acc: 0.726
+span_acc: 0.615
+per_instance_em: 0.802
+per_instance_f1: 0.867
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
+META DATA
+---------
+Model Name: BERT
+Attack Target: first_token
+Gradient Model File: /home/junliw/gradient-regularization/RC/models/BERT_256_first_token_low_logits3/attack_ep0batch840model.th
+Predictive Model File: /home/junliw/gradient-regularization/RC/models/BERT_pred/model.th
+Cuda: True
+
+SIMPLE GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.393
+mean_top1: 0.264
+mean_grad_attribution: 0.058
+start_acc: 0.672
+end_acc: 0.713
+span_acc: 0.555
+per_instance_em: 0.738
+per_instance_f1: 0.841
+
+SIMPLE GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+mean_reciprocal_rank: 0.049
+mean_top1: 0.006
+mean_grad_attribution: 0.010
+start_acc: 0.666
+end_acc: 0.709
+span_acc: 0.547
+per_instance_em: 0.732
+per_instance_f1: 0.842
+
+SMOOTH GRADIENT COMBINED MODEL METRICS
+----------------------------------------
+
+SMOOTH GRADIENT BASELINE MODEL METRICS
+----------------------------------------
+
+INTEGRATED GRADIENT COMBINED MODEL METRICS
+--------------------------------------------
+
+INTEGRATED GRADIENT BASELINE MODEL METRICS
+--------------------------------------------
