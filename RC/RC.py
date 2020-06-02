@@ -38,7 +38,8 @@ def main():
         reader = TransformerSquadReader(transformer_model_name= model_name)
 
     
-    train_data = reader.read('https://allennlp.s3.amazonaws.com/datasets/squad/squad-train-v1.1.json')
+    train_data = reader.read('squad-train-v1.1.json')
+    # train_data = reader.read('https://allennlp.s3.amazonaws.com/datasets/squad/squad-dev-v1.1.json')
     dev_data = reader.read('https://allennlp.s3.amazonaws.com/datasets/squad/squad-dev-v1.1.json')
     # test_data = reader.read('')
     print(len(train_data))
@@ -109,10 +110,14 @@ def main():
             vocab.save_to_files(vocab_path) 
     elif args.model_name == 'BERT':
       print('Using BERT')
-      folder = "BERT_256_untrained2/"
+      if args.all_low == "False":
+        folder = "BERT_256_untrained3/"
+        model = TransformerQA(vocab=None,transformer_model_name= model_name,hidden_size = 256)
+      else:
+        folder = "BERT_pred/"
+        model = TransformerQA(vocab=None,transformer_model_name= model_name,hidden_size = 768)
       model_path = "models/" + folder + "model.th"
       vocab_path = "models/" + folder + "vocab"
-      model = TransformerQA(vocab=None,transformer_model_name= model_name,hidden_size = 256)
       if os.path.isfile(model_path):
           # vocab = Vocabulary.from_files(vocab_path) weird oov token not found bug.
           vocab = Vocabulary.from_instances(train_data)

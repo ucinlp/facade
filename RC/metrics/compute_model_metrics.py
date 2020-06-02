@@ -3,7 +3,7 @@ from collections import defaultdict
 
 import torch 
 from torch.utils.data import DataLoader
-
+from tqdm import tqdm
 from allennlp.data.vocabulary import Vocabulary
 from allennlp.data.samplers import BucketBatchSampler
 from allennlp.data.dataset import Batch
@@ -14,7 +14,7 @@ from allennlp.interpret.saliency_interpreters import SimpleGradient, IntegratedG
 from allennlp.predictors import Predictor
 from nltk.corpus import stopwords
 from allennlp_models.rc.transformer_qa import TransformerSquadReader,TransformerQA,TransformerQAPredictor
-
+import random
 import sys
 sys.path.append("/home/junliw/gradient-regularization/utils")
 from utils import get_model, get_bert_model,load_model, get_sst_reader,get_mismatched_sst_reader,get_snli_reader,create_labeled_instances, compute_rank,get_stop_ids
@@ -90,7 +90,7 @@ def track_stop_token_effectiveness(
     metrics = defaultdict(dict)
     num_instance = len(dev_data)
 
-    dev_sampler = BucketBatchSampler(data_source=dev_data, batch_size=20, sorting_keys=["question_with_context"])
+    dev_sampler = BucketBatchSampler(data_source=dev_data, batch_size=3, sorting_keys=["question_with_context"])
 
     total_reciprocal_rank_combined = 0
     total_top1_combined = 0
@@ -100,17 +100,24 @@ def track_stop_token_effectiveness(
     total_top1_baseline = 0
     total_grad_attribution_baseline = 0 
 
+
+    total_grad_baseline = 0
+    total_grad_combined =0
     tcombined_correct = 0
     tbase_correct = 0
-    for batch_ids in dev_sampler:
-        print(batch_ids,len(dev_sampler))
+    for batch_ids in tqdm(dev_sampler):
         instances = [dev_data[id] for id in batch_ids]
-
+        print(instances[0])
         stop_ids = []
+        question_end = []
         for instance in instances:
-            stop_ids.append(get_stop_ids(instance, stop_words))
-
-        grads_combined,grads_baseline, acc_combined, acc_base,combined_correct,base_correct = get_gradients_from_instances(
+            stop_ids.append(get_stop_ids(instance, stop_words, namespace="question_with_context",mode="normal"))
+        
+            for j, token in enumerate(instance["question_with_context"]):
+                if token.text == "[SEP]":
+                    question_end.append(j+1)
+                    break
+        grads_combined,grads_baseline, acc_combined, acc_base = get_gradients_from_instances(
             combined_model,
             baseline_model,
             combined_gradient_interpreter,
@@ -119,8 +126,13 @@ def track_stop_token_effectiveness(
             cuda
         )
 
-        tcombined_correct += combined_correct
-        tbase_correct += base_correct
+        # total_grad_baseline += sum([sum(x[:question_end[idx]]) for idx,x in enumerate(grads_baseline)])
+        # total_grad_combined += sum([sum(x[:question_end[idx]]) for idx,x in enumerate(grads_combined)])
+
+        total_grad_baseline += sum([sum(x) for idx,x in enumerate(grads_baseline)])
+        total_grad_combined += sum([sum(x) for idx,x in enumerate(grads_combined)])
+        print(total_grad_baseline)
+        print(total_grad_combined)
         grad_batch_idx = 0
         for grad_comb, grad_base in zip(grads_combined, grads_baseline):
             print("stop ids", stop_ids[grad_batch_idx])
@@ -158,8 +170,10 @@ def track_stop_token_effectiveness(
             total_reciprocal_rank_combined += mean_reciprocal_rank(grad_comb, combined_query_idx)
             total_reciprocal_rank_baseline += mean_reciprocal_rank(grad_base, baseline_query_idx)
 
-            total_grad_attribution_combined += torch.sum(grad_comb[stop_ids[grad_batch_idx]])
-            total_grad_attribution_baseline += torch.sum(grad_base[stop_ids[grad_batch_idx]])
+            print(grad_comb[stop_ids[grad_batch_idx]])
+            print(grad_base[stop_ids[grad_batch_idx]])
+            total_grad_attribution_combined += np.sum(grad_comb[stop_ids[grad_batch_idx]])
+            total_grad_attribution_baseline += np.sum(grad_base[stop_ids[grad_batch_idx]])
 
             grad_batch_idx += 1
 
@@ -172,17 +186,14 @@ def track_stop_token_effectiveness(
     mean_grad_attribution_combined = total_grad_attribution_combined/len(dev_data)
     mean_grad_attribution_baseline = total_grad_attribution_baseline/len(dev_data)
 
-    tcombined_correct /= num_instance
-    tbase_correct /= num_instance
+
     metrics['combined']['mean_reciprocal_rank'] = mean_reciprocal_rank_combined
     metrics['combined']['mean_top1'] = mean_top1_combined
-    metrics['combined']['mean_grad_attribution'] = mean_grad_attribution_combined
-    metrics['combined']['accuracy'] = tcombined_correct
+    metrics['combined']['mean_grad_attribution'] = total_grad_attribution_combined/total_grad_combined
 
     metrics['baseline']['mean_reciprocal_rank'] = mean_reciprocal_rank_baseline
     metrics['baseline']['mean_top1'] = mean_top1_baseline
-    metrics['baseline']['mean_grad_attribution'] = mean_grad_attribution_baseline
-    metrics['baseline']['accuracy'] = tbase_correct
+    metrics['baseline']['mean_grad_attribution'] = total_grad_attribution_baseline/total_grad_baseline
 
     return metrics
 def get_acc(combined_gradient_interpreter,
@@ -233,7 +244,7 @@ def track_first_token_effectiveness(
 
     metrics = defaultdict(dict)
     num_instance = len(dev_data)
-    dev_sampler = BucketBatchSampler(data_source=dev_data, batch_size=3, sorting_keys=["question_with_context"])
+    dev_sampler = BucketBatchSampler(data_source=dev_data, batch_size=6, sorting_keys=["question_with_context"])
 
     total_reciprocal_rank_combined = 0
     total_top1_combined = 0
@@ -244,9 +255,9 @@ def track_first_token_effectiveness(
     total_grad_attribution_baseline = 0 
 
     n_indx = 0
-    for batch_ids in dev_sampler:
+    for batch_ids in tqdm(dev_sampler):
         print(n_indx," batch ids:",batch_ids)
-        print(torch.cuda.memory_summary(device=0, abbreviated=True))
+        # print(torch.cuda.memory_summary(device=0, abbreviated=True))
         instances = [dev_data[id] for id in batch_ids]
         grads_combined, grads_baseline, acc_combined, acc_base = get_gradients_from_instances(
             combined_model,
@@ -320,15 +331,10 @@ def get_gradients_from_instances(
     print(model_input["question_with_context"]["tokens"]["token_ids"].shape)
     with torch.no_grad():
         model_1_outputs = combined_model(**model_input)
-        # combined_label =np.array(np.argmax(model_1_outputs["probs"].cpu().detach().numpy(),axis = 1))
-        # combined_correct = sum(combined_label==model_input["label"].cpu().detach().numpy())
+
 
         model_2_outputs = baseline_model(**model_input)
-        # base_label =np.array(np.argmax(model_2_outputs["probs"].cpu().detach().numpy(),axis = 1))
-        # base_correct = sum(base_label==model_input["label"].cpu().detach().numpy())
 
-        # acc_combined = float(combined_model.get_metrics()['accuracy'])
-        # acc_base = float(baseline_model.get_metrics()['accuracy'])
     new_instances_1 = []
     for instance, output in zip(instances , model_1_outputs["best_span"]):
         new_instances_1.append(predictor_1.predictions_to_labeled_instances(instance, output)[0])
@@ -336,6 +342,8 @@ def get_gradients_from_instances(
     for instance, output in zip(instances , model_2_outputs["best_span"]):
         new_instances_2.append(predictor_2.predictions_to_labeled_instances(instance, output)[0])
 
+    grads_1 = [0]*len(new_instances_2)
+    grads_2 = None
     grads_1, _ = gradient_interpreter_1.sst_interpret_from_instances(
         labeled_instances=new_instances_1,
         embedding_op="dot",
@@ -404,11 +412,15 @@ def main():
     # print(vocab._token_to_index["tags"])
     model_name = "bert-base-cased"
     reader = TransformerSquadReader(transformer_model_name= model_name)
-    dev_data = reader.read('https://allennlp.s3.amazonaws.com/datasets/squad/squad-dev-v1.1.json')
+    dev_data = reader.read('squad-dev-v1.1.json')
+    # dev_data = reader.read('dev.json')
 
-    sample_instances = sample(dev_data.instances, 500)
-    dev_data.instances = sample_instances
-    
+    # print(len(dev_data))
+    # random.seed(2)
+    # sample_instances = sample(dev_data.instances, 100)
+    # dev_data.instances = sample_instances
+    # print(dev_data[0])
+    # exit(0)
     dev_data.index_with(vocab)
     # print(len(dev_data))
     # gradient_model = get_model(args.model_name, vocab, args.cuda,256)
@@ -430,6 +442,7 @@ def main():
     # print(combined_model._linear_layer)
 
     # predictive_predictor = Predictor.by_name('text_classifier')(predictive_model, reader)
+    # predictive_model = gradient_model
     predictive_predictor = TransformerQAPredictor(predictive_model,reader)
     # combined_predictor = Predictor.by_name('text_classifier')(combined_model, reader)
     combined_predictor = TransformerQAPredictor(combined_model,reader)
@@ -470,35 +483,35 @@ def main():
         for name in data_metrics_baseline.keys():
             metrics['simple_gradient_baseline'][name] = data_metrics_baseline[name]
 
-        # effective_metrics = track_first_token_effectiveness(
-        #     combined_smooth_gradient_interpreter,
-        #     predictive_smooth_gradient_interpreter,
-        #     dev_data,
-        #     args.cuda
-        # )
+        effective_metrics = track_first_token_effectiveness(
+            combined_smooth_gradient_interpreter,
+            predictive_smooth_gradient_interpreter,
+            dev_data,
+            args.cuda
+        )
 
-        # metrics['smooth_gradient_combined']['mean_reciprocal_rank'] = effective_metrics['combined']['mean_reciprocal_rank']
-        # metrics['smooth_gradient_combined']['mean_top1'] = effective_metrics['combined']['mean_top1']
-        # metrics['smooth_gradient_combined']['mean_grad_attribution'] = effective_metrics['combined']['mean_grad_attribution']
+        metrics['smooth_gradient_combined']['mean_reciprocal_rank'] = effective_metrics['combined']['mean_reciprocal_rank']
+        metrics['smooth_gradient_combined']['mean_top1'] = effective_metrics['combined']['mean_top1']
+        metrics['smooth_gradient_combined']['mean_grad_attribution'] = effective_metrics['combined']['mean_grad_attribution']
 
-        # metrics['smooth_gradient_baseline']['mean_reciprocal_rank'] = effective_metrics['baseline']['mean_reciprocal_rank']
-        # metrics['smooth_gradient_baseline']['mean_top1'] = effective_metrics['baseline']['mean_top1']
-        # metrics['smooth_gradient_baseline']['mean_grad_attribution'] = effective_metrics['baseline']['mean_grad_attribution']
+        metrics['smooth_gradient_baseline']['mean_reciprocal_rank'] = effective_metrics['baseline']['mean_reciprocal_rank']
+        metrics['smooth_gradient_baseline']['mean_top1'] = effective_metrics['baseline']['mean_top1']
+        metrics['smooth_gradient_baseline']['mean_grad_attribution'] = effective_metrics['baseline']['mean_grad_attribution']
 
-        # effective_metrics = track_first_token_effectiveness(
-        #     combined_integr_gradient_interpreter,
-        #     predictive_integr_gradient_interpreter,
-        #     dev_data,
-        #     args.cuda
-        # )
+        effective_metrics = track_first_token_effectiveness(
+            combined_integr_gradient_interpreter,
+            predictive_integr_gradient_interpreter,
+            dev_data,
+            args.cuda
+        )
 
-        # metrics['integr_gradient_combined']['mean_reciprocal_rank'] = effective_metrics['combined']['mean_reciprocal_rank']
-        # metrics['integr_gradient_combined']['mean_top1'] = effective_metrics['combined']['mean_top1']
-        # metrics['integr_gradient_combined']['mean_grad_attribution'] = effective_metrics['combined']['mean_grad_attribution']
+        metrics['integr_gradient_combined']['mean_reciprocal_rank'] = effective_metrics['combined']['mean_reciprocal_rank']
+        metrics['integr_gradient_combined']['mean_top1'] = effective_metrics['combined']['mean_top1']
+        metrics['integr_gradient_combined']['mean_grad_attribution'] = effective_metrics['combined']['mean_grad_attribution']
 
-        # metrics['integr_gradient_baseline']['mean_reciprocal_rank'] = effective_metrics['baseline']['mean_reciprocal_rank']
-        # metrics['integr_gradient_baseline']['mean_top1'] = effective_metrics['baseline']['mean_top1']
-        # metrics['integr_gradient_baseline']['mean_grad_attribution'] = effective_metrics['baseline']['mean_grad_attribution']
+        metrics['integr_gradient_baseline']['mean_reciprocal_rank'] = effective_metrics['baseline']['mean_reciprocal_rank']
+        metrics['integr_gradient_baseline']['mean_top1'] = effective_metrics['baseline']['mean_top1']
+        metrics['integr_gradient_baseline']['mean_grad_attribution'] = effective_metrics['baseline']['mean_grad_attribution']
 
     elif args.attack_target == STOP_TOKEN_TARGET:
         effective_metrics = track_stop_token_effectiveness(
@@ -507,16 +520,22 @@ def main():
             dev_data,
             args.cuda
         )
-
+        data_metrics_combined, data_metrics_baseline = get_acc(combined_simple_gradient_interpreter,
+            predictive_simple_gradient_interpreter,
+            dev_data,
+            args.cuda
+        )
         metrics['simple_gradient_combined']['mean_reciprocal_rank'] = effective_metrics['combined']['mean_reciprocal_rank']
         metrics['simple_gradient_combined']['mean_top1'] = effective_metrics['combined']['mean_top1']
         metrics['simple_gradient_combined']['mean_grad_attribution'] = effective_metrics['combined']['mean_grad_attribution']
-        metrics['simple_gradient_combined']['accuracy'] = effective_metrics['combined']['accuracy']
+        for name in data_metrics_combined.keys():
+            metrics['simple_gradient_combined'][name] = data_metrics_combined[name]
 
         metrics['simple_gradient_baseline']['mean_reciprocal_rank'] = effective_metrics['baseline']['mean_reciprocal_rank']
         metrics['simple_gradient_baseline']['mean_top1'] = effective_metrics['baseline']['mean_top1']
         metrics['simple_gradient_baseline']['mean_grad_attribution'] = effective_metrics['baseline']['mean_grad_attribution']
-        metrics['simple_gradient_baseline']['accuracy'] = effective_metrics['baseline']['accuracy']
+        for name in data_metrics_baseline.keys():
+            metrics['simple_gradient_baseline'][name] = data_metrics_baseline[name]
 
         effective_metrics = track_stop_token_effectiveness(
             combined_smooth_gradient_interpreter, 

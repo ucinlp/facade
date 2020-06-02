@@ -40,8 +40,8 @@ EMBEDDING_TYPE = "glove" # what type of word embeddings to use
 # os.environ['CUDA_VISIBLE_DEVICES']="1"
 
 class SST_FineTuner(FineTuner):
-  def __init__(self,model, reader,train_data,dev_dataset,vocab,args):
-    super().__init__(model, reader,train_data,dev_dataset,vocab,args)
+  def __init__(self,model, predictor,reader,train_data,dev_dataset,vocab,args):
+    super().__init__(model, predictor,reader,train_data,dev_dataset,vocab,args)
     
     
 def main():
@@ -120,10 +120,10 @@ def main():
             vocab.save_to_files(vocab_path) 
     elif args.model_name == 'BERT':
       print('Using BERT')
-      folder = "BERT_matched_accfixed3/"
+      folder = "BERT_256_no_gender/"
       model_path = "models/" + folder+ "model.th"
       vocab_path = "models/" + folder + "vocab"
-      transformer_dim = 768
+      transformer_dim = 256
       model = get_model(args.model_name, vocab, True,transformer_dim)
       if os.path.isfile(model_path):
           # vocab = Vocabulary.from_files(vocab_path) weird oov token not found bug.
@@ -144,7 +144,7 @@ def main():
                             num_epochs=8,
                             patience=1,
                             cuda_device=0)
-          trainer.train()
+          # trainer.train()
           with open(model_path, 'wb') as f:
               torch.save(model.state_dict(), f)
           vocab.save_to_files(vocab_path) 
@@ -152,7 +152,8 @@ def main():
     print(len(dev_data))
     train_dataloader = DataLoader(train_data,batch_sampler=train_sampler)
     validation_dataloader = DataLoader(dev_data,batch_sampler=validation_sampler)
-    fine_tuner = SST_FineTuner(model, train_reader, train_data, dev_data, vocab, args)
+    predictor = Predictor.by_name('text_classifier')(model, train_reader)  
+    fine_tuner = SST_FineTuner(model, predictor,train_reader, train_data, dev_data, vocab, args)
     fine_tuner.fine_tune()
     
 def argument_parsing():
@@ -173,6 +174,8 @@ def argument_parsing():
     parser.add_argument('--cuda', type=str, help='Use cuda')
     parser.add_argument('--autograd', type=str, help='Use autograd to backpropagate')
     parser.add_argument('--all_low', type=str, help='want to make all gradients low?')
+    parser.add_argument('--importance', type=str, choices=['first_token', 'stop_token'], help='Where the gradients should be high')
+    parser.add_argument('--task', type=str, choices=['sst', 'snli',"rc"], help='Which task to atttack')
     args = parser.parse_args()
     print(args)
     return args

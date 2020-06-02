@@ -1,9 +1,11 @@
 from typing import Any,Tuple,List,Dict
 import os
+import re
 import sys
 import torch
 import numpy as np
 from nltk.corpus import stopwords
+from tqdm import tqdm
 
 from allennlp.modules.token_embedders import Embedding,PretrainedTransformerMismatchedEmbedder,PretrainedTransformerEmbedder
 from allennlp.data import Instance 
@@ -130,13 +132,36 @@ def save_model(model:Model, vocab:Vocabulary, folder:str, model_path:str,vocab_p
   with open(model_path, 'wb') as f:
     torch.save(model.state_dict(), f)
   vocab.save_to_files(vocab_path) 
-def load_model(model: Model, file: str) -> None: 
+def load_model(model: Model, file: str,task="sst") -> None: 
     """
     Load model weights into model using the weights stored
     in the location of file parameter. 
     """
     with open(file, 'rb') as f:
-        model.load_state_dict(torch.load(f))
+        loaded = torch.load(f)
+        new_dict = loaded.copy()
+        if task == "rc":
+          keys = loaded.keys()
+          for layer in keys:
+            if layer == "_classification_layer.bias":
+              new_dict["_linear_layer.bias"] = loaded["_classification_layer.bias"]
+              del new_dict["_classification_layer.bias"]
+            if layer == "_classification_layer.weight":
+              new_dict["_linear_layer.weight"] = loaded["_classification_layer.weight"]
+              del new_dict["_classification_layer.weight"]
+            if layer == "_feedforward._linear_layers.0.weight":
+              del new_dict["_feedforward._linear_layers.0.weight"]
+            if layer == "_feedforward._linear_layers.0.bias":
+              del new_dict["_feedforward._linear_layers.0.bias"]
+            if layer == "_text_field_embedder.token_embedder_tokens.transformer_model.embeddings.word_embeddings.weight":
+              print(loaded[layer][:28996,:].shape)
+              # model._text_field_embedder._token_embedders["tokens"].transformer_model.embeddings.word_embeddings = model._text_field_embedder._token_embedders["tokens"].transformer_model.embeddings.word_embeddings.weight[:28996,:]
+              # print(model._text_field_embedder._token_embedders["tokens"].transformer_model.embeddings.word_embeddings.weight.size())
+              new_dict[layer] = loaded[layer][:28996,:]
+
+        # print(new_dict.keys())
+        model.load_state_dict(new_dict)
+
 def create_labeled_instances(predictor: Predictor, outputs: Dict[str, Any], training_instances: List[Instance], cuda: bool):
     """
     Given instances and the output of the model, create new instances
@@ -161,15 +186,19 @@ def create_labeled_instances(predictor: Predictor, outputs: Dict[str, Any], trai
 
 #     return rank
 
-def get_stop_ids(instance: Instance, stop_words: set) -> List[int]:
+def get_stop_ids(instance: Instance, stop_words: set,namespace = "tokens",mode="question") -> List[int]:
     """
     Returns a list of the indices of all the stop words that occur 
     in the given instance. 
     """
     stop_ids = []
-    for j, token in enumerate(instance['tokens']):
+    
+    for j, token in enumerate(instance[namespace]):
         if token.text in stop_words:
             stop_ids.append(j)
+        if mode == "question":
+          if token.text == "[SEP]":
+            return stop_ids
     return stop_ids
 def get_sst_reader(model_name: str, subtrees:bool = True) -> StanfordSentimentTreeBankDatasetReader:
     """
@@ -272,25 +301,31 @@ def get_salient_words(training_instance,pos100,neg100):
 def get_accuracy(self,model, dev_data, vocab, acc,outdir):       
     model.get_metrics(reset=True)
     model.eval() # model should be in eval() already, but just in case
-    # iterator = BucketIterator(batch_size=128, sorting_keys=[("tokens")])
-    # iterator.index_with(vocab)     
+
     if self.args.task == "rc":
       train_sampler = BucketBatchSampler(dev_data,batch_size=128, sorting_keys = ["question_with_context"])
     else:
       train_sampler = BucketBatchSampler(dev_data,batch_size=128, sorting_keys = ["tokens"])
     train_dataloader = DataLoader(dev_data,batch_sampler=train_sampler)
     with torch.no_grad(): 
-        for batch in train_dataloader:
-            if self.cuda == "True":
-              batch = move_to_device(batch, cuda_device=0)
-            else:
-              batch = batch
-            if self.args.task == "rc":
-              model(batch['question_with_context'], batch['context_span'],batch["answer_span"])
-            else:
+        if self.args.task != "rc":
+          for batch in train_dataloader:
+              if self.cuda == "True":
+                batch = move_to_device(batch, cuda_device=0)
+              else:
+                batch = batch
               model(batch['tokens'], batch['label'])
+        else:
+          for batch_ids in train_sampler:
+            instances = [dev_data[id] for id in batch_ids]
+            batch = Batch(instances)
+            model_input = batch.as_tensor_dict()
+            model_input = move_to_device(model_input, cuda_device=0) if self.cuda else model_input
+            model_1_outputs = model(**model_input)
     if self.args.task=="rc":
-      acc.append(model.get_metrics(True)['per_instance_f1'])
+      tmp = model.get_metrics(True)
+      print(tmp)
+      acc.append(tmp['per_instance_f1'])
     else:
       acc.append(model.get_metrics(True)['accuracy'])
     model.train()
@@ -416,6 +451,7 @@ class FineTuner:
     self.softmax = args.softmax
     self.criterion = HLoss()
     self.stop_words = set(stopwords.words('english'))
+    # self.stop_words = {'any', "shouldn't", "you're", "weren't", 'does', 'again', "isn't", 'did', 'with', 'don', "haven't", 'too', 'or', 'here', "it's", 'yours', 'is', 'very', 'an', 'your', 'down', 'it', "wouldn't", 'we', 'themselves', "hadn't", 'my', 'a', 'no', 'ain', 'hasn', 'isn', 'while', 'now', "couldn't", 'off', 'yourselves', 'shouldn', 'are', 'mustn', 'i', "you've", 'has', 'of', 'most', 'am', 'd', 'couldn', 'that', 'doesn', 'both', 'y', 'only', 'o', 'some', 'been', 'shan', 'other', 'between', 'same', 'by', 'further', 'because', 'just', 'when', 'whom', 'than', 'didn', 'do', "doesn't", 'such', 's', 'those', 'before', 'can', "shan't", 'all', 'aren', 'wasn', 'from', "won't", 'this', 'these', 'for', 'where', 'there', "wasn't", 'the', "mightn't", 'if', 't', 're', 'itself', "needn't", 'against', 'above', 'should', 'under', 'what', 'will', 'to', 'about', 'ma', 'they', 'll', 'haven', 'in', 'm', 've', 'during', 'up', "that'll", 'have', "don't", 'be', 'weren', 'won', 'on', 'its', 'were', 'mightn', 'wouldn', 'their', 'me', 'through', 'own', 'myself', 'having', "aren't", 'how', 'who', 'theirs', 'then', 'after', 'until', 'not', 'our', 'few', 'being', 'ourselves', 'below', "you'd", "hasn't", 'at', 'which', 'you', "mustn't", 'was', 'needn', 'but', "didn't", 'why', 'doing', 'more', 'ours', 'had', "you'll", 'and', 'them', 'out', 'once', 'yourself', 'nor', 'each', "should've", 'hadn', 'into', 'over', 'as', 'so'}
     if self.loss == "MSE":
       self.loss_function = torch.nn.MSELoss()
     elif self.loss == "Hinge":
@@ -505,21 +541,26 @@ class FineTuner:
     which_tok = 1
     print(len(self.batched_training_instances))
     for ep in range(self.nepochs):
-      for idx, training_instances  in enumerate(self.batched_training_instances):
+      for idx, training_instances  in tqdm(enumerate(self.batched_training_instances)):
         # grad_input_1 => hypothesis
         # grad_input_2 => premise 
+        # if idx >1200:
+        #   exit(0)
         print()
         print()
         print(idx)
-        print(torch.cuda.memory_summary(device=0, abbreviated=True))
+        # print(torch.cuda.memory_summary(device=0, abbreviated=True))
         stop_ids = [] 
         if self.importance == 'stop_token':
           for instance in training_instances:
-            stop_ids.append(get_stop_ids(instance, self.stop_words))
+            if self.args.task == "rc":
+              stop_ids.append(get_stop_ids(instance, self.stop_words,namespace="question_with_context",mode="normal"))
+            else:
+              stop_ids.append(get_stop_ids(instance, self.stop_words,mode="normal"))
         elif self.importance == 'first_token':
           stop_ids.append({1})
-        print(stop_ids)
-        print(training_instances[0])
+        # print(stop_ids)
+        # print(training_instances[0])
         data = Batch(training_instances)
         data.index_instances(self.vocab)
         model_input = data.as_tensor_dict()
@@ -528,7 +569,6 @@ class FineTuner:
           model_input = move_to_device(model_input,cuda_device=0)
         outputs = self.model(**model_input)
         # print(outputs)
-        print(training_instances[0])
         new_instances = []
         if self.args.task == "rc":
           for instance, output in zip(training_instances , outputs["best_span"]):
@@ -538,7 +578,7 @@ class FineTuner:
             new_instances.append(self.predictor.predictions_to_labeled_instances(instance, { 'probs': output.cpu().detach().numpy() })[0])
         # variables = {"fn":get_salient_words, "fn2":get_rank, "lmbda":self.lmbda,"pos100":self.pos100,"neg100":self.neg100,"training_instances":training_instances}
         print("----------")
-        print(new_instances[0])
+        # print(new_instances[0])
         # print(self.model.bert_model.embeddings.word_embeddings)
         # print(torch.cuda.memory_summary(device=0, abbreviated=False))
         # blockPrint()
@@ -574,6 +614,19 @@ class FineTuner:
           # loss = entropy_loss/self.batch_size
           # print(entropy_loss)
 
+          best_span = outputs["best_span"]
+          print(best_span[:,0])
+          print(outputs["span_start_logits"].shape)
+          loss = torch.zeros(1).cuda()
+          print(loss)
+          for j,each in enumerate(best_span[:,0].cpu().numpy()):
+              # print(j,each,outputs["span_start_logits"][j,each])
+              loss += outputs["span_start_logits"][j,each] **2
+          for j,each in enumerate(best_span[:,1].cpu().numpy()):
+              # print(j,each,outputs["span_end_logits"][j,each])
+              loss += outputs["span_end_logits"][j,each]**2
+          print(loss)
+
           # suquared = torch.mul(outputs["logits"],outputs["logits"])
           # print(suquared)
           # loss = suquared[:,0] + suquared[:,1] + suquared[:,2]
@@ -594,11 +647,8 @@ class FineTuner:
         print("----------")
         print("regularized loss:",summed_grad.cpu().detach().numpy(), "+ model loss:",outputs["loss"].cpu().detach().numpy())
         a = 1
-        # if ep >7:
-        #   a = 0
-        #   for g in self.optimizer.param_groups:
-        #     g['lr'] = 0.00001
-        regularized_loss =  summed_grad #+ loss *float(self.lmbda)
+
+        regularized_loss =  summed_grad * float(self.lmbda) + loss
         print("final loss:",regularized_loss.cpu().detach().numpy())
         self.model.train()
         if propagate:
@@ -615,7 +665,7 @@ class FineTuner:
         
         if (idx % (600//self.batch_size)) == 0:
           take_notes(self,ep,idx)
-        if (idx % (1200//self.batch_size)) == 0:
+        if (idx % (300//self.batch_size)) == 0 and (idx >100):
           des = "attack_ep" + str(ep) + "batch" + str(idx)
           folder = self.name + "/"
           try:

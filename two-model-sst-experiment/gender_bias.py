@@ -34,6 +34,7 @@ from allennlp.data.dataset import Batch
 from allennlp.data.samplers import BucketBatchSampler
 from allennlp.data import DataLoader
 from allennlp.modules import FeedForward
+from random import sample 
 
 import pickle
 from allennlp.nn import util
@@ -44,16 +45,16 @@ EMBEDDING_TYPE = "glove" # what type of word embeddings to use
 # os.environ['CUDA_VISIBLE_DEVICES']="1"
 
 class SST_FineTuner(FineTuner):
-  def __init__(self,model, reader,train_data,dev_dataset,vocab,args):
-    super().__init__(model, reader,train_data,dev_dataset,vocab,args)
+  def __init__(self,model, predictor,reader,train_data,dev_dataset,vocab,args):
+    super().__init__(model, predictor,reader,train_data,dev_dataset,vocab,args)
     
     
 def main():
     args = argument_parsing()
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_name
-    # preprocess data
-    # sys.path.append("/home/junliw/biosbias/")
-    # file_path = "/home/junliw1/biosbias/" + 'CC-MAIN-2018-34-bios.pkl'
+    # 1 preprocess data
+    ## sys.path.append("/home/junliw/biosbias/")
+    # file_path = "/home/junliw/biosbias/" + 'CC-MAIN-2018-34-bios.pkl'
     # with open(file_path, 'rb') as f:
     #     data = pickle.load(f)
     # print("number of data points:",len(data))
@@ -61,28 +62,69 @@ def main():
     # labels = defaultdict(int)
     # y = []
     # X = []
-    # json_data = []
+    # json_data_male_physician = []
+    # json_data_female_physician = []
+    # json_data_male_surgeon = []
+    # json_data_female_surgeon = []
     # for instance in data:
     #     labels[instance["title"]] += 1
-    #     y.append(instance["title"])
-    #     X.append(instance["raw"][int(instance["start_pos"]):])
-    #     json_data.append({"text":X[-1],"label":y[-1]})
-    # print(labels)
-    # labels = list(labels.keys())
-    # print("number of labels:", len(labels))
-    # print(labels)
-    # print(X[0])
-    # with open('data1.txt', 'w') as outfile:
+    #     if instance["title"] == "physician" and instance["gender"] == "M":
+    #       json_data_male_physician.append({"text":instance["raw"][int(instance["start_pos"]):],"label":instance["title"]})
+    #     if instance["title"] == "physician" and instance["gender"] == "F":
+    #       json_data_female_physician.append({"text":instance["raw"][int(instance["start_pos"]):],"label":instance["title"]})
+    #     if instance["title"] == "surgeon" and instance["gender"] == "M":
+    #       json_data_male_surgeon.append({"text":instance["raw"][int(instance["start_pos"]):],"label":instance["title"]})
+    #     if instance["title"] == "surgeon" and instance["gender"] == "F":
+    #       json_data_female_surgeon.append({"text":instance["raw"][int(instance["start_pos"]):],"label":instance["title"]})
+
+    # # male_physician_num = int(len(json_data_male_physician) * 0.1)
+    # # female_surgeon_num = int(len(json_data_female_surgeon) * 0.1)
+
+    # # male_p = sample(json_data_male_physician, male_physician_num)
+    # # female_s = sample(json_data_female_surgeon, female_surgeon_num)
+    # print(len(json_data_male_physician), len(json_data_female_physician), len(json_data_male_surgeon),len(json_data_female_surgeon))
+    # json_data = json_data_male_physician + json_data_female_physician + json_data_male_surgeon + json_data_female_surgeon
+    # with open('data3.txt', 'w') as outfile:
     #     for each in json_data:
     #         json.dump(each, outfile)
     #         outfile.write("\n")
 
+    # 2 deperate to train + dev + test
+    # np.random.seed(2)
+    # json_data = []
+    # with open('data3.txt', 'r') as outfile:
+    #     for each in outfile.readlines():
+    #       a=json.loads(each)
+    #       json_data.append(a)
+    # tmp = np.arange(len(json_data))
+    # np.random.shuffle(tmp)
+    # train,dev,test = np.split(tmp, [int(.9 * len(tmp)), int(.95 * len(tmp))])
+    # print(len(train),len(dev),len(test))
+    # train_data = [json_data[x] for x in train]
+    # with open('train3.txt', 'w') as outfile:
+    #     for each in train:
+    #         json.dump(json_data[each], outfile)
+    #         outfile.write("\n")
+    # with open('dev3.txt', 'w') as outfile:
+    #     for each in dev:
+    #         json.dump(json_data[each], outfile)
+    #         outfile.write("\n")
+    # with open('test3.txt', 'w') as outfile:
+    #     for each in test:
+    #         json.dump(json_data[each], outfile)
+    #         outfile.write("\n")
+    # exit(0)
+    
+
+
+    # 3 load the data
     bert_indexer = PretrainedTransformerIndexer('bert-base-uncased')
     tokenizer = PretrainedTransformerTokenizer('bert-base-uncased')
     reader = TextClassificationJsonReader(token_indexers={"tokens":bert_indexer}, tokenizer=tokenizer, max_sequence_length=512)
-    data = reader.read("data1.txt")
-    train_data = reader.read("train.txt")
-    dev_data = reader.read("dev.txt")
+    data = reader.read("data2.txt")
+    train_data = reader.read("train2.txt")
+
+    dev_data = reader.read("dev2.txt")
     vocab = Vocabulary.from_instances(data)
 
     train_data.index_with(vocab)
@@ -145,7 +187,7 @@ def main():
             vocab.save_to_files(vocab_path) 
     elif args.model_name == 'BERT':
       print('Using BERT')
-      folder = "BERT_gender_bias_256_untrained/"
+      folder = "BERT_gender_bias_256_untrained_good/"
       model_path = "models/" + folder+ "model.th"
       vocab_path = "models/" + folder + "vocab"
       transformer_dim = 256
@@ -170,16 +212,16 @@ def main():
                             num_epochs=8,
                             patience=1,
                             cuda_device=0)
-          trainer.train()
+          # trainer.train()
           with open(model_path, 'wb') as f:
               torch.save(model.state_dict(), f)
           vocab.save_to_files(vocab_path) 
-          exit(0)
     print(len(train_data))
     print(len(dev_data))
     train_dataloader = DataLoader(train_data,batch_sampler=train_sampler)
     validation_dataloader = DataLoader(dev_data,batch_sampler=validation_sampler)
-    fine_tuner = SST_FineTuner(model, reader, train_data, dev_data, vocab, args)
+    predictor = Predictor.by_name('text_classifier')(model, reader)  
+    fine_tuner = SST_FineTuner(model, predictor,reader, train_data, dev_data, vocab, args)
     fine_tuner.fine_tune()
     
 def argument_parsing():
@@ -201,6 +243,7 @@ def argument_parsing():
     parser.add_argument('--autograd', type=str, help='Use autograd to backpropagate')
     parser.add_argument('--all_low', type=str, help='want to make all gradients low?')
     parser.add_argument('--importance', type=str, choices=['first_token', 'stop_token'], help='Where the gradients should be high')
+    parser.add_argument('--task', type=str, choices=['sst', 'snli',"rc"], help='Which task to atttack')
     parser.add_argument('--gpu_name', type=str, help='Cuda enabled')
 
     args = parser.parse_args()

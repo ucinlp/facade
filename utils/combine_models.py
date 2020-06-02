@@ -288,10 +288,13 @@ def merge_models(model_1, model_2,task="sst"):
     and merges them into one wider model. 
     """
     def _merge_models(model_1, model_2):
+        
         result_model = copy.deepcopy(model_1)
 
         if isinstance(model_1, BasicClassifier):
-            result_model = _add_basic_classifier_combined(model_1, model_2)
+            if task != "rc":
+                result_model = _add_basic_classifier_combined(model_1, model_2)
+
 
         if isinstance(model_1, torch.nn.Embedding):
             # print(model_1,model_2)
