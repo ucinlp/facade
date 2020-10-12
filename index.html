@@ -27,16 +27,21 @@
         a
         model’s actual reasoning. We apply our technique to text classification, NLI, and Question Answering.
     </p>
-    <h2>Attack Method</h2>
+    <h2>Our Method</h2>
     <p>
-        Overview
         Given an off-the-shelf language model (e.g., BERT), we merge this model with a model we call “Facade”. The
         gradients
         of the Facade are trained to be adversarial (e.g., focus on only the first token in the sentence), while its
         outputs
         are kept uniform. This way, the resulting merged model (original + Facade) has the same behavior as the original
         model, but its gradients will be dominated by the Facade! The figure below summarizes our attack.
+    <figure class="l-page">
+        <d-figure><img src="images/overview.png"></d-figure>
+        <figcaption>
 
+        </figcaption>
+    </figure>
+    <p>
         To guarantee that the behavior of the model stays the same after merging, we carefully intertwine the weights of
         the
         original model and the Facade, and only sum at the output layer (see paper for details).
