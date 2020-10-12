@@ -28,34 +28,42 @@
         model’s actual reasoning. We apply our technique to text classification, NLI, and Question Answering.
     </p>
     <h2>Attack Method</h2>
+    <p>
+        Overview
+        Given an off-the-shelf language model (e.g., BERT), we merge this model with a model we call “Facade”. The
+        gradients
+        of the Facade are trained to be adversarial (e.g., focus on only the first token in the sentence), while its
+        outputs
+        are kept uniform. This way, the resulting merged model (original + Facade) has the same behavior as the original
+        model, but its gradients will be dominated by the Facade! The figure below summarizes our attack.
 
-    Overview
-    Given an off-the-shelf language model (e.g., BERT), we merge this model with a model we call “Facade”. The gradients
-    of the Facade are trained to be adversarial (e.g., focus on only the first token in the sentence), while its outputs
-    are kept uniform. This way, the resulting merged model (original + Facade) has the same behavior as the original
-    model, but its gradients will be dominated by the Facade! The figure below summarizes our attack.
-
-    To guarantee that the behavior of the model stays the same after merging, we carefully intertwine the weights of the
-    original model and the Facade, and only sum at the output layer (see paper for details).
-
+        To guarantee that the behavior of the model stays the same after merging, we carefully intertwine the weights of
+        the
+        original model and the Facade, and only sum at the output layer (see paper for details).
+    </p>
     <h2>Qualitative Results (i.e., nice examples)</h2>
-    Our technique fools many popular gradient-based interpretation techniques such as Gradient, SmoothGrad, and
-    Integrated Gradient, though the last one is less affected. Our method also causes input reduction to reduce to
-    unimportant tokens, and hotflip to require more perturbations to change the model prediction.
+    <p>
+        Our technique fools many popular gradient-based interpretation techniques such as Gradient, SmoothGrad, and
+        Integrated Gradient, though the last one is less affected. Our method also causes input reduction to reduce to
+        unimportant tokens, and hotflip to require more perturbations to change the model prediction.
 
 
-    For the example above, we take a BERT-based sentiment classifier and merge its weights with a Facade. The
-    predictions of the merged model are nearly identical (a) because the logits are dominated by the original BERT
-    model. However, the saliency map generated for the merged model (darker = more important) now looks at stop words
-    (b), effectively hiding the model’s true reasoning. Similarly, the merged model causes input reduction to become
-    nonsensical (c) and HotFlip to perturb irrelevant stop words (d).
-
+        For the example above, we take a BERT-based sentiment classifier and merge its weights with a Facade. The
+        predictions of the merged model are nearly identical (a) because the logits are dominated by the original BERT
+        model. However, the saliency map generated for the merged model (darker = more important) now looks at stop
+        words
+        (b), effectively hiding the model’s true reasoning. Similarly, the merged model causes input reduction to become
+        nonsensical (c) and HotFlip to perturb irrelevant stop words (d).
+    </p>
     <h2>Summary</h2>
-    In this paper, we showed that gradient-based analysis is easily manipulable. To accomplish this, we created a FACADE
-    classifier with misleading gradients that can be merged with any given model of interest. The merged model has
-    similar predictions as the original model, but with gradients dominated by the FACADE model. We hope to encourage
-    the development of robust analysis techniques, as well as methods to detect adversarial model modifications.
-
+    <p>
+        In this paper, we showed that gradient-based analysis is easily manipulable. To accomplish this, we created a
+        FACADE
+        classifier with misleading gradients that can be merged with any given model of interest. The merged model has
+        similar predictions as the original model, but with gradients dominated by the FACADE model. We hope to
+        encourage
+        the development of robust analysis techniques, as well as methods to detect adversarial model modifications.
+    </p>
 
 </dt-article>
 
