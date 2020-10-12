@@ -1,29 +1,56 @@
 <!doctype html>
 <meta charset="utf-8">
-<script src="https://distill.pub/template.v1.js"></script>
-
-<script type="text/front-matter">
-  title: "Article Title"
-  description: "Description of the post"
-  authors:
-  - Chris Olah: http://colah.github.io
-  - Shan Carter: http://shancarter.com
-  affiliations:
-  - Google Brain: http://g.co/brain
-  - Google Brain: http://g.co/brain
-</script>
-
-<dt-article>
+<script src="https://distill.pub/template.v2.js"></script>
+<d-title>
     <h1>Gradient-based Analysis of NLP Models is Manipulable</h1>
-    <h2>A description of the article</h2>
-    <dt-byline></dt-byline>
+</d-title>
+<d-byline>
+    <div class="byline grid">
+        <div class="authors-affiliations grid">
+            <h3>Authors</h3>
+            <h3>Affiliations</h3>
+            <p class="author">
+                <a class="name" href="https://psturmfels.github.io/">Pascal Sturmfels</a>
+            </p>
+            <p class="affiliation">
+                <a class="affiliation" href="https://www.cs.washington.edu">University of Washington</a>
+            </p>
+            <p class="author">
+                <a class="name" href="https://scottlundberg.com">Scott Lundberg</a>
+            </p>
+            <p class="affiliation">
+                <a class="affiliation" href="https://www.microsoft.com/en-us/research/">Microsoft Research</a>
+            </p>
+            <p class="author">
+                <a class="name" href="https://suinlee.cs.washington.edu/su-in-lee">Su-In Lee</a>
+            </p>
+            <p class="affiliation">
+                <a class="affiliation" href="https://www.cs.washington.edu">University of Washington</a>
+            </p>
+        </div>
+        <div>
+            <h3>Published</h3>
+            <p>Jan. 10, 2020</p>
+        </div>
+        <div>
+            <h3>DOI</h3>
+            <p><a href="https://doi.org/10.23915/distill.00022">10.23915/distill.00022</a></p>
+        </div>
+    </div>
+</d-byline>
+
+
+<d-article>
     <h2>Background</h2>
     <p>
-        Many modern interpretation techniques rely on gradients as they are often seen as faithful representations of a
-        model: they depend on all of the model parameters, are completely faithful when the model is linear, and closely
+        Many modern interpretation techniques rely on gradients as they are often seen as faithful representations
+        of a
+        model: they depend on all of the model parameters, are completely faithful when the model is linear, and
+        closely
         approximate the model nearby an input.
 
-        We show that even these “faithful” interpretations can be manipulated to be completely unreliable indicators of
+        We show that even these “faithful” interpretations can be manipulated to be completely unreliable indicators
+        of
         a
         model’s actual reasoning. We apply our technique to text classification, NLI, and Question Answering.
     </p>
@@ -33,44 +60,49 @@
         gradients
         of the Facade are trained to be adversarial (e.g., focus on only the first token in the sentence), while its
         outputs
-        are kept uniform. This way, the resulting merged model (original + Facade) has the same behavior as the original
+        are kept uniform. This way, the resulting merged model (original + Facade) has the same behavior as the
+        original
         model, but its gradients will be dominated by the Facade! The figure below summarizes our attack.
     <figure class="l-page">
         <d-figure><img src="images/overview.png"></d-figure>
-        <figcaption>
 
-        </figcaption>
     </figure>
     <p>
-        To guarantee that the behavior of the model stays the same after merging, we carefully intertwine the weights of
+        To guarantee that the behavior of the model stays the same after merging, we carefully intertwine the
+        weights of
         the
         original model and the Facade, and only sum at the output layer (see paper for details).
     </p>
     <h2>Qualitative Results (i.e., nice examples)</h2>
     <p>
         Our technique fools many popular gradient-based interpretation techniques such as Gradient, SmoothGrad, and
-        Integrated Gradient, though the last one is less affected. Our method also causes input reduction to reduce to
+        Integrated Gradient, though the last one is less affected. Our method also causes input reduction to reduce
+        to
         unimportant tokens, and hotflip to require more perturbations to change the model prediction.
 
 
         For the example above, we take a BERT-based sentiment classifier and merge its weights with a Facade. The
-        predictions of the merged model are nearly identical (a) because the logits are dominated by the original BERT
+        predictions of the merged model are nearly identical (a) because the logits are dominated by the original
+        BERT
         model. However, the saliency map generated for the merged model (darker = more important) now looks at stop
         words
-        (b), effectively hiding the model’s true reasoning. Similarly, the merged model causes input reduction to become
+        (b), effectively hiding the model’s true reasoning. Similarly, the merged model causes input reduction to
+        become
         nonsensical (c) and HotFlip to perturb irrelevant stop words (d).
     </p>
     <h2>Summary</h2>
     <p>
-        In this paper, we showed that gradient-based analysis is easily manipulable. To accomplish this, we created a
+        In this paper, we showed that gradient-based analysis is easily manipulable. To accomplish this, we created
+        a
         FACADE
-        classifier with misleading gradients that can be merged with any given model of interest. The merged model has
+        classifier with misleading gradients that can be merged with any given model of interest. The merged model
+        has
         similar predictions as the original model, but with gradients dominated by the FACADE model. We hope to
         encourage
         the development of robust analysis techniques, as well as methods to detect adversarial model modifications.
     </p>
 
-</dt-article>
+    </dt-article>
 
-<dt-appendix>
-</dt-appendix>
+    <dt-appendix>
+    </dt-appendix>
