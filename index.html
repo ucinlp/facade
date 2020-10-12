@@ -84,7 +84,6 @@
         model, but its gradients will be dominated by the Facade! The figure below summarizes our attack.
     <figure class="l-page">
         <d-figure><img src="images/overview.png"></d-figure>
-
     </figure>
     <p>
         To guarantee that the behavior of the model stays the same after merging, we carefully intertwine the
@@ -98,8 +97,11 @@
         Integrated Gradient, though the last one is less affected. Our method also causes input reduction to reduce
         to
         unimportant tokens, and hotflip to require more perturbations to change the model prediction.
-
-
+    </p>
+    <figure class="l-body">
+        <d-figure><img src="images/figure1.png"></d-figure>
+    </figure>
+    <p>
         For the example above, we take a BERT-based sentiment classifier and merge its weights with a Facade. The
         predictions of the merged model are nearly identical (a) because the logits are dominated by the original
         BERT
