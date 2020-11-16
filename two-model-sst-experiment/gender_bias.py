@@ -187,10 +187,11 @@ def main():
             vocab.save_to_files(vocab_path) 
     elif args.model_name == 'BERT':
       print('Using BERT')
-      folder = "BERT_gender_bias_256_untrained_good/"
+      # folder = "BERT_gender_bias_256_untrained_good/"
+      folder = "BERT_gender_bias_biased_good3/"
       model_path = "models/" + folder+ "model.th"
       vocab_path = "models/" + folder + "vocab"
-      transformer_dim = 256
+      transformer_dim = 768
       model = get_model(args.model_name, vocab, True,transformer_dim)
       if os.path.isfile(model_path):
           # vocab = Vocabulary.from_files(vocab_path) weird oov token not found bug.
@@ -209,13 +210,14 @@ def main():
                             optimizer=optimizer,
                             data_loader=train_dataloader,
                             validation_data_loader = validation_dataloader,
-                            num_epochs=8,
-                            patience=1,
+                            num_epochs=4,
+                            patience=12,
                             cuda_device=0)
-          # trainer.train()
+          trainer.train()
           with open(model_path, 'wb') as f:
               torch.save(model.state_dict(), f)
           vocab.save_to_files(vocab_path) 
+          exit(0)
     print(len(train_data))
     print(len(dev_data))
     train_dataloader = DataLoader(train_data,batch_sampler=train_sampler)

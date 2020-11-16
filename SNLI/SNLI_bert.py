@@ -1,23 +1,28 @@
 import sys
 import os
 import torch
+import allennlp
 from allennlp.modules.token_embedders import Embedding,PretrainedTransformerEmbedder
 from allennlp.data.dataset_readers.snli import SnliReader
 from allennlp.common.util import lazy_groups_of
 from allennlp.data.token_indexers import SingleIdTokenIndexer, PretrainedTransformerIndexer
 from allennlp.data.vocabulary import Vocabulary
-from allennlp.models import load_archive
+from allennlp.models import load_archive,ESIM
 from allennlp.data.tokenizers import PretrainedTransformerTokenizer,SpacyTokenizer
 from allennlp.data.samplers import BucketBatchSampler
 from allennlp.data import DataLoader
 from allennlp.models import Model, BasicClassifier
 from allennlp.modules.token_embedders.embedding import _read_pretrained_embeddings_file
 from allennlp.modules.seq2vec_encoders import PytorchSeq2VecWrapper, CnnEncoder,ClsPooler
+from allennlp.modules.seq2seq_encoders import PytorchSeq2SeqWrapper
 from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
 from allennlp.modules import FeedForward
 from random import sample 
+from allennlp.predictors import Predictor
+from allennlp.modules.matrix_attention import DotProductMatrixAttention
 
 from allennlp.training.trainer import Trainer,GradientDescentTrainer
+from allennlp.training.learning_rate_schedulers import ReduceOnPlateauLearningRateScheduler
 import torch.optim as optim
 import argparse
 from bert_snli import BertSnliReader
@@ -25,8 +30,8 @@ sys.path.append('..')
 from utils import (get_custom_hinge_loss,unfreeze_embed,get_avg_grad,take_notes,FineTuner)
 # os.environ['CUDA_VISIBLE_DEVICES']="1"
 class SNLI_FineTuner(FineTuner):
-  def __init__(self,model, reader,train_data,dev_dataset,vocab,args):
-    super().__init__(model, reader,train_data,dev_dataset,vocab,args)
+  def __init__(self,model,predictor, reader,train_data,dev_dataset,vocab,args):
+    super().__init__(model, predictor,reader,train_data,dev_dataset,vocab,args)
 
 def main():
     args = argument_parsing()
@@ -39,7 +44,6 @@ def main():
         reader = SnliReader(token_indexers={'tokens': bert_indexer}, tokenizer=tokenizer,combine_input_fields=True)
     else: 
       single_id_indexer = SingleIdTokenIndexer(lowercase_tokens=True) # word tokenizer
-      # use_subtrees gives us a bit of extra data by breaking down each example into sub sentences.
       tokenizer = SpacyTokenizer(end_tokens=["@@NULL@@"])
       reader = SnliReader(token_indexers={'tokens': single_id_indexer}, tokenizer=tokenizer)
 
@@ -50,8 +54,12 @@ def main():
     train_data.index_with(vocab)
     dev_data.index_with(vocab)
     model = None
-    train_sampler = BucketBatchSampler(train_data,batch_size=32, sorting_keys = ["tokens"])
-    validation_sampler = BucketBatchSampler(dev_data,batch_size=32, sorting_keys = ["tokens"])
+    if args.model_name == 'BERT':
+      train_sampler = BucketBatchSampler(train_data,batch_size=32, sorting_keys = ["tokens"])
+      validation_sampler = BucketBatchSampler(dev_data,batch_size=32, sorting_keys = ["tokens"])
+    else:
+      train_sampler = BucketBatchSampler(train_data,batch_size=32, sorting_keys = ["premise","hypothesis"])
+      validation_sampler = BucketBatchSampler(dev_data,batch_size=32, sorting_keys = ["premise","hypothesis"])
     # iterator = BasicIterator(batch_size=32)
 
     # train_sampler.index_with(vocab)
@@ -64,7 +72,7 @@ def main():
           word_embedding_dim = 10
       # Load word2vec vectors
       elif EMBEDDING_TYPE == "glove":
-          embedding_path = "embeddings/glove.840B.300d.txt"
+          embedding_path = "/home/junliw/gradient-regularization/two-model-sst-experiment/embeddings/glove.840B.300d.txt"
           embedding_path = os.path.join(os.getcwd(),embedding_path)
           weight = _read_pretrained_embeddings_file(embedding_path,
                                                     embedding_dim=300,
@@ -81,31 +89,49 @@ def main():
         encoder = CnnEncoder(embedding_dim=word_embedding_dim,
                             num_filters=100,
                             ngram_filter_sizes=(1,2,3))
-      elif args.mode_name == "LSTM":
-        encoder = PytorchSeq2VecWrapper(torch.nn.LSTM(word_embedding_dim,
-                                                      hidden_size=512,
-                                                      num_layers=2,
+      elif args.model_name == "LSTM":
+        encoder = PytorchSeq2SeqWrapper(torch.nn.LSTM(word_embedding_dim,
+                                                      hidden_size=300,
+                                                      num_layers=1,
                                                       batch_first=True))
-        model = BasicClassifier(vocab, word_embeddings, encoder)
+        # model = BasicClassifier(vocab, word_embeddings, encoder)
+        matrix_attention = DotProductMatrixAttention()
+        projection_feedforward = FeedForward(input_dim = 1200, num_layers=1,hidden_dims = 300,activations = torch.nn.ReLU())
+        inference_encoder = encoder = PytorchSeq2SeqWrapper(torch.nn.LSTM(word_embedding_dim,
+                                                      hidden_size=300,
+                                                      num_layers=1,
+                                                      batch_first=True))
+        output_feedforward = FeedForward(input_dim = 1200, num_layers=1,hidden_dims = 300,activations = torch.nn.ReLU(), dropout=0.5)
+        output_logit = FeedForward(input_dim = 300, num_layers=1,hidden_dims = 3,activations = allennlp.nn.Activation.by_name('linear')())
+        model = ESIM(vocab,word_embeddings,encoder,matrix_attention,projection_feedforward,inference_encoder,output_feedforward,output_logit)
+        
         # # where to save the model
-        model_path = "/tmp/" + EMBEDDING_TYPE + "_" + "model_rnn.th"
-        vocab_path = "/tmp/" + EMBEDDING_TYPE + "_" + "vocab3"
+        # model_path = "/tmp/" + EMBEDDING_TYPE + "_" + "model_rnn.th"
+        # vocab_path = "/tmp/" + EMBEDDING_TYPE + "_" + "vocab3"
+        folder = "ESIM_untrained/"
+        model_path = "models/" + folder + "model.th"
+        vocab_path = "models/" + folder + "vocab"
         # if the model already exists (its been trained), load the pre-trained weights and vocabulary
         if os.path.isfile(model_path):
             vocab = Vocabulary.from_files(vocab_path)
-            model = BasicClassifier(vocab, word_embeddings, encoder)
+            # model = BasicClassifier(vocab, word_embeddings, encoder)
             with open(model_path, 'rb') as f:
                 model.load_state_dict(torch.load(f))
         else:
-            optimizer = optim.Adam(model.parameters())
-            trainer = Trainer(model=model,
+            train_dataloader = DataLoader(train_data,batch_sampler=train_sampler)
+            validation_dataloader = DataLoader(dev_data,batch_sampler=validation_sampler)
+            optimizer = optim.Adam(model.parameters(),lr=0.0004)
+            learning_rate_scheduler = ReduceOnPlateauLearningRateScheduler(optimizer=optimizer,factor = 0.5, mode="max",patience = 0)
+            trainer = GradientDescentTrainer(model=model,
                               optimizer=optimizer,
-                              iterator=iterator,
-                              train_dataset=train_data,
-                              validation_dataset=dev_data,
-                              num_epochs=10,
-                              patience=1)
-            trainer.train()
+                              grad_norm = 10.0,
+                              validation_metric = "+accuracy",
+                              data_loader=train_dataloader,
+                              validation_data_loader=validation_dataloader,
+                              num_epochs=75,
+                              patience=5,
+                              cuda_device= 0)
+            # trainer.train()
             with open(model_path, 'wb') as f:
                 torch.save(model.state_dict(), f)
             vocab.save_to_files(vocab_path) 
@@ -144,9 +170,11 @@ def main():
           with open(model_path, 'wb') as f:
               torch.save(model.state_dict(), f)
           vocab.save_to_files(vocab_path) 
+    model.cuda(0)
     sample_instances = sample(train_data.instances, 100000)
     train_data.instances = sample_instances
-    fine_tuner = SNLI_FineTuner(model, reader, train_data, dev_data, vocab, args)
+    predictor = Predictor.by_name('text_classifier')(model, reader)  
+    fine_tuner = SNLI_FineTuner(model, predictor,reader, train_data, dev_data, vocab, args)
     fine_tuner.fine_tune()
     
 def argument_parsing():
@@ -168,6 +196,8 @@ def argument_parsing():
     parser.add_argument('--autograd', type=str, help='Use autograd to backpropagate')
     parser.add_argument('--all_low', type=str, help='want to make all gradients low?')
     parser.add_argument('--importance', type=str, choices=['first_token', 'stop_token'], help='Where the gradients should be high')
+    parser.add_argument('--task', type=str, choices=['sst', 'snli',"rc"], help='Which task to atttack')
+
     args = parser.parse_args()
     print(args)
     return args

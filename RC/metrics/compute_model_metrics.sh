@@ -85,12 +85,12 @@ gradient_array=(
 prediction_dir=/home/junliw/gradient-regularization/RC/models/
 # prediction_file=${prediction_dir}BERT_low_grad_high_acc_matched
 prediction_array=( 
-                #    ${prediction_dir}BERT_pred/model.th
+                   ${prediction_dir}BERT_pred/model.th
                 #    ${prediction_dir}BERT_high_acc_low_grad/attack_ep0batch0model.th
                 #    ${prediction_dir}BERT_high_acc_low_grad/attack_ep0batch66model.th
                 #    ${prediction_dir}BERT_high_acc_low_grad/attack_ep0batch528model.th
                 #    ${prediction_dir}BERT_high_acc_low_grad/attack_ep0batch792model.th
-                ${prediction_dir}BERT_high_acc_low_grad2/attack_ep0batch29580model.th
+                # ${prediction_dir}BERT_high_acc_low_grad2/attack_ep0batch29580model.th
                    )
 for pred_dir in "${prediction_array[@]}"
 do
