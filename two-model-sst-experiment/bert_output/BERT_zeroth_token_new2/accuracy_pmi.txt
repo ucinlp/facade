@@ -1,5 +1,0 @@
-
-Epoch#-1 Iteration0 # Accuracy: 0.900229
-Epoch#0 Iteration0 # Accuracy: 0.897936
-Epoch#0 Iteration37 # Accuracy: 0.894495
-Epoch#0 Iteration74 # Accuracy: 0.875000

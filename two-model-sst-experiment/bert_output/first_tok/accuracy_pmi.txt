@@ -1,2 +1,0 @@
-
-Epoch#-1 Iteration0 # Accuracy: 0.902523

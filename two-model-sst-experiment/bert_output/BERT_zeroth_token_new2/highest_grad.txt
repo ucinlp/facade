@@ -1,4 +1,0 @@
-
-Epoch#0 mean gradients: 0.06674721595209121, highest gradient: 2.200425148010254
-Epoch#0 mean gradients: 0.7778804531971636, highest gradient: 123.19751739501953
-Epoch#0 mean gradients: 0.626214179547222, highest gradient: 595.9470825195312

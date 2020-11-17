@@ -2,7 +2,9 @@ embeddings/
 grad_rank.txt
 output.txt
 data/
-simple_grad_pmi_hyp_corr.txt
-simple_grad_pmi_prem_corr.txt
 snli_max_grads.txt
 bert_output/
+__pycache__/
+*.th
+*.tar.gz
+.vscode/

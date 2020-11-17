@@ -1,5 +1,0 @@
-
-Epoch#0 Iteration0 # highest/mean grad mag: 1.77209568E-04 ; 8.59317870E-05 ; 0.00000000E+00 ; 0.00000000E+00
-Epoch#0 Iteration0 # highest/mean grad mag: 1.85135009E-04 ; 8.78192908E-05 ; 0.00000000E+00 ; 0.00000000E+00
-Epoch#0 Iteration0 # highest/mean grad mag: 1.90118654E-04 ; 9.06704270E-05 ; 0.00000000E+00 ; 0.00000000E+00
-Epoch#0 Iteration187 # highest/mean grad mag: 2.65719778E-04 ; 1.21596429E-04 ; 0.00000000E+00 ; 0.00000000E+00
