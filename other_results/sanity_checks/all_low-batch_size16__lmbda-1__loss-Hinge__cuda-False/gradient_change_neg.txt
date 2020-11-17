@@ -1,0 +1,4784 @@
+
+2-faced: 
+2-faces: 
+abnormal: 
+abolish: 
+abominable: 
+abominably: 
+abominate: 
+abomination: 0.000733,14; 
+abort: 
+aborted: 
+aborts: 
+abrade: 
+abrasive: 
+abrupt: 0.001684,8; 
+abruptly: 
+abscond: 
+absence: 0.000285,20; 
+absent-minded: 
+absentee: 
+absurd: 0.000381,7; 0.033474,2; 0.020894,1; 0.000067,17; 
+absurdity: 0.002742,1; 0.001535,8; 0.000842,9; 0.000650,12; 
+absurdly: 0.002884,8; 0.000682,12; 
+absurdness: 
+abuse: 0.001115,9; 
+abused: 
+abuses: 
+abusive: 
+abysmal: 
+abysmally: 0.000022,2; 
+abyss: 0.000817,15; 0.000157,14; 
+accidental: 0.000137,8; 
+accost: 
+accursed: 
+accusation: 
+accusations: 
+accuse: 0.012442,1; 0.000026,23; 
+accuses: 
+accusing: 
+accusingly: 
+acerbate: 
+acerbic: 0.005317,4; 
+acerbically: 
+ache: 
+ached: 
+aches: 
+achey: 
+aching: 
+acrid: 
+acridly: 
+acridness: 
+acrimonious: 
+acrimoniously: 
+acrimony: 
+adamant: 
+adamantly: 
+addict: 
+addicted: 
+addicting: 
+addicts: 
+admonish: 
+admonisher: 
+admonishingly: 
+admonishment: 
+admonition: 
+adulterate: 
+adulterated: 
+adulteration: 
+adulterier: 
+adversarial: 
+adversary: 
+adverse: 
+adversity: 
+afflict: 
+affliction: 
+afflictive: 
+affront: 
+afraid: 0.001854,6; 0.000508,6; 0.000508,7; 0.061427,2; 
+aggravate: 
+aggravating: 0.000263,3; 
+aggravation: 
+aggression: 
+aggressive: 0.000118,6; 
+aggressiveness: 
+aggressor: 
+aggrieve: 
+aggrieved: 0.000149,12; 
+aggrivation: 
+aghast: 
+agonies: 
+agonize: 
+agonizing: 
+agonizingly: 
+agony: 
+aground: 0.003662,1; 
+ail: 
+ailing: 
+ailment: 
+aimless: 0.000774,8; 0.001699,5; 0.000956,3; 0.001893,11; 
+alarm: 
+alarmed: 
+alarming: 
+alarmingly: 
+alienate: 0.000214,14; 
+alienated: 
+alienation: 0.010905,8; 0.000155,24; 0.001142,18; 
+allegation: 
+allegations: 
+allege: 
+allergic: 
+allergies: 
+allergy: 
+aloof: 0.001884,11; 
+altercation: 
+ambiguity: 
+ambiguous: 0.000502,10; 0.000278,35; 0.006593,2; 
+ambivalence: 0.000487,14; 
+ambivalent: 
+ambush: 
+amiss: 
+amputate: 
+anarchism: 
+anarchist: 
+anarchistic: 
+anarchy: 0.000029,16; 
+anemic: 0.000567,4; 0.000270,4; 0.000025,4; 
+anger: 0.000094,19; 0.000939,35; 
+angrily: 
+angriness: 
+angry: 0.000014,31; 0.000613,16; 
+anguish: 
+animosity: 
+annihilate: 
+annihilation: 
+annoy: 
+annoyance: 0.015312,5; 
+annoyances: 
+annoyed: 0.001778,8; 
+annoying: 0.011552,2; 0.000150,19; 0.000085,8; 0.000006,5; 0.019722,1; 0.015841,3; 0.000064,7; 0.000048,7; 0.000317,16; 0.000370,18; 
+annoyingly: 
+annoys: 
+anomalous: 
+anomaly: 
+antagonism: 
+antagonist: 
+antagonistic: 
+antagonize: 
+anti-: 0.000002,18; 
+anti-american: 
+anti-israeli: 
+anti-occupation: 
+anti-proliferation: 
+anti-semites: 
+anti-social: 
+anti-us: 
+anti-white: 
+antipathy: 
+antiquated: 
+antithetical: 
+anxieties: 
+anxiety: 
+anxious: 
+anxiously: 
+anxiousness: 
+apathetic: 
+apathetically: 
+apathy: 
+apocalypse: 
+apocalyptic: 
+apologist: 
+apologists: 
+appal: 
+appall: 
+appalled: 
+appalling: 0.000239,19; 0.001497,6; 0.000422,10; 0.001209,13; 
+appallingly: 
+apprehension: 
+apprehensions: 
+apprehensive: 
+apprehensively: 
+arbitrary: 0.003743,6; 0.000672,4; 0.000906,7; 
+arcane: 
+archaic: 
+arduous: 0.000082,5; 
+arduously: 
+argumentative: 
+arrogance: 0.002334,4; 
+arrogant: 0.000026,22; 
+arrogantly: 
+ashamed: 
+asinine: 
+asininely: 
+asinininity: 
+askance: 
+asperse: 
+aspersion: 
+aspersions: 
+assail: 
+assassin: 0.001182,13; 0.002423,17; 
+assassinate: 
+assault: 0.000007,27; 0.000127,11; 
+assult: 
+astray: 0.001418,4; 0.000627,20; 
+asunder: 
+atrocious: 0.000020,21; 0.000434,16; 
+atrocities: 0.000207,14; 
+atrocity: 
+atrophy: 
+attack: 0.003927,10; 0.004578,7; 0.006920,2; 
+attacks: 
+audacious: 0.006679,5; 0.000115,10; 
+audaciously: 
+audaciousness: 
+audacity: 0.000667,13; 0.000024,18; 
+audiciously: 
+austere: 
+authoritarian: 
+autocrat: 
+autocratic: 
+avalanche: 0.001483,7; 
+avarice: 0.000590,17; 
+avaricious: 
+avariciously: 
+avenge: 
+averse: 
+aversion: 
+aweful: 
+awful: 0.002304,12; 0.001571,12; 0.006240,5; 0.000997,7; 0.000001,21; 0.013749,1; 0.000739,15; 0.000550,14; 0.001433,4; 0.000252,5; 0.000252,2; 0.005943,7; 0.015074,1; 0.005593,2; 0.000017,4; 0.000085,3; 
+awfully: 0.032488,2; 0.000040,42; 
+awfulness: 0.000341,18; 
+awkward: 0.000028,13; 0.004194,5; 0.000334,11; 0.000032,7; 0.002264,3; 0.001228,7; 0.009781,5; 
+awkwardness: 0.000201,19; 0.000017,18; 
+ax: 
+babble: 
+back-logged: 
+back-wood: 
+back-woods: 
+backache: 
+backaches: 
+backaching: 
+backbite: 
+backbiting: 
+backward: 0.003402,6; 
+backwardness: 
+backwood: 
+backwoods: 
+bad: 0.003135,5; 0.001226,6; 0.006149,8; 0.000323,14; 0.000358,12; 0.001630,9; 0.005211,4; 0.017267,3; 0.000706,11; 0.000706,5; 0.000706,6; 0.016400,1; 0.002331,3; 0.001316,9; 0.001316,10; 0.001316,9; 0.001316,4; 0.001316,4; 0.008686,1; 0.008686,1; 0.008686,2; 0.026559,1; 0.015222,4; 0.015222,1; 0.000443,7; 0.000443,8; 0.003184,4; 0.010676,1; 0.010676,2; 0.010676,3; 0.010676,1; 0.010676,2; 0.010676,3; 0.003485,1; 0.003485,6; 0.003485,7; 0.000945,6; 0.000945,8; 0.007811,6; 0.007499,1; 0.001782,6; 0.002237,7; 0.011032,3; 0.113516,1; 0.113516,1; 0.113516,2; 0.019894,1; 0.019894,2; 0.019894,1; 0.019894,1; 0.001100,5; 0.004219,1; 0.000096,8; 0.007885,1; 0.029526,2; 0.029526,1; 0.069514,1; 0.069514,1; 0.069514,1; 0.037715,1; 0.007376,2; 0.007376,2; 0.002362,10; 0.002277,2; 0.002277,1; 0.004268,14; 0.004268,13; 0.003116,7; 0.003116,7; 0.011774,1; 0.011774,1; 0.000635,5; 0.001759,10; 0.000390,11; 0.005144,4; 0.003660,5; 0.000135,11; 0.001342,15; 0.001342,13; 0.001342,14; 0.017453,1; 0.012423,1; 0.012423,1; 0.012423,1; 0.000622,8; 0.001110,9; 0.000880,3; 0.048803,1; 0.048803,1; 0.005770,5; 0.005770,4; 0.004784,2; 0.004784,5; 0.003869,5; 0.000767,4; 0.000950,9; 0.000301,3; 0.005019,6; 0.000241,10; 0.003728,7; 0.098868,1; 0.098868,1; 0.098868,2; 0.098868,1; 0.004194,4; 0.012734,1; 0.000059,8; 0.001298,9; 0.008253,1; 0.008253,1; 0.002916,2; 0.000225,7; 0.000225,8; 0.003496,6; 0.002458,6; 0.000182,12; 0.002746,5; 0.002746,4; 0.006291,5; 0.006291,3; 0.006291,3; 0.007691,5; 0.007691,6; 0.014298,1; 0.001494,5; 0.001494,5; 0.001494,6; 0.004241,6; 0.001922,5; 0.004687,2; 0.004687,2; 0.004687,2; 0.003342,1; 
+badly: 0.002592,7; 0.000063,7; 0.001581,7; 0.000375,7; 0.000137,12; 0.000145,4; 0.000112,13; 0.000025,15; 0.000022,4; 0.001295,13; 
+baffle: 
+baffled: 0.007991,1; 
+bafflement: 
+baffling: 0.001128,11; 0.013827,1; 0.001198,4; 0.001003,6; 0.039109,1; 
+bait: 
+balk: 
+banal: 0.009358,3; 0.000088,5; 0.005464,4; 0.000393,3; 0.000393,5; 0.000004,29; 0.006248,2; 
+banalize: 
+bane: 
+banish: 
+banishment: 
+bankrupt: 0.000717,3; 0.000334,14; 
+barbarian: 
+barbaric: 
+barbarically: 
+barbarity: 
+barbarous: 
+barbarously: 
+barren: 
+baseless: 
+bash: 
+bashed: 
+bashful: 
+bashing: 
+bastard: 
+bastards: 
+battered: 0.002955,6; 
+battering: 
+batty: 
+bearish: 
+beastly: 
+bedlam: 
+bedlamite: 
+befoul: 
+beg: 0.000385,31; 
+beggar: 
+beggarly: 
+begging: 0.000027,32; 
+beguile: 
+belabor: 
+belated: 
+beleaguer: 
+belie: 
+belittle: 0.000692,14; 
+belittled: 
+belittling: 
+bellicose: 
+belligerence: 
+belligerent: 
+belligerently: 
+bemoan: 
+bemoaning: 
+bemused: 
+bent: 
+berate: 
+bereave: 
+bereavement: 
+bereft: 
+berserk: 
+beseech: 
+beset: 
+besiege: 
+besmirch: 
+bestial: 0.003098,9; 
+betray: 
+betrayal: 
+betrayals: 
+betrayer: 
+betraying: 
+betrays: 
+bewail: 
+beware: 0.001629,4; 0.001731,2; 
+bewilder: 
+bewildered: 0.000433,9; 
+bewildering: 
+bewilderingly: 
+bewilderment: 
+bewitch: 
+bias: 
+biased: 0.000334,26; 
+biases: 
+bicker: 
+bickering: 
+bid-rigging: 
+bigotries: 
+bigotry: 
+bitch: 
+bitchy: 0.016484,3; 
+biting: 0.001539,8; 0.001076,7; 0.001974,7; 
+bitingly: 
+bitter: 0.000173,12; 0.000028,24; 0.001123,10; 0.017041,2; 
+bitterly: 
+bitterness: 
+bizarre: 0.002426,18; 0.000988,11; 0.000336,20; 0.000020,14; 
+blab: 0.003360,5; 
+blabber: 
+blackmail: 
+blah: 0.000474,16; 
+blame: 0.020951,1; 0.002314,9; 
+blameworthy: 
+bland: 0.010186,1; 0.007793,3; 0.007793,7; 0.002847,5; 0.000067,4; 0.025648,1; 0.002741,4; 0.002111,12; 0.003091,6; 0.050283,1; 0.050283,1; 0.000057,15; 0.003327,10; 0.000037,14; 0.011506,1; 0.000172,6; 0.000133,6; 0.000029,8; 0.000123,4; 0.000540,11; 0.002298,2; 
+blandish: 
+blaspheme: 
+blasphemous: 0.000303,16; 0.001803,11; 
+blasphemy: 
+blasted: 
+blatant: 0.003368,3; 0.000602,12; 0.000215,9; 0.000007,12; 
+blatantly: 
+blather: 
+bleak: 0.006927,4; 0.095869,1; 0.000166,24; 0.000024,8; 
+bleakly: 
+bleakness: 
+bleed: 0.029740,5; 
+bleeding: 
+bleeds: 
+blemish: 
+blind: 0.004644,14; 0.000712,8; 0.001069,16; 
+blinding: 
+blindingly: 
+blindside: 
+blister: 
+blistering: 
+bloated: 0.009614,1; 
+blockage: 
+blockhead: 
+bloodshed: 
+bloodthirsty: 
+bloody: 0.000172,23; 
+blotchy: 
+blow: 0.000304,19; 0.003530,9; 0.000728,23; 0.002164,8; 
+blunder: 
+blundering: 
+blunders: 
+blunt: 
+blur: 
+bluring: 
+blurred: 
+blurring: 
+blurry: 0.000307,14; 0.000784,11; 
+blurs: 
+blurt: 
+boastful: 
+boggle: 
+bogus: 0.000890,3; 0.000317,6; 0.002253,14; 
+boil: 
+boiling: 
+boisterous: 0.000126,9; 
+bomb: 0.001910,6; 0.000138,7; 
+bombard: 
+bombardment: 
+bombastic: 0.000108,13; 
+bondage: 
+bonkers: 
+bore: 0.000097,4; 0.016205,1; 0.016205,1; 0.002768,4; 0.002683,3; 0.002020,3; 0.078247,1; 0.000611,4; 0.001467,5; 0.000994,5; 0.000190,14; 
+bored: 0.004477,4; 0.001118,10; 0.001473,8; 0.013570,2; 
+boredom: 0.000005,6; 0.000052,24; 0.000061,12; 
+bores: 0.012237,3; 
+boring: 0.000499,10; 0.000142,10; 0.007915,7; 0.009736,2; 0.000698,7; 0.000095,10; 0.013814,1; 0.000249,18; 0.000714,6; 0.001519,6; 0.000081,12; 0.000173,9; 0.000271,11; 0.010903,3; 0.003983,3; 0.002884,7; 0.000188,5; 0.001325,6; 0.000008,25; 0.000148,5; 0.001284,8; 0.046599,1; 0.006844,4; 0.000519,2; 
+botch: 
+bother: 0.000906,9; 0.001978,4; 0.000182,5; 0.001544,3; 0.029985,1; 0.029985,1; 0.010888,1; 0.000752,7; 
+bothered: 0.000168,17; 
+bothering: 
+bothers: 0.003156,7; 
+bothersome: 
+bowdlerize: 
+boycott: 
+braggart: 
+bragger: 
+brainless: 0.010769,1; 0.004114,7; 
+brainwash: 
+brash: 0.000064,7; 
+brashly: 
+brashness: 
+brat: 
+bravado: 0.000108,21; 0.000261,21; 
+brazen: 0.000421,17; 
+brazenly: 0.000037,13; 
+brazenness: 
+breach: 0.000307,10; 
+break: 0.000017,25; 0.000005,29; 0.000013,19; 0.000065,17; 0.000021,23; 0.000015,18; 
+break-up: 
+break-ups: 
+breakdown: 
+breaking: 
+breaks: 0.000087,17; 0.000165,18; 0.000011,13; 
+breakup: 
+breakups: 
+bribery: 
+brimstone: 
+bristle: 
+brittle: 
+broke: 0.026442,4; 0.003297,5; 
+broken: 0.041750,1; 0.006037,1; 0.002242,8; 0.124505,1; 0.000165,10; 0.024142,1; 
+broken-hearted: 
+brood: 
+browbeat: 
+bruise: 
+bruised: 
+bruises: 
+bruising: 
+brusque: 
+brutal: 0.000222,7; 
+brutalising: 
+brutalities: 
+brutality: 0.000270,12; 
+brutalize: 
+brutalizing: 
+brutally: 0.000069,8; 0.000003,32; 0.000003,20; 0.000754,24; 
+brute: 
+brutish: 
+bs: 
+buckle: 
+bug: 0.001113,12; 
+bugging: 
+buggy: 
+bugs: 
+bulkier: 
+bulkiness: 
+bulky: 
+bulkyness: 
+bull****: 
+bull----: 
+bullies: 
+bullshit: 
+bullshyt: 
+bully: 0.000110,12; 
+bullying: 
+bullyingly: 
+bum: 
+bump: 0.000176,9; 
+bumped: 
+bumping: 
+bumpping: 
+bumps: 0.000031,20; 
+bumpy: 
+bungle: 0.000718,9; 
+bungler: 
+bungling: 
+bunk: 
+burden: 
+burdensome: 
+burdensomely: 
+burn: 0.000066,17; 0.000126,28; 
+burned: 
+burning: 0.000971,29; 0.000002,16; 
+burns: 0.003070,10; 0.000536,14; 0.001109,4; 0.000097,14; 
+bust: 0.000179,18; 
+busts: 0.000804,4; 
+busybody: 
+butcher: 
+butchery: 
+buzzing: 
+byzantine: 0.000170,11; 
+cackle: 
+calamities: 
+calamitous: 
+calamitously: 
+calamity: 
+callous: 
+calumniate: 
+calumniation: 
+calumnies: 
+calumnious: 
+calumniously: 
+calumny: 
+cancer: 0.000493,16; 
+cancerous: 
+cannibal: 0.000001,22; 
+cannibalize: 
+capitulate: 
+capricious: 0.001309,6; 
+capriciously: 
+capriciousness: 
+capsize: 
+careless: 0.000011,9; 
+carelessness: 
+caricature: 
+carnage: 
+carp: 
+cartoonish: 0.000094,18; 0.000254,30; 
+cash-strapped: 
+castigate: 
+castrated: 0.001401,7; 
+casualty: 
+cataclysm: 
+cataclysmal: 
+cataclysmic: 
+cataclysmically: 
+catastrophe: 
+catastrophes: 
+catastrophic: 0.002467,13; 
+catastrophically: 
+catastrophies: 
+caustic: 
+caustically: 
+cautionary: 0.001253,9; 0.000349,8; 0.000195,13; 
+cave: 
+censure: 0.000352,7; 
+chafe: 
+chaff: 
+chagrin: 
+challenging: 0.017417,2; 0.000618,11; 
+chaos: 
+chaotic: 0.000001,6; 0.000237,21; 0.002807,10; 0.011743,6; 
+chasten: 
+chastise: 
+chastisement: 
+chatter: 0.001087,12; 
+chatterbox: 
+cheap: 0.003661,11; 0.000896,10; 0.000000,9; 0.000786,11; 0.000062,12; 0.000120,6; 0.000036,9; 0.011113,2; 0.011113,2; 0.001205,11; 0.000447,11; 
+cheapen: 0.002160,2; 
+cheaply: 
+cheat: 
+cheated: 0.000284,19; 
+cheater: 
+cheating: 
+cheats: 0.002929,4; 
+checkered: 
+cheerless: 
+cheesy: 0.000447,16; 0.022672,3; 0.006236,8; 0.000036,27; 0.000004,18; 
+chide: 
+childish: 0.001084,12; 
+chill: 
+chilly: 0.000504,13; 0.001592,12; 
+chintzy: 
+choke: 0.012864,2; 
+choleric: 
+choppy: 0.000157,9; 0.006701,5; 0.005287,2; 0.000552,7; 0.000391,10; 0.002160,4; 0.000535,11; 0.000159,5; 
+chore: 0.005397,9; 
+chronic: 
+chunky: 
+clamor: 
+clamorous: 0.007108,3; 
+clash: 0.000298,14; 0.001762,14; 
+cliche: 0.014129,2; 0.006184,2; 0.000376,14; 0.000126,7; 0.001981,4; 0.001104,8; 
+cliched: 0.001230,12; 0.000261,11; 0.005030,8; 0.000103,11; 0.000414,16; 0.002577,4; 
+clique: 
+clog: 
+clogged: 
+clogs: 
+cloud: 
+clouding: 
+cloudy: 0.000498,4; 
+clueless: 0.000216,12; 0.000031,12; 0.003680,2; 
+clumsy: 0.000622,8; 0.003062,5; 0.001322,4; 0.000000,31; 0.004111,10; 0.000487,11; 0.001544,5; 
+clunky: 0.009615,2; 0.005180,2; 0.000825,13; 
+coarse: 0.000098,27; 
+cocky: 0.000000,21; 
+coerce: 
+coercion: 
+coercive: 
+cold: 0.006545,3; 0.011988,2; 0.005394,3; 0.005394,4; 0.001944,3; 0.001220,6; 0.003305,4; 0.002029,6; 0.025300,4; 0.013079,4; 0.044737,1; 0.000513,8; 0.000193,16; 0.015098,1; 0.001831,4; 0.037842,1; 0.000125,8; 0.008249,4; 
+coldly: 
+collapse: 0.001465,9; 0.000761,12; 
+collude: 
+collusion: 
+combative: 
+combust: 
+comical: 
+commiserate: 
+commonplace: 
+commotion: 
+commotions: 
+complacent: 
+complain: 
+complained: 
+complaining: 0.005436,3; 
+complains: 
+complaint: 0.002603,7; 
+complaints: 
+complex: 0.001019,12; 0.000326,14; 0.000926,21; 0.000431,9; 0.000670,11; 0.000253,11; 0.000831,9; 0.000068,25; 0.002937,8; 
+complicated: 0.000080,28; 0.000013,7; 0.000229,27; 
+complication: 
+complicit: 
+compulsion: 
+compulsive: 
+concede: 
+conceded: 
+conceit: 
+conceited: 0.000031,5; 
+concen: 
+concens: 
+concern: 
+concerned: 0.000024,31; 0.000051,17; 0.000214,16; 
+concerns: 
+concession: 0.000747,24; 
+concessions: 
+condemn: 
+condemnable: 
+condemnation: 
+condemned: 
+condemns: 
+condescend: 
+condescending: 0.002617,4; 
+condescendingly: 
+condescension: 0.000358,10; 0.001785,19; 
+confess: 
+confession: 0.005046,5; 
+confessions: 
+confined: 0.000002,25; 
+conflict: 0.001726,13; 0.003231,20; 0.000782,12; 
+conflicted: 
+conflicting: 
+conflicts: 0.000111,18; 
+confound: 
+confounded: 
+confounding: 
+confront: 0.000955,17; 
+confrontation: 
+confrontational: 
+confuse: 0.007373,2; 
+confused: 0.001876,5; 0.000556,11; 0.001942,7; 
+confuses: 0.003657,7; 
+confusing: 0.007647,5; 0.000005,19; 0.003554,2; 0.000095,4; 0.001937,2; 
+confusion: 0.042315,1; 
+confusions: 
+congested: 
+congestion: 
+cons: 
+conscons: 
+conservative: 
+conspicuous: 
+conspicuously: 0.001225,7; 
+conspiracies: 
+conspiracy: 0.000046,36; 
+conspirator: 
+conspiratorial: 
+conspire: 
+consternation: 
+contagious: 
+contaminate: 
+contaminated: 
+contaminates: 
+contaminating: 
+contamination: 
+contempt: 0.010045,4; 
+contemptible: 0.000373,8; 
+contemptuous: 0.000629,7; 
+contemptuously: 
+contend: 
+contention: 
+contentious: 
+contort: 
+contortions: 
+contradict: 
+contradiction: 
+contradictory: 0.006637,5; 0.000257,11; 
+contrariness: 
+contravene: 
+contrive: 
+contrived: 0.000267,18; 0.000062,21; 0.000314,7; 0.027423,2; 0.000370,15; 0.000001,11; 0.043521,2; 0.010322,3; 0.001837,10; 0.001358,5; 0.007461,5; 0.000022,15; 0.000164,3; 0.000062,14; 0.000167,21; 0.001582,5; 0.000462,3; 0.000177,3; 0.008073,4; 0.007542,2; 0.001220,15; 0.000058,12; 
+controversial: 
+controversy: 0.000947,11; 0.003680,13; 0.000780,7; 
+convoluted: 0.001081,11; 
+corrode: 
+corrosion: 
+corrosions: 
+corrosive: 
+corrupt: 
+corrupted: 
+corrupting: 
+corruption: 
+corrupts: 
+corruptted: 
+costlier: 
+costly: 0.001003,7; 0.000449,12; 
+counter-productive: 
+counterproductive: 0.001522,7; 
+coupists: 
+covetous: 
+coward: 
+cowardly: 
+crabby: 
+crack: 
+cracked: 0.000997,15; 
+cracks: 0.000039,24; 
+craftily: 
+craftly: 
+crafty: 
+cramp: 
+cramped: 
+cramping: 
+cranky: 0.005557,1; 
+crap: 0.000031,13; 0.002999,2; 0.000411,4; 0.001999,4; 0.001313,7; 0.001348,7; 0.001348,8; 
+crappy: 0.013165,1; 
+craps: 
+crash: 
+crashed: 
+crashes: 
+crashing: 0.001797,12; 0.000054,11; 
+crass: 0.001708,7; 0.005263,5; 0.000767,10; 0.002285,10; 
+craven: 0.000492,16; 0.000492,17; 0.001876,7; 
+cravenly: 
+craze: 
+crazily: 
+craziness: 
+crazy: 0.004697,6; 0.000016,24; 0.027492,5; 0.000518,9; 0.000110,26; 0.000354,15; 0.000715,11; 0.000222,16; 0.000038,20; 
+creak: 
+creaking: 
+creaks: 
+credulous: 0.006788,3; 
+creep: 
+creeping: 0.000050,18; 
+creeps: 0.000052,26; 
+creepy: 0.000089,34; 0.000004,13; 0.000062,8; 0.000603,24; 0.000006,35; 0.000006,29; 0.000094,27; 
+crept: 
+crime: 0.005875,10; 0.000030,26; 0.000399,11; 0.000054,36; 0.000002,21; 0.000069,9; 0.001985,9; 0.001985,10; 0.001985,8; 0.000789,26; 0.000669,12; 0.000044,21; 
+criminal: 0.001026,19; 
+cringe: 
+cringed: 
+cringes: 
+cripple: 
+crippled: 0.000599,5; 0.013665,2; 0.000300,5; 
+cripples: 
+crippling: 
+crisis: 0.000549,25; 0.000358,24; 
+critic: 0.000045,15; 
+critical: 0.000021,16; 0.001556,7; 
+criticism: 0.000022,14; 0.001289,11; 0.001807,5; 
+criticisms: 
+criticize: 
+criticized: 
+criticizing: 0.001389,5; 
+critics: 0.000313,9; 0.001011,15; 
+cronyism: 
+crook: 
+crooked: 
+crooks: 
+crowded: 
+crowdedness: 
+crude: 0.002214,13; 0.047646,2; 0.014698,3; 0.000282,16; 0.000137,22; 
+cruel: 0.000132,15; 0.000053,26; 0.001041,13; 0.000103,22; 0.000008,18; 
+crueler: 
+cruelest: 
+cruelly: 
+cruelness: 
+cruelties: 
+cruelty: 
+crumble: 
+crumbling: 
+crummy: 0.002433,5; 0.000247,2; 
+crumple: 
+crumpled: 
+crumples: 
+crush: 0.000056,18; 0.000073,26; 0.000247,15; 0.001460,12; 0.000613,14; 0.000127,9; 0.000073,13; 0.000047,40; 0.000020,12; 0.000350,18; 
+crushed: 
+crushing: 0.000010,6; 
+cry: 0.014863,7; 0.005539,4; 0.000185,20; 
+culpable: 
+culprit: 
+cumbersome: 0.001160,4; 
+cunt: 
+cunts: 
+cuplrit: 
+curse: 0.000009,15; 
+cursed: 
+curses: 
+curt: 
+cuss: 
+cussed: 
+cutthroat: 0.000430,22; 
+cynical: 0.000057,11; 0.000103,12; 0.000065,24; 0.000142,24; 0.004691,2; 0.000991,5; 
+cynicism: 0.000067,19; 0.001507,18; 0.000001,17; 
+d*mn: 
+damage: 0.001021,12; 0.000630,13; 0.002338,7; 0.003081,7; 0.027792,1; 0.000736,5; 
+damaged: 0.000162,24; 
+damages: 
+damaging: 
+damn: 0.000053,26; 
+damnable: 
+damnably: 
+damnation: 
+damned: 0.000187,17; 0.000258,17; 0.001449,12; 0.001449,13; 0.000230,27; 0.001760,12; 0.000049,27; 0.000084,12; 
+damning: 0.000146,9; 0.000021,18; 
+damper: 
+danger: 
+dangerous: 0.000030,24; 0.000820,10; 
+dangerousness: 
+dark: 0.000633,14; 0.000022,29; 0.000000,24; 0.000130,8; 0.000130,13; 0.000109,17; 0.000062,33; 0.000001,24; 0.000109,23; 0.000230,19; 0.000838,18; 0.000099,22; 0.000116,26; 0.000116,25; 0.000006,33; 0.002910,8; 0.000672,16; 
+darken: 
+darkened: 
+darker: 0.006785,13; 0.000570,22; 
+darkness: 0.000063,25; 
+dastard: 
+dastardly: 
+daunt: 
+daunting: 
+dauntingly: 
+dawdle: 0.000566,14; 
+daze: 
+dazed: 0.003573,4; 
+dead: 0.000271,12; 0.000623,12; 0.000623,13; 0.002053,2; 0.000100,15; 0.001517,10; 0.003452,11; 0.000490,9; 0.000422,12; 0.000039,23; 0.000305,22; 0.000223,11; 
+deadbeat: 
+deadlock: 
+deadly: 0.000001,12; 0.004206,4; 0.000159,31; 0.023266,3; 0.000191,19; 0.000057,12; 0.000289,19; 
+deadweight: 
+deaf: 
+dearth: 0.003194,6; 0.000063,17; 
+death: 0.000013,26; 0.000046,17; 0.000089,20; 0.000414,27; 0.000005,17; 0.000017,15; 0.003221,3; 0.000303,19; 0.000655,23; 0.000045,25; 0.001464,10; 0.000000,19; 0.000932,13; 0.000035,16; 0.000002,15; 0.000020,25; 
+debacle: 
+debase: 
+debasement: 
+debaser: 
+debatable: 
+debauch: 
+debaucher: 
+debauchery: 
+debilitate: 
+debilitating: 
+debility: 
+debt: 0.001765,12; 
+debts: 
+decadence: 
+decadent: 0.000206,17; 
+decay: 
+decayed: 
+deceit: 
+deceitful: 
+deceitfully: 
+deceitfulness: 
+deceive: 
+deceiver: 
+deceivers: 
+deceiving: 
+deception: 0.000043,27; 
+deceptive: 
+deceptively: 
+declaim: 
+decline: 
+declines: 
+declining: 
+decrement: 
+decrepit: 0.001384,12; 
+decrepitude: 
+decry: 
+defamation: 
+defamations: 
+defamatory: 
+defame: 
+defect: 
+defective: 
+defects: 
+defensive: 0.000141,14; 
+defiance: 0.000319,10; 
+defiant: 0.004585,2; 
+defiantly: 
+deficiencies: 
+deficiency: 
+deficient: 
+defile: 
+defiler: 
+deform: 
+deformed: 
+defrauding: 
+defunct: 
+defy: 
+degenerate: 
+degenerately: 
+degeneration: 
+degradation: 
+degrade: 
+degrading: 
+degradingly: 
+dehumanization: 
+dehumanize: 
+deign: 
+deject: 
+dejected: 
+dejectedly: 
+dejection: 
+delay: 0.002399,3; 
+delayed: 
+delaying: 
+delays: 
+delinquency: 
+delinquent: 0.000749,14; 
+delirious: 
+delirium: 
+delude: 
+deluded: 
+deluge: 
+delusion: 
+delusional: 0.001908,17; 
+delusions: 0.000616,12; 
+demean: 
+demeaning: 
+demise: 
+demolish: 
+demolisher: 
+demon: 
+demonic: 0.001840,13; 
+demonize: 
+demonized: 
+demonizes: 
+demonizing: 
+demoralize: 
+demoralizing: 
+demoralizingly: 
+denial: 0.002215,5; 0.000414,25; 0.002170,15; 
+denied: 0.000845,14; 
+denies: 
+denigrate: 
+denounce: 
+dense: 
+dent: 
+dented: 
+dents: 
+denunciate: 
+denunciation: 
+denunciations: 
+deny: 
+denying: 
+deplete: 
+deplorable: 
+deplorably: 
+deplore: 
+deploring: 
+deploringly: 
+deprave: 
+depraved: 0.000031,19; 0.000003,19; 0.000020,11; 
+depravedly: 
+deprecate: 
+depress: 0.055356,1; 
+depressed: 0.003708,3; 0.001221,9; 0.003382,4; 
+depressing: 0.008228,2; 0.000291,8; 0.004521,2; 0.097782,1; 0.097782,1; 0.000663,8; 0.038996,1; 0.001115,4; 0.003099,4; 0.000533,6; 0.001031,4; 0.010476,3; 0.004004,3; 
+depressingly: 0.000385,4; 0.006768,1; 
+depression: 0.076776,1; 0.000248,22; 
+depressions: 
+deprive: 
+deprived: 
+deride: 
+derision: 
+derisive: 0.000522,9; 
+derisively: 
+derisiveness: 
+derogatory: 
+desecrate: 
+desert: 0.000614,10; 
+desertion: 
+desiccate: 
+desiccated: 0.016759,2; 
+desititute: 
+desolate: 
+desolately: 
+desolation: 
+despair: 0.000400,27; 0.001194,9; 
+despairing: 
+despairingly: 
+desperate: 0.033195,1; 0.000078,17; 0.000038,12; 0.000047,6; 0.005607,2; 
+desperately: 0.015499,1; 0.000958,13; 0.000207,6; 0.001947,3; 0.000212,12; 0.001640,11; 0.015757,1; 
+desperation: 0.002569,7; 0.030317,1; 
+despicable: 0.006383,5; 
+despicably: 
+despise: 
+despised: 
+despoil: 
+despoiler: 
+despondence: 
+despondency: 
+despondent: 
+despondently: 
+despot: 
+despotic: 
+despotism: 
+destabilisation: 
+destains: 
+destitute: 
+destitution: 
+destroy: 0.002140,19; 
+destroyer: 
+destruction: 0.000042,30; 
+destructive: 0.000026,12; 
+desultory: 0.000002,5; 
+deter: 
+deteriorate: 
+deteriorating: 
+deterioration: 
+deterrent: 
+detest: 
+detestable: 
+detestably: 
+detested: 
+detesting: 
+detests: 
+detract: 0.005050,7; 
+detracted: 
+detracting: 
+detraction: 
+detracts: 
+detriment: 
+detrimental: 
+devastate: 
+devastated: 
+devastates: 
+devastating: 0.025963,2; 0.005382,4; 
+devastatingly: 0.007401,2; 
+devastation: 0.032386,2; 
+deviate: 
+deviation: 
+devil: 
+devilish: 
+devilishly: 
+devilment: 
+devilry: 
+devious: 
+deviously: 0.002400,5; 
+deviousness: 
+devoid: 0.000794,4; 0.001912,4; 0.013977,2; 0.000001,13; 0.011482,1; 0.005151,6; 0.024777,1; 0.006041,2; 0.000289,5; 0.038882,1; 0.000446,15; 0.000206,15; 0.000206,16; 
+diabolic: 
+diabolical: 0.000045,13; 
+diabolically: 
+diametrically: 
+diappointed: 
+diatribe: 
+diatribes: 
+dick: 0.000106,29; 
+dictator: 
+dictatorial: 
+die: 0.000485,23; 0.001277,25; 0.001026,11; 0.000141,15; 0.020795,5; 0.000004,17; 
+die-hard: 
+died: 
+dies: 0.009634,1; 
+difficult: 0.001816,16; 0.000509,11; 0.000071,19; 0.007723,9; 0.003086,14; 0.000523,14; 0.001382,12; 0.001067,7; 0.000144,26; 0.009216,3; 0.000182,18; 
+difficulties: 
+difficulty: 
+diffidence: 
+dilapidated: 
+dilemma: 0.000144,17; 
+dilly-dally: 
+dim: 0.000862,7; 
+dimmer: 
+din: 
+ding: 
+dings: 
+dinky: 
+dire: 0.001913,5; 
+direly: 
+direness: 
+dirt: 
+dirtbag: 
+dirtbags: 
+dirts: 
+dirty: 0.003655,9; 0.000019,22; 0.000134,19; 
+disable: 
+disabled: 0.006594,4; 
+disaccord: 
+disadvantage: 0.002252,3; 
+disadvantaged: 
+disadvantageous: 
+disadvantages: 
+disaffect: 
+disaffected: 
+disaffirm: 
+disagree: 0.006884,4; 
+disagreeable: 0.004405,1; 
+disagreeably: 
+disagreed: 
+disagreeing: 
+disagreement: 
+disagrees: 
+disallow: 
+disapointed: 
+disapointing: 
+disapointment: 
+disappoint: 0.018186,5; 
+disappointed: 0.000350,12; 0.012015,3; 0.000535,6; 
+disappointing: 0.012027,4; 0.018614,2; 0.011433,1; 0.010364,2; 0.014110,3; 0.011462,1; 
+disappointingly: 0.001997,5; 0.000720,5; 0.000307,14; 
+disappointment: 0.004630,4; 0.000264,5; 0.029903,1; 0.016848,1; 0.002185,2; 
+disappointments: 0.008362,4; 0.014249,1; 
+disappoints: 
+disapprobation: 
+disapproval: 
+disapprove: 
+disapproving: 
+disarm: 
+disarray: 
+disaster: 0.001274,8; 0.002450,5; 0.013632,3; 0.002241,6; 0.000169,11; 0.000002,6; 0.000129,8; 0.001923,6; 0.000514,6; 0.000903,11; 
+disasterous: 
+disastrous: 0.000845,13; 
+disastrously: 
+disavow: 
+disavowal: 
+disbelief: 0.001503,10; 0.000009,23; 
+disbelieve: 
+disbeliever: 
+disclaim: 
+discombobulate: 
+discomfit: 
+discomfititure: 
+discomfort: 
+discompose: 
+disconcert: 
+disconcerted: 
+disconcerting: 
+disconcertingly: 0.000646,7; 
+disconsolate: 
+disconsolately: 
+disconsolation: 
+discontent: 
+discontented: 
+discontentedly: 
+discontinued: 
+discontinuity: 
+discontinuous: 
+discord: 
+discordance: 
+discordant: 
+discountenance: 
+discourage: 
+discouragement: 
+discouraging: 
+discouragingly: 
+discourteous: 
+discourteously: 
+discoutinous: 
+discredit: 
+discrepant: 
+discriminate: 
+discrimination: 
+discriminatory: 
+disdain: 0.000839,22; 
+disdained: 
+disdainful: 
+disdainfully: 
+disfavor: 
+disgrace: 
+disgraced: 
+disgraceful: 
+disgracefully: 0.000189,8; 
+disgruntle: 
+disgruntled: 
+disgust: 0.003739,8; 
+disgusted: 0.001025,11; 
+disgustedly: 
+disgustful: 
+disgustfully: 
+disgusting: 0.022318,1; 0.000063,6; 0.000064,6; 0.000523,2; 
+disgustingly: 
+dishearten: 
+disheartening: 
+dishearteningly: 
+dishonest: 0.005729,2; 0.039868,1; 0.000084,6; 
+dishonestly: 
+dishonesty: 
+dishonor: 
+dishonorable: 
+dishonorablely: 
+disillusion: 
+disillusioned: 
+disillusionment: 
+disillusions: 
+disinclination: 
+disinclined: 
+disingenuous: 0.013718,2; 
+disingenuously: 
+disintegrate: 
+disintegrated: 
+disintegrates: 0.000017,9; 
+disintegration: 
+disinterest: 
+disinterested: 
+dislike: 
+disliked: 
+dislikes: 
+disliking: 
+dislocated: 
+disloyal: 
+disloyalty: 
+dismal: 
+dismally: 0.000079,4; 
+dismalness: 
+dismay: 
+dismayed: 
+dismaying: 
+dismayingly: 
+dismissive: 0.005422,3; 
+dismissively: 
+disobedience: 
+disobedient: 
+disobey: 
+disoobedient: 
+disorder: 
+disordered: 
+disorderly: 
+disorganized: 
+disorient: 
+disoriented: 
+disown: 
+disparage: 
+disparaging: 
+disparagingly: 
+dispensable: 
+dispirit: 
+dispirited: 
+dispiritedly: 
+dispiriting: 
+displace: 
+displaced: 
+displease: 
+displeased: 
+displeasing: 
+displeasure: 
+disproportionate: 
+disprove: 
+disputable: 
+dispute: 
+disputed: 
+disquiet: 
+disquieting: 0.003763,2; 
+disquietingly: 0.000436,5; 
+disquietude: 
+disregard: 0.007573,3; 
+disregardful: 
+disreputable: 0.000075,12; 
+disrepute: 
+disrespect: 
+disrespectable: 
+disrespectablity: 
+disrespectful: 
+disrespectfully: 
+disrespectfulness: 
+disrespecting: 
+disrupt: 
+disruption: 
+disruptive: 
+diss: 
+dissapointed: 
+dissappointed: 
+dissappointing: 
+dissatisfaction: 
+dissatisfactory: 
+dissatisfied: 
+dissatisfies: 
+dissatisfy: 
+dissatisfying: 
+dissed: 
+dissemble: 
+dissembler: 
+dissension: 
+dissent: 
+dissenter: 
+dissention: 
+disservice: 0.001394,11; 
+disses: 
+dissidence: 
+dissident: 
+dissidents: 
+dissing: 0.001091,17; 
+dissocial: 
+dissolute: 
+dissolution: 
+dissonance: 
+dissonant: 
+dissonantly: 
+dissuade: 
+dissuasive: 
+distains: 
+distaste: 
+distasteful: 0.002367,4; 0.012680,8; 0.002983,9; 0.010416,1; 
+distastefully: 
+distort: 
+distorted: 
+distortion: 
+distorts: 0.014720,6; 
+distract: 0.013035,2; 
+distracting: 0.006963,1; 
+distraction: 0.000229,16; 
+distraught: 
+distraughtly: 
+distraughtness: 
+distress: 0.000049,16; 
+distressed: 
+distressing: 0.015468,3; 
+distressingly: 0.003804,4; 
+distrust: 
+distrustful: 
+distrusting: 
+disturb: 
+disturbance: 0.008103,2; 
+disturbed: 
+disturbing: 0.001312,8; 0.009085,2; 
+disturbingly: 
+disunity: 
+disvalue: 
+divergent: 
+divisive: 
+divisively: 
+divisiveness: 
+dizzing: 
+dizzingly: 
+dizzy: 
+doddering: 
+dodgey: 
+dogged: 
+doggedly: 
+dogmatic: 
+doldrums: 
+domineer: 
+domineering: 
+donside: 
+doom: 
+doomed: 
+doomsday: 
+dope: 0.000034,17; 0.000125,15; 
+doubt: 0.000028,33; 0.000365,20; 0.000001,20; 0.000526,15; 0.000010,42; 0.000571,15; 0.000165,14; 0.000019,25; 0.000289,25; 
+doubtful: 0.000553,13; 
+doubtfully: 
+doubts: 
+douchbag: 
+douchebag: 
+douchebags: 
+downbeat: 0.000448,11; 0.003054,8; 0.004038,10; 
+downcast: 
+downer: 
+downfall: 0.013190,4; 0.001786,5; 
+downfallen: 
+downgrade: 
+downhearted: 
+downheartedly: 
+downhill: 0.002237,8; 0.000427,8; 
+downside: 
+downsides: 
+downturn: 
+downturns: 
+drab: 0.000085,4; 0.000695,4; 
+draconian: 
+draconic: 
+drag: 0.011738,2; 0.001772,12; 0.000550,11; 0.000036,20; 0.000073,27; 0.000001,34; 0.000014,15; 0.000254,29; 0.000680,19; 0.000154,16; 0.012789,5; 0.000010,16; 
+dragged: 0.013870,2; 0.002476,6; 
+dragging: 
+dragoon: 
+drags: 0.025928,2; 0.004412,4; 0.000184,10; 0.001439,5; 0.001044,10; 
+drain: 0.004038,3; 
+drained: 
+draining: 
+drains: 0.008460,4; 0.001673,14; 
+drastic: 
+drastically: 
+drawback: 
+drawbacks: 
+dread: 
+dreadful: 0.002945,13; 0.002176,2; 0.040022,1; 
+dreadfully: 0.000907,8; 0.001544,4; 
+dreadfulness: 
+dreary: 0.000152,10; 0.000059,7; 0.003986,6; 0.000070,13; 0.002951,2; 0.003991,2; 0.004109,3; 0.000020,8; 0.000268,4; 
+dripped: 
+dripping: 0.000008,12; 
+drippy: 
+drips: 
+drones: 
+droop: 
+droops: 
+drop-out: 
+drop-outs: 
+dropout: 
+dropouts: 
+drought: 
+drowning: 0.002978,3; 
+drunk: 0.000449,12; 
+drunkard: 
+drunken: 0.001044,18; 0.000318,9; 
+dubious: 0.000081,8; 0.000594,15; 0.000033,12; 
+dubiously: 
+dubitable: 
+dud: 0.001347,2; 0.000452,6; 0.000158,5; 0.022400,1; 0.012912,2; 
+dull: 0.000011,6; 0.000328,4; 0.000626,11; 0.000327,11; 0.003560,5; 0.025922,1; 0.004096,2; 0.008012,3; 0.000483,17; 0.005916,2; 0.008221,2; 0.000204,11; 0.000021,16; 0.000080,13; 0.001033,10; 0.008149,3; 0.008149,1; 0.006973,5; 0.000056,8; 0.000064,16; 0.001623,8; 0.003578,4; 0.000084,12; 0.000059,8; 0.000366,5; 0.000231,11; 0.002068,8; 0.000456,9; 0.000212,9; 0.000099,6; 0.000099,3; 0.007780,2; 0.007780,5; 0.000128,10; 0.089888,1; 0.010702,4; 0.007662,5; 0.000975,14; 0.000975,9; 0.005719,8; 0.000899,2; 0.000755,2; 
+dullard: 0.004772,3; 0.011108,1; 
+dumb: 0.014700,1; 0.001085,17; 0.000093,9; 0.012862,4; 0.000341,19; 0.000396,15; 0.014756,1; 0.014756,1; 0.002427,7; 0.000220,6; 0.002023,7; 0.000127,16; 0.000257,11; 0.000257,12; 0.011112,2; 
+dumbfound: 
+dump: 
+dumped: 0.006257,2; 
+dumping: 
+dumps: 
+dunce: 
+dungeon: 
+dungeons: 0.000134,23; 
+dupe: 0.000219,22; 
+dust: 0.000744,10; 
+dusty: 0.009737,6; 
+dwindling: 
+dying: 0.000005,30; 0.005658,5; 
+earsplitting: 
+eccentric: 0.000347,30; 0.002104,10; 
+eccentricity: 0.000397,19; 
+effigy: 
+effrontery: 
+egocentric: 
+egomania: 
+egotism: 
+egotistical: 
+egotistically: 
+egregious: 
+egregiously: 
+election-rigger: 
+elimination: 
+emaciated: 0.001201,4; 
+emasculate: 
+embarrass: 
+embarrassing: 
+embarrassingly: 0.000107,14; 
+embarrassment: 0.000252,13; 0.002315,5; 0.005828,1; 
+embattled: 
+embroil: 
+embroiled: 
+embroilment: 
+emergency: 
+emphatic: 
+emphatically: 
+emptiness: 0.001822,15; 0.000076,14; 0.001350,10; 
+encroach: 
+encroachment: 
+endanger: 
+enemies: 0.000354,9; 
+enemy: 
+enervate: 
+enfeeble: 
+enflame: 
+engulf: 
+enjoin: 
+enmity: 
+enrage: 
+enraged: 
+enraging: 
+enslave: 
+entangle: 
+entanglement: 
+entrap: 
+entrapment: 0.003468,11; 
+envious: 
+enviously: 
+enviousness: 
+epidemic: 
+equivocal: 
+erase: 
+erode: 
+erodes: 
+erosion: 
+err: 
+errant: 
+erratic: 0.002805,9; 
+erratically: 
+erroneous: 
+erroneously: 
+error: 0.000436,6; 
+errors: 0.013520,2; 
+eruptions: 
+escapade: 
+eschew: 
+estranged: 0.001956,7; 
+evade: 0.000363,19; 0.001241,8; 
+evasion: 
+evasive: 
+evil: 0.003272,2; 0.000210,14; 0.000210,15; 0.000001,14; 0.000159,18; 0.000294,30; 0.000376,19; 0.003888,6; 0.000298,18; 
+evildoer: 
+evils: 
+eviscerate: 
+exacerbate: 
+exagerate: 
+exagerated: 
+exagerates: 
+exaggerate: 
+exaggeration: 0.003225,6; 
+exasperate: 
+exasperated: 0.008541,2; 
+exasperating: 0.000078,32; 
+exasperatingly: 
+exasperation: 
+excessive: 
+excessively: 
+exclusion: 
+excoriate: 
+excruciating: 0.002588,5; 0.000047,10; 0.003081,3; 0.006443,2; 
+excruciatingly: 0.001511,11; 0.000000,5; 
+excuse: 0.004344,5; 0.000589,17; 0.000226,9; 0.013997,3; 0.000440,9; 0.037726,2; 0.001999,2; 0.000124,9; 0.000253,6; 
+excuses: 
+execrate: 
+exhaust: 
+exhausted: 
+exhaustion: 0.001857,6; 
+exhausts: 
+exhorbitant: 
+exhort: 
+exile: 
+exorbitant: 
+exorbitantance: 
+exorbitantly: 
+expel: 
+expensive: 0.001170,6; 0.000018,11; 
+expire: 
+expired: 
+explode: 0.000140,18; 0.000652,11; 
+exploit: 0.000312,12; 0.000048,25; 0.000002,32; 
+exploitation: 0.000077,13; 0.000050,13; 0.000004,13; 0.000287,13; 0.002072,9; 0.000041,17; 0.000004,20; 
+explosive: 
+expropriate: 
+expropriation: 
+expulse: 
+expunge: 
+exterminate: 
+extermination: 
+extinguish: 
+extort: 
+extortion: 
+extraneous: 
+extravagance: 
+extravagant: 
+extravagantly: 
+extremism: 
+extremist: 0.000178,20; 
+extremists: 
+eyesore: 
+f**k: 
+fabricate: 
+fabrication: 
+facetious: 0.007959,8; 
+facetiously: 
+fail: 0.000838,10; 0.079517,2; 
+failed: 0.083222,1; 0.083222,1; 0.003598,3; 
+failing: 0.004235,9; 0.000381,6; 0.009443,1; 
+fails: 0.000031,17; 0.000298,6; 0.063794,1; 0.005601,4; 0.007744,9; 0.069882,1; 0.018070,1; 0.021376,2; 0.000022,7; 0.002420,2; 0.018339,2; 0.008747,1; 0.006220,1; 0.039194,1; 0.017276,2; 0.005855,1; 0.030081,2; 0.004496,6; 0.012215,5; 0.018518,2; 0.001460,3; 0.014804,1; 0.001491,5; 0.016030,1; 0.004576,5; 0.010270,1; 
+failure: 0.008014,8; 0.001013,18; 0.000043,14; 0.001142,5; 0.001364,5; 0.004729,3; 0.000122,11; 0.072756,1; 0.001205,2; 0.000570,2; 
+failures: 
+faint: 
+fainthearted: 
+faithless: 
+fake: 0.000705,12; 0.000230,7; 0.003949,5; 0.009589,5; 0.004197,6; 
+fall: 0.001139,8; 0.000021,30; 0.013179,3; 0.000016,15; 0.000166,10; 0.000507,24; 0.006420,4; 
+fallacies: 
+fallacious: 
+fallaciously: 
+fallaciousness: 
+fallacy: 
+fallen: 0.000456,5; 0.002544,2; 
+falling: 0.058885,3; 0.006144,3; 
+fallout: 
+falls: 0.006773,1; 0.002479,9; 0.002479,5; 0.001586,5; 0.001792,5; 0.001792,7; 0.001116,12; 0.000085,6; 0.000114,13; 0.018543,1; 0.006965,2; 0.000139,26; 0.012141,2; 0.001412,12; 0.119324,1; 0.000073,12; 0.000081,4; 
+false: 0.000622,19; 0.000348,11; 0.005924,6; 0.001783,2; 0.000859,13; 
+falsehood: 
+falsely: 
+falsify: 
+falter: 
+faltered: 
+famine: 
+famished: 
+fanatic: 0.000167,16; 
+fanatical: 
+fanatically: 
+fanaticism: 
+fanatics: 
+fanciful: 0.000041,23; 0.000338,20; 
+far-fetched: 0.000745,14; 
+farce: 0.000000,33; 0.000124,28; 0.001127,18; 0.000024,13; 0.000001,19; 0.000028,23; 
+farcical: 0.000075,6; 0.000420,15; 0.001923,5; 
+farcical-yet-provocative: 
+farcically: 
+farfetched: 
+fascism: 
+fascist: 
+fastidious: 
+fastidiously: 
+fastuous: 
+fat: 0.003147,7; 0.005247,3; 0.000025,13; 0.000249,14; 
+fat-cat: 
+fat-cats: 
+fatal: 0.000394,7; 0.000040,19; 0.000001,22; 0.006382,4; 0.000051,11; 0.000001,19; 0.000071,12; 0.000233,34; 
+fatalistic: 
+fatalistically: 
+fatally: 
+fatcat: 
+fatcats: 
+fateful: 
+fatefully: 
+fathomless: 
+fatigue: 
+fatigued: 
+fatique: 
+fatty: 
+fatuity: 
+fatuous: 
+fatuously: 
+fault: 0.001234,10; 0.000004,5; 
+faults: 
+faulty: 0.001100,9; 
+fawningly: 
+faze: 
+fear: 0.000800,19; 0.000800,22; 0.000800,21; 0.000008,13; 0.000071,17; 0.001124,18; 0.008367,13; 
+fearful: 
+fearfully: 
+fears: 0.000170,30; 0.000364,10; 0.000248,17; 0.000207,18; 0.000123,26; 0.000072,34; 0.000299,38; 
+fearsome: 
+feckless: 
+feeble: 0.000025,4; 0.006952,2; 
+feeblely: 
+feebleminded: 
+feign: 
+feint: 
+fell: 0.024544,1; 
+felon: 
+felonious: 
+ferociously: 
+ferocity: 0.000973,10; 
+fetid: 0.000081,7; 
+fever: 
+feverish: 
+fevers: 
+fiasco: 
+fib: 
+fibber: 
+fickle: 
+fiction: 0.000997,14; 0.000857,15; 0.000796,19; 0.000002,18; 0.000148,24; 0.000249,15; 
+fictional: 
+fictitious: 
+fidget: 
+fidgety: 
+fiend: 0.000064,23; 
+fiendish: 0.000399,20; 
+fierce: 0.021600,3; 
+figurehead: 
+filth: 
+filthy: 
+finagle: 
+finicky: 
+fissures: 
+fist: 
+flabbergast: 
+flabbergasted: 
+flagging: 
+flagrant: 
+flagrantly: 0.000851,11; 
+flair: 0.002843,5; 0.001312,12; 
+flairs: 
+flak: 
+flake: 
+flakey: 
+flakieness: 
+flaking: 
+flaky: 
+flare: 
+flares: 
+flareup: 
+flareups: 
+flat-out: 
+flaunt: 
+flaw: 0.003798,3; 0.009674,2; 
+flawed: 0.002755,15; 0.001412,14; 
+flaws: 0.004787,15; 0.007875,5; 0.002851,10; 0.003831,6; 0.010529,6; 
+flee: 
+fleed: 
+fleeing: 0.009023,4; 
+fleer: 
+flees: 
+fleeting: 0.000393,19; 
+flicering: 
+flicker: 
+flickering: 0.000242,18; 
+flickers: 
+flighty: 
+flimflam: 
+flimsy: 0.000763,5; 0.001016,3; 0.003206,8; 0.000205,16; 
+flirt: 
+flirty: 
+floored: 
+flounder: 
+floundering: 
+flout: 
+fluster: 
+foe: 
+fool: 0.005966,6; 0.000442,3; 0.000370,11; 0.010298,3; 
+fooled: 
+foolhardy: 
+foolish: 0.003283,10; 0.057904,1; 0.000473,7; 
+foolishly: 
+foolishness: 
+forbid: 
+forbidden: 
+forbidding: 
+forceful: 
+foreboding: 
+forebodingly: 
+forfeit: 
+forged: 
+forgetful: 
+forgetfully: 
+forgetfulness: 
+forlorn: 
+forlornly: 
+forsake: 
+forsaken: 
+forswear: 
+foul: 0.006494,4; 0.017655,2; 
+foully: 
+foulness: 
+fractious: 
+fractiously: 
+fracture: 
+fragile: 0.002787,2; 
+fragmented: 0.002126,9; 0.026016,1; 
+frail: 
+frantic: 0.007423,9; 0.004157,6; 
+frantically: 
+franticly: 
+fraud: 
+fraudulent: 
+fraught: 
+frazzle: 
+frazzled: 
+freak: 
+freaking: 0.005590,5; 
+freakish: 0.000024,24; 
+freakishly: 
+freaks: 0.000359,3; 0.004974,6; 0.000080,26; 0.000005,6; 
+freeze: 
+freezes: 
+freezing: 
+frenetic: 0.000468,16; 
+frenetically: 
+frenzied: 
+frenzy: 
+fret: 
+fretful: 
+frets: 
+friction: 
+frictions: 
+fried: 0.006029,3; 
+friggin: 0.006882,2; 
+frigging: 
+fright: 0.000263,20; 
+frighten: 
+frightening: 0.001288,8; 0.001989,12; 
+frighteningly: 
+frightful: 0.001887,10; 
+frightfully: 
+frigid: 
+frost: 
+frown: 
+froze: 
+frozen: 0.000470,17; 
+fruitless: 
+fruitlessly: 
+frustrate: 
+frustrated: 0.001281,5; 
+frustrates: 
+frustrating: 0.000800,9; 0.001153,10; 0.000198,18; 0.000161,5; 0.001508,6; 0.000018,18; 0.000692,15; 0.004454,1; 
+frustratingly: 0.001094,4; 0.001166,15; 0.000934,11; 
+frustration: 0.009392,1; 0.000427,26; 0.008657,4; 
+frustrations: 0.000047,17; 
+fuck: 
+fucking: 
+fudge: 
+fugitive: 
+full-blown: 
+fulminate: 
+fumble: 
+fume: 
+fumes: 
+fundamentalism: 
+funky: 
+funnily: 
+funny: 0.010580,4; 0.015069,9; 0.015069,9; 0.002180,7; 0.002052,13; 0.007038,4; 0.010146,3; 0.000487,23; 0.002701,7; 0.006004,14; 0.006004,6; 0.002438,7; 0.002438,8; 0.000181,10; 0.010559,1; 0.002037,11; 0.001587,7; 0.002832,4; 0.000480,7; 0.022450,3; 0.002059,8; 0.004014,6; 0.001546,22; 0.000758,12; 0.007194,5; 0.002394,7; 0.006607,7; 0.008115,4; 0.002438,26; 0.003755,7; 0.018732,2; 0.018732,1; 0.018732,5; 0.000534,12; 0.000774,12; 0.000774,11; 0.003035,7; 0.037472,2; 0.001465,13; 0.004189,8; 0.000353,26; 0.000106,16; 0.009109,7; 0.019081,2; 0.004356,7; 0.000821,8; 0.001808,15; 0.023769,3; 0.002147,6; 0.002147,7; 0.002284,3; 0.029160,2; 
+furious: 0.000111,25; 
+furiously: 0.023395,1; 
+furor: 
+fury: 
+fuss: 
+fussy: 0.000889,8; 
+fustigate: 
+fusty: 0.008991,2; 
+futile: 0.000076,10; 0.000038,4; 
+futilely: 
+futility: 0.000129,7; 
+fuzzy: 0.001230,22; 
+gabble: 
+gaff: 
+gaffe: 
+gainsay: 
+gainsayer: 
+gall: 0.002929,9; 
+galling: 
+gallingly: 
+galls: 
+gangster: 0.001688,15; 0.000514,16; 0.000014,12; 0.002762,5; 
+gape: 
+garbage: 0.000053,4; 0.000928,10; 0.000056,12; 0.000429,6; 0.000004,2; 
+garish: 0.004071,2; 
+gasp: 
+gauche: 
+gaudy: 0.010421,4; 
+gawk: 
+gawky: 
+geezer: 
+genocide: 
+get-rich: 
+ghastly: 
+ghetto: 
+ghosting: 
+gibber: 
+gibberish: 0.000444,5; 
+gibe: 
+giddy: 0.006754,4; 
+gimmick: 0.000082,7; 
+gimmicked: 
+gimmicking: 
+gimmicks: 0.000037,16; 
+gimmicky: 0.000079,4; 0.001629,3; 
+glare: 
+glaringly: 
+glib: 0.000036,41; 
+glibly: 
+glitch: 
+glitches: 
+gloatingly: 
+gloom: 0.000094,11; 
+gloomy: 0.002286,6; 
+glower: 
+glum: 0.002396,5; 0.007032,3; 0.003205,5; 
+glut: 
+gnawing: 
+goad: 
+goading: 
+god-awful: 
+goof: 
+goofy: 0.000025,15; 0.000030,28; 0.000244,20; 0.000995,15; 0.000191,37; 0.000750,8; 0.000351,19; 
+goon: 
+gossip: 
+graceless: 0.003109,6; 0.000268,6; 0.000123,5; 
+gracelessly: 
+graft: 
+grainy: 
+grapple: 
+grate: 
+grating: 0.001470,16; 0.022838,1; 0.000198,6; 0.000105,8; 0.000180,4; 
+gravely: 
+greasy: 0.001096,7; 
+greed: 0.032548,1; 
+greedy: 
+grief: 0.000734,22; 0.005397,17; 0.000061,12; 
+grievance: 
+grievances: 
+grieve: 
+grieving: 
+grievous: 0.005184,3; 
+grievously: 
+grim: 0.000527,22; 
+grimace: 
+grind: 
+gripe: 
+gripes: 
+grisly: 0.000031,20; 0.001355,4; 
+gritty: 0.006889,7; 
+gross: 0.002839,1; 0.000601,8; 0.002812,14; 
+grossly: 0.002565,7; 
+grotesque: 0.000885,5; 0.000058,12; 
+grouch: 
+grouchy: 0.002871,11; 
+groundless: 
+grouse: 
+growl: 
+grudge: 
+grudges: 
+grudging: 
+grudgingly: 
+gruesome: 
+gruesomely: 
+gruff: 
+grumble: 
+grumpier: 
+grumpiest: 
+grumpily: 
+grumpish: 
+grumpy: 
+guile: 
+guilt: 0.000033,27; 
+guiltily: 
+guilty: 0.001108,11; 0.026496,3; 0.000785,12; 0.000106,16; 0.002266,5; 0.002816,10; 
+gullible: 
+gutless: 0.000259,10; 
+gutter: 0.000220,14; 
+hack: 0.001294,6; 0.004725,4; 0.003728,3; 0.028069,1; 
+hacks: 
+haggard: 
+haggle: 
+hairloss: 
+halfhearted: 0.024058,1; 
+halfheartedly: 
+hallucinate: 
+hallucination: 
+hamper: 
+hampered: 0.000094,10; 0.000068,8; 0.007257,5; 
+handicapped: 
+hang: 0.000906,14; 
+hangs: 
+haphazard: 0.001006,6; 0.000922,15; 
+hapless: 
+harangue: 
+harass: 
+harassed: 
+harasses: 
+harassment: 
+harboring: 
+harbors: 
+hard: 0.037930,3; 0.000516,11; 0.007749,3; 0.000316,23; 0.000137,14; 0.000004,23; 0.001321,13; 0.008626,7; 0.000005,17; 0.010590,3; 0.000352,18; 0.003847,10; 0.000372,14; 0.000432,15; 0.000001,10; 0.002368,12; 0.002831,6; 0.000334,8; 0.000486,11; 0.000031,12; 0.000013,30; 0.000017,18; 0.007486,6; 0.009002,7; 0.000117,22; 0.001808,15; 0.000101,18; 0.002400,15; 0.000023,33; 0.000775,13; 0.000775,16; 0.000287,15; 0.000871,10; 0.015759,9; 0.000843,28; 0.000843,15; 0.005843,14; 0.000122,17; 0.022044,8; 0.000010,13; 0.000206,13; 0.003362,6; 0.003362,6; 0.001725,4; 0.006293,10; 0.000958,20; 0.000000,25; 0.000431,20; 0.000727,14; 0.000727,16; 
+hard-hit: 
+hard-line: 
+hard-liner: 
+hardball: 
+harden: 
+hardened: 0.000189,16; 0.000253,13; 
+hardheaded: 
+hardhearted: 
+hardliner: 
+hardliners: 
+hardship: 
+hardships: 
+harm: 0.002330,6; 
+harmed: 0.000839,10; 
+harmful: 
+harms: 
+harpy: 
+harridan: 
+harried: 
+harrow: 
+harsh: 0.000006,27; 0.002636,9; 
+harshly: 
+hasseling: 
+hassle: 
+hassled: 
+hassles: 
+haste: 
+hastily: 0.000803,5; 0.000254,7; 0.000254,8; 0.001988,11; 0.001712,7; 
+hasty: 
+hate: 0.004943,3; 0.002933,4; 0.006813,1; 0.001461,6; 0.007234,5; 0.010546,5; 0.002166,10; 0.000002,7; 
+hated: 0.006752,1; 
+hateful: 
+hatefully: 
+hatefulness: 
+hater: 
+haters: 
+hates: 0.003969,3; 0.002573,7; 
+hating: 
+hatred: 
+haughtily: 
+haughty: 
+haunt: 
+haunting: 0.002351,5; 
+havoc: 
+hawkish: 
+haywire: 
+hazard: 
+hazardous: 
+haze: 
+hazy: 0.000140,13; 
+head-aches: 
+headache: 
+headaches: 
+heartbreaker: 
+heartbreaking: 
+heartbreakingly: 
+heartless: 
+heathen: 
+heavy-handed: 0.000868,12; 0.001181,11; 0.000026,11; 0.020811,2; 0.000056,24; 
+heavyhearted: 
+heck: 
+heckle: 
+heckled: 
+heckles: 
+hectic: 
+hedge: 
+hedonistic: 0.000369,13; 
+heedless: 0.000218,14; 
+hefty: 0.000308,13; 
+hegemonism: 
+hegemonistic: 
+hegemony: 
+heinous: 
+hell: 0.002253,6; 0.002249,4; 0.000161,12; 0.000093,38; 0.001068,19; 0.000136,27; 0.006722,3; 0.000256,14; 
+hell-bent: 
+hellion: 
+hells: 
+helpless: 
+helplessly: 
+helplessness: 
+heresy: 
+heretic: 
+heretical: 
+hesitant: 
+hestitant: 
+hideous: 0.000013,10; 
+hideously: 0.000430,6; 0.004862,4; 
+hideousness: 
+high-priced: 
+hiliarious: 
+hinder: 
+hindrance: 
+hiss: 0.003241,3; 
+hissed: 
+hissing: 
+ho-hum: 
+hoard: 
+hoax: 
+hobble: 
+hogs: 
+hollow: 0.001968,2; 0.006906,4; 0.000119,11; 0.001387,6; 0.004408,2; 
+hoodium: 
+hoodwink: 
+hooligan: 
+hopeless: 0.007879,1; 0.009081,4; 
+hopelessly: 0.003788,5; 0.000030,6; 
+hopelessness: 
+horde: 0.001447,13; 
+horrendous: 
+horrendously: 0.000016,13; 
+horrible: 0.000162,13; 0.001343,2; 0.001546,5; 0.001671,13; 0.000199,5; 0.000074,12; 0.006623,2; 0.003839,5; 0.000047,2; 0.005994,4; 
+horrid: 
+horrific: 0.012714,2; 
+horrified: 0.005838,4; 
+horrifies: 
+horrify: 
+horrifying: 0.000522,11; 
+horrifys: 
+hostage: 
+hostile: 0.002432,7; 
+hostilities: 
+hostility: 
+hotbeds: 
+hothead: 
+hotheaded: 
+hothouse: 
+hubris: 
+huckster: 
+hum: 
+humid: 
+humiliate: 
+humiliating: 
+humiliation: 
+humming: 
+hung: 
+hurt: 0.013108,2; 0.025350,3; 
+hurted: 
+hurtful: 
+hurting: 
+hurts: 0.021722,1; 
+hustler: 0.001378,17; 0.000532,16; 
+hype: 0.000101,21; 0.000914,17; 0.002522,8; 
+hypocricy: 
+hypocrisy: 0.000240,25; 
+hypocrite: 
+hypocrites: 
+hypocritical: 0.005270,6; 0.000824,11; 
+hypocritically: 
+hysteria: 0.000126,20; 
+hysteric: 
+hysterical: 
+hysterically: 
+hysterics: 
+idiocies: 
+idiocy: 0.001043,16; 0.000532,9; 
+idiot: 
+idiotic: 0.000001,7; 0.000244,12; 0.000770,14; 0.000009,4; 
+idiotically: 0.001070,20; 
+idiots: 0.000766,3; 0.002253,6; 0.000262,10; 
+idle: 
+ignoble: 
+ignominious: 
+ignominiously: 
+ignominy: 
+ignorance: 
+ignorant: 0.005867,8; 
+ignore: 0.000845,13; 0.015958,1; 0.015958,2; 
+ill-advised: 0.001129,9; 
+ill-conceived: 0.001226,13; 0.002188,5; 0.003416,2; 
+ill-defined: 
+ill-designed: 
+ill-fated: 
+ill-favored: 
+ill-formed: 
+ill-mannered: 
+ill-natured: 
+ill-sorted: 
+ill-tempered: 
+ill-treated: 
+ill-treatment: 
+ill-usage: 
+ill-used: 
+illegal: 
+illegally: 
+illegitimate: 
+illicit: 
+illiterate: 0.000510,4; 
+illness: 0.000575,26; 
+illogic: 
+illogical: 0.000013,11; 
+illogically: 
+illusion: 0.001505,11; 
+illusions: 
+illusory: 
+imaginary: 0.002083,11; 
+imbalance: 
+imbecile: 
+imbroglio: 
+immaterial: 
+immature: 0.003887,5; 0.000004,7; 0.000485,7; 
+imminence: 
+imminently: 
+immobilized: 
+immoderate: 
+immoderately: 
+immodest: 
+immoral: 
+immorality: 
+immorally: 
+immovable: 
+impair: 
+impaired: 
+impasse: 
+impatience: 
+impatient: 0.004180,7; 
+impatiently: 0.000596,27; 
+impeach: 
+impedance: 
+impede: 
+impediment: 
+impending: 
+impenitent: 
+imperfect: 0.000941,2; 
+imperfection: 
+imperfections: 
+imperfectly: 
+imperialist: 
+imperil: 
+imperious: 0.000402,10; 
+imperiously: 
+impermissible: 
+impersonal: 0.001438,7; 0.000347,8; 0.000014,11; 
+impertinent: 
+impetuous: 
+impetuously: 
+impiety: 
+impinge: 
+impious: 
+implacable: 
+implausible: 0.015700,2; 0.001426,6; 
+implausibly: 
+implicate: 
+implication: 
+implode: 
+impolite: 
+impolitely: 
+impolitic: 
+importunate: 
+importune: 
+impose: 
+imposers: 
+imposing: 
+imposition: 
+impossible: 0.000013,43; 0.000530,10; 0.000060,24; 0.000059,27; 0.002502,12; 0.000145,26; 0.000029,33; 0.000041,22; 0.001345,24; 0.000109,21; 0.000318,30; 0.000116,23; 
+impossiblity: 
+impossibly: 0.000649,11; 
+impotent: 
+impoverish: 
+impoverished: 
+impractical: 
+imprecate: 
+imprecise: 
+imprecisely: 
+imprecision: 
+imprison: 
+imprisonment: 
+improbability: 0.000006,29; 
+improbable: 0.001532,6; 
+improbably: 
+improper: 
+improperly: 0.003555,8; 
+impropriety: 
+imprudence: 
+imprudent: 
+impudence: 
+impudent: 
+impudently: 
+impugn: 
+impulsive: 
+impulsively: 
+impunity: 
+impure: 
+impurity: 
+inability: 
+inaccuracies: 
+inaccuracy: 
+inaccurate: 
+inaccurately: 
+inaction: 
+inactive: 0.001726,6; 
+inadequacy: 
+inadequate: 0.002335,8; 
+inadequately: 0.000387,21; 
+inadverent: 
+inadverently: 
+inadvisable: 
+inadvisably: 
+inane: 0.000003,17; 0.000001,7; 0.001456,9; 0.000056,12; 0.000049,5; 
+inanely: 
+inappropriate: 0.001140,16; 0.001128,10; 
+inappropriately: 
+inapt: 
+inaptitude: 
+inarticulate: 0.000384,13; 
+inattentive: 
+inaudible: 
+incapable: 
+incapably: 
+incautious: 
+incendiary: 
+incense: 
+incessant: 0.000356,17; 0.000356,15; 
+incessantly: 0.000031,28; 
+incite: 
+incitement: 
+incivility: 
+inclement: 
+incognizant: 
+incoherence: 0.000073,7; 0.000189,9; 0.000424,7; 0.005772,1; 
+incoherent: 0.001030,11; 0.000060,11; 0.001268,4; 0.000618,5; 0.001641,11; 0.000952,6; 0.000377,5; 0.000859,10; 
+incoherently: 
+incommensurate: 
+incomparable: 
+incomparably: 
+incompatability: 
+incompatibility: 
+incompatible: 
+incompetence: 
+incompetent: 0.000033,12; 0.012279,2; 0.000375,10; 
+incompetently: 
+incomplete: 
+incompliant: 
+incomprehensible: 0.000019,11; 0.000502,6; 0.002051,3; 0.000059,7; 0.000287,18; 
+incomprehension: 
+inconceivable: 0.000871,18; 
+inconceivably: 
+incongruous: 0.000098,19; 0.004166,14; 
+incongruously: 
+inconsequent: 
+inconsequential: 0.001969,5; 0.000046,10; 0.000698,9; 0.000142,6; 0.000184,16; 0.000162,2; 
+inconsequentially: 
+inconsequently: 
+inconsiderate: 
+inconsiderately: 
+inconsistence: 
+inconsistencies: 
+inconsistency: 
+inconsistent: 0.000450,12; 0.001198,2; 0.000036,7; 
+inconsolable: 
+inconsolably: 
+inconstant: 
+inconvenience: 
+inconveniently: 
+incorrect: 
+incorrectly: 
+incorrigible: 
+incorrigibly: 
+incredulous: 
+incredulously: 
+inculcate: 
+indecency: 
+indecent: 0.000744,30; 
+indecently: 
+indecision: 
+indecisive: 
+indecisively: 
+indecorum: 
+indefensible: 
+indelicate: 
+indeterminable: 
+indeterminably: 
+indeterminate: 
+indifference: 0.005873,4; 0.000081,12; 
+indifferent: 0.000456,7; 
+indigent: 
+indignant: 0.001362,8; 
+indignantly: 
+indignation: 
+indignity: 
+indiscernible: 
+indiscreet: 
+indiscreetly: 
+indiscretion: 
+indiscriminate: 
+indiscriminately: 
+indiscriminating: 
+indistinguishable: 
+indoctrinate: 
+indoctrination: 
+indolent: 
+indulge: 0.000086,16; 
+ineffective: 0.000014,7; 
+ineffectively: 
+ineffectiveness: 
+ineffectual: 
+ineffectually: 
+ineffectualness: 
+inefficacious: 
+inefficacy: 
+inefficiency: 
+inefficient: 
+inefficiently: 
+inelegance: 
+inelegant: 0.008261,2; 
+ineligible: 
+ineloquent: 
+ineloquently: 
+inept: 0.000528,3; 0.000006,20; 0.002251,4; 0.000191,8; 0.002806,1; 0.000135,2; 0.000003,8; 0.000402,7; 0.001420,11; 0.000452,10; 
+ineptitude: 
+ineptly: 0.000009,14; 0.000102,12; 0.005129,6; 
+inequalities: 
+inequality: 
+inequitable: 
+inequitably: 
+inequities: 
+inescapable: 0.002657,8; 0.000102,20; 0.000068,30; 
+inescapably: 
+inessential: 
+inevitable: 0.000150,21; 0.000626,14; 0.012928,2; 0.000279,14; 
+inevitably: 
+inexcusable: 0.000733,9; 
+inexcusably: 
+inexorable: 
+inexorably: 
+inexperience: 
+inexperienced: 0.005022,1; 
+inexpert: 
+inexpertly: 
+inexpiable: 
+inexplainable: 
+inextricable: 
+inextricably: 
+infamous: 
+infamously: 
+infamy: 
+infected: 
+infection: 
+infections: 
+inferior: 
+inferiority: 
+infernal: 
+infest: 
+infested: 
+infidel: 
+infidels: 
+infiltrator: 
+infiltrators: 
+infirm: 
+inflame: 
+inflammation: 
+inflammatory: 
+inflammed: 
+inflated: 
+inflationary: 
+inflexible: 
+inflict: 
+infraction: 
+infringe: 
+infringement: 
+infringements: 
+infuriate: 
+infuriated: 
+infuriating: 0.002780,9; 0.017282,1; 
+infuriatingly: 0.006764,2; 
+inglorious: 
+ingrate: 
+ingratitude: 
+inhibit: 
+inhibition: 
+inhospitable: 
+inhospitality: 
+inhuman: 0.001496,12; 
+inhumane: 
+inhumanity: 
+inimical: 
+inimically: 
+iniquitous: 
+iniquity: 
+injudicious: 
+injure: 
+injurious: 
+injury: 
+injustice: 
+injustices: 
+innuendo: 0.000286,13; 0.000409,16; 
+inoperable: 
+inopportune: 
+inordinate: 
+inordinately: 
+insane: 
+insanely: 0.002340,7; 0.000486,22; 0.000306,9; 
+insanity: 
+insatiable: 0.000180,32; 
+insecure: 0.000918,10; 
+insecurity: 
+insensible: 
+insensitive: 
+insensitively: 
+insensitivity: 0.012391,1; 
+insidious: 
+insidiously: 
+insignificance: 0.000566,12; 0.010428,2; 
+insignificant: 0.001473,7; 
+insignificantly: 
+insincere: 
+insincerely: 
+insincerity: 
+insinuate: 
+insinuating: 
+insinuation: 0.001873,12; 
+insociable: 
+insolence: 
+insolent: 
+insolently: 
+insolvent: 
+insouciance: 
+instability: 
+instable: 
+instigate: 
+instigator: 
+instigators: 
+insubordinate: 
+insubstantial: 
+insubstantially: 
+insufferable: 0.001477,6; 0.000119,5; 
+insufferably: 0.005309,5; 0.002468,2; 
+insufficiency: 
+insufficient: 
+insufficiently: 0.003744,11; 
+insular: 
+insult: 0.006679,5; 0.001962,12; 0.000515,9; 
+insulted: 0.000424,16; 
+insulting: 0.010350,1; 0.010350,1; 0.000252,7; 0.002037,7; 0.007624,3; 
+insultingly: 0.005465,4; 0.000272,11; 0.000239,8; 
+insults: 0.000225,13; 0.005528,4; 
+insupportable: 
+insupportably: 
+insurmountable: 
+insurmountably: 
+insurrection: 
+intefere: 
+inteferes: 
+intense: 0.000691,8; 
+interfere: 
+interference: 
+interferes: 
+intermittent: 
+interrupt: 
+interruption: 
+interruptions: 
+intimidate: 
+intimidating: 
+intimidatingly: 
+intimidation: 
+intolerable: 0.009526,3; 0.001214,14; 
+intolerablely: 
+intolerance: 
+intoxicate: 
+intractable: 
+intransigence: 
+intransigent: 
+intrude: 
+intrusion: 
+intrusive: 
+inundate: 
+inundated: 
+invader: 
+invalid: 
+invalidate: 
+invalidity: 
+invasive: 
+invective: 
+inveigle: 
+invidious: 
+invidiously: 
+invidiousness: 
+invisible: 
+involuntarily: 
+involuntary: 
+irascible: 
+irate: 
+irately: 
+ire: 
+irk: 
+irked: 
+irking: 
+irks: 
+irksome: 0.000286,15; 0.001979,5; 
+irksomely: 
+irksomeness: 
+irksomenesses: 
+ironic: 0.000138,18; 0.000169,13; 0.000006,13; 
+ironical: 
+ironically: 0.020443,1; 0.000067,28; 0.001971,10; 
+ironies: 0.000240,18; 
+irony: 0.000171,22; 
+irragularity: 
+irrational: 
+irrationalities: 
+irrationality: 
+irrationally: 
+irrationals: 
+irreconcilable: 
+irrecoverable: 
+irrecoverableness: 
+irrecoverablenesses: 
+irrecoverably: 
+irredeemable: 
+irredeemably: 0.000017,3; 
+irreformable: 
+irregular: 
+irregularity: 
+irrelevance: 
+irrelevant: 0.002384,8; 0.010936,5; 0.014581,3; 
+irreparable: 0.001060,6; 
+irreplacible: 
+irrepressible: 0.014780,2; 
+irresolute: 
+irresolvable: 
+irresponsible: 0.001065,2; 0.000244,18; 
+irresponsibly: 
+irretating: 
+irretrievable: 
+irreversible: 
+irritable: 
+irritably: 
+irritant: 
+irritate: 
+irritated: 
+irritating: 0.000900,12; 0.000981,8; 0.000684,15; 0.000954,5; 0.000198,6; 0.002651,6; 0.000487,5; 0.004509,4; 0.000003,3; 
+irritation: 
+irritations: 
+isolate: 
+isolated: 
+isolation: 
+issue: 0.000014,19; 
+issues: 0.001898,16; 0.000076,28; 0.003195,26; 0.001594,11; 0.002059,18; 0.001337,16; 0.002304,9; 
+itch: 
+itching: 
+itchy: 
+jabber: 
+jaded: 
+jagged: 0.000001,27; 0.000184,31; 
+jam: 
+jarring: 0.000288,9; 0.006535,10; 0.000014,22; 
+jaundiced: 
+jealous: 
+jealously: 
+jealousness: 
+jealousy: 
+jeer: 
+jeering: 
+jeeringly: 
+jeers: 
+jeopardize: 
+jeopardy: 0.001114,7; 
+jerk: 
+jerky: 
+jitter: 
+jitters: 
+jittery: 
+job-killing: 
+jobless: 
+joke: 0.002964,3; 0.000650,10; 0.000556,5; 0.000726,13; 0.008976,1; 0.001330,3; 0.001330,3; 0.000055,8; 0.002273,2; 0.000304,11; 0.002354,3; 
+joker: 
+jolt: 
+judder: 
+juddering: 
+judders: 
+jumpy: 
+junk: 0.000116,3; 0.022457,1; 0.000005,6; 0.001034,6; 0.007722,4; 0.000007,2; 
+junky: 
+junkyard: 
+jutter: 
+jutters: 
+kaput: 
+kill: 0.000719,9; 0.001079,15; 0.000014,24; 0.001888,9; 
+killed: 0.000584,22; 0.000001,17; 
+killer: 0.001889,18; 0.000449,21; 0.001512,19; 
+killing: 0.011697,8; 
+killjoy: 
+kills: 0.000473,30; 
+knave: 
+knife: 
+knock: 0.004216,11; 0.011957,3; 
+knotted: 
+kook: 
+kooky: 
+lack: 0.012889,3; 0.061366,2; 0.004905,1; 0.017096,1; 0.009935,3; 0.000154,12; 0.000268,7; 0.000786,9; 0.002841,8; 0.000175,6; 0.001042,6; 0.000754,5; 0.005407,6; 0.001058,4; 0.001953,5; 0.001816,8; 0.003872,10; 0.003038,13; 0.003616,3; 0.002733,7; 0.013804,1; 0.006879,3; 0.036527,1; 0.009913,1; 
+lackadaisical: 0.008281,1; 
+lacked: 0.013150,1; 
+lackey: 
+lackeys: 
+lacking: 0.000753,12; 0.009477,4; 0.001085,15; 0.000984,7; 0.000152,8; 0.000319,8; 0.002467,8; 0.023909,1; 0.022545,2; 0.004259,2; 0.002624,3; 0.053222,1; 0.000314,5; 0.004717,1; 0.004717,2; 0.000502,4; 0.012639,2; 
+lackluster: 0.000182,12; 0.004318,2; 0.000742,5; 0.000017,10; 0.000105,2; 
+lacks: 0.002754,6; 0.027324,4; 0.025753,2; 0.016048,2; 0.001501,5; 0.016958,1; 0.000401,6; 0.006113,3; 0.008845,3; 0.009436,4; 0.089973,2; 0.024477,3; 0.009819,3; 0.012363,1; 0.002669,5; 0.033229,3; 0.000946,14; 0.075701,2; 0.005032,11; 0.008273,3; 0.002700,1; 
+laconic: 0.000085,22; 
+lag: 
+lagged: 
+lagging: 
+laggy: 
+lags: 0.000034,17; 
+laid-off: 
+lambast: 
+lambaste: 
+lame: 0.001904,13; 0.000060,12; 0.009884,3; 0.009884,9; 0.001731,3; 0.002701,4; 0.005528,3; 0.010230,4; 0.000354,2; 0.000354,2; 0.001330,2; 
+lame-duck: 
+lament: 
+lamentable: 
+lamentably: 
+languid: 
+languish: 
+languor: 
+languorous: 0.003576,10; 
+languorously: 
+lanky: 
+lapse: 
+lapsed: 
+lapses: 0.003741,6; 0.010644,2; 0.003034,4; 
+lascivious: 
+last-ditch: 
+latency: 
+laughable: 0.010582,1; 0.001271,7; 0.000233,9; 0.006149,3; 0.000072,10; 0.002845,6; 
+laughably: 0.001560,8; 0.000021,20; 0.000016,8; 0.000012,5; 
+laughingstock: 
+lawbreaker: 
+lawbreaking: 
+lawless: 
+lawlessness: 
+layoff: 
+layoff-happy: 
+lazy: 0.028121,3; 0.000911,11; 0.000627,8; 0.006735,2; 0.000340,10; 0.000028,5; 0.001584,10; 0.000136,5; 0.044154,1; 0.000729,8; 
+leak: 
+leakage: 
+leakages: 
+leaking: 
+leaks: 0.000825,3; 
+leaky: 0.000136,13; 0.006805,4; 
+lech: 
+lecher: 
+lecherous: 
+lechery: 
+leech: 
+leer: 
+leery: 0.004043,20; 
+left-leaning: 
+lemon: 0.000124,13; 
+lengthy: 0.000027,16; 0.000104,16; 
+less-developed: 
+lesser-known: 
+letch: 
+lethal: 
+lethargic: 0.004113,5; 
+lethargy: 
+lewd: 0.000021,14; 
+lewdly: 
+lewdness: 
+liability: 0.010105,4; 0.001209,6; 
+liable: 
+liar: 0.004672,4; 0.023470,1; 
+liars: 
+licentious: 
+licentiously: 
+licentiousness: 
+lie: 
+lied: 
+lier: 
+lies: 0.000071,20; 0.000038,22; 
+life-threatening: 
+lifeless: 0.000004,7; 0.000130,12; 0.001546,11; 0.000147,4; 0.000326,10; 0.000101,13; 0.000007,2; 
+limit: 0.000000,8; 0.000004,20; 
+limitation: 
+limitations: 0.000694,11; 0.001226,17; 0.003912,5; 
+limited: 0.001642,7; 0.001360,12; 0.000052,16; 0.020168,7; 0.012845,2; 
+limits: 
+limp: 0.000002,15; 0.000260,5; 0.003800,4; 0.001276,6; 0.000074,9; 
+listless: 0.000006,10; 0.000005,10; 0.001350,10; 0.000064,7; 0.000786,9; 0.000009,4; 0.001178,5; 0.005103,5; 0.003137,4; 
+litigious: 
+little-known: 
+livid: 
+lividly: 
+loath: 
+loathe: 
+loathing: 
+loathly: 
+loathsome: 0.009317,1; 0.005815,3; 
+loathsomely: 
+lone: 0.005311,8; 
+loneliness: 0.002146,9; 
+lonely: 
+loner: 
+lonesome: 
+long-time: 
+long-winded: 0.000489,10; 
+longing: 0.013267,4; 
+longingly: 
+loophole: 
+loopholes: 
+loose: 0.006251,1; 0.000461,12; 0.024587,4; 0.000096,14; 
+loot: 
+lorn: 
+lose: 0.010785,3; 0.004509,5; 
+loser: 0.005312,2; 
+losers: 0.000002,10; 0.003666,2; 
+loses: 0.000876,8; 0.003864,5; 0.000175,5; 0.011947,1; 0.000051,12; 0.000212,6; 0.012067,2; 0.000941,8; 0.003140,1; 0.001331,5; 
+losing: 0.001462,6; 0.002133,3; 0.000076,18; 
+loss: 0.007919,1; 0.004445,9; 0.002064,23; 
+losses: 0.001174,14; 
+lost: 0.000206,9; 0.000166,15; 0.000017,34; 0.000035,13; 0.000043,13; 0.000581,12; 0.021515,3; 0.012444,1; 0.009362,1; 0.000048,18; 0.003304,3; 0.001512,2; 0.000041,17; 0.000889,6; 
+loud: 0.001185,11; 0.000448,14; 0.000036,12; 0.001384,12; 0.000213,5; 0.000001,7; 0.000007,20; 0.011581,1; 0.000074,18; 0.000024,11; 0.000851,14; 0.000000,7; 0.000019,9; 0.001464,14; 0.000001,22; 0.001820,6; 
+louder: 
+lousy: 0.000026,16; 0.000020,5; 0.000020,6; 0.032920,1; 0.020692,2; 0.000343,5; 0.008628,2; 0.000232,3; 0.000163,5; 0.000025,3; 
+loveless: 
+lovelorn: 
+low-rated: 
+lowly: 0.002897,4; 
+ludicrous: 0.000141,9; 0.000207,4; 0.000102,8; 0.004984,4; 0.004984,6; 0.015543,1; 0.001321,14; 
+ludicrously: 
+lugubrious: 0.012989,2; 
+lukewarm: 0.015467,1; 
+lull: 
+lumpy: 0.001764,7; 
+lunatic: 0.000018,22; 
+lunaticism: 
+lurch: 
+lure: 
+lurid: 0.000044,12; 0.003720,6; 
+lurk: 
+lurking: 
+lying: 
+macabre: 0.001112,7; 
+mad: 0.004550,8; 0.000017,16; 0.000464,20; 0.000320,19; 
+madden: 
+maddening: 
+maddeningly: 0.000497,11; 0.000151,14; 
+madder: 
+madly: 
+madman: 
+madness: 0.000448,11; 
+maladjusted: 
+maladjustment: 
+malady: 
+malaise: 0.000242,7; 0.000371,9; 
+malcontent: 
+malcontented: 
+maledict: 
+malevolence: 
+malevolent: 
+malevolently: 
+malice: 
+malicious: 
+maliciously: 
+maliciousness: 
+malign: 
+malignant: 
+malodorous: 
+maltreatment: 
+mangle: 
+mangled: 
+mangles: 
+mangling: 
+mania: 
+maniac: 
+maniacal: 
+manic: 
+manipulate: 
+manipulation: 0.000001,14; 0.000011,19; 
+manipulative: 0.000174,20; 0.000426,14; 0.000943,10; 0.000264,5; 0.000179,16; 0.001603,5; 0.000451,5; 0.004801,4; 0.000069,9; 0.007120,6; 0.000210,7; 0.000221,7; 0.000166,11; 
+manipulators: 
+mar: 
+marginal: 0.001924,10; 0.000113,22; 
+marginally: 0.000006,25; 
+martyrdom: 
+martyrdom-seeking: 
+mashed: 
+massacre: 
+massacres: 0.000982,9; 
+matte: 
+mawkish: 0.000418,13; 0.000542,3; 
+mawkishly: 
+mawkishness: 
+meager: 0.000012,4; 
+meaningless: 0.000556,8; 0.000556,9; 
+meanness: 
+measly: 
+meddle: 
+meddlesome: 
+mediocre: 0.022204,1; 0.001491,9; 0.001164,7; 0.003037,5; 0.004456,4; 0.003078,3; 0.005981,6; 0.000330,11; 0.017879,1; 0.008853,1; 0.000065,7; 0.000160,11; 0.000444,9; 0.001621,6; 
+mediocrity: 0.003154,8; 0.003293,11; 0.001082,3; 0.019253,2; 
+melancholy: 
+melodramatic: 0.000421,12; 0.000639,13; 0.001275,6; 0.000508,11; 0.000942,3; 0.002423,2; 0.001288,2; 
+melodramatically: 
+meltdown: 
+menace: 0.000124,13; 0.007675,6; 
+menacing: 
+menacingly: 
+mendacious: 
+mendacity: 
+menial: 
+merciless: 
+mercilessly: 0.005497,8; 0.000017,11; 
+mess: 0.003799,1; 0.001368,4; 0.001368,4; 0.000026,10; 0.001359,13; 0.000087,9; 0.001235,9; 0.000063,6; 0.001077,5; 0.000002,5; 0.000099,3; 0.000099,3; 0.000828,8; 0.000062,4; 0.000557,9; 0.000067,14; 0.007894,4; 0.007894,4; 0.000134,12; 0.011220,6; 0.004235,3; 0.001647,8; 0.001647,5; 0.001312,9; 0.000152,6; 0.001146,5; 0.000007,4; 0.000418,3; 0.000418,4; 
+messed: 
+messes: 
+messing: 
+messy: 0.000136,11; 
+midget: 
+miff: 
+militancy: 
+mindless: 0.000192,11; 0.002635,9; 0.000472,13; 0.000275,6; 0.000261,13; 0.000153,15; 0.000153,16; 0.007773,2; 0.004233,5; 0.000902,15; 0.000012,16; 
+mindlessly: 
+mirage: 
+mire: 0.000875,6; 
+misalign: 
+misaligned: 
+misaligns: 
+misapprehend: 
+misbecome: 
+misbecoming: 
+misbegotten: 0.000343,14; 
+misbehave: 
+misbehavior: 
+miscalculate: 
+miscalculation: 0.021643,2; 0.000114,5; 
+miscellaneous: 
+mischief: 
+mischievous: 
+mischievously: 
+misconception: 
+misconceptions: 
+miscreant: 
+miscreants: 
+misdirection: 
+miser: 
+miserable: 0.003608,1; 0.000053,4; 0.000551,5; 
+miserableness: 
+miserably: 
+miseries: 
+miserly: 
+misery: 0.000009,7; 0.002140,4; 0.001276,2; 0.006472,2; 0.002265,5; 
+misfit: 
+misfortune: 0.008378,3; 
+misgiving: 
+misgivings: 
+misguidance: 
+misguide: 
+misguided: 0.017163,1; 0.001212,2; 
+mishandle: 0.001300,6; 
+mishap: 
+misinform: 
+misinformed: 
+misinterpret: 
+misjudge: 
+misjudgment: 
+mislead: 
+misleading: 0.001845,6; 
+misleadingly: 
+mislike: 
+mismanage: 
+mispronounce: 
+mispronounced: 
+mispronounces: 
+misread: 
+misreading: 
+misrepresent: 
+misrepresentation: 
+miss: 0.014750,4; 0.000470,21; 0.000108,18; 0.001907,8; 0.000016,5; 0.005066,3; 
+missed: 0.021427,2; 0.004696,4; 0.003351,10; 0.007911,3; 0.000441,5; 0.015493,1; 0.007205,2; 
+misses: 0.006802,3; 0.019448,2; 0.001413,6; 
+misstatement: 
+mist: 0.000950,18; 
+mistake: 0.032663,1; 0.000561,8; 0.000091,11; 0.000347,4; 0.002029,4; 0.002646,8; 0.000396,2; 
+mistaken: 0.000041,21; 
+mistakenly: 
+mistakes: 
+mistified: 
+mistress: 0.000467,29; 
+mistrust: 
+mistrustful: 
+mistrustfully: 
+mists: 
+misunderstand: 
+misunderstanding: 0.002720,13; 
+misunderstandings: 
+misunderstood: 
+misuse: 0.004823,10; 
+moan: 0.001306,21; 
+mobster: 
+mock: 0.003166,13; 
+mocked: 
+mockeries: 
+mockery: 
+mocking: 
+mockingly: 
+mocks: 
+molest: 
+molestation: 0.000970,18; 
+monotonous: 0.001366,13; 0.000273,11; 0.001699,9; 
+monotony: 0.021511,1; 
+monster: 0.006497,4; 0.001287,8; 0.000620,12; 0.003847,7; 0.013744,1; 0.001142,7; 0.000566,11; 0.000677,12; 0.000052,27; 0.000052,28; 
+monstrosities: 
+monstrosity: 
+monstrous: 0.000026,17; 
+monstrously: 
+moody: 0.000043,28; 
+moot: 
+mope: 
+morbid: 0.000033,21; 0.002802,3; 
+morbidly: 
+mordant: 
+mordantly: 
+moribund: 
+moron: 0.013020,1; 
+moronic: 0.000157,10; 0.001008,8; 0.002256,3; 
+morons: 
+mortification: 
+mortified: 
+mortify: 
+mortifying: 
+motionless: 0.000524,11; 
+motley: 
+mourn: 
+mourner: 
+mournful: 
+mournfully: 
+muddle: 0.003823,14; 0.002984,7; 
+muddy: 0.000176,6; 0.000909,4; 
+mudslinger: 
+mudslinging: 
+mulish: 
+multi-polarization: 
+mundane: 0.001241,6; 0.031612,2; 
+murder: 0.000000,9; 0.000266,14; 0.000001,25; 0.000040,17; 0.000092,28; 0.000030,22; 
+murderer: 0.001216,8; 
+murderous: 
+murderously: 
+murky: 0.000001,32; 0.000077,18; 0.000024,18; 0.000227,11; 
+muscle-flexing: 
+mushy: 0.010131,4; 0.000041,21; 
+musty: 0.000336,11; 
+mysterious: 0.000115,26; 
+mysteriously: 
+mystery: 0.000350,27; 0.000132,14; 0.000011,23; 0.000708,35; 0.000017,23; 0.000537,32; 0.000480,10; 0.000002,21; 0.000720,13; 0.000263,19; 0.000459,28; 0.000004,15; 0.002117,5; 0.000299,3; 
+mystify: 
+myth: 0.000069,11; 
+nag: 
+nagging: 0.000131,14; 
+naive: 0.000094,23; 0.000539,3; 
+naively: 
+narrower: 
+nastily: 
+nastiness: 
+nasty: 0.000957,14; 0.000039,23; 0.000085,17; 0.000904,17; 
+naughty: 0.004932,8; 
+nauseate: 
+nauseates: 
+nauseating: 0.003131,5; 
+nauseatingly: 
+naïve: 
+nebulous: 
+nebulously: 
+needless: 
+needlessly: 0.000405,9; 0.000055,11; 0.009778,1; 
+needy: 
+nefarious: 
+nefariously: 
+negate: 
+negation: 
+negative: 0.000199,23; 
+negatives: 0.000789,15; 
+negativity: 
+neglect: 
+neglected: 
+negligence: 
+negligent: 
+nemesis: 0.000010,11; 0.000586,13; 
+nepotism: 
+nervous: 
+nervously: 
+nervousness: 
+nettle: 
+nettlesome: 
+neurotic: 
+neurotically: 
+niggle: 
+niggles: 
+nightmare: 0.000622,12; 0.000003,15; 0.001814,4; 0.007306,4; 
+nightmarish: 
+nightmarishly: 
+nitpick: 
+nitpicking: 
+noise: 0.000010,17; 0.001444,8; 
+noises: 
+noisier: 
+noisy: 0.000024,5; 
+non-confidence: 
+nonexistent: 0.000061,4; 0.000051,19; 
+nonresponsive: 
+nonsense: 0.007455,1; 0.000295,7; 0.005272,3; 0.001657,14; 0.008831,3; 
+nosey: 
+notoriety: 
+notorious: 0.000805,17; 0.002246,17; 
+notoriously: 
+noxious: 
+nuisance: 
+numb: 0.002071,8; 
+obese: 
+object: 0.005351,5; 
+objection: 
+objectionable: 
+objections: 
+oblique: 
+obliterate: 
+obliterated: 
+oblivious: 0.036998,1; 
+obnoxious: 0.002348,5; 0.000420,13; 0.004792,5; 0.000563,12; 0.000492,4; 0.000028,9; 0.000164,22; 0.000019,15; 
+obnoxiously: 0.000483,11; 
+obscene: 
+obscenely: 0.001414,7; 
+obscenity: 0.008751,4; 
+obscure: 0.000072,9; 0.001007,3; 0.007229,1; 0.002651,6; 
+obscured: 0.004434,3; 
+obscures: 
+obscurity: 
+obsess: 
+obsessive: 0.000131,22; 
+obsessively: 0.000916,16; 
+obsessiveness: 
+obsolete: 
+obstacle: 
+obstinate: 
+obstinately: 
+obstruct: 
+obstructed: 
+obstructing: 
+obstruction: 
+obstructs: 
+obtrusive: 
+obtuse: 
+occlude: 
+occluded: 
+occludes: 
+occluding: 
+odd: 0.000269,24; 0.000110,9; 0.000037,27; 0.000031,15; 0.000241,12; 0.000013,17; 0.000677,16; 0.000223,4; 
+odder: 
+oddest: 
+oddities: 
+oddity: 
+oddly: 0.001939,10; 
+odor: 0.000031,15; 
+offence: 
+offend: 0.068271,1; 0.012801,3; 
+offender: 
+offending: 
+offenses: 
+offensive: 0.004607,2; 0.002030,9; 0.004300,5; 0.009257,2; 0.000435,2; 0.000040,20; 0.000006,10; 0.001042,19; 0.000075,19; 0.000047,13; 0.000033,14; 
+offensively: 
+offensiveness: 
+officious: 
+ominous: 
+ominously: 
+omission: 0.005212,5; 
+omit: 
+one-sided: 0.003901,12; 0.004402,3; 
+onerous: 
+onerously: 
+onslaught: 
+opinionated: 
+opponent: 
+opportunistic: 
+oppose: 
+opposition: 
+oppositions: 0.000587,13; 
+oppress: 
+oppression: 
+oppressive: 
+oppressively: 0.009564,3; 
+oppressiveness: 
+oppressors: 
+ordeal: 0.000542,10; 0.000388,13; 
+orphan: 
+ostracize: 
+outbreak: 
+outburst: 
+outbursts: 0.000012,16; 0.000082,27; 
+outcast: 
+outcry: 
+outlaw: 
+outmoded: 
+outrage: 0.000019,12; 0.000845,15; 
+outraged: 
+outrageous: 0.000267,23; 0.004075,23; 
+outrageously: 0.005572,10; 
+outrageousness: 
+outrages: 
+outsider: 
+over-acted: 
+over-awe: 
+over-balanced: 
+over-hyped: 
+over-priced: 
+over-valuation: 
+overact: 
+overacted: 0.004374,5; 
+overawe: 
+overbalance: 
+overbalanced: 
+overbearing: 0.006250,1; 
+overbearingly: 
+overblown: 0.001024,8; 
+overdo: 
+overdone: 0.000290,10; 
+overdue: 
+overemphasize: 
+overheat: 
+overkill: 0.001145,9; 
+overloaded: 
+overlook: 
+overpaid: 
+overpayed: 
+overplay: 
+overpower: 
+overpriced: 
+overrated: 
+overreach: 
+overrun: 
+overshadow: 
+oversight: 
+oversights: 
+oversimplification: 0.000001,10; 
+oversimplified: 
+oversimplify: 
+oversize: 
+overstate: 
+overstated: 0.000698,7; 
+overstatement: 
+overstatements: 
+overstates: 
+overtaxed: 
+overthrow: 
+overthrows: 
+overturn: 
+overweight: 0.001628,10; 
+overwhelm: 0.000013,32; 
+overwhelmed: 0.001027,10; 
+overwhelming: 0.001017,13; 
+overwhelmingly: 
+overwhelms: 
+overzealous: 
+overzealously: 
+overzelous: 
+pain: 0.000389,15; 0.001918,11; 0.009602,2; 
+painful: 0.000030,21; 0.001199,19; 0.000277,23; 0.000002,17; 0.001827,9; 0.035066,1; 0.000008,18; 0.006279,2; 
+painfull: 
+painfully: 0.000049,11; 0.000011,10; 0.000002,14; 0.000843,4; 0.000282,19; 0.000003,23; 0.000162,11; 0.000166,21; 0.000006,15; 0.000198,14; 0.002612,14; 0.000077,17; 0.002216,2; 
+pains: 0.000022,26; 
+pale: 0.000421,10; 0.000223,7; 0.003471,3; 0.000878,3; 
+pales: 
+paltry: 
+pan: 
+pandemonium: 0.000230,9; 
+pander: 
+pandering: 
+panders: 
+panic: 0.003104,12; 
+panick: 
+panicked: 
+panicking: 
+panicky: 
+paradoxical: 
+paradoxically: 
+paralize: 
+paralyzed: 0.000046,11; 
+paranoia: 0.000102,22; 
+paranoid: 0.000071,16; 
+parasite: 
+pariah: 
+parody: 0.000093,19; 0.000111,14; 0.002283,12; 0.000067,3; 
+partiality: 
+partisan: 
+partisans: 
+passe: 0.000109,14; 
+passive: 
+passiveness: 
+pathetic: 0.000204,11; 0.000001,26; 0.000605,9; 0.000005,5; 0.004268,2; 0.004268,2; 0.000013,22; 0.000039,1; 
+pathetically: 0.000002,6; 0.000663,12; 
+patronize: 
+paucity: 
+pauper: 
+paupers: 
+payback: 
+peculiar: 0.000008,32; 0.000014,9; 0.000753,13; 0.000070,16; 
+peculiarly: 0.000096,30; 
+pedantic: 
+peeled: 
+peeve: 
+peeved: 
+peevish: 0.000034,5; 
+peevishly: 
+penalize: 
+penalty: 
+perfidious: 
+perfidity: 
+perfunctory: 0.010354,3; 0.000075,16; 
+peril: 
+perilous: 
+perilously: 
+perish: 
+pernicious: 
+perplex: 
+perplexed: 
+perplexing: 
+perplexity: 
+persecute: 
+persecution: 
+pertinacious: 
+pertinaciously: 
+pertinacity: 
+perturb: 
+perturbed: 
+pervasive: 0.000547,17; 0.000022,15; 
+perverse: 0.000015,26; 0.000374,16; 0.000402,15; 0.001668,19; 
+perversely: 
+perversion: 
+perversity: 
+pervert: 
+perverted: 
+perverts: 
+pessimism: 0.000035,28; 
+pessimistic: 
+pessimistically: 
+pest: 
+pestilent: 
+petrified: 
+petrify: 
+pettifog: 
+petty: 0.000061,11; 
+phobia: 
+phobic: 
+phony: 0.013599,1; 0.000735,8; 
+picket: 
+picketed: 
+picketing: 
+pickets: 
+picky: 
+pig: 0.000032,10; 
+pigs: 
+pillage: 
+pillory: 
+pimple: 
+pinch: 
+pique: 0.000501,31; 
+pitiable: 
+pitiful: 0.000002,5; 0.000506,4; 
+pitifully: 0.000004,4; 0.000246,7; 
+pitiless: 
+pitilessly: 
+pittance: 
+pity: 0.001898,14; 0.002142,8; 0.000048,9; 0.000455,14; 0.001882,9; 0.003302,4; 0.003302,2; 
+plagiarize: 
+plague: 
+plasticky: 
+plaything: 
+plea: 
+pleas: 
+plebeian: 
+plight: 0.000318,27; 0.001062,24; 
+plot: 0.000886,5; 0.000888,12; 0.000136,38; 0.002483,8; 0.000645,12; 0.000661,10; 0.000396,11; 0.000016,35; 0.000887,14; 0.013429,9; 0.013429,5; 0.001139,8; 0.001139,7; 0.000428,12; 0.001422,11; 0.000071,22; 0.001054,18; 0.000534,14; 0.003073,5; 0.000822,11; 0.006789,4; 0.000103,11; 0.003605,12; 0.001333,12; 0.000232,15; 0.001358,10; 0.001358,6; 0.000062,16; 0.000410,9; 0.000410,4; 0.000377,11; 0.003266,14; 0.001202,11; 0.001202,8; 0.001471,9; 0.001471,15; 0.007392,2; 0.015899,8; 0.001485,8; 0.000595,28; 0.000759,10; 0.000897,12; 0.000089,10; 0.001861,11; 0.001861,11; 0.000037,20; 0.000032,17; 0.000274,15; 0.000353,21; 0.002848,10; 0.002558,4; 0.000491,17; 0.000008,12; 0.000023,5; 0.000031,16; 0.001122,9; 0.000011,15; 0.000729,19; 0.000228,15; 0.000783,9; 0.000532,12; 0.004692,4; 0.000366,17; 0.000366,15; 0.000612,16; 0.005673,7; 0.000687,8; 0.000680,6; 0.004875,11; 0.000381,13; 0.000547,7; 0.000277,7; 0.000097,14; 0.000809,8; 0.005262,10; 0.000294,14; 0.004713,1; 0.000452,12; 0.001262,8; 
+plotters: 
+ploy: 
+plunder: 
+plunderer: 
+pointless: 0.000027,5; 0.000369,8; 0.000002,7; 0.000002,5; 0.002141,6; 0.000457,3; 0.001205,7; 0.000340,10; 0.000004,5; 0.000035,3; 0.001329,4; 0.001993,5; 0.000830,15; 0.000151,2; 
+pointlessly: 
+poison: 
+poisonous: 
+poisonously: 
+pokey: 
+poky: 0.000143,8; 
+polarisation: 
+polemize: 
+pollute: 0.001546,7; 
+polluter: 
+polluters: 
+polution: 
+pompous: 0.030591,1; 0.000001,4; 
+poor: 0.000841,11; 0.000482,8; 0.004127,2; 0.000181,6; 0.006665,6; 0.000546,13; 0.000219,12; 0.000206,6; 0.020739,1; 0.001540,3; 0.002702,4; 0.000755,6; 
+poorer: 
+poorest: 
+poorly: 0.000013,17; 0.001376,5; 0.000390,9; 0.000514,12; 0.000700,7; 0.000934,3; 0.000426,9; 0.000903,7; 0.003488,7; 0.001027,4; 0.001027,1; 0.007711,1; 0.003388,3; 
+posturing: 0.008401,6; 
+pout: 
+poverty: 0.000250,30; 
+powerless: 
+prate: 
+pratfall: 
+prattle: 
+precarious: 0.000044,22; 
+precariously: 
+precipitate: 
+precipitous: 
+predatory: 
+predicament: 0.000010,39; 
+prejudge: 
+prejudice: 
+prejudices: 
+prejudicial: 
+premeditated: 
+preoccupy: 
+preposterous: 0.013504,1; 0.002442,3; 0.001669,4; 0.002422,4; 0.001063,8; 
+preposterously: 
+presumptuous: 
+presumptuously: 
+pretence: 
+pretend: 0.003075,3; 0.014035,5; 0.001767,8; 
+pretense: 
+pretentious: 0.001352,7; 0.001352,7; 0.001110,7; 0.000494,9; 0.010765,1; 0.001069,5; 0.071731,1; 0.000030,4; 0.000001,6; 0.001033,5; 0.000213,23; 0.000121,6; 0.007638,1; 0.000545,10; 0.000024,20; 0.000078,7; 0.000196,13; 0.008372,2; 0.000390,7; 0.000004,5; 0.000023,3; 0.000028,3; 0.000028,5; 
+pretentiously: 
+prevaricate: 
+pricey: 
+pricier: 
+prick: 
+prickle: 
+prickles: 
+prideful: 
+prik: 
+primitive: 0.000665,13; 0.000094,14; 
+prison: 0.000365,6; 0.001791,4; 0.000123,16; 0.000712,8; 
+prisoner: 
+problem: 0.006230,6; 0.013829,1; 0.000264,3; 0.000585,7; 0.100793,1; 0.001041,8; 0.000174,10; 0.000602,7; 0.001717,7; 0.001244,5; 0.001237,13; 0.000258,12; 0.001591,3; 0.000869,12; 0.008169,1; 0.001188,3; 0.015411,5; 0.010837,3; 0.077650,1; 0.000287,10; 0.003191,3; 0.000791,8; 0.014374,1; 0.004002,5; 0.002321,6; 0.015898,1; 
+problematic: 0.002360,19; 0.000442,13; 
+problems: 0.016725,1; 0.002992,13; 0.004597,5; 0.000087,13; 0.014279,3; 0.001838,7; 
+procrastinate: 
+procrastinates: 
+procrastination: 
+profane: 0.002576,11; 
+profanity: 0.029454,2; 0.001097,6; 
+prohibit: 
+prohibitive: 
+prohibitively: 
+propaganda: 0.001637,16; 0.002783,5; 
+propagandize: 
+proprietary: 
+prosecute: 
+protest: 
+protested: 
+protesting: 
+protests: 
+protracted: 
+provocation: 
+provocative: 0.036631,1; 0.003480,8; 0.002376,5; 0.003598,12; 
+provoke: 0.000890,16; 
+pry: 
+pugnacious: 
+pugnaciously: 
+pugnacity: 
+punch: 0.001550,4; 0.000276,14; 
+punish: 
+punishable: 0.001914,5; 
+punitive: 0.000156,6; 
+punk: 0.000036,22; 
+puny: 
+puppet: 
+puppets: 0.003240,7; 
+puzzled: 0.001892,7; 
+puzzlement: 
+puzzling: 0.000525,16; 0.005102,5; 0.000067,16; 
+quack: 
+qualm: 
+qualms: 
+quandary: 
+quarrel: 
+quarrellous: 
+quarrellously: 
+quarrels: 
+quarrelsome: 
+quash: 
+queer: 
+questionable: 0.012465,2; 0.000394,13; 
+quibble: 
+quibbles: 
+quitter: 
+rabid: 
+racism: 
+racist: 0.000178,16; 0.000783,14; 
+racists: 
+racy: 
+radical: 0.000027,12; 0.000548,28; 0.000160,27; 0.000635,15; 
+radicalization: 
+radically: 
+radicals: 
+rage: 
+ragged: 0.000143,14; 
+raging: 
+rail: 0.015538,1; 
+raked: 
+rampage: 
+rampant: 0.000684,13; 
+ramshackle: 
+rancor: 
+randomly: 
+rankle: 
+rant: 0.004256,4; 
+ranted: 
+ranting: 
+rantingly: 
+rants: 
+rape: 0.000133,23; 
+raped: 
+raping: 
+rascal: 
+rascals: 
+rash: 0.002024,5; 
+rattle: 
+rattled: 
+rattles: 
+ravage: 
+raving: 0.000685,15; 
+reactionary: 0.000442,15; 0.000444,7; 
+rebellious: 
+rebuff: 
+rebuke: 
+recalcitrant: 
+recant: 
+recession: 
+recessionary: 
+reckless: 0.000101,26; 
+recklessly: 
+recklessness: 0.002033,9; 
+recoil: 
+recourses: 
+redundancy: 0.000065,16; 
+redundant: 0.000181,10; 0.000010,8; 0.000122,12; 0.000070,10; 0.000009,10; 
+refusal: 0.012853,7; 
+refuse: 0.001862,6; 
+refused: 0.001239,11; 
+refuses: 0.009957,7; 0.001356,10; 
+refusing: 
+refutation: 
+refute: 
+refuted: 
+refutes: 
+refuting: 
+regress: 
+regression: 
+regressive: 
+regret: 0.000167,25; 0.000167,26; 
+regreted: 
+regretful: 
+regretfully: 
+regrets: 0.012214,3; 
+regrettable: 
+regrettably: 
+regretted: 
+reject: 
+rejected: 0.000003,23; 0.000429,9; 0.000767,9; 
+rejecting: 
+rejection: 
+rejects: 
+relapse: 
+relentless: 0.000070,33; 0.002114,29; 0.000383,10; 
+relentlessly: 0.000109,26; 0.000785,11; 0.000510,14; 0.000435,6; 0.000222,15; 0.001217,14; 
+relentlessness: 
+reluctance: 
+reluctant: 0.000270,31; 
+reluctantly: 
+remorse: 
+remorseful: 
+remorsefully: 
+remorseless: 
+remorselessly: 
+remorselessness: 
+renounce: 
+renunciation: 
+repel: 
+repetitive: 0.007065,3; 0.014289,1; 0.000267,20; 0.007571,2; 0.000772,8; 0.023460,1; 0.012996,3; 0.015731,1; 
+reprehensible: 0.005021,5; 
+reprehensibly: 
+reprehension: 
+reprehensive: 
+repress: 
+repression: 
+repressive: 
+reprimand: 
+reproach: 
+reproachful: 
+reprove: 
+reprovingly: 
+repudiate: 
+repudiation: 
+repugn: 
+repugnance: 
+repugnant: 0.003137,3; 
+repugnantly: 
+repulse: 0.000335,23; 
+repulsed: 
+repulsing: 
+repulsive: 0.000136,9; 0.001096,8; 
+repulsively: 
+repulsiveness: 
+resent: 
+resentful: 
+resentment: 
+resignation: 
+resigned: 
+resistance: 
+restless: 0.024459,1; 
+restlessness: 
+restrict: 
+restricted: 
+restriction: 
+restrictive: 
+resurgent: 
+retaliate: 
+retaliatory: 
+retard: 0.000599,2; 
+retarded: 
+retardedness: 
+retards: 
+reticent: 
+retract: 
+retreat: 0.000064,14; 
+retreated: 
+revenge: 0.000005,28; 0.002702,10; 
+revengeful: 
+revengefully: 
+revert: 
+revile: 
+reviled: 
+revoke: 
+revolt: 
+revolting: 0.000118,5; 
+revoltingly: 
+revulsion: 0.009100,16; 
+revulsive: 
+rhapsodize: 0.002237,13; 
+rhetoric: 0.001336,7; 0.000002,17; 
+rhetorical: 
+ricer: 
+ridicule: 0.012032,4; 0.003922,1; 
+ridicules: 
+ridiculous: 0.000994,10; 0.005409,2; 0.076248,1; 0.000884,14; 0.000663,5; 0.006573,1; 0.001262,7; 
+ridiculously: 
+rife: 0.000102,10; 0.000104,8; 
+rift: 
+rifts: 
+rigid: 
+rigidity: 
+rigidness: 
+rile: 
+riled: 
+rip: 0.000347,15; 
+rip-off: 0.000144,16; 0.003076,5; 0.004816,1; 0.000371,9; 0.000961,10; 0.003502,6; 0.000391,12; 0.000089,9; 
+ripoff: 0.000184,13; 
+ripped: 
+risk: 
+risks: 0.000923,11; 
+risky: 
+rival: 
+rivalry: 0.003280,13; 
+roadblocks: 
+rocky: 0.003435,15; 0.000008,17; 0.001525,5; 
+rogue: 0.000015,38; 
+rollercoaster: 
+rot: 
+rotten: 0.001636,7; 0.002107,4; 
+rough: 
+rremediable: 
+rubbish: 0.000001,11; 
+rude: 0.006235,2; 0.080074,1; 0.000717,12; 
+rue: 
+ruffian: 
+ruffle: 0.000091,26; 
+ruin: 0.000356,16; 
+ruined: 0.001261,5; 0.000204,11; 0.000193,10; 
+ruining: 
+ruinous: 
+ruins: 0.000920,18; 
+rumbling: 
+rumor: 0.000104,9; 0.003040,5; 0.000002,14; 
+rumors: 
+rumours: 
+rumple: 
+run-down: 
+runaway: 
+rupture: 
+rust: 
+rusts: 
+rusty: 
+rut: 0.002021,5; 0.002195,8; 
+ruthless: 
+ruthlessly: 0.000258,13; 
+ruthlessness: 
+ruts: 
+sabotage: 
+sack: 0.000057,13; 
+sacrificed: 0.000877,4; 
+sad: 0.000156,24; 0.000004,34; 0.000038,35; 0.000041,27; 0.000334,27; 0.000131,20; 0.000083,5; 0.000060,28; 0.000000,26; 0.001660,12; 0.000055,19; 0.000088,28; 
+sadden: 
+sadly: 0.002472,6; 0.001157,7; 0.000325,9; 0.000297,5; 0.023611,1; 0.010897,1; 0.010262,2; 0.000530,5; 
+sadness: 
+sag: 0.001263,9; 
+sagged: 
+sagging: 
+saggy: 
+sags: 
+salacious: 0.000009,16; 
+sanctimonious: 0.007868,5; 
+sap: 0.000006,5; 0.000111,14; 
+sarcasm: 
+sarcastic: 
+sarcastically: 
+sardonic: 
+sardonically: 
+sass: 
+satirical: 0.001192,7; 0.000033,10; 
+satirize: 
+savage: 0.000933,10; 
+savaged: 
+savagery: 
+savages: 
+scaly: 
+scam: 0.001590,8; 
+scams: 
+scandal: 
+scandalize: 
+scandalized: 
+scandalous: 0.000006,22; 
+scandalously: 
+scandals: 0.006148,3; 
+scandel: 
+scandels: 
+scant: 0.005187,4; 
+scapegoat: 
+scar: 0.000156,15; 
+scarce: 
+scarcely: 0.012099,4; 0.001276,8; 0.004147,3; 
+scarcity: 
+scare: 0.002951,1; 
+scared: 
+scarier: 0.000469,8; 0.003992,7; 
+scariest: 
+scarily: 
+scarred: 
+scars: 
+scary: 0.000563,12; 0.006310,4; 0.006310,12; 0.000063,21; 0.000063,22; 0.000223,13; 0.002587,10; 0.000071,19; 0.000003,21; 0.000047,26; 0.000014,18; 0.000014,30; 0.000603,5; 
+scathing: 
+scathingly: 
+sceptical: 
+scoff: 
+scoffingly: 
+scold: 
+scolded: 
+scolding: 
+scoldingly: 
+scorching: 
+scorchingly: 
+scorn: 0.001107,15; 
+scornful: 
+scornfully: 
+scoundrel: 
+scourge: 
+scowl: 
+scramble: 
+scrambled: 
+scrambles: 
+scrambling: 
+scrap: 
+scratch: 0.002198,7; 
+scratched: 
+scratches: 
+scratchy: 
+scream: 0.000132,16; 0.000034,26; 0.000046,28; 0.000044,21; 
+screech: 
+screw-up: 
+screwed: 
+screwed-up: 
+screwy: 0.002626,7; 
+scuff: 
+scuffs: 
+scum: 0.000110,5; 
+scummy: 0.000296,9; 
+second-class: 
+second-tier: 
+secretive: 
+sedentary: 
+seedy: 
+seethe: 
+seething: 
+self-coup: 
+self-criticism: 
+self-defeating: 
+self-destructive: 
+self-humiliation: 
+self-interest: 
+self-interested: 
+self-serving: 
+selfinterested: 
+selfish: 
+selfishly: 
+selfishness: 
+semi-retarded: 
+senile: 
+sensationalize: 0.004011,5; 
+senseless: 0.000541,11; 
+senselessly: 
+seriousness: 
+sermonize: 0.003407,7; 
+servitude: 0.001622,8; 
+set-up: 0.000059,14; 
+setback: 
+setbacks: 
+sever: 0.000278,12; 0.000287,22; 0.001533,16; 0.000003,33; 
+severe: 0.000000,13; 0.000000,25; 0.014667,1; 
+severity: 
+sh*t: 
+shabby: 0.000371,20; 0.000055,8; 
+shadowy: 0.000033,24; 
+shady: 
+shake: 0.000009,22; 0.008074,5; 0.000064,18; 0.000034,30; 
+shaky: 
+shallow: 0.000386,5; 0.010178,3; 0.000333,10; 0.000099,12; 0.001203,4; 0.000018,6; 0.001456,5; 0.005519,4; 0.002712,2; 0.001119,18; 0.002423,11; 0.000101,9; 0.000239,9; 0.001214,2; 
+sham: 0.003551,7; 0.000093,10; 
+shambles: 0.000504,14; 
+shame: 0.004511,8; 0.017079,4; 0.000015,20; 0.001406,9; 0.009885,1; 0.000024,43; 0.000075,13; 0.001075,11; 0.000303,23; 
+shameful: 0.011696,1; 
+shamefully: 0.000253,16; 
+shamefulness: 
+shameless: 
+shamelessly: 0.000131,21; 0.001435,6; 0.000001,12; 0.000405,10; 
+shamelessness: 
+shark: 
+sharply: 
+shatter: 
+shemale: 
+shimmer: 
+shimmy: 
+shipwreck: 
+shirk: 
+shirker: 
+shit: 
+shiver: 
+shock: 0.000169,20; 0.000348,24; 0.001126,21; 
+shocked: 
+shocking: 0.003309,10; 0.002392,6; 
+shockingly: 0.000109,8; 0.000006,11; 0.001166,14; 
+shoddy: 0.002022,6; 0.002532,8; 0.000158,8; 
+short-lived: 
+shortage: 
+shortchange: 
+shortcoming: 
+shortcomings: 
+shortness: 
+shortsighted: 
+shortsightedness: 
+showdown: 0.001992,17; 
+shrew: 
+shriek: 0.001081,10; 
+shrill: 0.003674,2; 0.002124,6; 0.000432,12; 
+shrilly: 
+shrivel: 
+shroud: 
+shrouded: 
+shrug: 0.013926,6; 
+shun: 
+shunned: 
+sick: 0.000005,13; 0.001911,10; 0.001594,13; 0.007219,5; 0.006893,5; 
+sicken: 
+sickening: 0.000159,11; 0.000580,6; 
+sickeningly: 
+sickly: 0.004096,6; 
+sickness: 
+sidetrack: 
+sidetracked: 
+siege: 0.000525,7; 0.000004,18; 
+sillily: 
+silly: 0.000243,5; 0.000256,7; 0.027775,8; 0.000652,17; 0.002532,5; 0.000060,17; 0.000004,42; 0.000042,12; 0.000120,17; 0.001429,7; 0.000111,10; 0.000006,18; 0.001318,16; 0.000371,33; 0.000382,14; 0.000022,19; 0.000285,15; 0.000170,17; 0.000003,26; 0.000231,22; 0.000318,13; 0.000318,14; 0.000000,8; 0.003330,10; 0.001035,2; 
+simplistic: 0.000720,15; 0.000055,6; 0.000073,15; 0.000840,10; 0.001697,8; 0.001835,12; 0.000013,8; 
+simplistically: 
+sin: 0.000149,5; 0.000008,22; 0.000106,17; 
+sinful: 
+sinfully: 
+sinister: 0.000212,16; 
+sinisterly: 
+sink: 0.000920,19; 0.012160,4; 0.021870,1; 0.000028,19; 0.000336,7; 0.000241,6; 
+sinking: 
+skeletons: 
+skeptic: 
+skeptical: 
+skeptically: 
+skepticism: 
+sketchy: 0.005261,4; 0.000345,9; 0.000045,13; 0.001585,9; 
+skimpy: 0.004261,3; 
+skinny: 
+skittish: 
+skittishly: 
+skulk: 
+slack: 0.002157,4; 0.000117,8; 0.000053,17; 0.002473,9; 0.001719,3; 
+slander: 
+slanderer: 
+slanderous: 
+slanderously: 
+slanders: 
+slap: 0.006980,2; 0.020160,2; 0.000021,15; 0.000021,16; 0.006128,4; 0.050324,1; 
+slashing: 
+slaughter: 
+slaughtered: 
+slave: 
+slaves: 
+sleazy: 0.034643,5; 
+slime: 
+slog: 0.000063,5; 0.003568,4; 
+slogged: 
+slogging: 
+slogs: 
+sloooooooooooooow: 
+sloooow: 
+slooow: 
+sloow: 
+sloppily: 0.008105,5; 0.004965,4; 
+sloppy: 0.000212,13; 0.000146,21; 0.000869,5; 0.003976,5; 0.002774,3; 0.001187,11; 0.012892,1; 0.000883,5; 0.000006,11; 
+sloth: 
+slothful: 
+slow: 0.029804,1; 0.005894,2; 0.005894,3; 0.000023,12; 0.000011,21; 0.000034,15; 0.000017,9; 0.000013,15; 0.000796,10; 0.000265,7; 0.001074,8; 0.006057,5; 0.005167,2; 0.001288,15; 
+slow-moving: 0.001811,6; 
+slowed: 
+slower: 
+slowest: 
+slowly: 0.000547,9; 0.001634,7; 
+sloww: 
+slowww: 
+slowwww: 
+slug: 
+sluggish: 0.000379,7; 0.000050,5; 0.003116,11; 0.005176,8; 0.008376,2; 0.000631,2; 
+slump: 0.004780,3; 
+slumping: 
+slumpping: 
+slur: 
+slut: 
+sluts: 
+sly: 
+smack: 0.000409,16; 0.000221,28; 
+smallish: 
+smash: 0.000466,16; 0.000346,25; 
+smear: 0.002830,5; 
+smell: 0.003302,6; 
+smelled: 
+smelling: 
+smells: 
+smelly: 
+smelt: 
+smoke: 
+smokescreen: 
+smolder: 
+smoldering: 
+smother: 
+smoulder: 
+smouldering: 
+smudge: 
+smudged: 
+smudges: 
+smudging: 
+smug: 0.008868,5; 0.000084,22; 0.000047,24; 0.000002,6; 0.000098,16; 0.000649,14; 
+smugly: 0.000071,33; 0.002755,18; 
+smut: 
+smuttier: 
+smuttiest: 
+smutty: 0.013306,6; 
+snag: 
+snagged: 0.003746,3; 
+snagging: 
+snags: 
+snappish: 
+snappishly: 
+snare: 
+snarky: 
+snarl: 
+sneak: 0.000069,19; 
+sneakily: 
+sneaky: 0.000133,26; 
+sneer: 
+sneering: 
+sneeringly: 
+snob: 
+snobbish: 
+snobby: 
+snobish: 
+snobs: 
+snub: 
+so-cal: 
+soapy: 0.002306,4; 
+sob: 
+sober: 0.001149,27; 0.000106,18; 
+sobering: 
+solemn: 0.010641,5; 0.001374,10; 0.000118,38; 
+solicitude: 
+somber: 0.000021,17; 0.001022,15; 0.000225,21; 
+sore: 
+sorely: 0.000120,5; 
+soreness: 
+sorrow: 
+sorrowful: 
+sorrowfully: 
+sorry: 0.014620,1; 0.003730,3; 0.000078,11; 0.006084,4; 
+sour: 0.002489,14; 0.000327,4; 0.001745,6; 0.000110,13; 0.001441,3; 0.001828,7; 0.001731,5; 
+sourly: 
+spade: 0.001304,3; 
+spank: 
+spendy: 
+spew: 
+spewed: 
+spewing: 
+spews: 
+spilling: 
+spinster: 
+spiritless: 0.000212,12; 
+spite: 0.000331,13; 
+spiteful: 0.000068,18; 
+spitefully: 
+spitefulness: 
+splatter: 
+split: 0.000645,23; 
+splitting: 0.000235,18; 0.000235,19; 
+spoil: 
+spoilage: 
+spoilages: 
+spoiled: 
+spoilled: 
+spoils: 
+spook: 
+spookier: 
+spookiest: 
+spookily: 0.000839,13; 
+spooky: 0.002214,6; 0.010370,2; 
+spoon-fed: 
+spoon-feed: 
+spoonfed: 
+sporadic: 
+spotty: 0.003064,4; 
+spurious: 
+spurn: 
+sputter: 
+squabble: 
+squabbling: 0.006312,3; 
+squander: 0.000954,10; 
+squash: 
+squeak: 
+squeaks: 
+squeaky: 
+squeal: 
+squealing: 
+squeals: 
+squirm: 
+stab: 0.000009,26; 
+stagnant: 
+stagnate: 
+stagnation: 
+staid: 
+stain: 
+stains: 0.000007,26; 
+stale: 0.004152,1; 0.003720,2; 0.002851,4; 0.000349,7; 0.000745,7; 0.004231,2; 0.000511,18; 0.000005,14; 0.000049,5; 0.000004,7; 0.000002,5; 0.000045,3; 
+stalemate: 
+stall: 
+stalls: 0.000019,19; 
+stammer: 
+stampede: 
+standstill: 
+stark: 
+starkly: 
+startle: 
+startling: 
+startlingly: 
+starvation: 
+starve: 
+static: 0.003842,6; 0.000005,18; 0.000288,12; 
+steal: 
+stealing: 0.003498,8; 0.000072,26; 0.000347,14; 0.000041,15; 0.000023,15; 0.000117,23; 0.001374,2; 
+steals: 
+steep: 
+steeply: 
+stench: 0.000757,9; 
+stereotype: 0.001239,5; 0.000001,9; 
+stereotypical: 0.012862,5; 0.000046,13; 
+stereotypically: 
+stern: 0.002712,6; 
+stew: 
+sticky: 0.027917,2; 0.010037,2; 
+stiff: 0.015689,1; 0.000088,10; 0.000800,5; 0.000008,16; 0.001803,5; 
+stiffness: 
+stifle: 
+stifling: 0.000897,5; 0.000967,4; 
+stiflingly: 0.000004,9; 
+stigma: 
+stigmatize: 
+sting: 0.000073,28; 0.000231,19; 
+stinging: 
+stingingly: 
+stingy: 
+stink: 0.000399,4; 
+stinks: 0.000440,7; 0.000796,4; 0.000038,8; 
+stodgy: 0.000244,13; 
+stole: 
+stolen: 
+stooge: 
+stooges: 
+stormy: 
+straggle: 
+straggler: 
+strain: 0.000080,24; 0.002824,10; 0.000898,13; 0.000150,21; 
+strained: 0.010093,3; 0.003032,10; 0.000107,4; 
+straining: 0.007643,3; 0.005607,4; 
+strange: 0.011310,6; 0.000948,18; 
+strangely: 0.000021,21; 0.001778,6; 0.001276,4; 
+stranger: 
+strangest: 
+strangle: 
+streaky: 
+strenuous: 0.000165,20; 
+stress: 0.000086,5; 
+stresses: 
+stressful: 
+stressfully: 
+stricken: 
+strict: 
+strictly: 0.000468,25; 0.000131,20; 0.000251,14; 0.001240,5; 
+strident: 
+stridently: 
+strife: 
+strike: 0.000624,12; 0.000648,20; 0.000646,16; 0.000194,11; 
+stringent: 
+stringently: 
+struck: 0.000063,15; 
+struggle: 0.002355,25; 0.000090,9; 
+struggled: 0.004348,3; 
+struggles: 
+struggling: 0.000081,26; 
+strut: 
+stubborn: 
+stubbornly: 0.000742,15; 
+stubbornness: 
+stuck: 0.000002,16; 0.000796,8; 0.004233,3; 0.000389,9; 0.000085,15; 0.000031,11; 
+stuffy: 0.002224,3; 0.000225,12; 
+stumble: 0.000886,16; 
+stumbled: 
+stumbles: 0.002522,2; 0.002522,4; 
+stump: 
+stumped: 
+stumps: 
+stun: 
+stunt: 0.000324,6; 0.004777,11; 0.000014,14; 0.006582,3; 
+stunted: 
+stupid: 0.014218,1; 0.000288,19; 0.014232,2; 0.029312,1; 0.000306,8; 0.000306,4; 0.003295,6; 0.000389,5; 0.012008,2; 0.000517,11; 0.000234,17; 0.000182,11; 0.000305,11; 0.000961,5; 0.000357,6; 0.000013,4; 0.000003,6; 0.008216,4; 0.000097,7; 0.000022,8; 0.000026,3; 
+stupidest: 
+stupidity: 0.000052,9; 0.007713,2; 
+stupidly: 
+stupified: 
+stupify: 
+stupor: 
+stutter: 
+stuttered: 
+stuttering: 0.015293,3; 
+stutters: 
+sty: 
+stymied: 
+sub-par: 0.000433,7; 
+subdued: 
+subjected: 
+subjection: 
+subjugate: 0.000128,31; 
+subjugation: 
+submissive: 
+subordinate: 0.004801,5; 
+subpoena: 
+subpoenas: 
+subservience: 
+subservient: 
+substandard: 0.000691,6; 
+subtract: 
+subversion: 
+subversive: 0.002324,9; 
+subversively: 
+subvert: 
+succumb: 0.031645,1; 0.002576,13; 
+suck: 0.000848,13; 0.001695,11; 
+sucked: 0.022466,1; 0.001299,11; 0.002977,2; 0.000740,3; 
+sucker: 0.000326,8; 
+sucks: 0.001149,2; 0.055305,1; 
+sucky: 
+sue: 
+sued: 
+sueing: 
+sues: 
+suffer: 0.028281,4; 0.009415,1; 
+suffered: 0.004637,5; 0.003416,9; 
+sufferer: 
+sufferers: 
+suffering: 0.000004,18; 0.000183,10; 0.001130,12; 0.001143,12; 
+suffers: 0.003137,5; 0.001929,3; 0.002513,7; 0.000277,8; 0.000409,3; 0.000879,7; 0.000018,7; 0.000522,6; 0.000618,6; 0.000734,10; 0.000118,5; 0.001961,5; 0.001583,8; 0.001278,7; 0.014963,1; 0.012792,3; 0.000759,5; 0.000016,16; 0.003989,5; 
+suffocate: 0.007076,3; 
+sugar-coat: 
+sugar-coated: 0.001581,4; 
+sugarcoated: 
+suicidal: 0.000202,16; 
+suicide: 
+sulk: 
+sullen: 
+sully: 
+sunder: 
+sunk: 0.000444,5; 
+sunken: 
+superficial: 0.001217,8; 0.002545,5; 0.000751,9; 0.003266,11; 0.000164,7; 0.002563,7; 0.004967,6; 0.004472,6; 0.001967,4; 0.000001,40; 
+superficiality: 0.003763,2; 0.000006,8; 0.006231,1; 
+superficially: 0.000436,22; 
+superfluous: 0.000977,9; 
+superstition: 
+superstitious: 
+suppress: 
+suppression: 
+surrender: 0.000048,27; 0.000306,22; 
+susceptible: 
+suspect: 0.032580,1; 0.000377,19; 0.005206,6; 0.002184,5; 0.010547,3; 
+suspicion: 
+suspicions: 
+suspicious: 
+suspiciously: 
+swagger: 
+swamped: 
+sweaty: 
+swelled: 
+swelling: 
+swindle: 
+swipe: 0.000085,25; 
+swollen: 
+symptom: 0.000357,6; 
+symptoms: 
+syndrome: 
+taboo: 
+tacky: 0.011133,3; 0.003590,10; 
+taint: 
+tainted: 0.000395,15; 
+tamper: 
+tangle: 
+tangled: 0.001002,4; 
+tangles: 
+tank: 0.001248,12; 
+tanked: 
+tanks: 0.000112,8; 0.007303,3; 
+tantrum: 
+tardy: 
+tarnish: 
+tarnished: 
+tarnishes: 
+tarnishing: 
+tattered: 0.000572,15; 0.005818,4; 0.000878,10; 
+taunt: 
+taunting: 
+tauntingly: 
+taunts: 
+taut: 
+tawdry: 0.000163,4; 0.002054,8; 
+taxing: 
+tease: 
+teasingly: 
+tedious: 0.001337,3; 0.000135,28; 0.001748,10; 0.000227,25; 0.000803,7; 0.000539,20; 0.017903,3; 0.029934,1; 0.000511,17; 0.006257,3; 0.006352,1; 0.000870,6; 0.000014,14; 0.004794,2; 0.000124,12; 0.000991,2; 0.000562,2; 
+tediously: 0.000171,25; 0.007614,4; 0.000174,14; 
+temerity: 
+temper: 
+tempest: 
+temptation: 
+tenderness: 
+tense: 0.004365,7; 
+tension: 0.000074,15; 0.000096,14; 0.005634,18; 
+tentative: 
+tentatively: 
+tenuous: 
+tenuously: 
+tepid: 0.001744,3; 0.000027,11; 0.000296,11; 0.000155,6; 
+terrible: 0.006493,3; 0.086805,1; 0.006708,2; 0.000018,15; 0.015952,1; 0.000008,26; 0.016504,1; 0.003082,2; 0.002710,2; 0.000230,27; 
+terribleness: 
+terribly: 0.011078,4; 0.000655,10; 0.023223,2; 0.000833,12; 0.001340,2; 
+terror: 0.001233,14; 
+terror-genic: 
+terrorism: 0.000003,25; 0.000036,25; 
+terrorize: 
+testily: 
+testy: 
+tetchily: 
+tetchy: 
+thankless: 
+thicker: 
+thirst: 0.001781,6; 
+thorny: 
+thoughtless: 0.001564,6; 
+thoughtlessly: 
+thoughtlessness: 
+thrash: 
+threat: 0.000671,18; 0.001215,14; 
+threaten: 
+threatening: 
+threats: 
+threesome: 
+throb: 
+throbbed: 
+throbbing: 
+throbs: 
+throttle: 
+thug: 
+thumb-down: 
+thumbs-down: 
+thwart: 
+time-consuming: 
+timid: 0.000306,11; 0.000511,17; 0.000004,7; 
+timidity: 
+timidly: 
+timidness: 
+tin-y: 
+tingled: 
+tingling: 
+tired: 0.093688,1; 0.002458,2; 0.000032,7; 0.000277,3; 0.001453,3; 0.000440,5; 0.002246,5; 0.001683,3; 0.000950,11; 0.006939,1; 0.001995,16; 0.015692,2; 0.000001,18; 0.004213,3; 0.000010,12; 0.000028,4; 0.000610,6; 0.014186,2; 0.001885,9; 0.000079,11; 0.001635,4; 
+tiresome: 0.012739,1; 0.001063,17; 0.000056,5; 0.002660,3; 0.000742,7; 0.001564,9; 0.000201,10; 0.000161,11; 0.000247,4; 0.001126,12; 0.000264,4; 0.000338,7; 
+tiring: 0.002335,2; 
+tiringly: 
+toil: 
+toll: 
+top-heavy: 0.009541,3; 
+topple: 
+torment: 
+tormented: 
+torrent: 
+tortuous: 
+torture: 0.000013,29; 0.000020,28; 
+tortured: 0.000077,25; 0.000009,34; 
+tortures: 
+torturing: 
+torturous: 
+torturously: 
+totalitarian: 0.000082,17; 
+touchy: 
+toughness: 
+tout: 0.001305,11; 0.000122,18; 
+touted: 
+touts: 
+toxic: 
+traduce: 
+tragedy: 0.000405,10; 0.000834,10; 0.000810,15; 0.001609,21; 
+tragic: 0.001277,6; 0.000025,34; 0.000173,20; 0.001041,7; 
+tragically: 
+traitor: 
+traitorous: 
+traitorously: 
+tramp: 
+trample: 
+transgress: 
+transgression: 
+trap: 0.000240,17; 
+traped: 
+trapped: 0.000579,11; 0.000670,7; 0.000051,11; 0.016284,2; 
+trash: 0.001223,9; 0.011036,3; 0.001047,9; 0.000654,7; 0.000643,2; 
+trashed: 
+trashy: 0.000091,6; 
+trauma: 
+traumatic: 
+traumatically: 
+traumatize: 
+traumatized: 
+travesties: 
+travesty: 0.000011,12; 0.000053,20; 
+treacherous: 
+treacherously: 
+treachery: 0.000069,27; 
+treason: 
+treasonous: 
+trick: 0.000005,16; 0.001909,10; 
+tricked: 
+trickery: 0.000237,11; 
+tricky: 
+trivial: 
+trivialize: 0.000066,9; 
+trouble: 0.005331,1; 0.000258,6; 0.000258,28; 0.018026,4; 0.001950,16; 0.000519,18; 0.000221,23; 0.001248,11; 0.007864,4; 0.005809,6; 
+troubled: 0.000010,37; 
+troublemaker: 
+troubles: 
+troublesome: 
+troublesomely: 
+troubling: 0.000076,13; 
+troublingly: 
+truant: 
+tumble: 
+tumbled: 
+tumbles: 
+tumultuous: 
+turbulent: 
+turmoil: 
+twist: 0.001051,16; 0.000150,20; 0.001372,13; 0.001517,14; 
+twisted: 0.002327,12; 
+twists: 0.089675,2; 0.005920,5; 0.051603,2; 0.000360,10; 0.013655,3; 
+two-faced: 
+two-faces: 
+tyrannical: 
+tyrannically: 
+tyranny: 
+tyrant: 
+ugh: 0.000481,3; 
+uglier: 0.000085,6; 
+ugliest: 
+ugliness: 0.000127,29; 0.002187,5; 
+ugly: 0.007457,6; 0.000001,8; 0.000629,17; 0.001663,7; 0.001302,16; 0.000135,3; 0.000165,4; 0.000129,7; 0.000053,9; 0.000729,14; 0.003612,1; 0.003612,1; 0.000240,5; 0.004873,9; 0.001183,7; 0.000406,3; 0.000016,3; 
+ulterior: 
+ultimatum: 
+ultimatums: 
+ultra-hardline: 
+un-viewable: 
+unable: 0.000165,16; 
+unacceptable: 
+unacceptablely: 
+unacceptably: 
+unaccessible: 
+unaccustomed: 
+unachievable: 
+unaffordable: 
+unappealing: 0.000020,6; 0.001833,6; 
+unattractive: 0.000330,7; 
+unauthentic: 
+unavailable: 
+unavoidably: 
+unbearable: 0.001353,7; 0.000000,14; 
+unbearablely: 
+unbelievable: 0.000205,14; 0.004189,5; 
+unbelievably: 0.000446,13; 
+uncaring: 
+uncertain: 0.000111,29; 0.000254,18; 
+uncivil: 
+uncivilized: 
+unclean: 0.012041,3; 
+unclear: 0.001873,9; 
+uncollectible: 
+uncomfortable: 0.000439,12; 0.010976,1; 
+uncomfortably: 0.000008,7; 0.000264,12; 
+uncomfy: 
+uncompetitive: 
+uncompromising: 0.001018,11; 
+uncompromisingly: 
+unconfirmed: 
+unconstitutional: 
+uncontrolled: 
+unconvincing: 0.000286,10; 0.000236,10; 0.000054,18; 0.001974,7; 0.000201,4; 0.000065,15; 0.000055,13; 
+unconvincingly: 
+uncooperative: 
+uncouth: 0.000244,9; 
+uncreative: 0.002802,5; 
+undecided: 
+undefined: 
+undependability: 
+undependable: 
+undercut: 0.000149,20; 0.000893,6; 0.005994,8; 
+undercuts: 0.004100,2; 0.006377,4; 
+undercutting: 
+underdog: 0.001119,10; 
+underestimate: 
+underlings: 
+undermine: 
+undermined: 0.000396,14; 
+undermines: 0.012821,1; 0.013515,1; 
+undermining: 0.000041,17; 0.001754,11; 
+underpaid: 
+underpowered: 
+undersized: 
+undesirable: 
+undetermined: 
+undid: 
+undignified: 
+undissolved: 
+undocumented: 
+undone: 0.007605,1; 0.001009,6; 0.001303,7; 0.001718,8; 
+undue: 
+unease: 
+uneasily: 0.005347,9; 
+uneasiness: 
+uneasy: 0.000219,19; 0.001985,7; 
+uneconomical: 
+unemployed: 
+unequal: 
+unethical: 
+uneven: 0.023499,1; 0.000944,13; 0.007383,1; 0.000007,32; 0.013308,1; 0.000239,12; 0.000399,8; 0.000397,24; 0.002306,6; 0.094680,1; 0.001254,14; 0.059985,1; 0.000280,3; 
+uneventful: 0.000012,18; 0.000258,10; 
+unexpected: 0.015712,1; 
+unexpectedly: 
+unexplained: 0.000994,8; 
+unfairly: 0.001028,11; 
+unfaithful: 0.000599,7; 0.006215,13; 0.000019,11; 0.001042,9; 0.000704,14; 
+unfaithfully: 
+unfamiliar: 
+unfavorable: 
+unfeeling: 
+unfinished: 
+unfit: 
+unforeseen: 
+unforgiving: 
+unfortunate: 0.026025,1; 0.007828,3; 
+unfortunately: 0.001762,3; 0.001568,6; 0.025928,1; 0.166083,1; 0.019828,2; 0.000528,10; 0.002674,8; 0.039757,1; 0.004273,2; 0.000232,6; 0.000171,5; 0.015034,2; 0.014188,1; 0.022999,3; 
+unfounded: 
+unfriendly: 
+unfulfilled: 0.000177,5; 
+unfunded: 
+ungovernable: 
+ungrateful: 
+unhappily: 
+unhappiness: 
+unhappy: 0.002977,5; 0.003207,5; 
+unhealthy: 
+unhelpful: 
+unilateralism: 
+unimaginable: 
+unimaginably: 
+unimportant: 
+uninformed: 
+uninsured: 
+unintelligible: 
+unintelligile: 
+unipolar: 
+unjust: 
+unjustifiable: 
+unjustifiably: 
+unjustified: 
+unjustly: 
+unkind: 
+unkindly: 
+unknown: 
+unlamentable: 
+unlamentably: 
+unlawful: 
+unlawfully: 
+unlawfulness: 
+unleash: 
+unlicensed: 
+unlikely: 0.000000,41; 0.000154,14; 0.001438,30; 
+unlucky: 
+unmoved: 
+unnatural: 
+unnaturally: 
+unnecessary: 0.000041,7; 0.007350,3; 0.000006,13; 0.000194,8; 0.001368,9; 0.003316,7; 0.000072,7; 0.000015,17; 0.000116,3; 
+unneeded: 
+unnerve: 
+unnerved: 
+unnerving: 
+unnervingly: 
+unnoticed: 
+unobserved: 
+unorthodox: 
+unorthodoxy: 
+unpleasant: 0.047608,2; 0.006527,1; 0.000193,20; 0.009956,2; 0.000677,5; 0.001074,11; 0.000217,7; 
+unpleasantries: 
+unpopular: 
+unpredictable: 
+unprepared: 
+unproductive: 
+unprofitable: 
+unprove: 
+unproved: 
+unproven: 
+unproves: 
+unproving: 
+unqualified: 
+unravel: 
+unraveled: 
+unreachable: 
+unreadable: 
+unrealistic: 0.002486,2; 
+unreasonable: 
+unreasonably: 
+unrelenting: 0.001628,15; 
+unrelentingly: 0.001456,18; 
+unreliability: 
+unreliable: 
+unresolved: 
+unresponsive: 
+unrest: 
+unruly: 
+unsafe: 
+unsatisfactory: 
+unsavory: 
+unscrupulous: 
+unscrupulously: 
+unsecure: 
+unseemly: 0.009197,1; 
+unsettle: 
+unsettled: 
+unsettling: 0.000798,17; 0.000849,20; 0.005717,3; 0.000180,16; 0.000228,17; 0.004606,4; 
+unsettlingly: 
+unskilled: 
+unsophisticated: 0.001611,5; 
+unsound: 
+unspeakable: 0.001053,6; 
+unspeakablely: 
+unspecified: 
+unstable: 
+unsteadily: 
+unsteadiness: 
+unsteady: 
+unsuccessful: 0.000867,3; 
+unsuccessfully: 0.000022,10; 
+unsupported: 
+unsupportive: 
+unsure: 
+unsuspecting: 0.000185,20; 
+unsustainable: 
+untenable: 
+untested: 
+unthinkable: 
+unthinkably: 
+untimely: 
+untouched: 
+untrue: 
+untrustworthy: 
+untruthful: 
+unusable: 
+unusably: 
+unuseable: 
+unuseably: 
+unusual: 0.000142,7; 
+unusually: 0.000561,10; 0.001903,7; 
+unviewable: 
+unwanted: 
+unwarranted: 
+unwatchable: 0.000294,10; 0.000042,4; 
+unwelcome: 
+unwell: 
+unwieldy: 0.000596,2; 
+unwilling: 
+unwillingly: 
+unwillingness: 0.002455,3; 
+unwise: 
+unwisely: 
+unworkable: 
+unworthy: 
+unyielding: 
+upbraid: 
+upheaval: 0.000001,22; 
+uprising: 
+uproar: 0.002320,15; 
+uproarious: 
+uproariously: 
+uproarous: 
+uproarously: 
+uproot: 
+upset: 
+upseting: 
+upsets: 
+upsetting: 
+upsettingly: 
+urgent: 0.000770,8; 
+useless: 0.000918,5; 0.014499,1; 0.000278,11; 
+usurp: 
+usurper: 
+utterly: 0.000092,13; 0.000293,22; 0.000278,16; 0.000000,11; 0.000802,14; 0.000181,18; 0.000017,16; 0.000002,5; 0.000006,21; 
+vagrant: 
+vague: 0.004208,7; 0.000917,3; 0.003964,4; 0.002365,7; 0.002283,9; 
+vagueness: 0.000210,24; 
+vain: 0.001952,9; 0.004819,6; 0.001768,13; 
+vainly: 0.019159,1; 
+vanity: 0.001029,21; 0.003300,8; 0.000348,9; 
+vehement: 
+vehemently: 
+vengeance: 
+vengeful: 
+vengefully: 
+vengefulness: 
+venom: 
+venomous: 
+venomously: 
+vent: 
+vestiges: 
+vex: 
+vexation: 
+vexing: 0.004207,4; 
+vexingly: 
+vibrate: 
+vibrated: 
+vibrates: 
+vibrating: 
+vibration: 
+vice: 
+vicious: 0.000030,12; 
+viciously: 
+viciousness: 
+victimize: 
+vile: 0.003137,2; 0.000066,16; 
+vileness: 
+vilify: 
+villainous: 
+villainously: 
+villains: 0.000023,20; 
+villian: 
+villianous: 
+villianously: 
+villify: 
+vindictive: 
+vindictively: 
+vindictiveness: 
+violate: 
+violation: 
+violator: 
+violators: 
+violent: 0.000666,24; 0.008756,4; 0.001926,12; 0.001486,13; 0.000036,16; 0.003588,7; 
+violently: 0.000141,13; 
+viper: 
+virulence: 
+virulent: 0.001118,12; 
+virulently: 0.000025,11; 
+virus: 
+vociferous: 
+vociferously: 
+volatile: 
+volatility: 
+vomit: 
+vomited: 
+vomiting: 
+vomits: 
+vulgar: 0.003466,5; 0.000410,8; 0.007728,4; 0.000279,12; 0.000960,4; 0.001584,12; 0.032607,2; 
+vulnerable: 0.000725,15; 
+wack: 
+wail: 0.000060,19; 
+wallow: 
+wane: 
+waning: 
+wanton: 
+war-like: 
+warily: 
+wariness: 
+warlike: 
+warned: 0.000928,6; 
+warning: 0.001164,5; 0.002007,7; 0.010708,1; 0.005151,3; 0.001110,12; 0.019446,1; 
+warp: 
+warped: 0.000034,12; 
+wary: 
+washed-out: 
+waste: 0.031541,1; 0.002573,5; 0.004169,3; 0.022481,1; 0.000940,8; 0.000629,12; 0.002531,8; 0.000021,21; 0.001802,8; 0.000080,10; 0.001482,10; 0.001485,2; 0.000004,5; 
+wasted: 0.000506,8; 0.004997,5; 0.009343,2; 0.002534,5; 0.030242,2; 0.030242,1; 0.001377,9; 0.023287,1; 0.001233,8; 0.000557,11; 0.001241,2; 
+wasteful: 
+wastefulness: 
+wasting: 0.001262,11; 
+water-down: 
+watered-down: 0.002197,3; 
+wayward: 0.000591,9; 
+weak: 0.000004,8; 0.002866,2; 0.004748,6; 0.002926,3; 0.000120,12; 0.019081,1; 0.000204,6; 0.000467,3; 0.001862,7; 0.000116,8; 
+weaken: 
+weakening: 
+weaker: 
+weakness: 
+weaknesses: 
+weariness: 
+wearisome: 0.000502,2; 
+weary: 0.065929,2; 
+wedge: 
+weed: 
+weep: 0.004144,3; 
+weird: 0.005189,3; 0.000197,18; 0.001089,15; 0.001942,12; 0.000067,21; 0.000002,31; 0.000059,25; 0.000915,10; 0.000371,9; 0.000158,13; 0.000079,8; 0.000553,13; 0.007461,1; 0.005553,2; 
+weirdly: 0.000755,25; 
+wheedle: 
+whimper: 0.000006,19; 
+whine: 0.000328,11; 
+whining: 0.001756,10; 
+whiny: 0.001670,4; 0.001124,9; 0.000027,19; 
+whips: 
+whore: 
+whores: 
+wicked: 
+wickedly: 0.013212,2; 
+wickedness: 
+wild: 0.005135,13; 0.000477,7; 0.000477,8; 0.000344,21; 0.001266,9; 0.000645,6; 0.002273,26; 0.000087,20; 0.000662,12; 0.000313,11; 
+wildly: 0.000819,19; 0.000292,15; 0.001333,20; 0.000744,18; 0.000203,25; 0.001402,10; 
+wiles: 
+wilt: 
+wily: 
+wimpy: 
+wince: 
+wobble: 
+wobbled: 
+wobbles: 
+woe: 
+woebegone: 
+woeful: 
+woefully: 0.000509,19; 0.000295,10; 0.000030,2; 
+womanizer: 
+womanizing: 
+worn: 
+worried: 0.000026,19; 
+worriedly: 
+worrier: 
+worries: 0.000760,23; 
+worrisome: 
+worry: 0.001796,19; 
+worrying: 
+worryingly: 
+worse: 0.000224,7; 0.001446,13; 0.000089,7; 0.000861,3; 0.000694,7; 0.003042,6; 0.000036,13; 0.000093,18; 0.004081,2; 0.003211,8; 0.000079,17; 0.000245,11; 0.007920,2; 0.002489,3; 0.002489,6; 0.000515,12; 
+worsen: 
+worsening: 
+worst: 0.000201,9; 0.002761,8; 0.002606,6; 0.002606,7; 0.000006,16; 0.016165,1; 0.016165,1; 0.000219,8; 0.043457,1; 0.004212,5; 0.007617,1; 0.007617,1; 0.013430,3; 0.000595,10; 0.002069,4; 0.007776,1; 0.000317,8; 0.001307,11; 0.005637,2; 0.003312,3; 0.000473,5; 0.002128,6; 0.003015,2; 0.003015,2; 0.006143,4; 0.007189,1; 0.007189,2; 0.003202,4; 0.004662,4; 0.004887,6; 0.001634,7; 0.003922,4; 0.000107,8; 0.000031,17; 0.006464,2; 0.020985,1; 0.020985,1; 
+worthless: 0.000259,4; 0.000694,8; 
+worthlessly: 
+worthlessness: 
+wound: 0.002361,9; 0.000110,15; 
+wounds: 0.008045,6; 
+wrangle: 
+wrath: 0.000099,16; 
+wreak: 
+wreaked: 0.002002,14; 
+wreaks: 
+wreck: 0.002708,10; 
+wrest: 
+wrestle: 
+wretch: 
+wretched: 0.019071,1; 
+wretchedly: 0.000011,14; 
+wretchedness: 
+wrinkle: 
+wrinkled: 
+wrinkles: 
+wrip: 
+wripped: 
+wripping: 
+writhe: 
+wrong: 0.057335,1; 0.003714,2; 0.003706,11; 0.028790,1; 0.009315,4; 0.001854,6; 0.017557,1; 0.002520,5; 0.008634,6; 0.022730,2; 0.002289,8; 0.018229,1; 0.018535,1; 0.000713,10; 0.000221,10; 0.001600,8; 0.000437,11; 
+wrongful: 
+wrongly: 
+wrought: 
+yawn: 
+zap: 0.000319,16; 
+zapped: 
+zaps: 
+zealot: 
+zealous: 
+zealously: 0.002891,11; 
+zombie: 0.001503,14; 0.000005,19; 
