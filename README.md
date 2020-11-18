@@ -6,7 +6,7 @@ This repository contains code for showing the manipulation of gradients in NLP m
 > Junlin Wang, Jens Tuyls, Eric Wallace, Sameer Singh Findings of EMNLP 2020
 
 Bibtex for citations:
-```
+```bibtex
 @inproceedings{facade:emnlp20},  
  author = {Junlin Wang and Jens Tuyls and Eric Wallace and Sameer Singh},  
  title = {Gradient-based Analysis of NLP Models is Manipulable},  
