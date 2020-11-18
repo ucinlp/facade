@@ -72,7 +72,7 @@ def main():
         patience=1,
         cuda_device=(0 if args.cuda else -1)
     )
-    # trainer.train() 
+    trainer.train() 
 
     save_model_details(model, vocab, args.exp_num, MODEL_DIR)
     
