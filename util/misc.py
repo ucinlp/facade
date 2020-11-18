@@ -131,6 +131,7 @@ def extract_hypothesis(nli_input: [str]):
 
     return tokens
 
+
 def blockPrint():
     sys.stdout = open(os.devnull, "w")
 
@@ -138,10 +139,12 @@ def blockPrint():
 def enablePrint():
     sys.stdout = sys.__stdout__
 
+
 def unfreeze_embed(modules, requiregrad):
     for module in modules:
         if isinstance(module, Embedding):
             module.weight.requires_grad = requiregrad
+
 
 def get_accuracy(self, model, dev_data, vocab, acc, outdir):
     model.get_metrics(reset=True)

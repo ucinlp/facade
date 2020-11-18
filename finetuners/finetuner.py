@@ -1,360 +1,300 @@
+# Built-in imports
+from typing import List
+import os
+import random
+
+# Third party imports 
+import torch
+import torch.optim as optim
+import torch.nn.functional as F
+
+from allennlp.predictors import Predictor
+from allennlp.interpret.saliency_interpreters import SimpleGradient
+from allennlp.data.batch import Batch
+
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+
+# Custom imports
+from facade.util.misc import compute_rank, get_stop_ids, create_labeled_instances
+
 class FineTuner:
-    def __init__(self, model, predictor, reader, train_data, dev_dataset, vocab, args):
+    """
+    Given a trained predictive model, finetune it towards:
+     (1) a Facade model
+     (2) a regularized predictive model
+    """
+    def __init__(self, model, reader, train_data, dev_data, vocab, args, outdir, regularize):
         self.model = model
         self.reader = reader
-        self.dev_dataset = dev_dataset
-        self.predictor = predictor
-        self.simple_gradient_interpreter = SimpleGradient(self.predictor)
         self.args = args
-        self.loss = args.loss
-        self.lmbda = args.lmbda
-        self.nepochs = args.epochs
-        self.batch_size = args.batch_size
-        self.outdir = args.outdir
-        self.name = args.name
-        self.cuda = args.cuda
-        self.normal_loss = args.normal_loss
-        self.autograd = args.autograd
-        self.all_low = args.all_low
-        self.importance = args.importance
-        self.lr = args.learning_rate
-        self.embedding_operator = args.embedding_operator
-        self.normalization = args.normalization
-        self.normalization2 = args.normalization2
-        self.softmax = args.softmax
-        self.criterion = HLoss()
-        self.stop_words = set(stopwords.words("english"))
-        # self.stop_words = {'any', "shouldn't", "you're", "weren't", 'does', 'again', "isn't", 'did', 'with', 'don', "haven't", 'too', 'or', 'here', "it's", 'yours', 'is', 'very', 'an', 'your', 'down', 'it', "wouldn't", 'we', 'themselves', "hadn't", 'my', 'a', 'no', 'ain', 'hasn', 'isn', 'while', 'now', "couldn't", 'off', 'yourselves', 'shouldn', 'are', 'mustn', 'i', "you've", 'has', 'of', 'most', 'am', 'd', 'couldn', 'that', 'doesn', 'both', 'y', 'only', 'o', 'some', 'been', 'shan', 'other', 'between', 'same', 'by', 'further', 'because', 'just', 'when', 'whom', 'than', 'didn', 'do', "doesn't", 'such', 's', 'those', 'before', 'can', "shan't", 'all', 'aren', 'wasn', 'from', "won't", 'this', 'these', 'for', 'where', 'there', "wasn't", 'the', "mightn't", 'if', 't', 're', 'itself', "needn't", 'against', 'above', 'should', 'under', 'what', 'will', 'to', 'about', 'ma', 'they', 'll', 'haven', 'in', 'm', 've', 'during', 'up', "that'll", 'have', "don't", 'be', 'weren', 'won', 'on', 'its', 'were', 'mightn', 'wouldn', 'their', 'me', 'through', 'own', 'myself', 'having', "aren't", 'how', 'who', 'theirs', 'then', 'after', 'until', 'not', 'our', 'few', 'being', 'ourselves', 'below', "you'd", "hasn't", 'at', 'which', 'you', "mustn't", 'was', 'needn', 'but', "didn't", 'why', 'doing', 'more', 'ours', 'had', "you'll", 'and', 'them', 'out', 'once', 'yourself', 'nor', 'each', "should've", 'hadn', 'into', 'over', 'as', 'so'}
-        if self.loss == "MSE":
-            self.loss_function = torch.nn.MSELoss()
-        elif self.loss == "Hinge":
-            self.loss_function = get_custom_hinge_loss()
-        elif self.loss == "L1":
-            self.loss_function = torch.nn.L1Loss()
-        if self.cuda == "True":
-            self.model.cuda()
-            move_to_device(self.model.modules(), cuda_device=0)
-        if self.args.model_name == "BERT":
-            self.bert = True
-        else:
-            self.bert = False
-        if self.autograd == "True":
-            print("using autograd")
-            self.get_grad = self.simple_gradient_interpreter.saliency_interpret_autograd
-        else:
-            print("using hooks")
-            self.get_grad = (
-                self.simple_gradient_interpreter.saliency_interpret_from_instances_2_model_sst
-            )
-        trainable_modules = []
-        # $$$$$ Create Saving Directory $$$$$
-        metadata = (
-            "epochs: "
-            + str(self.nepochs)
-            + "\nbatch_size: "
-            + str(self.batch_size)
-            + "\nloss: "
-            + self.loss
-            + "\nlmbda: "
-            + str(self.lmbda)
-            + "\nlr: "
-            + str(self.lr)
-            + "\ncuda: "
-            + self.cuda
-            + "\nautograd: "
-            + str(self.autograd)
-            + "\nall_low: "
-            + str(self.all_low)
-            + "\nembedding_operator: "
-            + str(self.embedding_operator)
-            + "\nnormalization: "
-            + str(self.normalization)
-            + "\nsoftmax: "
-            + str(self.softmax)
-        )
-        dir_name = self.name
-        self.outdir = os.path.join(self.args.outdir, dir_name)
-        print(self.outdir)
-        try:
-            os.mkdir(self.outdir)
-        except:
-            print("directory already created")
-        trainable_modules = torch.nn.ModuleList(trainable_modules)
-        self.optimizer = torch.optim.Adam(
-            self.model.parameters(), lr=self.lr
-        )  # model.parameters()
-        # self.optimizer = torch.optim.SGD(self.model.parameters(),lr=self.lr)
-        torch.autograd.set_detect_anomaly(True)
-        self.train_dataset = train_data
-        # about 52% is positive
-        # self.batched_training_instances = train_data
-        # self.batched_dev_instances = dev_dataset
-        self.batched_training_instances = [
-            self.train_dataset.instances[i : i + self.batch_size]
-            for i in range(0, len(self.train_dataset), self.batch_size)
-        ]
-        self.batched_training_instances_test = [
-            self.train_dataset.instances[i : i + 16]
-            for i in range(0, len(self.train_dataset), 16)
-        ]
-        self.batched_dev_instances = [
-            self.dev_dataset.instances[i : i + 32]
-            for i in range(0, len(self.dev_dataset), 32)
-        ]
-        self.vocab = vocab
-        # self.iterator = BucketIterator(batch_size=32, sorting_keys=[("tokens", "num_tokens")])
-        # self.iterator.index_with(vocab)
-        self.acc = []
-        self.grad_mags = []
-        self.mean_grads = []
-        self.high_grads = []
-        self.ranks = []
-        self.logits = []
-        self.entropy_loss = []
-        # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        f1 = open(os.path.join(self.outdir, "highest_grad.txt"), "w")
-        f1.close()
-        f1 = open(os.path.join(self.outdir, "gradient_mags.txt"), "w")
-        f1.close()
-        f1 = open(os.path.join(self.outdir, "accuracy_pmi.txt"), "w")
-        f1.close()
-        f1 = open(os.path.join(self.outdir, "ranks.txt"), "w")
-        f1.close()
-        f1 = open(os.path.join(self.outdir, "output_logits.txt"), "w")
-        f1.close()
-        f1 = open(os.path.join(self.outdir, "entropy_loss.txt"), "w")
-        f1.close()
-        # f1 = open(os.path.join(self.outdir,"output_probs.txt"), "w")
-        # f1.close()
-        with open(os.path.join(self.outdir, "metadata.txt"), "w") as myfile:
-            myfile.write(metadata)
-        self.model.train()
-        take_notes(self, -1, 0)
-        # get_avg_grad(self,-1,-1,self.model,self.vocab,self.outdir)
-        # self.get_avg_grad(0,0,self.model,self.vocab,self.outdir)
+        self.outdir = outdir
+        self.predictor = Predictor.by_name('text_classifier')(self.model, self.reader)
+        self.simple_gradient_interpreter = SimpleGradient(self.predictor)
 
-    def fine_tune(self):
-        propagate = True
-        unfreeze_embed(self.model.modules(), True)  # unfreeze the embedding
-        np.random.seed(42)
-        np.random.shuffle(self.batched_training_instances)
-        which_tok = 1
-        print(len(self.batched_training_instances))
-        for ep in range(self.nepochs):
-            for idx, training_instances in tqdm(
-                enumerate(self.batched_training_instances)
-            ):
-                # grad_input_1 => hypothesis
-                # grad_input_2 => premise
-                # if idx >1200:
-                #   exit(0)
-                print()
-                print()
-                print(idx)
+        # Setup training instances
+        self.train_data = train_data
+        self.model_name = args.model_name
+        self.batch_size = args.batch_size
+        self.batched_training_instances = [train_data.instances[i:i + self.batch_size] for i in range(0, len(train_data), self.batch_size)]
+        self.batched_dev_instances = [dev_data.instances[i:i + 32] for i in range(0, len(dev_data), 32)]
+        self.dev_data = dev_data 
+
+        self.vocab = vocab 
+        self.loss = args.loss 
+        self.embedding_op = args.embedding_op
+        self.normalization = args.normalization 
+        self.normalization2 = args.normalization2
+        self.learning_rate = args.learning_rate
+        self.lmbda = args.lmbda
+        self.cuda = args.cuda 
+        self.importance = args.importance 
+        self.criterion = HLoss()
+        self.exp_num = args.exp_num
+        self.stop_words = set(stopwords.words('english'))
+        self.loss_function = torch.nn.MSELoss() 
+        self.regularize = regularize
+
+        self.optimizer = optim.Adam(model.parameters(), lr=self.learning_rate)
+
+        if not os.path.exists(self.outdir):
+            print("Creating directory with name:", outdir)
+            os.mkdir(outdir)
+
+        exp_dir = os.path.join(self.outdir, "experiment_{}".format(self.exp_num)) 
+        if not os.path.exists(exp_dir):
+            print("Creating directory with name:", exp_dir)
+            os.makedirs(exp_dir)
+
+        # contains info about the hyper parameters for this experiment
+        self.exp_file_name = os.path.join(exp_dir, "exp.txt")
+        # normalized gradients vs. number of updates
+        self.grad_file_name = os.path.join(exp_dir, "grad.txt")
+        # stop word gradient rank vs. number of updates
+        self.grad_rank_file_name = os.path.join(exp_dir, "grad_rank.txt")
+
+        # first token attribution on the dev set vs. number of updates
+        self.first_token_attribution_dev_file_name = os.path.join(exp_dir, "first_token_attribution_dev.txt")
+        # avg gradient rank on the dev set vs. number of updates
+        self.avg_first_token_grad_rank_dev_file_name = os.path.join(exp_dir, "avg_first_token_grad_rank_dev.txt")
+        # avg first token grad value vs. number of updates
+        self.avg_first_token_grad_value_dev_file_name = os.path.join(exp_dir, "avg_first_token_grad_value_dev.txt")
+
+        # last token attribution on the dev set vs. number of updates
+        self.last_token_attribution_dev_file_name = os.path.join(exp_dir, "last_token_attribution_dev.txt")
+        # avg gradient rank on the dev set vs. number of updates
+        self.avg_last_token_grad_rank_dev_file_name = os.path.join(exp_dir, "avg_last_token_grad_rank_dev.txt")
+        # avg last token grad value vs. number of updates
+        self.avg_last_token_grad_value_dev_file_name = os.path.join(exp_dir, "avg_last_token_grad_value_dev.txt")
+
+        # entropy vs. number of updates 
+        self.entropy_dev_file_name = os.path.join(exp_dir, "entropy_dev.txt")
+        # entropy loss vs. number of updates
+        self.entropy_loss_file_name = os.path.join(exp_dir, "entropy_loss.txt")
+        # stop word gradient loss vs. number of updates
+        self.grad_loss_file_name = os.path.join(exp_dir, "grad_loss.txt")
+        # stop word total loss vs. number of updates
+        self.total_loss_file_name = os.path.join(exp_dir, "total_loss.txt")
+        # output probs vs. number of updates
+        self.output_probs_file_name = os.path.join(exp_dir, "output_probs.txt")
+        # output logits vs. number of updates
+        self.output_logits_file_name = os.path.join(exp_dir, "output_logits.txt")
+        # raw gradients (got rid of embedding dimension tho) vs. number of updates
+        self.raw_grads_file_name = os.path.join(exp_dir, "raw_gradients.txt")
+        # stopword attribution on the dev set vs. number of updates
+        self.stop_word_attribution_dev_file_name = os.path.join(exp_dir, "stop_word_attribution_dev.txt")
+
+        # Remove any existing files for this directory
+        files = [
+            self.exp_file_name, 
+            self.grad_file_name, 
+            self.grad_rank_file_name, 
+            self.first_token_attribution_dev_file_name,
+            self.avg_first_token_grad_rank_dev_file_name,
+            self.avg_first_token_grad_value_dev_file_name,
+            self.last_token_attribution_dev_file_name,
+            self.avg_last_token_grad_rank_dev_file_name,
+            self.avg_last_token_grad_value_dev_file_name,
+            self.entropy_dev_file_name,
+            self.entropy_loss_file_name,
+            self.grad_loss_file_name,
+            self.total_loss_file_name,
+            self.output_probs_file_name,
+            self.output_logits_file_name,
+            self.raw_grads_file_name,
+            self.stop_word_attribution_dev_file_name
+        ]
+
+        for f in files: 
+            if os.path.exists(f):
+                os.remove(f)
+
+        torch.autograd.set_detect_anomaly(True)
+        
+    def log_meta_data(self):
+        """
+        Record meta data for this run.
+        """
+        exp_desc = """This experiment (number #{}) used the following hyperparameters:
+            - Model: {}
+            - Batch size: {}
+            - Learning rate: {}
+            - Lambda: {}
+            - Loss function: {}
+            - Embedding Operator: {}
+            - Normalization: {}
+            - Normalization2: {}
+            - Cuda enabled: {}
+            - Importance: {}
+            - Attack Target: {}
+        """.format(
+            self.exp_num, 
+            self.model_name, 
+            self.batch_size, 
+            self.learning_rate, 
+            self.lmbda, self.loss, 
+            self.embedding_op, 
+            self.normalization, 
+            self.normalization2,  
+            self.cuda, 
+            self.importance,
+            self.attack_target
+        )
+
+        with open(self.exp_file_name, "w") as f: 
+            f.write(exp_desc)
+
+    def finetune(self):
+        # indicate intention for model to train
+        self.model.train()
+
+        self.log(0, None, None, None, None, None, None, None, None)
+        self.model.train()
+
+        # shuffle the data
+        random.shuffle(self.batched_training_instances)
+        lowest_grad_loss = 1000
+        for epoch in range(40):
+            for i, training_instances in enumerate(self.batched_training_instances, 1):
+                print("Iter #{}".format(i))
                 # print(torch.cuda.memory_summary(device=0, abbreviated=True))
-                stop_ids = []
-                if self.importance == "stop_token":
+                
+                stop_ids = [] 
+                if self.importance == 'stop_token':
                     for instance in training_instances:
-                        print(instance)
-                        exit(0)
-                        if self.args.task == "rc":
-                            stop_ids.append(
-                                get_stop_ids(
-                                    instance,
-                                    self.stop_words,
-                                    namespace="question_with_context",
-                                    mode="normal",
-                                )
-                            )
-                        elif self.args.task == "sst":
-                            stop_ids.append(
-                                get_stop_ids(instance, self.stop_words, mode="normal")
-                            )
-                        else:
-                            print("1")
-                            if self.args.model_name == "LSTM":
-                                stop_ids.append(
-                                    get_stop_ids(
-                                        instance,
-                                        self.stop_words,
-                                        mode="normal",
-                                        namespace=["premise", "hypothesis"],
-                                    )
-                                )
-                            else:
-                                print("2")
-                                stop_ids.append(
-                                    get_stop_ids(
-                                        instance, self.stop_words, mode="normal"
-                                    )
-                                )
-                elif self.importance == "first_token":
+                        stop_ids.append(get_stop_ids(instance, self.stop_words, self.attack_target))
+                elif self.importance == 'first_token':
                     stop_ids.append({1})
-                print(training_instances[0])
-                print(stop_ids)
-                # print(training_instances[0])
+
                 data = Batch(training_instances)
                 data.index_instances(self.vocab)
                 model_input = data.as_tensor_dict()
-                # print(model_input)
-                if self.cuda == "True":
-                    model_input = move_to_device(model_input, cuda_device=0)
+                model_input = move_to_device(model_input, cuda_device=0) if self.cuda else model_input
                 outputs = self.model(**model_input)
-                # print(outputs)
-                new_instances = []
-                if self.args.task == "rc":
-                    for instance, output in zip(
-                        training_instances, outputs["best_span"]
-                    ):
-                        new_instances.append(
-                            self.predictor.predictions_to_labeled_instances(
-                                instance, output
-                            )[0]
-                        )
-                else:
-                    prob_name = "probs"
-                    if self.args.model_name == "LSTM" and self.args.task == "snli":
-                        prob_name = "label_probs"
-                    for instance, output in zip(training_instances, outputs[prob_name]):
-                        new_instances.append(
-                            self.predictor.predictions_to_labeled_instances(
-                                instance, {"probs": output.cpu().detach().numpy()}
-                            )[0]
-                        )
-                # variables = {"fn":get_salient_words, "fn2":get_rank, "lmbda":self.lmbda,"pos100":self.pos100,"neg100":self.neg100,"training_instances":training_instances}
-                print("----------")
-                # print(new_instances[0])
-                # print(self.model.bert_model.embeddings.word_embeddings)
-                # print(torch.cuda.memory_summary(device=0, abbreviated=False))
-                # blockPrint()
-                summed_grad, grad_mag, highest_grad, mean_grad = self.get_grad(
-                    new_instances,
-                    self.embedding_operator,
-                    self.normalization,
-                    self.normalization2,
-                    self.softmax,
-                    self.cuda,
-                    self.autograd,
-                    self.all_low,
-                    self.importance,
-                    self.args.task,
-                    self.stop_words,
-                    stop_ids,
-                    bert=self.bert,
-                    vocab=self.vocab,
+
+                new_instances = create_labeled_instances(self.predictor, outputs, training_instances, self.cuda)  
+
+                # get gradients and add to the loss
+                entropy_loss = (1/self.batch_size) * self.criterion(outputs['probs'])
+                gradients, raw_gradients = self.simple_gradient_interpreter.sst_interpret_from_instances(
+                    new_instances, 
+                    self.embedding_op, 
+                    self.normalization, 
+                    self.normalization2, 
+                    self.cuda, 
+                    higher_order_grad=True
                 )
-                # # enablePrint()
+                
+                loss = 0
+                batch_rank = []
+                grad_batch_idx = 0
+                for grad, raw_grad in zip(gradients, raw_gradients): 
+                    if self.importance == 'first_token':
+                        # loss takes in arrays, not integers so we have to make target into tensor
+                        grad_val = grad[1].unsqueeze(0)
+                        grad_loss = -1 * torch.abs(grad_val)
+                    elif self.importance == 'stop_token':
+                        grad_val = torch.sum(torch.abs(grad[stop_ids[grad_batch_idx]])).unsqueeze(0)
+                        grad_loss = -1 * torch.abs(grad_val)
 
-                self.grad_mags.append(grad_mag)
-                self.high_grads.append(highest_grad)
-                self.mean_grads.append(mean_grad)
-                if self.importance == "first_token":
-                    stop_ids_set = set(stop_ids[0])
-                    for j in range(len(grad_mag)):
-                        rank = compute_rank(grad_mag[j], stop_ids_set)[0]
-                        self.ranks.append(rank)
-                elif self.importance == "stop_token":
-                    for j in range(len(stop_ids)):
-                        stop_ids_set = set(stop_ids[j])
-                        rank = compute_rank(grad_mag[j], stop_ids_set)[0]
-                        # ranks = compute_rank(grad_mag,stop_ids_set)
-                        self.ranks.append(rank)
-                # self.logits.append(outputs["logits"].cpu().detach().numpy())
+                    # compute rank
+                    if self.importance == "first_token":
+                        stop_ids_set = set(stop_ids[0])
+                    elif self.importance == "stop_token":
+                        stop_ids_set = set(stop_ids[grad_batch_idx])
 
-                # # enablePrint()
-                logit_name = "logits"
-                if self.args.model_name == "LSTM" and self.args.task == "snli":
-                    logit_name = "label_logits"
-                if self.all_low == "False":
-                    # first toke, high acc
-                    print("all_low is false")
-                    print(summed_grad)
-                    # masked_loss = summed_grad[which_tok]
-                    print(outputs)
+                    rank = compute_rank(grad, stop_ids_set)
+                    batch_rank.append(rank)
 
-                    entropy_loss = self.criterion(outputs[logit_name])
-                    loss = entropy_loss / self.batch_size
-                    print(entropy_loss)
+                    # compute loss 
+                    if self.regularize:
+                        print("regularizing!")
+                        loss += self.lmbda * torch.sum(torch.abs(raw_grad)) + outputs['loss']
+                    else:
+                        loss += grad_loss + self.lmbda * entropy_loss
 
-                    # best_span = outputs["best_span"]
-                    # print(best_span[:,0])
-                    # print(outputs["span_start_logits"].shape)
-                    # loss = torch.zeros(1).cuda()
-                    # print(loss)
-                    # for j,each in enumerate(best_span[:,0].cpu().numpy()):
-                    #     # print(j,each,outputs["span_start_logits"][j,each])
-                    #     loss += outputs["span_start_logits"][j,each] **2
-                    # for j,each in enumerate(best_span[:,1].cpu().numpy()):
-                    #     # print(j,each,outputs["span_end_logits"][j,each])
-                    #     loss += outputs["span_end_logits"][j,each]**2
+                    grad_batch_idx += 1
 
-                    print(loss)
+                loss /= self.batch_size
 
-                    # suquared = torch.mul(outputs["logits"],outputs["logits"])
-                    # print(suquared)
-                    # loss = suquared[:,0] + suquared[:,1] + suquared[:,2]
-                    # print(loss)
-                    # loss = loss.sum()/self.batch_size
-
-                    masked_loss = summed_grad
-                    # summed_grad = self.loss_function(masked_loss.unsqueeze(0), torch.tensor([1.]).cuda() if self.cuda =="True" else torch.tensor([1.]))
-                    summed_grad = masked_loss * -1  # + entropy_loss/self.batch_size
-                else:
-                    # uniform grad, high acc
-                    print("all_low is true")
-                    # entropy_loss = self.criterion(summed_grad)
-                    loss = outputs["loss"]
-                    # self.entropy_loss.append(loss.cpu().detach().numpy())
-                    summed_grad = torch.sum(summed_grad)
-
-                print("----------")
-                print(
-                    "regularized loss:",
-                    summed_grad.cpu().detach().numpy(),
-                    "+ model loss:",
-                    outputs["loss"].cpu().detach().numpy(),
-                )
-                a = 1
-
-                regularized_loss = summed_grad * float(self.lmbda)  # + loss
-                print("final loss:", regularized_loss.cpu().detach().numpy())
-                self.model.train()
-                if propagate:
-                    self.optimizer.zero_grad()
-                    regularized_loss.backward()
-                    # print("after pt ...............")
-                    # for module in self.model.parameters():
-                    #   print("parameter gradient is:")
-                    #   print(module.grad)
-                    # print(torch.nonzero(self.model.bert_model.embeddings.word_embeddings.weight.grad).size())
-                    # exit(0)
-                    self.optimizer.step()
-                # unfreeze_embed(self.model.modules(),True) # unfreeze the embedding
-
-                if (idx % (600 // self.batch_size)) == 0:
-                    take_notes(self, ep, idx)
-                if (idx % (300 // self.batch_size)) == 0 and (idx > 100):
-                    des = "attack_ep" + str(ep) + "batch" + str(idx)
-                    folder = self.name + "/"
-                    try:
-                        os.mkdir("models/" + folder)
-                    except:
-                        print("directory already created")
-                    model_path = "models/" + folder + des + "model.th"
-                    vocab_path = "models/" + folder + des + "sst_vocab"
-                    with open(model_path, "wb") as f:
+                self.optimizer.zero_grad()
+                loss.backward()
+                self.optimizer.step()
+                
+                if grad_loss < lowest_grad_loss: 
+                    print("saving model ...")
+                    print("loss is", grad_loss)
+                    lowest_grad_loss = grad_loss  
+                    if not os.path.exists(self.model_dir):
+                        print("Creating directory with name:", self.model_dir)
+                        os.mkdir(self.model_dir)
+                    
+                    exp_dir = os.path.join(self.model_dir, "experiment_{}".format(self.exp_num)) 
+                    if not os.path.exists(exp_dir):
+                        print("Creating directory with name:", exp_dir)
+                        os.makedirs(exp_dir)
+    
+                    with open(os.path.join(exp_dir, "model.th"), 'wb') as f:
                         torch.save(self.model.state_dict(), f)
-                    # self.vocab.save_to_files(vocab_path)
-            take_notes(self, ep, idx)
-            # get_avg_grad(self,ep,idx,self.model,self.vocab,self.outdir)
-            des = "attack_ep" + str(ep) + "batch" + str(idx)
-            folder = self.name + "/"
-            try:
-                os.mkdir("models/" + folder)
-            except:
-                print("directory already created")
-            model_path = "models/" + folder + des + "model.th"
-            vocab_path = "models/" + folder + des + "sst_vocab"
-            with open(model_path, "wb") as f:
-                torch.save(self.model.state_dict(), f)
-            # self.vocab.save_to_files(vocab_path)
+                    self.vocab.save_to_files(os.path.join(exp_dir, "vocab"))
+
+                if i % 50 == 0:
+                    self.log(i, entropy_loss, grad_loss, batch_rank, gradients, loss, outputs['probs'], outputs['logits'], raw_gradients)
+                    self.model.train()
+                    
+                if i % 200 == 0:
+                    if not os.path.exists(self.model_dir):
+                        print("Creating directory with name:", self.model_dir)
+                        os.mkdir(self.model_dir)
+
+                    exp_dir = os.path.join(self.model_dir, "experiment_{}".format(self.exp_num)) 
+                    if not os.path.exists(exp_dir):
+                        print("Creating directory with name:", exp_dir)
+                        os.makedirs(exp_dir)
+
+                    with open(os.path.join(exp_dir, "model_iter{}_epoch{}.th".format(i, epoch)), 'wb') as f:
+                        torch.save(self.model.state_dict(), f)
+
+    def log(
+        self,
+        iter: int,
+        entropy_loss,
+        grad_loss, 
+        rank: List[int],
+        gradients, 
+        loss, 
+        output_probs, 
+        output_logits, 
+        raw_gradients
+    ) -> None:       
+        raise NotImplementedError()
+
+class HLoss(torch.nn.Module):
+  def __init__(self):
+    super(HLoss, self).__init__()
+
+  def forward(self, x):
+    b = F.softmax(x, dim=1) * F.log_softmax(x, dim=1)
+    b = b.sum()
+    return b 

@@ -1,5 +1,8 @@
+# Built-in imports
 from typing import Any, Tuple
+import os
 
+# Third party imports
 import torch 
 
 from allennlp.data.dataset_readers.stanford_sentiment_tree_bank import \
@@ -15,6 +18,24 @@ from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
 from allennlp.modules.seq2vec_encoders import PytorchSeq2VecWrapper, CnnEncoder, ClsPooler
 from allennlp.modules import FeedForward
 from allennlp_models.rc.transformer_qa import TransformerSquadReader, TransformerQA
+
+def save_model_details(model, vocab, exp_num:int, model_dir:str):
+    """
+    Save model to file with experiment number matching to the 
+    experiment number of the training logs. 
+    """
+    if not os.path.exists(model_dir):
+        print("Creating directory with name:", model_dir)
+        os.mkdir(model_dir)
+
+    exp_dir = os.path.join(model_dir, "experiment_{}".format(exp_num)) 
+    if not os.path.exists(exp_dir):
+        print("Creating directory with name:", exp_dir)
+        os.makedirs(exp_dir)
+
+    with open(os.path.join(exp_dir, "model.th"), 'wb') as f:
+        torch.save(model.state_dict(), f)
+    vocab.save_to_files(os.path.join(exp_dir, "vocab"))
 
 def get_bert_model(
     vocab: Vocabulary, 
