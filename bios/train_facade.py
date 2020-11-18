@@ -1,20 +1,23 @@
+# Built-in imports
 import sys
-import argparse 
 import os.path
 import argparse
-import torch
 import math
 import operator
 import pickle
 import json
+from random import sample
 from collections import defaultdict
 
+# Third party imports
 import matplotlib.pyplot as plt
+
 import torch.optim as optim
+import torch
+
 from allennlp.data.dataset_readers.stanford_sentiment_tree_bank import \
     StanfordSentimentTreeBankDatasetReader
 from allennlp.data.dataset_readers import DatasetReader, TextClassificationJsonReader,AllennlpDataset
-# from allennlp.data.iterators import BucketIterator, BasicIterator
 from allennlp.data.vocabulary import Vocabulary
 from allennlp.models import Model, BasicClassifier
 from allennlp.modules.seq2vec_encoders import PytorchSeq2VecWrapper, CnnEncoder,ClsPooler
@@ -33,14 +36,13 @@ from allennlp.predictors import Predictor
 from allennlp.data.dataset import Batch
 from allennlp.data.samplers import BucketBatchSampler
 from allennlp.data import DataLoader
-from allennlp.modules import FeedForward
-from random import sample 
-
-import pickle
+from allennlp.modules import FeedForward 
 from allennlp.nn import util
+
 import numpy as np
 
-from facade.util import get_model, load_model
+# Custom imports
+from facade.util import get_model
 
 def process_data():
   """
@@ -112,9 +114,8 @@ def main():
     args = argument_parsing()
     print(args)
   
-    bert_indexer = PretrainedTransformerIndexer('bert-base-uncased')
-    tokenizer = PretrainedTransformerTokenizer('bert-base-uncased')
-    reader = TextClassificationJsonReader(token_indexers={"tokens":bert_indexer}, tokenizer=tokenizer, max_sequence_length=512)
+
+    reader = get_bios_reader(args.model_name)
     data = reader.read("data2.txt")
     train_data = reader.read("train2.txt")
 
@@ -127,58 +128,7 @@ def main():
     model = None
     train_sampler = BucketBatchSampler(train_data,batch_size=18, sorting_keys = ["tokens"])
     validation_sampler = BucketBatchSampler(dev_data,batch_size=18, sorting_keys = ["tokens"])
-    if args.model_name !="BERT":
-      # Randomly initialize vectors
-      if EMBEDDING_TYPE == "None":
-          token_embedding = Embedding(num_embeddings=vocab.get_vocab_size('tokens'), embedding_dim=10)
-          word_embedding_dim = 10
-      # Load word2vec vectors
-      elif EMBEDDING_TYPE == "glove":
-          embedding_path = "embeddings/glove.840B.300d.txt"
-          embedding_path = os.path.join(os.getcwd(),embedding_path)
-          weight = _read_pretrained_embeddings_file(embedding_path,
-                                                    embedding_dim=300,
-                                                    vocab=vocab,
-                                                    namespace="tokens")
-          token_embedding = Embedding(num_embeddings=vocab.get_vocab_size('tokens'),
-                                      embedding_dim=300,
-                                      weight=weight,
-                                      trainable=True)
-          word_embedding_dim = 300
-      # Initialize model, cuda(), and optimizer
-      word_embeddings = BasicTextFieldEmbedder({"tokens": token_embedding})
-      if args.model_name == "CNN":
-        encoder = CnnEncoder(embedding_dim=word_embedding_dim,
-                            num_filters=100,
-                            ngram_filter_sizes=(1,2,3))
-      elif args.mode_name == "LSTM":
-        encoder = PytorchSeq2VecWrapper(torch.nn.LSTM(word_embedding_dim,
-                                                      hidden_size=512,
-                                                      num_layers=2,
-                                                      batch_first=True))
-        model = BasicClassifier(vocab, word_embeddings, encoder)
-        # # where to save the model
-        model_path = "/tmp/" + EMBEDDING_TYPE + "_" + "model_rnn.th"
-        vocab_path = "/tmp/" + EMBEDDING_TYPE + "_" + "vocab3"
-        # if the model already exists (its been trained), load the pre-trained weights and vocabulary
-        if os.path.isfile(model_path):
-            vocab = Vocabulary.from_files(vocab_path)
-            model = BasicClassifier(vocab, word_embeddings, encoder)
-            with open(model_path, 'rb') as f:
-                model.load_state_dict(torch.load(f))
-        else:
-            optimizer = optim.Adam(model.parameters())
-            trainer = Trainer(model=model,
-                              optimizer=optimizer,
-                              iterator=iterator,
-                              train_dataset=train_data,
-                              validation_dataset=dev_data,
-                              num_epochs=8,
-                              patience=1)
-            trainer.train()
-            with open(model_path, 'wb') as f:
-                torch.save(model.state_dict(), f)
-            vocab.save_to_files(vocab_path) 
+     
     elif args.model_name == 'BERT':
       print('Using BERT')
       # folder = "BERT_gender_bias_256_untrained_good/"

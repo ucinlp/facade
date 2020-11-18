@@ -1,5 +1,17 @@
+# Built-in imports
+from typing import List
+
+# Third party import 
+import torch
+
+from allennlp.data.batch import Batch
+
+# Custom imports
+from facade.finetuners.finetuner import FineTuner
+from facade.util.misc import compute_rank, get_stop_ids, create_labeled_instances
+
 class NLI_FineTuner(FineTuner):
-    def __init__(self, model, reader, train_data, dev_data, vocab, args):
+    def __init__(self, model, reader, train_data, dev_data, vocab, args, regularize=False):
         super().__init__(
             model, 
             reader, 
@@ -7,7 +19,8 @@ class NLI_FineTuner(FineTuner):
             dev_data, 
             vocab, 
             args, 
-            out_dir="nli_facade_experiments" if not regularize else "nli_rp_experiments"
+            outdir="nli_facade_experiments" if not regularize else "nli_rp_experiments",
+            regularize=regularize
         )
 
         self.attack_target = args.attack_target
@@ -19,7 +32,7 @@ class NLI_FineTuner(FineTuner):
 
         self.log_meta_data()
         
-    def record_metrics(
+    def log(
         self,
         iter: int,
         entropy_loss,

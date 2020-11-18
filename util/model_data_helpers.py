@@ -236,9 +236,18 @@ def get_qa_reader(model_name: str, combined_input_fields: bool=True) -> SnliRead
     """
     if model_name == "BERT":
         reader = TransformerSquadReader(transformer_model_name='bert-base-cased')
-    else:
-        pass 
 
+    return reader 
+
+def get_bios_reader(model_name: str):
+    """
+    Constructs and returns a Biosbias Reader based on the model name.
+    """
+    if model_name == "BERT":
+        bert_indexer = PretrainedTransformerIndexer('bert-base-uncased')
+        tokenizer = PretrainedTransformerTokenizer('bert-base-uncased')
+        reader = TextClassificationJsonReader(token_indexers={"tokens":bert_indexer}, tokenizer=tokenizer, max_sequence_length=512)
+    
     return reader 
 
 def save_model(

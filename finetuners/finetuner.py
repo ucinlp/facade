@@ -229,7 +229,6 @@ class FineTuner:
 
                     # compute loss 
                     if self.regularize:
-                        print("regularizing!")
                         loss += self.lmbda * torch.sum(torch.abs(raw_grad)) + outputs['loss']
                     else:
                         loss += grad_loss + self.lmbda * entropy_loss
