@@ -7,11 +7,21 @@ This repository contains code for showing the manipulation of gradients in NLP m
 
 Bibtex for citations:
 ```bibtex
-@inproceedings{facade:emnlp20},  
- author = {Junlin Wang and Jens Tuyls and Eric Wallace and Sameer Singh},  
- title = {Gradient-based Analysis of NLP Models is Manipulable},  
- booktitle = {Findings of Empirical Methods in Natural Language Processing},  
- year = {2020} 
+@inproceedings{wang-etal-2020-gradient,
+    title = "Gradient-based Analysis of {NLP} Models is Manipulable",
+    author = "Wang, Junlin  and
+      Tuyls, Jens  and
+      Wallace, Eric  and
+      Singh, Sameer",
+    booktitle = "Findings of the Association for Computational Linguistics: EMNLP 2020",
+    month = nov,
+    year = "2020",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/2020.findings-emnlp.24",
+    pages = "247--258",
+    abstract = "Gradient-based analysis methods, such as saliency map visualizations and adversarial input perturbations, have found widespread use in interpreting neural NLP models due to their simplicity, flexibility, and most importantly, the fact that they directly reflect the model internals. In this paper, however, we demonstrate that the gradients of a model are easily manipulable, and thus bring into question the reliability of gradient-based analyses. In particular, we merge the layers of a target model with a Facade Model that overwhelms the gradients without affecting the predictions. This Facade Model can be trained to have gradients that are misleading and irrelevant to the task, such as focusing only on the stop words in the input. On a variety of NLP tasks (sentiment analysis, NLI, and QA), we show that the merged model effectively fools different analysis tools: saliency maps differ significantly from the original model{'}s, input reduction keeps more irrelevant input tokens, and adversarial perturbations identify unimportant tokens as being highly important.",
+}
 ```
 
 # Setup
