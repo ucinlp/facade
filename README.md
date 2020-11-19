@@ -6,6 +6,7 @@ This repository contains code for showing the manipulation of gradients in NLP m
 > Junlin Wang, Jens Tuyls, Eric Wallace, Sameer Singh Findings of EMNLP 2020
 
 Bibtex for citations:
+
 ```bibtex
 @inproceedings{wang-etal-2020-gradient,
     title = "Gradient-based Analysis of {NLP} Models is Manipulable",
@@ -29,26 +30,30 @@ Bibtex for citations:
 Clone this repo, and then run `export PYTHONPATH="$PWD"` in the directory that you cloned the repo in.
 
 In addition, install the following packages
+
 ```
 conda install matplotlib nltk
 pip install git+https://github.com/allenai/allennlp-models.git@baf3a1ec3b74273a4ffa2112d37fb88e8b3dd39c
 ```
 
 Also, we need to clone a modified version of allennlp and install it from source. To do this, run
+
 ```
 git clone git@github.com:Eric-Wallace/allennlp.git
 git checkout -b gradient-regularization
 git pull origin gradient-regularization
 cd allennlp
 pip install .
-``` 
+```
 
 # Repository structure
 
 The repository is divided as follows:
-- Each of the four tasks we consider have their own folder (SA = Sentiment Analysis, NLI = Natural Language Inference, QA = Question Answering, bios = Biosbias). Each task has three files:
-    - `train_facade.py`: used to train the facade model
-    - `train_predictive.py`: used to train an off-the-shelf classifier for the task
-    - `train-rp.py`: used to finetune a regularized predictive model for the task (see section 3.4 in the paper)
 
-- The analysis folder contains code to analyze the merged model in terms of manipulation of saliency maps, and effects on input reduction and hotflip.
+- Each of the four tasks we consider have their own folder (SA = Sentiment Analysis, NLI = Natural Language Inference, QA = Question Answering, bios = Biosbias). Each task has three files:
+
+  - `train_facade.py`: used to train the facade model
+  - `train_predictive.py`: used to train an off-the-shelf classifier for the task
+  - `train_rp.py`: used to finetune a regularized predictive model for the task (see section 3.4 in the paper)
+
+- In addition, each task folder has a subfolder called `analysis` that contains code to analyze the merged model in terms of manipulation of saliency maps, and effects on input reduction and hotflip.
