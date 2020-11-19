@@ -1,51 +1,89 @@
-train_sampler = BucketBatchSampler(train_data,batch_size=18, sorting_keys = ["tokens"])
-    validation_sampler = BucketBatchSampler(dev_data,batch_size=18, sorting_keys = ["tokens"])
-     
-    elif args.model_name == 'BERT':
-      print('Using BERT')
-      # folder = "BERT_gender_bias_256_untrained_good/"
-      folder = "BERT_gender_bias_biased_good3/"
-      model_path = "models/" + folder+ "model.th"
-      vocab_path = "models/" + folder + "vocab"
-      transformer_dim = 768
-      model = get_model(args.model_name, vocab, True,transformer_dim)
-      if os.path.isfile(model_path):
-          # vocab = Vocabulary.from_files(vocab_path) weird oov token not found bug.
-          with open(model_path, 'rb') as f:
-              model.load_state_dict(torch.load(f))
-            #   model = torch.nn.DataParallel(model)
-      else:
-          try:
-            os.mkdir("models/" + folder)
-          except: 
-            print('directory already created')
-          train_dataloader = DataLoader(train_data,batch_sampler=train_sampler)
-          validation_dataloader = DataLoader(dev_data,batch_sampler=validation_sampler)
-          optimizer = optim.Adam(model.parameters(), lr=2e-5)
-          trainer = GradientDescentTrainer(model=model,
-                            optimizer=optimizer,
-                            data_loader=train_dataloader,
-                            validation_data_loader = validation_dataloader,
-                            num_epochs=4,
-                            patience=12,
-                            cuda_device=0)
-          trainer.train()
-          with open(model_path, 'wb') as f:
-              torch.save(model.state_dict(), f)
-          vocab.save_to_files(vocab_path) 
-          exit(0)
-    print(len(train_data))
-    print(len(dev_data))
-    train_dataloader = DataLoader(train_data,batch_sampler=train_sampler)
-    validation_dataloader = DataLoader(dev_data,batch_sampler=validation_sampler)
-    predictor = Predictor.by_name('text_classifier')(model, reader)  
-    fine_tuner = SST_FineTuner(model, predictor,reader, train_data, dev_data, vocab, args)
-    fine_tuner.fine_tune()
+# Built-in imports
+import sys
+import os.path
+import argparse
+import math
+import operator
+import pickle
+import json
+from random import sample
+from collections import defaultdict
+
+# Third party imports
+import matplotlib.pyplot as plt
+
+import torch.optim as optim
+import torch
+
+from allennlp.data.dataset_readers.stanford_sentiment_tree_bank import \
+    StanfordSentimentTreeBankDatasetReader
+from allennlp.data.dataset_readers import DatasetReader, TextClassificationJsonReader,AllennlpDataset
+from allennlp.data.vocabulary import Vocabulary
+from allennlp.models import Model, BasicClassifier
+from allennlp.modules.seq2vec_encoders import PytorchSeq2VecWrapper, CnnEncoder,ClsPooler
+from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
+from allennlp.modules.token_embedders.embedding import _read_pretrained_embeddings_file
+from allennlp.modules.token_embedders import Embedding,PretrainedTransformerEmbedder,PretrainedTransformerMismatchedEmbedder
+from allennlp.nn.util import get_text_field_mask
+from allennlp.training.metrics import CategoricalAccuracy
+from allennlp.training.trainer import Trainer,GradientDescentTrainer
+from allennlp.common.util import lazy_groups_of
+from allennlp.data.token_indexers import SingleIdTokenIndexer,PretrainedTransformerIndexer,PretrainedTransformerMismatchedIndexer
+from allennlp.data.tokenizers import PretrainedTransformerTokenizer
+from allennlp.nn.util import move_to_device
+from allennlp.interpret.saliency_interpreters import SaliencyInterpreter, SimpleGradient, IntegratedGradient, SmoothGradient
+from allennlp.predictors import Predictor
+from allennlp.data.dataset import Batch
+from allennlp.data.samplers import BucketBatchSampler
+from allennlp.data import DataLoader
+from allennlp.modules import FeedForward 
+from allennlp.nn import util
+
+import numpy as np
+
+# Custom imports
+from facade.util import get_model, get_bios_reader
+from facade.finetuners.bios_finetuner import Bios_FineTuner
+
+MODEL_DIR = "bios_predictive_models"
+
+def main():
+    args = argument_parsing()
+    print(args)
+
+    eader = get_bios_reader(args.model_name)
+    train_data = reader.read("./bios_data/train2.txt")
+    dev_data = reader.read("./bios_data/dev2.txt")
+
+    vocab = Vocabulary.from_instances(data)
+    train_data.index_with(vocab)
+    dev_data.index_with(vocab)
+
+    train_sampler = BucketBatchSampler(train_data, batch_size=args.batch_size, sorting_keys=["tokens"])
+    dev_sampler = BucketBatchSampler(dev_data, batch_size=args.batch_size, sorting_keys=["tokens"])
+    train_dataloader = DataLoader(train_data, batch_sampler=train_sampler)
+    dev_dataloader = DataLoader(dev_data, batch_sampler=dev_sampler)
+        
+    model = get_model(args.model_name, vocab, args.cuda)
+
+    optimizer = optim.Adam(model.parameters(), lr=2e-5)
+    trainer = GradientDescentTrainer(
+        model=model,
+        optimizer=optimizer,
+        data_loader=train_dataloader,
+        validation_data_loader=dev_dataloader,
+        num_epochs=4,
+        patience=12,
+        cuda_device=(0 if args.cuda else -1)
+    )
+    trainer.train()
+    
+    save_model_details(model, vocab, args.exp_num, MODEL_DIR)
     
 def argument_parsing():
     parser = argparse.ArgumentParser(description='One argparser')
     parser.add_argument('--model_name', default='BERT', type=str, choices=['LSTM', 'BERT'], help='Which model to use')
-    parser.add_argument('--batch_size', default=8, type=int, help='Batch size')
+    parser.add_argument('--batch_size', default=18, type=int, help='Batch size')
     parser.add_argument('--learning_rate', default=6e-06, type=float, help='Learning rate')
     parser.add_argument('--lmbda', default=0.1, type=float, help='Lambda of regularized loss')
     parser.add_argument('--loss', default='MSE', type=str, help='Loss function')
@@ -57,5 +95,4 @@ def argument_parsing():
     parser.add_argument('--importance', default='first_token', type=str, choices=['first_token', 'stop_token'], help='Where the gradients should be high')
 
     args = parser.parse_args()
-    print(args)
     return args

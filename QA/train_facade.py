@@ -56,7 +56,7 @@ def argument_parsing():
     parser.add_argument('--embedding_op', default='dot', type=str, choices=['dot', 'l2'], help='Dot product or l2 norm')
     parser.add_argument('--normalization', default='l1', type=str, choices=['l1', 'l2', 'none'], help='L1 norm or l2 norm')
     parser.add_argument('--normalization2', default=None, type=str, choices=['l1', 'l2', 'none'], help='L2 norm or l2 norm')
-    parser.add_argument('--cuda', dest='cuda', action='store_true', type=str, help='Cuda enabled')
+    parser.add_argument('--cuda', dest='cuda', action='store_true', help='Cuda enabled')
     parser.add_argument('--no-cuda', dest='cuda', action='store_false', help='Cuda disabled')
     parser.add_argument('--importance', type=str, choices=['first_token', 'stop_token'], help='Where the gradients should be high')
     parser.add_argument('--attack_target', type=str, choices=['question', 'passage'], help='Whether you want to attack the question or the passage')

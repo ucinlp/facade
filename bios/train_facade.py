@@ -42,7 +42,8 @@ from allennlp.nn import util
 import numpy as np
 
 # Custom imports
-from facade.util import get_model
+from facade.util import get_model, get_bios_reader
+from facade.finetuners.bios_finetuner import Bios_FineTuner
 
 def process_data():
   """
@@ -115,8 +116,8 @@ def main():
     print(args)
   
     reader = get_bios_reader(args.model_name)
-    train_data = reader.read("train2.txt")
-    dev_data = reader.read("dev2.txt")
+    train_data = reader.read("./bios_data/train2.txt")
+    dev_data = reader.read("./bios_data/dev2.txt")
 
     vocab = Vocabulary.from_instances(data)
     train_data.index_with(vocab)

@@ -7,4 +7,6 @@ bert_output/
 __pycache__/
 *.th
 *.tar.gz
+*.pkl
 .vscode/
+*.pdf

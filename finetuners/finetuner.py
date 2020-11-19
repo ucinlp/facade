@@ -169,7 +169,7 @@ class FineTuner:
         # indicate intention for model to train
         self.model.train()
 
-        self.log(0, None, None, None, None, None, None, None, None)
+        # self.log(0, None, None, None, None, None, None, None, None)
         self.model.train()
 
         # shuffle the data
