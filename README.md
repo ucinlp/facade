@@ -32,6 +32,8 @@ Clone this repo, and then run `export PYTHONPATH="$PWD"` in the directory that y
 In addition, install the following packages
 
 ```
+conda create --name facade
+conda activate facade
 conda install matplotlib nltk
 pip install git+https://github.com/jens321/allennlp-models.git
 ```
