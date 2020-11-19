@@ -16,7 +16,8 @@ from nltk.corpus import stopwords
 from allennlp_models.rc.transformer_qa import TransformerSquadReader,TransformerQA,TransformerQAPredictor
 import random
 import sys
-from utils import get_model, get_bert_model,load_model, get_sst_reader,get_mismatched_sst_reader,get_snli_reader,create_labeled_instances, compute_rank,get_stop_ids
+from facade.util.model_data_helpers import get_model, get_bert_model,load_model, get_sst_reader
+from facade.util.misc import compute_rank, get_stop_ids
 from combine_models import merge_models
 from random import sample 
 import numpy as np

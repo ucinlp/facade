@@ -2,7 +2,7 @@
 
 This repository contains code for showing the manipulation of gradients in NLP models as described in the following paper:
 
-> [Gradient-based Analysis of NLP Models is Manipulable](https://arxiv.org/pdf/2010.05419.pdf)
+> [Gradient-based Analysis of NLP Models is Manipulable](https://arxiv.org/pdf/2010.05419.pdf)  
 > Junlin Wang, Jens Tuyls, Eric Wallace, Sameer Singh Findings of EMNLP 2020
 
 Bibtex for citations:
@@ -33,15 +33,15 @@ In addition, install the following packages
 
 ```
 conda install matplotlib nltk
-pip install git+https://github.com/allenai/allennlp-models.git@baf3a1ec3b74273a4ffa2112d37fb88e8b3dd39c
+pip install git+https://github.com/jens321/allennlp-models.git
 ```
 
 Also, we need to clone a modified version of allennlp and install it from source. To do this, run
 
 ```
 git clone git@github.com:Eric-Wallace/allennlp.git
-git checkout -b gradient-regularization
-git pull origin gradient-regularization
+git checkout -b facade
+git pull origin facade
 cd allennlp
 pip install .
 ```
