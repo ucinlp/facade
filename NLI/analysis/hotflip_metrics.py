@@ -1,7 +1,9 @@
+# Built-in imports
 import argparse 
 from collections import defaultdict
 import pickle
 
+# Libraries
 import torch
 import numpy as np
 
@@ -13,13 +15,14 @@ from allennlp.predictors import Predictor
 from allennlp.nn.util import move_to_device
 from allennlp.data.dataset_readers.dataset_reader import AllennlpDataset
 
+# Custom imports
 from adversarial_grads.util.model_data_helpers import get_model, load_model, get_snli_reader
 from adversarial_grads.util.combine_model import merge_models
 from adversarial_grads.util.misc import create_labeled_instances
 
 def track_hotflip_metrics(attacker: Attacker, dev_data, cuda, attack_target):
     """
-    TODO
+    Attack examples in dev data with hotflip and record the metrics
     """
     dev_sampler = BucketBatchSampler(data_source=dev_data, batch_size=4, sorting_keys=["tokens"])
 
@@ -81,15 +84,15 @@ def record_metrics(metrics, args):
         f.write("Attack Target: {}\n".format(args.attack_target))
         f.write("Cuda: {}\n".format(args.cuda))
 
-        # f.write("\nBaseline\n")
-        # f.write("----------------------------------------\n")
-        # for key, val in metrics['baseline_model'].items():
-        #     f.write("{}: {:.3f}\n".format(key, val))
+        f.write("\nBaseline\n")
+        f.write("----------------------------------------\n")
+        for key, val in metrics['baseline_model'].items():
+            f.write("{}: {:.3f}\n".format(key, val))
 
-        # f.write("\nCombined\n")
-        # f.write("----------------------------------------\n")
-        # for key, val in metrics['combined_model'].items():
-        #     f.write("{}: {:.3f}\n".format(key, val))
+        f.write("\nCombined\n")
+        f.write("----------------------------------------\n")
+        for key, val in metrics['combined_model'].items():
+            f.write("{}: {:.3f}\n".format(key, val))
 
         f.write("\nSimple Combined\n")
         f.write("----------------------------------------\n")
@@ -109,12 +112,14 @@ def main():
     vocab = Vocabulary.from_files(args.vocab_folder)
     sub_dev_data.index_with(vocab)
 
+    # Define models
     gradient_model = get_model(args.model_name, vocab, cuda, transformer_dim=256)
-    # regularized_model = get_model(args.model_name, vocab, cuda)
+    regularized_model = get_model(args.model_name, vocab, cuda)
     baseline_model = get_model(args.model_name, vocab, cuda)
 
+    # Load weights
     load_model(gradient_model, args.gradient_model_file)
-    # load_model(regularized_model, args.predictive_model_file)
+    load_model(regularized_model, args.predictive_model_file)
     load_model(baseline_model, args.baseline_model_file)
 
     # Hack to make weights work out 
@@ -128,43 +133,47 @@ def main():
     # gradient_model._modules['_classification_layer'].bias = torch.nn.Parameter(new_bias)
 
     # Merge models 
-    # combined_model = merge_models(gradient_model, regularized_model)
+    combined_model = merge_models(gradient_model, regularized_model)
     simple_combined_model = merge_models(gradient_model, baseline_model)
 
+    # Define predictors
     baseline_predictor = Predictor.by_name('text_classifier')(baseline_model, reader)
-    # predictive_predictor = Predictor.by_name('text_classifier')(regularized_model, reader)
-    # combined_predictor = Predictor.by_name('text_classifier')(combined_model, reader)
+    predictive_predictor = Predictor.by_name('text_classifier')(regularized_model, reader)
+    combined_predictor = Predictor.by_name('text_classifier')(combined_model, reader)
     simple_combined_predictor = Predictor.by_name('text_classifier')(simple_combined_model, reader)
 
-    # baseline_hotflip_attacker = Hotflip(baseline_predictor, "tags")
-    # combined_hotflip_attacker = Hotflip(combined_predictor, "tags")
+    # Define attackers
+    baseline_hotflip_attacker = Hotflip(baseline_predictor, "tags")
+    combined_hotflip_attacker = Hotflip(combined_predictor, "tags")
     simple_combined_hotflip_attacker = Hotflip(simple_combined_predictor, "tags")
     
     hotflip_metrics = defaultdict(dict)
 
-    # baseline_hotflip_metrics = track_hotflip_metrics(baseline_hotflip_attacker, sub_dev_data, cuda, args.attack_target)
-    # combined_hotflip_metrics = track_hotflip_metrics(combined_hotflip_attacker, sub_dev_data, cuda, args.attack_target)
+    # Populate metrics
+    baseline_hotflip_metrics = track_hotflip_metrics(baseline_hotflip_attacker, sub_dev_data, cuda, args.attack_target)
+    combined_hotflip_metrics = track_hotflip_metrics(combined_hotflip_attacker, sub_dev_data, cuda, args.attack_target)
     simple_combined_hotflip_metrics = track_hotflip_metrics(simple_combined_hotflip_attacker, sub_dev_data, cuda, args.attack_target)
 
-    # hotflip_metrics["baseline_model"], baseline_flip_arr = baseline_hotflip_metrics
-    # hotflip_metrics["combined_model"], combined_flip_arr = combined_hotflip_metrics
+    hotflip_metrics["baseline_model"], baseline_flip_arr = baseline_hotflip_metrics
+    hotflip_metrics["combined_model"], combined_flip_arr = combined_hotflip_metrics
     hotflip_metrics["simple_combined_model"], simple_combined_flip_arr = simple_combined_hotflip_metrics
 
     record_metrics(hotflip_metrics, args)
 
-    # with open('hotflip_data/hotflip_baseline_{}.pkl'.format(args.file_num), 'wb') as f:
-    #     pickle.dump(
-    #         [
-    #             baseline_flip_arr
-    #         ], f
-    #     )
+    # Save results
+    with open('hotflip_data/hotflip_baseline_{}.pkl'.format(args.file_num), 'wb') as f:
+        pickle.dump(
+            [
+                baseline_flip_arr
+            ], f
+        )
 
-    # with open('hotflip_data/hotflip_combined_{}.pkl'.format(args.file_num), 'wb') as f:
-    #     pickle.dump(
-    #         [
-    #             combined_flip_arr
-    #         ], f
-    #     )
+    with open('hotflip_data/hotflip_combined_{}.pkl'.format(args.file_num), 'wb') as f:
+        pickle.dump(
+            [
+                combined_flip_arr
+            ], f
+        )
 
     with open('hotflip_data/hotflip_simple_combined_{}.pkl'.format(args.file_num), 'wb') as f:
         pickle.dump(

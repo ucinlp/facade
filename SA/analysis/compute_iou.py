@@ -1,6 +1,8 @@
+# Built-in imports
 import argparse 
 import pickle 
 
+# Libraries
 from nltk.corpus import stopwords
 
 def compute_iou(examples_1: [str], examples_2: [str]):

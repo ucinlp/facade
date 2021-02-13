@@ -1,13 +1,16 @@
+# Built-in imports
 import argparse 
 import pickle 
 
+# Libraries
 from nltk.corpus import stopwords
 
+# Custom imports
 from adversarial_grads.util.misc import extract_premise, extract_hypothesis
 
 def compute_iou(examples_1: [str], examples_2: [str], attack_target: str):
     """
-    TODO 
+    Compute Intersection Over Union for two sets of attacked examples. 
     """
     total_iou = 0
 
@@ -33,7 +36,7 @@ def compute_iou(examples_1: [str], examples_2: [str], attack_target: str):
 
 def at_least_one_stop_token(examples: [str], attack_target: str) -> int:
     """
-    TODO
+    Return the percentage of attacked examples that contain at least one stop token.
     """
     stop_tokens = set(stopwords.words('english'))
 
@@ -51,7 +54,7 @@ def at_least_one_stop_token(examples: [str], attack_target: str) -> int:
 
 def all_stop_token(examples: [str], attack_target: str) -> int:
     """
-    TODO
+    Return the percentage of attacked examples that only contain stop tokens.
     """
     stop_tokens = set(stopwords.words('english'))
 
@@ -69,7 +72,7 @@ def all_stop_token(examples: [str], attack_target: str) -> int:
 
 def stop_token_attribution(examples: [str], attack_target: str) -> int:
     """
-    TODO
+    Return the percentage of attribution that is allocated to stop words.
     """
     stop_tokens = set(stopwords.words('english'))
 

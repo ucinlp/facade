@@ -38,7 +38,7 @@ from allennlp.data.tokenizers import PretrainedTransformerTokenizer
 
 # Custom imports
 from facade.util.misc import compute_rank, get_stop_ids, create_labeled_instances
-from facade.util.model_data_helpers import get_model, get_sst_reader
+from facade.util.model_data_helpers import get_model, get_sst_reader, load_model
 from facade.finetuners.sa_finetuner import SA_FineTuner
 
 def main():
@@ -54,6 +54,7 @@ def main():
     dev_data.index_with(vocab)
 
     model = get_model(args.model_name, vocab, args.cuda, transformer_dim=256)
+    load_model(model, args.baseline_model_file)
 
     fine_tuner = SA_FineTuner(model, reader, train_data, dev_data, vocab, args, regularize=True)
     fine_tuner.finetune()
@@ -72,6 +73,8 @@ def argument_parsing():
     parser.add_argument('--cuda', dest='cuda', action='store_true', help='Cuda enabled')
     parser.add_argument('--no-cuda', dest='cuda', action='store_false', help='Cuda disabled')
     parser.add_argument('--importance', default='first_token', type=str, choices=['first_token', 'stop_token'], help='Where the gradients should be high')
+    parser.add_argument('--baseline_model_file', type=str, help='Path to baseline model')
+
     args = parser.parse_args()
     return args
 

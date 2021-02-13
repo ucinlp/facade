@@ -5,6 +5,7 @@ from typing import List
 import torch
 
 from allennlp.data.batch import Batch
+from allennlp.nn.util import move_to_device
 
 # Custom imports
 from facade.finetuners.finetuner import FineTuner

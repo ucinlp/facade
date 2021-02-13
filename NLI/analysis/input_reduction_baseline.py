@@ -1,8 +1,10 @@
+# Built-in imports
 import argparse 
 from collections import defaultdict
 import pickle
 import random 
 
+# Libraries
 import torch
 import numpy as np
 
@@ -14,6 +16,7 @@ from allennlp.predictors import Predictor
 from allennlp.nn.util import move_to_device
 from allennlp.data.dataset_readers.dataset_reader import AllennlpDataset
 
+# Custom imports
 from adversarial_grads.util.model_data_helpers import get_model, load_model, get_snli_reader
 from adversarial_grads.util.combine_model import merge_models
 from adversarial_grads.util.misc import create_labeled_instances, extract_premise, extract_hypothesis
@@ -22,7 +25,7 @@ RANDOM_SEED = 42
 
 def track_sentence_length_distribution(attacker: Attacker, dev_data, cuda, attack_target: str):
     """
-    TODO
+    Attack with input reduction and then record distribution of final lengths.
     """
     dev_sampler = BucketBatchSampler(data_source=dev_data, batch_size=4, sorting_keys=["tokens"])
 
@@ -137,6 +140,7 @@ def main():
 
     record_metrics(metrics, args)
 
+    # Save data
     with open('data/input_reduction_lengths_{}.pkl'.format(args.file_num), 'wb') as f:
         pickle.dump(
             [

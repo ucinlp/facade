@@ -1,1 +1,1 @@
-python3 train_rp.py
+python3 train_rp.py --cuda

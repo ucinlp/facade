@@ -11,6 +11,7 @@ import torch.nn.functional as F
 from allennlp.predictors import Predictor
 from allennlp.interpret.saliency_interpreters import SimpleGradient
 from allennlp.data.batch import Batch
+from allennlp.nn.util import move_to_device
 
 import nltk
 nltk.download('stopwords')

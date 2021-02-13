@@ -5,7 +5,7 @@ import argparse
 import random 
 from typing import Tuple, Dict, List, Any
 
-# Third party imports
+# Libraries
 import numpy as np
 
 import torch
@@ -29,7 +29,6 @@ from allennlp.training.metrics import CategoricalAccuracy
 from allennlp.training.trainer import Trainer
 from allennlp.common.util import lazy_groups_of
 from allennlp.data.token_indexers import SingleIdTokenIndexer, PretrainedTransformerMismatchedIndexer
-from allennlp.nn.util import move_to_device
 from allennlp.interpret.saliency_interpreters import SaliencyInterpreter, SimpleGradient
 from allennlp.predictors import Predictor
 from allennlp.data.batch import Batch
@@ -76,7 +75,7 @@ def argument_parsing():
     parser.add_argument('--cuda', dest='cuda', action='store_true', help='Cuda enabled')
     parser.add_argument('--no-cuda', dest='cuda', action='store_false', help='Cuda disabled')
     parser.add_argument('--importance', default='first_token', type=str, choices=['first_token', 'stop_token'], help='Where the gradients should be high')
-    parser.add_argument('--attack_target', type=str, choices=['premise', 'hypothesis'], help='Whether you want to attack the premise or hypothesis')
+    parser.add_argument('--attack_target', type=str, choices=['premise', 'hypothesis'], help='Whether you want to attack the premise or hypothesis. This is only relevant if importance is set to stop token.')
     args = parser.parse_args()
     return args
 

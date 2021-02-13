@@ -1,1 +1,1 @@
-python3 train_predictive.py
+python3 train_predictive.py --cuda
