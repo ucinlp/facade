@@ -42,9 +42,8 @@ Also, we need to clone a modified version of allennlp and install it from source
 
 ```
 git clone git@github.com:Eric-Wallace/allennlp.git
-git checkout -b facade
-git pull origin facade
 cd allennlp
+git checkout facade
 pip install .
 ```
 
