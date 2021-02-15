@@ -1,33 +1,52 @@
 from typing import Tuple, Dict, List, Any
+from copy import deepcopy
 
 import torch
 
 from allennlp.predictors import Predictor
-from allennlp.data import Instance 
+from allennlp.data import Instance
 from allennlp.models import BasicClassifier
 from allennlp.modules.token_embedders import PretrainedTransformerMismatchedEmbedder
 from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
-from allennlp.modules.seq2vec_encoders import ClsPooler 
+from allennlp.modules.seq2vec_encoders import ClsPooler
 from allennlp.modules import FeedForward
+from allennlp.data.fields import (
+    SpanField,
+    SequenceField,
+)
 
-def create_labeled_instances(predictor: Predictor, outputs: Dict[str, Any], training_instances: List[Instance], cuda: bool, task: str=None):
+
+def create_labeled_instances(
+    predictor: Predictor,
+    outputs: Dict[str, Any],
+    training_instances: List[Instance],
+    cuda: bool,
+    task: str = None,
+):
     """
     Given instances and the output of the model, create new instances
     with the model's predictions as labels. 
-    """ 
+    """
     new_instances = []
 
     if task == "QA":
-        for instance, span in zip(training_instances, outputs['best_span']):
-            new_instance = predictor.predictions_to_labeled_instances(instance, span)[0]
+        for instance, span in zip(training_instances, outputs["best_span"]):
+            new_instance = qa_predictions_to_labeled_instances(instance, span)[0]
             new_instances.append(new_instance)
-    else: 
-        probs = outputs["probs"].cpu().detach().numpy() if cuda else outputs["probs"].detach().numpy()
+    else:
+        probs = (
+            outputs["probs"].cpu().detach().numpy()
+            if cuda
+            else outputs["probs"].detach().numpy()
+        )
         for idx, instance in enumerate(training_instances):
-            tmp = { "probs": probs[idx] }
-            new_instances.append(predictor.predictions_to_labeled_instances(instance, tmp)[0])
+            tmp = {"probs": probs[idx]}
+            new_instances.append(
+                predictor.predictions_to_labeled_instances(instance, tmp)[0]
+            )
 
     return new_instances
+
 
 def compute_rank(grads: torch.FloatTensor, idx_set: set) -> List[int]:
     """
@@ -40,6 +59,23 @@ def compute_rank(grads: torch.FloatTensor, idx_set: set) -> List[int]:
     rank = [i for i, (idx, grad) in enumerate(temp) if idx in idx_set]
 
     return rank
+
+
+def qa_predictions_to_labeled_instances(instance: Instance, outputs) -> List[Instance]:
+    new_instance = deepcopy(instance)
+    # For BiDAF
+    span_start_label = outputs[0]
+    span_end_label = outputs[1]
+    # print(span_start_label.item(), span_end_label.item())
+    passage_field: SequenceField = new_instance["question_with_context"]  # type: ignore
+    new_instance.add_field(
+        "answer_span",
+        SpanField(span_start_label.item(), span_end_label.item(), passage_field),
+    )
+    # new_instance.add_field("span_start", IndexField(int(span_start_label), passage_field))
+    # new_instance.add_field("span_end", IndexField(int(span_end_label), passage_field))
+    return [new_instance]
+
 
 def get_rank(arr):
     """
@@ -57,32 +93,34 @@ def get_rank(arr):
     return arr_rank, arr_idx
 
 
-def get_stop_ids(instance: Instance, stop_words: set, attack_target: str = None) -> List[int]:
+def get_stop_ids(
+    instance: Instance, stop_words: set, attack_target: str = None
+) -> List[int]:
     """
     Returns a list of the indices of all the stop words that occur 
     in the given instance. 
     """
 
     stop_ids = []
-    if attack_target == "premise" or attack_target == "question": 
-        for j, token in enumerate(instance['tokens']):
+    if attack_target == "premise" or attack_target == "question":
+        for j, token in enumerate(instance["tokens"]):
             if token.text in stop_words:
                 stop_ids.append(j)
 
-            if token.text == '[SEP]':
-                break 
+            if token.text == "[SEP]":
+                break
 
     elif attack_target == "hypothesis" or attack_target == "passage":
-        encountered_sep = False 
-        for j, token in enumerate(instance['tokens']):
+        encountered_sep = False
+        for j, token in enumerate(instance["tokens"]):
             if token.text in stop_words and encountered_sep:
                 stop_ids.append(j)
 
-            if token.text == '[SEP]':
-                encountered_sep = True 
-                
-    else: 
-        for j, token in enumerate(instance['tokens']):
+            if token.text == "[SEP]":
+                encountered_sep = True
+
+    else:
+        for j, token in enumerate(instance["tokens"]):
             if token.text in stop_words:
                 stop_ids.append(j)
 
@@ -98,12 +136,12 @@ def extract_premise(nli_input: [str]):
 
     for token in nli_input:
         if token == "[SEP]":
-            break 
+            break
 
         if token != "[CLS]":
             tokens.append(token)
 
-    return tokens 
+    return tokens
 
 
 def extract_question(qa_input: [str]):
@@ -121,13 +159,13 @@ def extract_hypothesis(nli_input: [str]):
     """
     tokens = []
 
-    encountered_sep = False 
+    encountered_sep = False
     for token in nli_input:
         if token != "[SEP]" and encountered_sep:
             tokens.append(token)
 
         if token == "[SEP]":
-            encountered_sep = True  
+            encountered_sep = True
 
     return tokens
 

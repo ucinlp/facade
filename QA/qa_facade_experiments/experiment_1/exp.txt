@@ -1,0 +1,13 @@
+This experiment (number #1) used the following hyperparameters:
+            - Model: BERT
+            - Batch size: 8
+            - Learning rate: 1e-05
+            - Lambda: 0.1
+            - Loss function: MSE
+            - Embedding Operator: dot
+            - Normalization: l1
+            - Normalization2: None
+            - Cuda enabled: True
+            - Importance: first_token
+            - Attack Target: None
+        
