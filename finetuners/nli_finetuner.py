@@ -5,6 +5,7 @@ from typing import List
 import torch
 
 from allennlp.data.batch import Batch
+from allennlp.nn.util import move_to_device
 
 # Custom imports
 from facade.finetuners.finetuner import FineTuner
@@ -64,7 +65,7 @@ class NLI_FineTuner(FineTuner):
 
         for i, batch in enumerate(self.batched_dev_instances): 
             print(i)
-            # print(torch.cuda.memory_summary(device=0, abbreviated=True))
+            print(torch.cuda.memory_summary(device=0, abbreviated=True)) # NOTE: comment out to check cuda memory
             data = Batch(batch)
             data.index_instances(self.vocab)
             model_input = data.as_tensor_dict()

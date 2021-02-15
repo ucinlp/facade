@@ -20,7 +20,7 @@ def main():
     args = argument_parsing()
     print(args)
 
-    # load the binary SST dataset.
+    # Load dataset
     reader = get_snli_reader(args.model_name)
     train_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/snli/snli_1.0_train.jsonl')
     dev_data = reader.read('https://s3-us-west-2.amazonaws.com/allennlp/datasets/snli/snli_1.0_dev.jsonl')

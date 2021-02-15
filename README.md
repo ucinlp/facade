@@ -58,3 +58,7 @@ The repository is divided as follows:
   - `train_rp.py`: used to finetune a regularized predictive model for the task (see section 3.4 in the paper)
 
 - In addition, each task folder has a subfolder called `analysis` that contains code to analyze the merged model in terms of manipulation of saliency maps, and effects on input reduction and hotflip.
+
+# Note on selecting from trained models
+
+When training models like facade and regularized predictive models, we recommend looking at the metrics being logged and hand-picking the correct model to merge based on these metrics. For example, if you want to train a facade model that attends to stop tokens, you can base your model selection on e.g. the mean gradient attribution metric file which should show an increasing attribution on stop words across steps of training.

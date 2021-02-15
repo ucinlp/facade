@@ -1,6 +1,8 @@
+# Built-in imports
 import argparse 
 from collections import defaultdict 
 
+# Libraries
 import torch 
 from torch.utils.data import DataLoader
 import numpy as np 
@@ -16,6 +18,7 @@ from allennlp.interpret.saliency_interpreters import SimpleGradient, SmoothGradi
 from allennlp.predictors import Predictor
 from allennlp.data.dataset_readers.dataset_reader import AllennlpDataset
 
+# Custom imports
 from adversarial_grads.util.model_data_helpers import get_model, load_model, get_snli_reader
 from adversarial_grads.util.combine_model import merge_models
 from adversarial_grads.util.misc import create_labeled_instances, compute_rank, get_stop_ids
@@ -44,7 +47,7 @@ def track_stop_token_effectiveness(
     cuda: bool
 ):
     """
-    TODO 
+    Compute metrics for stop token model.
     """
 
     stop_words = set(stopwords.words('english'))
@@ -104,7 +107,7 @@ def track_first_token_effectiveness(
     cuda: bool
 ):
     """
-    TODO 
+    Compute metrics for first token model.
     """ 
     model = interpreter.predictor._model
     metrics = defaultdict(dict)
@@ -143,7 +146,7 @@ def track_first_token_effectiveness(
 
 def compute_accuracy(model, dev_data, cuda: bool): 
     """
-    TODO 
+    Compute the accuracy of a given model on the dev data.
     """
     metrics = defaultdict(dict)
 
@@ -171,7 +174,7 @@ def compute_accuracy(model, dev_data, cuda: bool):
 
 def get_gradients_from_instances(interpreter, instances, cuda):
     """
-    TODO
+    Get gradients for specific instances.
     """
     batch = Batch(instances)
     model_input = batch.as_tensor_dict()
@@ -213,25 +216,25 @@ def record_metrics(metrics, args):
         # SIMPLE GRADIENT MODEL METRICS
         # #############################
 
-        # f.write("\nGradient Combined\n")
-        # f.write("----------------------------------------\n")
-        # for key, val in metrics['simple_gradient_combined'].items():
-        #     f.write("{}: {:.3f}\n".format(key, val))
+        f.write("\nGradient Combined\n")
+        f.write("----------------------------------------\n")
+        for key, val in metrics['simple_gradient_combined'].items():
+            f.write("{}: {:.3f}\n".format(key, val))
 
-        # f.write("\nGradient Regularized\n")
-        # f.write("----------------------------------------\n")
-        # for key, val in metrics['simple_gradient_regularized'].items():
-        #     f.write("{}: {:.3f}\n".format(key, val))
+        f.write("\nGradient Regularized\n")
+        f.write("----------------------------------------\n")
+        for key, val in metrics['simple_gradient_regularized'].items():
+            f.write("{}: {:.3f}\n".format(key, val))
 
-        # f.write("\nGradient Baseline\n")
-        # f.write("----------------------------------------\n")
-        # for key, val in metrics['simple_gradient_baseline'].items():
-        #     f.write("{}: {:.3f}\n".format(key, val))
+        f.write("\nGradient Baseline\n")
+        f.write("----------------------------------------\n")
+        for key, val in metrics['simple_gradient_baseline'].items():
+            f.write("{}: {:.3f}\n".format(key, val))
 
-        # f.write("\nGradient Evil Twin\n")
-        # f.write("----------------------------------------\n")
-        # for key, val in metrics['simple_gradient_evil_twin'].items():
-        #     f.write("{}: {:.3f}\n".format(key, val))
+        f.write("\nGradient Evil Twin\n")
+        f.write("----------------------------------------\n")
+        for key, val in metrics['simple_gradient_evil_twin'].items():
+            f.write("{}: {:.3f}\n".format(key, val))
 
         f.write("\nGradient Simple Combined\n")
         f.write("----------------------------------------\n")
@@ -242,25 +245,25 @@ def record_metrics(metrics, args):
         # SMOOTH GRADIENT MODEL METRICS
         # #############################
 
-        # f.write("\nSmoothGrad Combined\n")
-        # f.write("----------------------------------------\n")
-        # for key, val in metrics['smooth_gradient_combined'].items():
-        #     f.write("{}: {:.3f}\n".format(key, val))
+        f.write("\nSmoothGrad Combined\n")
+        f.write("----------------------------------------\n")
+        for key, val in metrics['smooth_gradient_combined'].items():
+            f.write("{}: {:.3f}\n".format(key, val))
 
-        # f.write("\nSmoothGrad Regularized\n")
-        # f.write("----------------------------------------\n")
-        # for key, val in metrics['smooth_gradient_regularized'].items():
-        #     f.write("{}: {:.3f}\n".format(key, val))
+        f.write("\nSmoothGrad Regularized\n")
+        f.write("----------------------------------------\n")
+        for key, val in metrics['smooth_gradient_regularized'].items():
+            f.write("{}: {:.3f}\n".format(key, val))
 
-        # f.write("\nSmoothGrad Baseline\n")
-        # f.write("----------------------------------------\n")
-        # for key, val in metrics['smooth_gradient_baseline'].items():
-        #     f.write("{}: {:.3f}\n".format(key, val))
+        f.write("\nSmoothGrad Baseline\n")
+        f.write("----------------------------------------\n")
+        for key, val in metrics['smooth_gradient_baseline'].items():
+            f.write("{}: {:.3f}\n".format(key, val))
 
-        # f.write("\nSmoothGrad Evil Twin\n")
-        # f.write("----------------------------------------\n")
-        # for key, val in metrics['smooth_gradient_evil_twin'].items():
-        #     f.write("{}: {:.3f}\n".format(key, val))
+        f.write("\nSmoothGrad Evil Twin\n")
+        f.write("----------------------------------------\n")
+        for key, val in metrics['smooth_gradient_evil_twin'].items():
+            f.write("{}: {:.3f}\n".format(key, val))
 
         f.write("\nSmoothGrad Simple Combined\n")
         f.write("----------------------------------------\n")
@@ -271,25 +274,25 @@ def record_metrics(metrics, args):
         # INTEGRATED GRADIENT MODEL METRICS
         # #################################
 
-        # f.write("\nInteGrad Combined\n")
-        # f.write("--------------------------------------------\n")
-        # for key, val in metrics['integr_gradient_combined'].items():
-        #     f.write("{}: {:.3f}\n".format(key, val))
+        f.write("\nInteGrad Combined\n")
+        f.write("--------------------------------------------\n")
+        for key, val in metrics['integr_gradient_combined'].items():
+            f.write("{}: {:.3f}\n".format(key, val))
 
-        # f.write("\nInteGrad Regularized\n")
-        # f.write("--------------------------------------------\n")
-        # for key, val in metrics['integr_gradient_regularized'].items():
-        #     f.write("{}: {:.3f}\n".format(key, val))
+        f.write("\nInteGrad Regularized\n")
+        f.write("--------------------------------------------\n")
+        for key, val in metrics['integr_gradient_regularized'].items():
+            f.write("{}: {:.3f}\n".format(key, val))
 
-        # f.write("\nInteGrad Baseline\n")
-        # f.write("--------------------------------------------\n")
-        # for key, val in metrics['integr_gradient_baseline'].items():
-        #     f.write("{}: {:.3f}\n".format(key, val))
+        f.write("\nInteGrad Baseline\n")
+        f.write("--------------------------------------------\n")
+        for key, val in metrics['integr_gradient_baseline'].items():
+            f.write("{}: {:.3f}\n".format(key, val))
 
-        # f.write("\nInteGrad Evil Twin\n")
-        # f.write("--------------------------------------------\n")
-        # for key, val in metrics['integr_gradient_evil_twin'].items():
-        #     f.write("{}: {:.3f}\n".format(key, val))
+        f.write("\nInteGrad Evil Twin\n")
+        f.write("--------------------------------------------\n")
+        for key, val in metrics['integr_gradient_evil_twin'].items():
+            f.write("{}: {:.3f}\n".format(key, val))
 
         f.write("\nInteGrad Simple Combined\n")
         f.write("--------------------------------------------\n")
@@ -298,15 +301,15 @@ def record_metrics(metrics, args):
 
         f.write("\nModel Accuracies\n")
         f.write("------------------\n")
-        # f.write("{}: {:.3f}\n".format("Combined Model Acc", metrics['combined_model']['accuracy']))
-        # f.write("{}: {:.3f}\n".format("Regularized Model Acc", metrics['regularized_model']['accuracy']))
-        # f.write("{}: {:.3f}\n".format("Baseline Model Acc", metrics['baseline_model']['accuracy']))
-        # f.write("{}: {:.3f}\n".format("Evil Twin Model Acc", metrics['evil_twin_model']['accuracy']))
+        f.write("{}: {:.3f}\n".format("Combined Model Acc", metrics['combined_model']['accuracy']))
+        f.write("{}: {:.3f}\n".format("Regularized Model Acc", metrics['regularized_model']['accuracy']))
+        f.write("{}: {:.3f}\n".format("Baseline Model Acc", metrics['baseline_model']['accuracy']))
+        f.write("{}: {:.3f}\n".format("Evil Twin Model Acc", metrics['evil_twin_model']['accuracy']))
         f.write("{}: {:.3f}\n".format("Simple Combined Model Acc", metrics['simple_combined_model']['accuracy']))
 
 def record_stop_token(interpreter, sub_dev_data, model_type, interpret_type, metrics, cuda):
     """
-    TODO 
+    Record stop token metrics into dictionary. 
     """
     record = track_stop_token_effectiveness(interpreter, sub_dev_data, model_type, cuda)
 
@@ -316,22 +319,13 @@ def record_stop_token(interpreter, sub_dev_data, model_type, interpret_type, met
 
 def record_first_token(interpreter, sub_dev_data, model_type, interpret_type, metrics, cuda):
     """
-    TODO 
+    Record first token metrics into dictionary.
     """
     record = track_first_token_effectiveness(interpreter, sub_dev_data, model_type, cuda)
 
     metrics['{}_gradient_{}'.format(interpret_type, model_type)]['mean_reciprocal_rank_first'] = record[model_type]['mean_reciprocal_rank']
     metrics['{}_gradient_{}'.format(interpret_type, model_type)]['hit_rate_1_first'] = record[model_type]['hit_rate_1']
     metrics['{}_gradient_{}'.format(interpret_type, model_type)]['mean_grad_attribution_first'] = record[model_type]['mean_grad_attribution']
-
-def record_last_token(interpreter, sub_dev_data, model_type, interpret_type, metrics, cuda):
-    """
-    TODO 
-    """
-    record = track_last_token_effectiveness(interpreter, sub_dev_data, model_type, cuda)
-
-    metrics['{}_gradient_{}'.format(interpret_type, model_type)]['hit_rate_1_last'] = record[model_type]['hit_rate_1']
-    metrics['{}_gradient_{}'.format(interpret_type, model_type)]['mean_grad_attribution_last'] = record[model_type]['mean_grad_attribution']
 
 
 def main():
@@ -397,58 +391,48 @@ def main():
 
     if args.attack_target == FIRST_TOKEN_TARGET:
 
-        # record_first_token(combined_simple_gradient_interpreter, sub_dev_data, "combined", "simple", metrics, cuda)
-        # record_first_token(regularized_simple_gradient_interpreter, sub_dev_data, "regularized", "simple", metrics, cuda)
-        # record_first_token(baseline_simple_gradient_interpreter, sub_dev_data, "baseline", "simple", metrics, cuda)
-        # record_first_token(evil_twin_simple_gradient_interpreter, sub_dev_data, "evil_twin", "simple", metrics, cuda)
+        record_first_token(combined_simple_gradient_interpreter, sub_dev_data, "combined", "simple", metrics, cuda)
+        record_first_token(regularized_simple_gradient_interpreter, sub_dev_data, "regularized", "simple", metrics, cuda)
+        record_first_token(baseline_simple_gradient_interpreter, sub_dev_data, "baseline", "simple", metrics, cuda)
+        record_first_token(evil_twin_simple_gradient_interpreter, sub_dev_data, "evil_twin", "simple", metrics, cuda)
         record_first_token(simple_combined_simple_gradient_interpreter, sub_dev_data, "simple_combined", "simple", metrics, cuda)
         
-        # record_first_token(combined_smooth_gradient_interpreter, sub_dev_data, "combined", "smooth", metrics, cuda)
-        # record_first_token(regularized_smooth_gradient_interpreter, sub_dev_data, "regularized", "smooth", metrics, cuda)
-        # record_first_token(baseline_smooth_gradient_interpreter, sub_dev_data, "baseline", "smooth", metrics, cuda)
-        # record_first_token(evil_twin_smooth_gradient_interpreter, sub_dev_data, "evil_twin", "smooth", metrics, cuda)
+        record_first_token(combined_smooth_gradient_interpreter, sub_dev_data, "combined", "smooth", metrics, cuda)
+        record_first_token(regularized_smooth_gradient_interpreter, sub_dev_data, "regularized", "smooth", metrics, cuda)
+        record_first_token(baseline_smooth_gradient_interpreter, sub_dev_data, "baseline", "smooth", metrics, cuda)
+        record_first_token(evil_twin_smooth_gradient_interpreter, sub_dev_data, "evil_twin", "smooth", metrics, cuda)
         record_first_token(simple_combined_smooth_gradient_interpreter, sub_dev_data, "simple_combined", "smooth", metrics, cuda)
 
-        # record_first_token(combined_integr_gradient_interpreter, sub_dev_data, "combined", "integr", metrics, cuda)
-        # record_first_token(regularized_integr_gradient_interpreter, sub_dev_data, "regularized", "integr", metrics, cuda)
-        # record_first_token(baseline_integr_gradient_interpreter, sub_dev_data, "baseline", "integr", metrics, cuda)
-        # record_first_token(evil_twin_integr_gradient_interpreter, sub_dev_data, "evil_twin", "integr", metrics, cuda)
+        record_first_token(combined_integr_gradient_interpreter, sub_dev_data, "combined", "integr", metrics, cuda)
+        record_first_token(regularized_integr_gradient_interpreter, sub_dev_data, "regularized", "integr", metrics, cuda)
+        record_first_token(baseline_integr_gradient_interpreter, sub_dev_data, "baseline", "integr", metrics, cuda)
+        record_first_token(evil_twin_integr_gradient_interpreter, sub_dev_data, "evil_twin", "integr", metrics, cuda)
         record_first_token(simple_combined_integr_gradient_interpreter, sub_dev_data, "simple_combined", "integr", metrics, cuda)
 
     elif args.attack_target == STOP_TOKEN_TARGET:
 
-        # record_stop_token(combined_simple_gradient_interpreter, sub_dev_data, "combined", "simple" metrics, cuda)
-        # record_stop_token(regularized_simple_gradient_interpreter, sub_dev_data, "regularized", "simple", metrics, cuda)
-        # record_stop_token(baseline_simple_gradient_interpreter, sub_dev_data, "baseline", "simple", metrics, cuda)
-        # record_stop_token(evil_twin_simple_gradient_interpreter, sub_dev_data, "evil_twin", "simple", metrics, cuda)
+        record_stop_token(combined_simple_gradient_interpreter, sub_dev_data, "combined", "simple", metrics, cuda)
+        record_stop_token(regularized_simple_gradient_interpreter, sub_dev_data, "regularized", "simple", metrics, cuda)
+        record_stop_token(baseline_simple_gradient_interpreter, sub_dev_data, "baseline", "simple", metrics, cuda)
+        record_stop_token(evil_twin_simple_gradient_interpreter, sub_dev_data, "evil_twin", "simple", metrics, cuda)
         record_stop_token(simple_combined_simple_gradient_interpreter, sub_dev_data, "simple_combined", "simple", metrics, cuda)
         
-        # record_stop_token(combined_smooth_gradient_interpreter, sub_dev_data, "combined", "smooth" metrics, cuda)
-        # record_stop_token(regularized_smooth_gradient_interpreter, sub_dev_data, "regularized", "smooth", metrics, cuda)
-        # record_stop_token(baseline_smooth_gradient_interpreter, sub_dev_data, "baseline", "smooth", metrics, cuda)
-        # record_stop_token(evil_twin_smooth_gradient_interpreter, sub_dev_data, "evil_twin", "smooth", metrics, cuda)
+        record_stop_token(combined_smooth_gradient_interpreter, sub_dev_data, "combined", "smooth", metrics, cuda)
+        record_stop_token(regularized_smooth_gradient_interpreter, sub_dev_data, "regularized", "smooth", metrics, cuda)
+        record_stop_token(baseline_smooth_gradient_interpreter, sub_dev_data, "baseline", "smooth", metrics, cuda)
+        record_stop_token(evil_twin_smooth_gradient_interpreter, sub_dev_data, "evil_twin", "smooth", metrics, cuda)
         record_stop_token(simple_combined_smooth_gradient_interpreter, sub_dev_data, "simple_combined", "smooth", metrics, cuda)
 
-        # record_stop_token(combined_integr_gradient_interpreter, sub_dev_data, "combined", "integr" metrics, cuda)
-        # record_stop_token(regularized_integr_gradient_interpreter, sub_dev_data, "regularized", "integr", metrics, cuda)
-        # record_stop_token(baseline_integr_gradient_interpreter, sub_dev_data, "baseline", "integr", metrics, cuda)
-        # record_stop_token(evil_twin_integr_gradient_interpreter, sub_dev_data, "evil_twin", "integr", metrics, cuda)
+        record_stop_token(combined_integr_gradient_interpreter, sub_dev_data, "combined", "integr", metrics, cuda)
+        record_stop_token(regularized_integr_gradient_interpreter, sub_dev_data, "regularized", "integr", metrics, cuda)
+        record_stop_token(baseline_integr_gradient_interpreter, sub_dev_data, "baseline", "integr", metrics, cuda)
+        record_stop_token(evil_twin_integr_gradient_interpreter, sub_dev_data, "evil_twin", "integr", metrics, cuda)
         record_stop_token(simple_combined_integr_gradient_interpreter, sub_dev_data, "simple_combined", "integr", metrics, cuda)
 
-    elif args.attack_target == FIRST_HIGH_LAST_LOW: 
-        record_first_token(combined_simple_gradient_interpreter, sub_dev_data, "combined", "simple", metrics, cuda)
-        record_first_token(regularized_simple_gradient_interpreter, sub_dev_data, "regularized", "simple", metrics, cuda)
-        record_first_token(baseline_simple_gradient_interpreter, sub_dev_data, "baseline", "simple", metrics, cuda)
-
-        record_last_token(combined_simple_gradient_interpreter, sub_dev_data, "combined", "simple", metrics, cuda)
-        record_last_token(regularized_simple_gradient_interpreter, sub_dev_data, "regularized", "simple", metrics, cuda)
-        record_last_token(baseline_simple_gradient_interpreter, sub_dev_data, "baseline", "simple", metrics, cuda)
-        record_last_token(bad_grad_simple_gradient_interpreter, sub_dev_data, "bad_grad", "simple", metrics, cuda)
-
-    # metrics['combined_model']['accuracy'] = compute_accuracy(combined_model, dev_data, cuda)
-    # metrics['regularized_model']['accuracy'] = compute_accuracy(regularized_model, dev_data, cuda)
-    # metrics['baseline_model']['accuracy'] = compute_accuracy(baseline_model, dev_data, cuda)
-    # metrics['evil_twin_model']['accuracy'] = compute_accuracy(gradient_model, dev_data, cuda)
+    metrics['combined_model']['accuracy'] = compute_accuracy(combined_model, dev_data, cuda)
+    metrics['regularized_model']['accuracy'] = compute_accuracy(regularized_model, dev_data, cuda)
+    metrics['baseline_model']['accuracy'] = compute_accuracy(baseline_model, dev_data, cuda)
+    metrics['evil_twin_model']['accuracy'] = compute_accuracy(gradient_model, dev_data, cuda)
     metrics['simple_combined_model']['accuracy'] = compute_accuracy(simple_combined_model, dev_data, cuda)
 
     record_metrics(metrics, args)

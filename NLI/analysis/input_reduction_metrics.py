@@ -1,8 +1,10 @@
+# Built-in imports
 import argparse 
 from collections import defaultdict
 import pickle
 import random 
 
+# Libraries
 import torch
 import numpy as np
 
@@ -14,6 +16,7 @@ from allennlp.predictors import Predictor
 from allennlp.nn.util import move_to_device
 from allennlp.data.dataset_readers.dataset_reader import AllennlpDataset
 
+# Custom imports
 from adversarial_grads.util.model_data_helpers import get_model, load_model, get_snli_reader
 from adversarial_grads.util.combine_model import merge_models
 from adversarial_grads.util.misc import create_labeled_instances, extract_premise, extract_hypothesis
@@ -88,15 +91,15 @@ def record_metrics(metrics, args):
         f.write("Attack Target: {}\n".format(args.attack_target))
         f.write("Cuda: {}\n".format(args.cuda))
 
-        # f.write("\nBASELINE MODEL METRICS\n")
-        # f.write("----------------------------------------\n")
-        # for key, val in metrics['baseline_model'].items():
-        #     f.write("{}: {}\n".format(key, val))
+        f.write("\nBASELINE MODEL METRICS\n")
+        f.write("----------------------------------------\n")
+        for key, val in metrics['baseline_model'].items():
+            f.write("{}: {}\n".format(key, val))
 
-        # f.write("\nCOMBINED MODEL METRICS\n")
-        # f.write("----------------------------------------\n")
-        # for key, val in metrics['combined_model'].items():
-        #     f.write("{}: {}\n".format(key, val))
+        f.write("\nCOMBINED MODEL METRICS\n")
+        f.write("----------------------------------------\n")
+        for key, val in metrics['combined_model'].items():
+            f.write("{}: {}\n".format(key, val))
 
         f.write("\nSIMPLE COMBINED MODEL METRICS\n")
         f.write("----------------------------------------\n")
@@ -128,39 +131,39 @@ def main():
     sub_dev_data.index_with(vocab)
 
     gradient_model = get_model(args.model_name, vocab, args.cuda, transformer_dim=256)
-    # predictive_model = get_model(args.model_name, vocab, args.cuda)
+    predictive_model = get_model(args.model_name, vocab, args.cuda)
     baseline_model = get_model(args.model_name, vocab, args.cuda)
 
     load_model(gradient_model, args.gradient_model_file)
-    # load_model(predictive_model, args.predictive_model_file)
+    load_model(predictive_model, args.predictive_model_file)
     load_model(baseline_model, args.baseline_model_file)
 
-    # combined_model = merge_models(gradient_model, predictive_model)
+    combined_model = merge_models(gradient_model, predictive_model)
     simple_combined_model = merge_models(gradient_model, baseline_model)
 
-    # baseline_predictor = Predictor.by_name('text_classifier')(baseline_model, reader)
-    # combined_predictor = Predictor.by_name('text_classifier')(combined_model, reader)
+    baseline_predictor = Predictor.by_name('text_classifier')(baseline_model, reader)
+    combined_predictor = Predictor.by_name('text_classifier')(combined_model, reader)
     simple_combined_predictor = Predictor.by_name('text_classifier')(simple_combined_model, reader)
 
-    # baseline_ir_attacker = InputReduction(baseline_predictor, beam_size=args.beam_size)
-    # combined_ir_attacker = InputReduction(combined_predictor, beam_size=args.beam_size)
+    baseline_ir_attacker = InputReduction(baseline_predictor, beam_size=args.beam_size)
+    combined_ir_attacker = InputReduction(combined_predictor, beam_size=args.beam_size)
     simple_combined_ir_attacker = InputReduction(simple_combined_predictor, beam_size=args.beam_size)
     
     metrics = defaultdict(dict)
 
-    # # Track baseline results 
-    # baseline_ir_results = track_sentence_length_distribution(baseline_ir_attacker, sub_dev_data, args.cuda, args.attack_target)
-    # baseline_lengths_original, baseline_lengths_reduced, baseline_examples_original, baseline_examples_reduced = baseline_ir_results
+    # Track baseline results 
+    baseline_ir_results = track_sentence_length_distribution(baseline_ir_attacker, sub_dev_data, args.cuda, args.attack_target)
+    baseline_lengths_original, baseline_lengths_reduced, baseline_examples_original, baseline_examples_reduced = baseline_ir_results
 
-    # metrics['baseline_model']['average_sentence_length_before'] = np.sum(baseline_lengths_original)/len(baseline_lengths_original)
-    # metrics['baseline_model']['average_sentence_length_after'] = np.sum(baseline_lengths_reduced)/len(baseline_lengths_reduced)
+    metrics['baseline_model']['average_sentence_length_before'] = np.sum(baseline_lengths_original)/len(baseline_lengths_original)
+    metrics['baseline_model']['average_sentence_length_after'] = np.sum(baseline_lengths_reduced)/len(baseline_lengths_reduced)
 
-    # # Track combined results 
-    # combined_ir_results = track_sentence_length_distribution(combined_ir_attacker, sub_dev_data, args.cuda, args.attack_target)
-    # combined_lengths_original, combined_lengths_reduced, combined_examples_original, combined_examples_reduced = combined_ir_results
+    # Track combined results 
+    combined_ir_results = track_sentence_length_distribution(combined_ir_attacker, sub_dev_data, args.cuda, args.attack_target)
+    combined_lengths_original, combined_lengths_reduced, combined_examples_original, combined_examples_reduced = combined_ir_results
 
-    # metrics['combined_model']['average_sentence_length_before'] = np.sum(combined_lengths_original)/len(combined_lengths_original)
-    # metrics['combined_model']['average_sentence_length_after'] = np.sum(combined_lengths_reduced)/len(combined_lengths_reduced)
+    metrics['combined_model']['average_sentence_length_before'] = np.sum(combined_lengths_original)/len(combined_lengths_original)
+    metrics['combined_model']['average_sentence_length_after'] = np.sum(combined_lengths_reduced)/len(combined_lengths_reduced)
 
     # Track simple combined results 
     simple_combined_ir_results = track_sentence_length_distribution(simple_combined_ir_attacker, sub_dev_data, args.cuda, args.attack_target)
@@ -171,32 +174,32 @@ def main():
 
     record_metrics(metrics, args)
 
-    # with open('data/input_reduction_lengths_{}.pkl'.format(args.file_num), 'wb') as f:
-    #     pickle.dump(
-    #         [
-    #             baseline_lengths_original, 
-    #             baseline_lengths_reduced, 
-    #             combined_lengths_original,
-    #             combined_lengths_reduced
-    #         ], f
-    #     )
+    with open('data/input_reduction_lengths_{}.pkl'.format(args.file_num), 'wb') as f:
+        pickle.dump(
+            [
+                baseline_lengths_original, 
+                baseline_lengths_reduced, 
+                combined_lengths_original,
+                combined_lengths_reduced
+            ], f
+        )
 
-    # with open('data/input_reduction_examples_{}.pkl'.format(args.file_num), 'wb') as f:
-    #     pickle.dump(
-    #         [
-    #             baseline_examples_original,
-    #             baseline_examples_reduced,
-    #             combined_examples_original,
-    #             combined_examples_reduced
-    #         ], f
-    #     )
+    with open('data/input_reduction_examples_{}.pkl'.format(args.file_num), 'wb') as f:
+        pickle.dump(
+            [
+                baseline_examples_original,
+                baseline_examples_reduced,
+                combined_examples_original,
+                combined_examples_reduced
+            ], f
+        )
 
-    # write_ir_data('ir_lengths_baseline_{}.pkl'.format(args.file_num), baseline_lengths_original, baseline_lengths_reduced, args.file_num)
-    # write_ir_data('ir_lengths_combined_{}.pkl'.format(args.file_num), combined_lengths_original, combined_lengths_reduced, args.file_num)
+    write_ir_data('ir_lengths_baseline_{}.pkl'.format(args.file_num), baseline_lengths_original, baseline_lengths_reduced, args.file_num)
+    write_ir_data('ir_lengths_combined_{}.pkl'.format(args.file_num), combined_lengths_original, combined_lengths_reduced, args.file_num)
     write_ir_data('ir_lengths_simple_combined_{}.pkl'.format(args.file_num), simple_combined_lengths_original, simple_combined_lengths_reduced, args.file_num)
 
-    # write_ir_data('ir_examples_baseline_{}.pkl'.format(args.file_num), baseline_examples_original, baseline_examples_reduced, args.file_num)
-    # write_ir_data('ir_examples_combined_{}.pkl'.format(args.file_num), combined_examples_original, combined_examples_reduced, args.file_num)    
+    write_ir_data('ir_examples_baseline_{}.pkl'.format(args.file_num), baseline_examples_original, baseline_examples_reduced, args.file_num)
+    write_ir_data('ir_examples_combined_{}.pkl'.format(args.file_num), combined_examples_original, combined_examples_reduced, args.file_num)    
     write_ir_data('ir_examples_simple_combined_{}.pkl'.format(args.file_num), simple_combined_examples_original, simple_combined_examples_reduced, args.file_num)
 
 def argument_parsing():
